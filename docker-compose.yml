@@ -1,0 +1,9 @@
+version: '3.2'
+services:
+  web:
+    image: shabbywu_blog
+    ports:
+    - "8080:80"
+    environment:
+    - NGINX_HOST=blog.shabbywu.com
+    - NGINX_PORT=80
