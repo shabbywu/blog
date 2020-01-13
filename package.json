@@ -12,6 +12,7 @@
   "dependencies": {
     "@vssue/api-github-v3": "^1.4.0",
     "@vssue/vuepress-plugin-vssue": "^1.4.2",
-    "markdown-it-plantuml": "^1.4.1"
+    "markdown-it-plantuml": "^1.4.1",
+    "vuepress-theme-meteorlxy": "^1.7.1"
   }
 }
