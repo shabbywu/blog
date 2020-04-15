@@ -9,6 +9,14 @@ function genSidebarChildrun(subPath) {
   }).map(item => path.join('/', subPath, item))
 }
 
+DEVING = JSON.parse(process.env.WEBPACK_DEV_SERVER)
+
+GITHUB_OAUTH_APP = {
+  clientId: !DEVING ? '3934c6721961da9062bf': 'a70c4c9eafc5c615b3a3',
+  clientSecret: !DEVING ? '12b75149dad24d3e398f130bcc5d639f6f1b5cbe': 'effd0f0406c557f4bb67ea19ec54f859d6044543',
+}
+
+console.log("process.env:", !DEVING)
 module.exports = {
   title: 'Shabbywu',
   description: '这是一个简单的博客',
@@ -50,16 +58,15 @@ module.exports = {
       poweredByTheme: true,
 
       // 添加自定义 footer (支持 HTML)
-      custom: 'Copyright 2019-present <a href="https://github.com/shabbywu" target="_blank">shabbywu</a> | MIT License',
+      custom: 'Copyright 2019-present <a href="https://github.com/shabbywu/" target="_blank">shabbywu</a> | MIT License',
     },
     // 评论配置
     comments: {
       platform: 'github', // 可选，默认使用 'github'，还可以选择 'gitlab', 'bitbucket'。详情参考 Vssue 文档
       owner: 'shabbywu',
       repo: 'blog',
-      clientId: '3934c6721961da9062bf',
-      clientSecret: '12b75149dad24d3e398f130bcc5d639f6f1b5cbe',
-      autoCreateIssue: process.env.NODE_ENV !== 'development', // 可选，这样设置可以在开发环境下不自动创建 Issue
+      ...GITHUB_OAUTH_APP,
+      autoCreateIssue: !DEVING , // 可选，这样设置可以在开发环境下不自动创建 Issue
     },
     nav: [
       { text: 'Home', link: '/', exact: true  },
@@ -68,39 +75,20 @@ module.exports = {
   },
   plugins: {
     '@vuepress/active-header-links': {},
-    '@vuepress/blog': {
-      directories: [
-        {
-          // Unique ID of current classification
-          id: 'it',
-          // Target directory
-          dirname: 'it',
-        },
-      ],
-      comment: [
-        {
-          // Which service you'd like to use
-          service: 'vssue',
-          // The owner's name of repository to store the issues and comments.
-          owner: 'shabbywu',
-          // The name of repository to store the issues and comments.
-          repo: 'https://github.com/shabbywu/blog_comment',
-          // The clientId & clientSecret introduced in OAuth2 spec.
-          clientId: '3934c6721961da9062bf',
-          clientSecret: '12b75149dad24d3e398f130bcc5d639f6f1b5cbe',
-        },
-      ],
-    },
     '@vuepress/back-to-top': {},
   },
   markdown: {
     // markdown-it-anchor 的选项
     anchor: { permalink: false },
     // markdown-it-toc 的选项
-    toc: { includeLevel: [1, 2, ] },
+    toc: { includeLevel: [1, 5], },
     extendMarkdown: md => {
       // 使用更多的 markdown-it 插件!
       md.use(require('markdown-it-plantuml'))
-    }
+      md.use(require("markdown-it-table-of-contents"), {
+        includeLevel: [1, 5], forceFullToc: true
+      });
+    },
+    extractHeaders: ['h1', 'h2', 'h3', 'h4' ]
   }
 }

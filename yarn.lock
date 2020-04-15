@@ -2,670 +2,818 @@
 # yarn lockfile v1
 
 
-"@babel/code-frame@^7.8.0":
-  version "7.8.0"
-  resolved "http://mirrors.cloud.tencent.com/npm/@babel%2fcode-frame/-/code-frame-7.8.0.tgz#8c98d4ac29d6f80f28127b1bc50970a72086c5ac"
-  integrity sha512-AN2IR/wCUYsM+PdErq6Bp3RFTXl8W0p9Nmymm7zkpsCmh+r/YYcckaCGpU8Q/mEKmST19kkGRaG42A/jxOWwBA==
+"@babel/code-frame@^7.8.3":
+  version "7.8.3"
+  resolved "https://mirrors.cloud.tencent.com/npm/@babel%2fcode-frame/-/code-frame-7.8.3.tgz#33e25903d7481181534e12ec0a25f16b6fcf419e"
+  integrity sha512-a9gxpmdXtZEInkCSHUJDLHZVBgb1QS0jhss4cPP93EW7s+uC5bikET2twEF3KV+7rDblJcmNvTR7VJejqd2C2g==
   dependencies:
-    "@babel/highlight" "^7.8.0"
+    "@babel/highlight" "^7.8.3"
 
-"@babel/core@^7.0.0":
-  version "7.8.0"
-  resolved "http://mirrors.cloud.tencent.com/npm/@babel%2fcore/-/core-7.8.0.tgz#fd273d4faf69cc20ee3ccfd32d42df916bb4a15c"
-  integrity sha512-3rqPi/bv/Xfu2YzHvBz4XqMI1fKVwnhntPA1/fjoECrSjrhbOCxlTrbVu5gUtr8zkxW+RpkDOa/HCW93gzS2Dw==
+"@babel/compat-data@^7.8.6", "@babel/compat-data@^7.9.0":
+  version "7.9.0"
+  resolved "https://mirrors.cloud.tencent.com/npm/@babel%2fcompat-data/-/compat-data-7.9.0.tgz#04815556fc90b0c174abd2c0c1bb966faa036a6c"
+  integrity sha512-zeFQrr+284Ekvd9e7KAX954LkapWiOmQtsfHirhxqfdlX6MEC32iRE+pqUGlYIBchdevaCwvzxWGSy/YBNI85g==
   dependencies:
-    "@babel/code-frame" "^7.8.0"
-    "@babel/generator" "^7.8.0"
-    "@babel/helpers" "^7.8.0"
-    "@babel/parser" "^7.8.0"
-    "@babel/template" "^7.8.0"
-    "@babel/traverse" "^7.8.0"
-    "@babel/types" "^7.8.0"
+    browserslist "^4.9.1"
+    invariant "^2.2.4"
+    semver "^5.5.0"
+
+"@babel/core@^7.8.4", "@babel/core@^7.9.0":
+  version "7.9.0"
+  resolved "https://mirrors.cloud.tencent.com/npm/@babel%2fcore/-/core-7.9.0.tgz#ac977b538b77e132ff706f3b8a4dbad09c03c56e"
+  integrity sha512-kWc7L0fw1xwvI0zi8OKVBuxRVefwGOrKSQMvrQ3dW+bIIavBY3/NpXmpjMy7bQnLgwgzWQZ8TlM57YHpHNHz4w==
+  dependencies:
+    "@babel/code-frame" "^7.8.3"
+    "@babel/generator" "^7.9.0"
+    "@babel/helper-module-transforms" "^7.9.0"
+    "@babel/helpers" "^7.9.0"
+    "@babel/parser" "^7.9.0"
+    "@babel/template" "^7.8.6"
+    "@babel/traverse" "^7.9.0"
+    "@babel/types" "^7.9.0"
     convert-source-map "^1.7.0"
     debug "^4.1.0"
     gensync "^1.0.0-beta.1"
-    json5 "^2.1.0"
+    json5 "^2.1.2"
     lodash "^4.17.13"
     resolve "^1.3.2"
     semver "^5.4.1"
     source-map "^0.5.0"
 
-"@babel/generator@^7.8.0":
-  version "7.8.0"
-  resolved "http://mirrors.cloud.tencent.com/npm/@babel%2fgenerator/-/generator-7.8.0.tgz#40a1244677be58ffdc5cd01e22634cd1d5b29edf"
-  integrity sha512-2Lp2e02CV2C7j/H4n4D9YvsvdhPVVg9GDIamr6Tu4tU35mL3mzOrzl1lZ8ZJtysfZXh+y+AGORc2rPS7yHxBUg==
+"@babel/generator@^7.9.0", "@babel/generator@^7.9.5":
+  version "7.9.5"
+  resolved "https://mirrors.cloud.tencent.com/npm/@babel%2fgenerator/-/generator-7.9.5.tgz#27f0917741acc41e6eaaced6d68f96c3fa9afaf9"
+  integrity sha512-GbNIxVB3ZJe3tLeDm1HSn2AhuD/mVcyLDpgtLXa5tplmWrJdF/elxB56XNqCuD6szyNkDi6wuoKXln3QeBmCHQ==
   dependencies:
-    "@babel/types" "^7.8.0"
+    "@babel/types" "^7.9.5"
     jsesc "^2.5.1"
     lodash "^4.17.13"
     source-map "^0.5.0"
 
-"@babel/helper-annotate-as-pure@^7.8.0":
-  version "7.8.0"
-  resolved "http://mirrors.cloud.tencent.com/npm/@babel%2fhelper-annotate-as-pure/-/helper-annotate-as-pure-7.8.0.tgz#334ae2cb801e2381509631a5caa1ac6ab1c5016a"
-  integrity sha512-WWj+1amBdowU2g18p3/KUc1Y5kWnaNm1paohq2tT4/RreeMNssYkv6ul9wkE2iIqjwLBwNMZGH4pTGlMSUqMMg==
+"@babel/helper-annotate-as-pure@^7.8.3":
+  version "7.8.3"
+  resolved "https://mirrors.cloud.tencent.com/npm/@babel%2fhelper-annotate-as-pure/-/helper-annotate-as-pure-7.8.3.tgz#60bc0bc657f63a0924ff9a4b4a0b24a13cf4deee"
+  integrity sha512-6o+mJrZBxOoEX77Ezv9zwW7WV8DdluouRKNY/IR5u/YTMuKHgugHOzYWlYvYLpLA9nPsQCAAASpCIbjI9Mv+Uw==
   dependencies:
-    "@babel/types" "^7.8.0"
+    "@babel/types" "^7.8.3"
 
-"@babel/helper-builder-binary-assignment-operator-visitor@^7.8.0":
-  version "7.8.0"
-  resolved "http://mirrors.cloud.tencent.com/npm/@babel%2fhelper-builder-binary-assignment-operator-visitor/-/helper-builder-binary-assignment-operator-visitor-7.8.0.tgz#c2237beb110f64f592dddcabef1098e9d766ef88"
-  integrity sha512-KbBloNiBHM3ZyHg1ViDRs4QcnAunwMJ+rLpAEA8l3cWb3Z1xof7ag1iHvX16EwhUfaTG3+YSvTRPv4xHIrseUQ==
+"@babel/helper-builder-binary-assignment-operator-visitor@^7.8.3":
+  version "7.8.3"
+  resolved "https://mirrors.cloud.tencent.com/npm/@babel%2fhelper-builder-binary-assignment-operator-visitor/-/helper-builder-binary-assignment-operator-visitor-7.8.3.tgz#c84097a427a061ac56a1c30ebf54b7b22d241503"
+  integrity sha512-5eFOm2SyFPK4Rh3XMMRDjN7lBH0orh3ss0g3rTYZnBQ+r6YPj7lgDyCvPphynHvUrobJmeMignBr6Acw9mAPlw==
   dependencies:
-    "@babel/helper-explode-assignable-expression" "^7.8.0"
-    "@babel/types" "^7.8.0"
+    "@babel/helper-explode-assignable-expression" "^7.8.3"
+    "@babel/types" "^7.8.3"
 
-"@babel/helper-call-delegate@^7.8.0":
-  version "7.8.0"
-  resolved "http://mirrors.cloud.tencent.com/npm/@babel%2fhelper-call-delegate/-/helper-call-delegate-7.8.0.tgz#1cd725c5444be0ce59dbfa47b6ac5e9772168c67"
-  integrity sha512-Vi8K1LScr8ZgLicfuCNSE7JWUPG/H/9Bw9zn+3vQyy4vA54FEGTCuUTOXCFwmBM93OD6jHfjrQ6ZnivM5U+bHg==
+"@babel/helper-compilation-targets@^7.8.7":
+  version "7.8.7"
+  resolved "https://mirrors.cloud.tencent.com/npm/@babel%2fhelper-compilation-targets/-/helper-compilation-targets-7.8.7.tgz#dac1eea159c0e4bd46e309b5a1b04a66b53c1dde"
+  integrity sha512-4mWm8DCK2LugIS+p1yArqvG1Pf162upsIsjE7cNBjez+NjliQpVhj20obE520nao0o14DaTnFJv+Fw5a0JpoUw==
   dependencies:
-    "@babel/helper-hoist-variables" "^7.8.0"
-    "@babel/traverse" "^7.8.0"
-    "@babel/types" "^7.8.0"
+    "@babel/compat-data" "^7.8.6"
+    browserslist "^4.9.1"
+    invariant "^2.2.4"
+    levenary "^1.1.1"
+    semver "^5.5.0"
 
-"@babel/helper-create-class-features-plugin@^7.8.0":
-  version "7.8.0"
-  resolved "http://mirrors.cloud.tencent.com/npm/@babel%2fhelper-create-class-features-plugin/-/helper-create-class-features-plugin-7.8.0.tgz#b3ddf557ed4656e0d296c3b0f3fcd381ea8de72c"
-  integrity sha512-ctCvqYBTlwEl2uF4hCxE0cd/sSw71Zfag0jKa39y4HDLh0BQ4PVBX1384Ye8GqrEZ69xgLp9fwPbv3GgIDDF2Q==
+"@babel/helper-create-class-features-plugin@^7.8.3":
+  version "7.9.5"
+  resolved "https://mirrors.cloud.tencent.com/npm/@babel%2fhelper-create-class-features-plugin/-/helper-create-class-features-plugin-7.9.5.tgz#79753d44017806b481017f24b02fd4113c7106ea"
+  integrity sha512-IipaxGaQmW4TfWoXdqjY0TzoXQ1HRS0kPpEgvjosb3u7Uedcq297xFqDQiCcQtRRwzIMif+N1MLVI8C5a4/PAA==
   dependencies:
-    "@babel/helper-function-name" "^7.8.0"
-    "@babel/helper-member-expression-to-functions" "^7.8.0"
-    "@babel/helper-optimise-call-expression" "^7.8.0"
-    "@babel/helper-plugin-utils" "^7.8.0"
-    "@babel/helper-replace-supers" "^7.8.0"
-    "@babel/helper-split-export-declaration" "^7.8.0"
+    "@babel/helper-function-name" "^7.9.5"
+    "@babel/helper-member-expression-to-functions" "^7.8.3"
+    "@babel/helper-optimise-call-expression" "^7.8.3"
+    "@babel/helper-plugin-utils" "^7.8.3"
+    "@babel/helper-replace-supers" "^7.8.6"
+    "@babel/helper-split-export-declaration" "^7.8.3"
 
-"@babel/helper-create-regexp-features-plugin@^7.8.0":
-  version "7.8.0"
-  resolved "http://mirrors.cloud.tencent.com/npm/@babel%2fhelper-create-regexp-features-plugin/-/helper-create-regexp-features-plugin-7.8.0.tgz#ae551572b840189a7b94e39eddc1a68d355974eb"
-  integrity sha512-vJj2hPbxxLUWJEV86iZiac5curAnC3ZVc+rFmFeWZigUOcuCPpbF+KxoEmxrkmuCGylHFF9t4lkpcDUcxnhQ5g==
+"@babel/helper-create-regexp-features-plugin@^7.8.3", "@babel/helper-create-regexp-features-plugin@^7.8.8":
+  version "7.8.8"
+  resolved "https://mirrors.cloud.tencent.com/npm/@babel%2fhelper-create-regexp-features-plugin/-/helper-create-regexp-features-plugin-7.8.8.tgz#5d84180b588f560b7864efaeea89243e58312087"
+  integrity sha512-LYVPdwkrQEiX9+1R29Ld/wTrmQu1SSKYnuOk3g0CkcZMA1p0gsNxJFj/3gBdaJ7Cg0Fnek5z0DsMULePP7Lrqg==
   dependencies:
-    "@babel/helper-regex" "^7.8.0"
-    regexpu-core "^4.6.0"
+    "@babel/helper-annotate-as-pure" "^7.8.3"
+    "@babel/helper-regex" "^7.8.3"
+    regexpu-core "^4.7.0"
 
-"@babel/helper-define-map@^7.8.0":
-  version "7.8.0"
-  resolved "http://mirrors.cloud.tencent.com/npm/@babel%2fhelper-define-map/-/helper-define-map-7.8.0.tgz#d3180691fa189fc147d411deaa029305c1470dfe"
-  integrity sha512-Go06lUlZ4YImNEmdyAH5iO38yh5mbpOPSwA2PtV1vyczFhTZfX0OtzkiIL2pACo6AOYf89pLh42nhhDrqgzC3A==
+"@babel/helper-define-map@^7.8.3":
+  version "7.8.3"
+  resolved "https://mirrors.cloud.tencent.com/npm/@babel%2fhelper-define-map/-/helper-define-map-7.8.3.tgz#a0655cad5451c3760b726eba875f1cd8faa02c15"
+  integrity sha512-PoeBYtxoZGtct3md6xZOCWPcKuMuk3IHhgxsRRNtnNShebf4C8YonTSblsK4tvDbm+eJAw2HAPOfCr+Q/YRG/g==
   dependencies:
-    "@babel/helper-function-name" "^7.8.0"
-    "@babel/types" "^7.8.0"
+    "@babel/helper-function-name" "^7.8.3"
+    "@babel/types" "^7.8.3"
     lodash "^4.17.13"
 
-"@babel/helper-explode-assignable-expression@^7.8.0":
-  version "7.8.0"
-  resolved "http://mirrors.cloud.tencent.com/npm/@babel%2fhelper-explode-assignable-expression/-/helper-explode-assignable-expression-7.8.0.tgz#a2ded9298a5dc9df0a8ec65ac12e4745f9af2882"
-  integrity sha512-w4mRQqKAh4M7BSLwvDMm8jYFroEzpqMCtXDhFHP+kNjMIQWpbC6b0Q/RUQsJNSf54rIx6XMdci1Stf60DWw+og==
+"@babel/helper-explode-assignable-expression@^7.8.3":
+  version "7.8.3"
+  resolved "https://mirrors.cloud.tencent.com/npm/@babel%2fhelper-explode-assignable-expression/-/helper-explode-assignable-expression-7.8.3.tgz#a728dc5b4e89e30fc2dfc7d04fa28a930653f982"
+  integrity sha512-N+8eW86/Kj147bO9G2uclsg5pwfs/fqqY5rwgIL7eTBklgXjcOJ3btzS5iM6AitJcftnY7pm2lGsrJVYLGjzIw==
   dependencies:
-    "@babel/traverse" "^7.8.0"
-    "@babel/types" "^7.8.0"
+    "@babel/traverse" "^7.8.3"
+    "@babel/types" "^7.8.3"
 
-"@babel/helper-function-name@^7.8.0":
-  version "7.8.0"
-  resolved "http://mirrors.cloud.tencent.com/npm/@babel%2fhelper-function-name/-/helper-function-name-7.8.0.tgz#dde5cf0d6b15c21817a67dd66fe7350348e023bf"
-  integrity sha512-x9psucuU0Xalw+0Vpr2FYJMLB7/KnPSLZhlkUyOGbYAWRDfmtZBrguYpJYiaNCRV7vGkYjO/gF6/J6yMvdWTDw==
+"@babel/helper-function-name@^7.8.3", "@babel/helper-function-name@^7.9.5":
+  version "7.9.5"
+  resolved "https://mirrors.cloud.tencent.com/npm/@babel%2fhelper-function-name/-/helper-function-name-7.9.5.tgz#2b53820d35275120e1874a82e5aabe1376920a5c"
+  integrity sha512-JVcQZeXM59Cd1qanDUxv9fgJpt3NeKUaqBqUEvfmQ+BCOKq2xUgaWZW2hr0dkbyJgezYuplEoh5knmrnS68efw==
   dependencies:
-    "@babel/helper-get-function-arity" "^7.8.0"
-    "@babel/template" "^7.8.0"
-    "@babel/types" "^7.8.0"
+    "@babel/helper-get-function-arity" "^7.8.3"
+    "@babel/template" "^7.8.3"
+    "@babel/types" "^7.9.5"
 
-"@babel/helper-get-function-arity@^7.8.0":
-  version "7.8.0"
-  resolved "http://mirrors.cloud.tencent.com/npm/@babel%2fhelper-get-function-arity/-/helper-get-function-arity-7.8.0.tgz#90977f61d76d2225d1ae0208def7df22ea92792e"
-  integrity sha512-eUP5grliToMapQiTaYS2AAO/WwaCG7cuJztR1v/a1aPzUzUeGt+AaI9OvLATc/AfFkF8SLJ10d5ugGt/AQ9d6w==
+"@babel/helper-get-function-arity@^7.8.3":
+  version "7.8.3"
+  resolved "https://mirrors.cloud.tencent.com/npm/@babel%2fhelper-get-function-arity/-/helper-get-function-arity-7.8.3.tgz#b894b947bd004381ce63ea1db9f08547e920abd5"
+  integrity sha512-FVDR+Gd9iLjUMY1fzE2SR0IuaJToR4RkCDARVfsBBPSP53GEqSFjD8gNyxg246VUyc/ALRxFaAK8rVG7UT7xRA==
   dependencies:
-    "@babel/types" "^7.8.0"
+    "@babel/types" "^7.8.3"
 
-"@babel/helper-hoist-variables@^7.8.0":
-  version "7.8.0"
-  resolved "http://mirrors.cloud.tencent.com/npm/@babel%2fhelper-hoist-variables/-/helper-hoist-variables-7.8.0.tgz#693586b56487e60fff9d9c7074f4a86e1a8af348"
-  integrity sha512-jDl66KvuklTXUADcoXDMur1jDtAZUZZkzLIaQ54+z38ih8C0V0hC56hMaoVoyoxN60MwQmmrHctBwcLqP0c/Lw==
+"@babel/helper-hoist-variables@^7.8.3":
+  version "7.8.3"
+  resolved "https://mirrors.cloud.tencent.com/npm/@babel%2fhelper-hoist-variables/-/helper-hoist-variables-7.8.3.tgz#1dbe9b6b55d78c9b4183fc8cdc6e30ceb83b7134"
+  integrity sha512-ky1JLOjcDUtSc+xkt0xhYff7Z6ILTAHKmZLHPxAhOP0Nd77O+3nCsd6uSVYur6nJnCI029CrNbYlc0LoPfAPQg==
   dependencies:
-    "@babel/types" "^7.8.0"
+    "@babel/types" "^7.8.3"
 
-"@babel/helper-member-expression-to-functions@^7.8.0":
-  version "7.8.0"
-  resolved "http://mirrors.cloud.tencent.com/npm/@babel%2fhelper-member-expression-to-functions/-/helper-member-expression-to-functions-7.8.0.tgz#50d0ed445d2da11beb60e2dbc2c428254bd5a4ae"
-  integrity sha512-0m1QabGrdXuoxX/g+KOAGndoHwskC70WweqHRQyCsaO67KOEELYh4ECcGw6ZGKjDKa5Y7SW4Qbhw6ly4Fah/jQ==
+"@babel/helper-member-expression-to-functions@^7.8.3":
+  version "7.8.3"
+  resolved "https://mirrors.cloud.tencent.com/npm/@babel%2fhelper-member-expression-to-functions/-/helper-member-expression-to-functions-7.8.3.tgz#659b710498ea6c1d9907e0c73f206eee7dadc24c"
+  integrity sha512-fO4Egq88utkQFjbPrSHGmGLFqmrshs11d46WI+WZDESt7Wu7wN2G2Iu+NMMZJFDOVRHAMIkB5SNh30NtwCA7RA==
   dependencies:
-    "@babel/types" "^7.8.0"
+    "@babel/types" "^7.8.3"
 
-"@babel/helper-module-imports@^7.0.0", "@babel/helper-module-imports@^7.8.0":
+"@babel/helper-module-imports@^7.0.0":
   version "7.8.0"
   resolved "http://mirrors.cloud.tencent.com/npm/@babel%2fhelper-module-imports/-/helper-module-imports-7.8.0.tgz#076edda55d8cd39c099981b785ce53f4303b967e"
   integrity sha512-ylY9J6ZxEcjmJaJ4P6aVs/fZdrZVctCGnxxfYXwCnSMapqd544zT8lWK2qI/vBPjE5gS0o2jILnH+AkpsPauEQ==
   dependencies:
     "@babel/types" "^7.8.0"
 
-"@babel/helper-module-transforms@^7.8.0":
-  version "7.8.0"
-  resolved "http://mirrors.cloud.tencent.com/npm/@babel%2fhelper-module-transforms/-/helper-module-transforms-7.8.0.tgz#a3cbe4ac91b101c4b6db278af0c868fe7091ebae"
-  integrity sha512-fvGhX4FY7YwRdWW/zfddNaKpYl8TaA8hvwONIYhv1/a1ZbgxbTrjsmH6IGWUgUNki7QzbpZ27OEh88sZdft3YA==
+"@babel/helper-module-imports@^7.8.3":
+  version "7.8.3"
+  resolved "https://mirrors.cloud.tencent.com/npm/@babel%2fhelper-module-imports/-/helper-module-imports-7.8.3.tgz#7fe39589b39c016331b6b8c3f441e8f0b1419498"
+  integrity sha512-R0Bx3jippsbAEtzkpZ/6FIiuzOURPcMjHp+Z6xPe6DtApDJx+w7UYyOLanZqO8+wKR9G10s/FmHXvxaMd9s6Kg==
   dependencies:
-    "@babel/helper-module-imports" "^7.8.0"
-    "@babel/helper-simple-access" "^7.8.0"
-    "@babel/helper-split-export-declaration" "^7.8.0"
-    "@babel/template" "^7.8.0"
-    "@babel/types" "^7.8.0"
+    "@babel/types" "^7.8.3"
+
+"@babel/helper-module-transforms@^7.9.0":
+  version "7.9.0"
+  resolved "https://mirrors.cloud.tencent.com/npm/@babel%2fhelper-module-transforms/-/helper-module-transforms-7.9.0.tgz#43b34dfe15961918707d247327431388e9fe96e5"
+  integrity sha512-0FvKyu0gpPfIQ8EkxlrAydOWROdHpBmiCiRwLkUiBGhCUPRRbVD2/tm3sFr/c/GWFrQ/ffutGUAnx7V0FzT2wA==
+  dependencies:
+    "@babel/helper-module-imports" "^7.8.3"
+    "@babel/helper-replace-supers" "^7.8.6"
+    "@babel/helper-simple-access" "^7.8.3"
+    "@babel/helper-split-export-declaration" "^7.8.3"
+    "@babel/template" "^7.8.6"
+    "@babel/types" "^7.9.0"
     lodash "^4.17.13"
 
-"@babel/helper-optimise-call-expression@^7.8.0":
-  version "7.8.0"
-  resolved "http://mirrors.cloud.tencent.com/npm/@babel%2fhelper-optimise-call-expression/-/helper-optimise-call-expression-7.8.0.tgz#3df62773cf210db9ed34c2bb39fece5acd1e1733"
-  integrity sha512-aiJt1m+K57y0n10fTw+QXcCXzmpkG+o+NoQmAZqlZPstkTE0PZT+Z27QSd/6Gf00nuXJQO4NiJ0/YagSW5kC2A==
+"@babel/helper-optimise-call-expression@^7.8.3":
+  version "7.8.3"
+  resolved "https://mirrors.cloud.tencent.com/npm/@babel%2fhelper-optimise-call-expression/-/helper-optimise-call-expression-7.8.3.tgz#7ed071813d09c75298ef4f208956006b6111ecb9"
+  integrity sha512-Kag20n86cbO2AvHca6EJsvqAd82gc6VMGule4HwebwMlwkpXuVqrNRj6CkCV2sKxgi9MyAUnZVnZ6lJ1/vKhHQ==
   dependencies:
-    "@babel/types" "^7.8.0"
+    "@babel/types" "^7.8.3"
 
 "@babel/helper-plugin-utils@^7.0.0", "@babel/helper-plugin-utils@^7.8.0":
   version "7.8.0"
   resolved "http://mirrors.cloud.tencent.com/npm/@babel%2fhelper-plugin-utils/-/helper-plugin-utils-7.8.0.tgz#59ec882d43c21c544ccb51decaecb306b34a8231"
   integrity sha512-+hAlRGdf8fHQAyNnDBqTHQhwdLURLdrCROoWaEQYiQhk2sV9Rhs+GoFZZfMJExTq9HG8o2NX3uN2G90bFtmFdA==
 
-"@babel/helper-regex@^7.8.0":
-  version "7.8.0"
-  resolved "http://mirrors.cloud.tencent.com/npm/@babel%2fhelper-regex/-/helper-regex-7.8.0.tgz#dde1d2d2070e292c19a8702075e945923aa1678b"
-  integrity sha512-haD8fRsPtyFZkbtxBIaGBBHRtbn0YsyecdYrxNgO0Bl6SlGokJPQX9M2tDuVbeQBYHZVLUPMSwGQn4obHevsMQ==
+"@babel/helper-plugin-utils@^7.8.3":
+  version "7.8.3"
+  resolved "https://mirrors.cloud.tencent.com/npm/@babel%2fhelper-plugin-utils/-/helper-plugin-utils-7.8.3.tgz#9ea293be19babc0f52ff8ca88b34c3611b208670"
+  integrity sha512-j+fq49Xds2smCUNYmEHF9kGNkhbet6yVIBp4e6oeQpH1RUs/Ir06xUKzDjDkGcaaokPiTNs2JBWHjaE4csUkZQ==
+
+"@babel/helper-regex@^7.8.3":
+  version "7.8.3"
+  resolved "https://mirrors.cloud.tencent.com/npm/@babel%2fhelper-regex/-/helper-regex-7.8.3.tgz#139772607d51b93f23effe72105b319d2a4c6965"
+  integrity sha512-BWt0QtYv/cg/NecOAZMdcn/waj/5P26DR4mVLXfFtDokSR6fyuG0Pj+e2FqtSME+MqED1khnSMulkmGl8qWiUQ==
   dependencies:
     lodash "^4.17.13"
 
-"@babel/helper-remap-async-to-generator@^7.8.0":
-  version "7.8.0"
-  resolved "http://mirrors.cloud.tencent.com/npm/@babel%2fhelper-remap-async-to-generator/-/helper-remap-async-to-generator-7.8.0.tgz#034c21154dd12472717cfb31faf1713426fbc435"
-  integrity sha512-+aKyBd4oHAaIZgOLq/uLjkUz7ExZ0ppdNBc8Qr72BmtKNAy3A6EJa/ifjj0//CIzQtUDPs3E6HjKM2cV6bnXsQ==
+"@babel/helper-remap-async-to-generator@^7.8.3":
+  version "7.8.3"
+  resolved "https://mirrors.cloud.tencent.com/npm/@babel%2fhelper-remap-async-to-generator/-/helper-remap-async-to-generator-7.8.3.tgz#273c600d8b9bf5006142c1e35887d555c12edd86"
+  integrity sha512-kgwDmw4fCg7AVgS4DukQR/roGp+jP+XluJE5hsRZwxCYGg+Rv9wSGErDWhlI90FODdYfd4xG4AQRiMDjjN0GzA==
   dependencies:
-    "@babel/helper-annotate-as-pure" "^7.8.0"
-    "@babel/helper-wrap-function" "^7.8.0"
-    "@babel/template" "^7.8.0"
-    "@babel/traverse" "^7.8.0"
-    "@babel/types" "^7.8.0"
+    "@babel/helper-annotate-as-pure" "^7.8.3"
+    "@babel/helper-wrap-function" "^7.8.3"
+    "@babel/template" "^7.8.3"
+    "@babel/traverse" "^7.8.3"
+    "@babel/types" "^7.8.3"
 
-"@babel/helper-replace-supers@^7.8.0":
-  version "7.8.0"
-  resolved "http://mirrors.cloud.tencent.com/npm/@babel%2fhelper-replace-supers/-/helper-replace-supers-7.8.0.tgz#d83cb117edb820eebe9ae6c970a8ad5eac09d19f"
-  integrity sha512-R2CyorW4tcO3YzdkClLpt6MS84G+tPkOi0MmiCn1bvYVnmDpdl9R15XOi3NQW2mhOAEeBnuQ4g1Bh7pT2sX8fg==
+"@babel/helper-replace-supers@^7.8.3", "@babel/helper-replace-supers@^7.8.6":
+  version "7.8.6"
+  resolved "https://mirrors.cloud.tencent.com/npm/@babel%2fhelper-replace-supers/-/helper-replace-supers-7.8.6.tgz#5ada744fd5ad73203bf1d67459a27dcba67effc8"
+  integrity sha512-PeMArdA4Sv/Wf4zXwBKPqVj7n9UF/xg6slNRtZW84FM7JpE1CbG8B612FyM4cxrf4fMAMGO0kR7voy1ForHHFA==
   dependencies:
-    "@babel/helper-member-expression-to-functions" "^7.8.0"
-    "@babel/helper-optimise-call-expression" "^7.8.0"
-    "@babel/traverse" "^7.8.0"
-    "@babel/types" "^7.8.0"
+    "@babel/helper-member-expression-to-functions" "^7.8.3"
+    "@babel/helper-optimise-call-expression" "^7.8.3"
+    "@babel/traverse" "^7.8.6"
+    "@babel/types" "^7.8.6"
 
-"@babel/helper-simple-access@^7.8.0":
-  version "7.8.0"
-  resolved "http://mirrors.cloud.tencent.com/npm/@babel%2fhelper-simple-access/-/helper-simple-access-7.8.0.tgz#a5095ab031f759995134183fa7719aa85f0ec962"
-  integrity sha512-I+7yKZJnxp7VIC2UFzXfVjLiJuU16rYFF59x27c+boINkO/pLETgZcoesCryg9jmU4jxEa0foFueW+2wjc9Gsw==
+"@babel/helper-simple-access@^7.8.3":
+  version "7.8.3"
+  resolved "https://mirrors.cloud.tencent.com/npm/@babel%2fhelper-simple-access/-/helper-simple-access-7.8.3.tgz#7f8109928b4dab4654076986af575231deb639ae"
+  integrity sha512-VNGUDjx5cCWg4vvCTR8qQ7YJYZ+HBjxOgXEl7ounz+4Sn7+LMD3CFrCTEU6/qXKbA2nKg21CwhhBzO0RpRbdCw==
   dependencies:
-    "@babel/template" "^7.8.0"
-    "@babel/types" "^7.8.0"
+    "@babel/template" "^7.8.3"
+    "@babel/types" "^7.8.3"
 
-"@babel/helper-split-export-declaration@^7.8.0":
-  version "7.8.0"
-  resolved "http://mirrors.cloud.tencent.com/npm/@babel%2fhelper-split-export-declaration/-/helper-split-export-declaration-7.8.0.tgz#ed10cb03b07454c0d40735fad4e9c9711e739588"
-  integrity sha512-YhYFhH4T6DlbT6CPtVgLfC1Jp2gbCawU/ml7WJvUpBg01bCrXSzTYMZZXbbIGjq/kHmK8YUATxTppcRGzj31pA==
+"@babel/helper-split-export-declaration@^7.8.3":
+  version "7.8.3"
+  resolved "https://mirrors.cloud.tencent.com/npm/@babel%2fhelper-split-export-declaration/-/helper-split-export-declaration-7.8.3.tgz#31a9f30070f91368a7182cf05f831781065fc7a9"
+  integrity sha512-3x3yOeyBhW851hroze7ElzdkeRXQYQbFIb7gLK1WQYsw2GWDay5gAJNw1sWJ0VFP6z5J1whqeXH/WCdCjZv6dA==
   dependencies:
-    "@babel/types" "^7.8.0"
+    "@babel/types" "^7.8.3"
 
-"@babel/helper-wrap-function@^7.8.0":
-  version "7.8.0"
-  resolved "http://mirrors.cloud.tencent.com/npm/@babel%2fhelper-wrap-function/-/helper-wrap-function-7.8.0.tgz#a26751c7b0be765a0db10162c6de485402cb505c"
-  integrity sha512-2j6idN2jt8Y+8nJ4UPN/6AZa53DAkcETMVmroJQh50qZc59PuQKVjgOIIqmrLoQf6Ia9bs90MHRcID1OW5tfag==
-  dependencies:
-    "@babel/helper-function-name" "^7.8.0"
-    "@babel/template" "^7.8.0"
-    "@babel/traverse" "^7.8.0"
-    "@babel/types" "^7.8.0"
+"@babel/helper-validator-identifier@^7.9.0", "@babel/helper-validator-identifier@^7.9.5":
+  version "7.9.5"
+  resolved "https://mirrors.cloud.tencent.com/npm/@babel%2fhelper-validator-identifier/-/helper-validator-identifier-7.9.5.tgz#90977a8e6fbf6b431a7dc31752eee233bf052d80"
+  integrity sha512-/8arLKUFq882w4tWGj9JYzRpAlZgiWUJ+dtteNTDqrRBz9Iguck9Rn3ykuBDoUwh2TO4tSAJlrxDUOXWklJe4g==
 
-"@babel/helpers@^7.8.0":
-  version "7.8.0"
-  resolved "http://mirrors.cloud.tencent.com/npm/@babel%2fhelpers/-/helpers-7.8.0.tgz#3d3e6e08febf5edbbf63b1cf64395525aa3ece37"
-  integrity sha512-srWKpjAFbiut5JoCReZJ098hLqoZ9HufOnKZPggc7j74XaPuQ+9b3RYPV1M/HfjL63lCNd8uI1O487qIWxAFNA==
+"@babel/helper-wrap-function@^7.8.3":
+  version "7.8.3"
+  resolved "https://mirrors.cloud.tencent.com/npm/@babel%2fhelper-wrap-function/-/helper-wrap-function-7.8.3.tgz#9dbdb2bb55ef14aaa01fe8c99b629bd5352d8610"
+  integrity sha512-LACJrbUET9cQDzb6kG7EeD7+7doC3JNvUgTEQOx2qaO1fKlzE/Bf05qs9w1oXQMmXlPO65lC3Tq9S6gZpTErEQ==
   dependencies:
-    "@babel/template" "^7.8.0"
-    "@babel/traverse" "^7.8.0"
-    "@babel/types" "^7.8.0"
+    "@babel/helper-function-name" "^7.8.3"
+    "@babel/template" "^7.8.3"
+    "@babel/traverse" "^7.8.3"
+    "@babel/types" "^7.8.3"
 
-"@babel/highlight@^7.8.0":
-  version "7.8.0"
-  resolved "http://mirrors.cloud.tencent.com/npm/@babel%2fhighlight/-/highlight-7.8.0.tgz#4cc003dc10359919e2e3a1d9459150942913dd1a"
-  integrity sha512-OsdTJbHlPtIk2mmtwXItYrdmalJ8T0zpVzNAbKSkHshuywj7zb29Y09McV/jQsQunc/nEyHiPV2oy9llYMLqxw==
+"@babel/helpers@^7.9.0":
+  version "7.9.2"
+  resolved "https://mirrors.cloud.tencent.com/npm/@babel%2fhelpers/-/helpers-7.9.2.tgz#b42a81a811f1e7313b88cba8adc66b3d9ae6c09f"
+  integrity sha512-JwLvzlXVPjO8eU9c/wF9/zOIN7X6h8DYf7mG4CiFRZRvZNKEF5dQ3H3V+ASkHoIB3mWhatgl5ONhyqHRI6MppA==
   dependencies:
+    "@babel/template" "^7.8.3"
+    "@babel/traverse" "^7.9.0"
+    "@babel/types" "^7.9.0"
+
+"@babel/highlight@^7.8.3":
+  version "7.9.0"
+  resolved "https://mirrors.cloud.tencent.com/npm/@babel%2fhighlight/-/highlight-7.9.0.tgz#4e9b45ccb82b79607271b2979ad82c7b68163079"
+  integrity sha512-lJZPilxX7Op3Nv/2cvFdnlepPXDxi29wxteT57Q965oc5R9v86ztx0jfxVrTcBk8C2kcPkkDa2Z4T3ZsPPVWsQ==
+  dependencies:
+    "@babel/helper-validator-identifier" "^7.9.0"
     chalk "^2.0.0"
-    esutils "^2.0.2"
     js-tokens "^4.0.0"
 
-"@babel/parser@^7.8.0":
-  version "7.8.0"
-  resolved "http://mirrors.cloud.tencent.com/npm/@babel%2fparser/-/parser-7.8.0.tgz#54682775f1fb25dd29a93a02315aab29a6a292bb"
-  integrity sha512-VVtsnUYbd1+2A2vOVhm4P2qNXQE8L/W859GpUHfUcdhX8d3pEKThZuIr6fztocWx9HbK+00/CR0tXnhAggJ4CA==
+"@babel/parser@^7.8.6", "@babel/parser@^7.9.0":
+  version "7.9.4"
+  resolved "https://mirrors.cloud.tencent.com/npm/@babel%2fparser/-/parser-7.9.4.tgz#68a35e6b0319bbc014465be43828300113f2f2e8"
+  integrity sha512-bC49otXX6N0/VYhgOMh4gnP26E9xnDZK3TmbNpxYzzz9BQLBosQwfyOe9/cXUU3txYhTzLCbcqd5c8y/OmCjHA==
 
-"@babel/plugin-proposal-async-generator-functions@^7.2.0":
-  version "7.8.0"
-  resolved "http://mirrors.cloud.tencent.com/npm/@babel%2fplugin-proposal-async-generator-functions/-/plugin-proposal-async-generator-functions-7.8.0.tgz#92520961d1b2220f0f2e6b576b7896698cd747f9"
-  integrity sha512-8vIQf8JYced7gCeKDsGETNGKE+zdD/JmP1LBlRn+w3UXc1aSpZv2Y330bB/fnOEbUgPbuFv+IEi+gopg+Fu0kQ==
+"@babel/plugin-proposal-async-generator-functions@^7.8.3":
+  version "7.8.3"
+  resolved "https://mirrors.cloud.tencent.com/npm/@babel%2fplugin-proposal-async-generator-functions/-/plugin-proposal-async-generator-functions-7.8.3.tgz#bad329c670b382589721b27540c7d288601c6e6f"
+  integrity sha512-NZ9zLv848JsV3hs8ryEh7Uaz/0KsmPLqv0+PdkDJL1cJy0K4kOCFa8zc1E3mp+RHPQcpdfb/6GovEsW4VDrOMw==
   dependencies:
-    "@babel/helper-plugin-utils" "^7.8.0"
-    "@babel/helper-remap-async-to-generator" "^7.8.0"
+    "@babel/helper-plugin-utils" "^7.8.3"
+    "@babel/helper-remap-async-to-generator" "^7.8.3"
     "@babel/plugin-syntax-async-generators" "^7.8.0"
 
-"@babel/plugin-proposal-class-properties@^7.0.0":
-  version "7.8.0"
-  resolved "http://mirrors.cloud.tencent.com/npm/@babel%2fplugin-proposal-class-properties/-/plugin-proposal-class-properties-7.8.0.tgz#bb3325d9166c80db8f2e15fc0bb6d61d7300e373"
-  integrity sha512-eVGj5NauhKCwABQjKIYncMQh9HtFsBrIcdsxImbTdUIaGnjymsVsBGmDQaDuPL/WCjYn6vPL4d+yvI6zy+VkrQ==
+"@babel/plugin-proposal-class-properties@^7.8.3":
+  version "7.8.3"
+  resolved "https://mirrors.cloud.tencent.com/npm/@babel%2fplugin-proposal-class-properties/-/plugin-proposal-class-properties-7.8.3.tgz#5e06654af5cd04b608915aada9b2a6788004464e"
+  integrity sha512-EqFhbo7IosdgPgZggHaNObkmO1kNUe3slaKu54d5OWvy+p9QIKOzK1GAEpAIsZtWVtPXUHSMcT4smvDrCfY4AA==
   dependencies:
-    "@babel/helper-create-class-features-plugin" "^7.8.0"
-    "@babel/helper-plugin-utils" "^7.8.0"
+    "@babel/helper-create-class-features-plugin" "^7.8.3"
+    "@babel/helper-plugin-utils" "^7.8.3"
 
-"@babel/plugin-proposal-decorators@^7.1.0":
-  version "7.8.0"
-  resolved "http://mirrors.cloud.tencent.com/npm/@babel%2fplugin-proposal-decorators/-/plugin-proposal-decorators-7.8.0.tgz#2f1661712c557de8bc65c0b58876a2b47ff886d5"
-  integrity sha512-HKltBhhrRigrHYkDrO/9rg+ZerXSAtZjepm8URUrNxgzTzEfuOb06fUU311chMkahZHSfASNUxWVwRzIwGt/uw==
+"@babel/plugin-proposal-decorators@^7.8.3":
+  version "7.8.3"
+  resolved "https://mirrors.cloud.tencent.com/npm/@babel%2fplugin-proposal-decorators/-/plugin-proposal-decorators-7.8.3.tgz#2156860ab65c5abf068c3f67042184041066543e"
+  integrity sha512-e3RvdvS4qPJVTe288DlXjwKflpfy1hr0j5dz5WpIYYeP7vQZg2WfAEIp8k5/Lwis/m5REXEteIz6rrcDtXXG7w==
   dependencies:
-    "@babel/helper-create-class-features-plugin" "^7.8.0"
-    "@babel/helper-plugin-utils" "^7.8.0"
-    "@babel/plugin-syntax-decorators" "^7.8.0"
+    "@babel/helper-create-class-features-plugin" "^7.8.3"
+    "@babel/helper-plugin-utils" "^7.8.3"
+    "@babel/plugin-syntax-decorators" "^7.8.3"
 
-"@babel/plugin-proposal-json-strings@^7.2.0":
-  version "7.8.0"
-  resolved "http://mirrors.cloud.tencent.com/npm/@babel%2fplugin-proposal-json-strings/-/plugin-proposal-json-strings-7.8.0.tgz#99fd838398c32f4d96117770f7f3591062e72607"
-  integrity sha512-pSpuhwn926vtNeUH2FHx1OzIXaUMgklG0MzlFZJVEg37fB904gOxN572NgBae+KDwFyZDpkLMyEkVA011lBJrQ==
+"@babel/plugin-proposal-dynamic-import@^7.8.3":
+  version "7.8.3"
+  resolved "https://mirrors.cloud.tencent.com/npm/@babel%2fplugin-proposal-dynamic-import/-/plugin-proposal-dynamic-import-7.8.3.tgz#38c4fe555744826e97e2ae930b0fb4cc07e66054"
+  integrity sha512-NyaBbyLFXFLT9FP+zk0kYlUlA8XtCUbehs67F0nnEg7KICgMc2mNkIeu9TYhKzyXMkrapZFwAhXLdnt4IYHy1w==
   dependencies:
-    "@babel/helper-plugin-utils" "^7.8.0"
+    "@babel/helper-plugin-utils" "^7.8.3"
+    "@babel/plugin-syntax-dynamic-import" "^7.8.0"
+
+"@babel/plugin-proposal-json-strings@^7.8.3":
+  version "7.8.3"
+  resolved "https://mirrors.cloud.tencent.com/npm/@babel%2fplugin-proposal-json-strings/-/plugin-proposal-json-strings-7.8.3.tgz#da5216b238a98b58a1e05d6852104b10f9a70d6b"
+  integrity sha512-KGhQNZ3TVCQG/MjRbAUwuH+14y9q0tpxs1nWWs3pbSleRdDro9SAMMDyye8HhY1gqZ7/NqIc8SKhya0wRDgP1Q==
+  dependencies:
+    "@babel/helper-plugin-utils" "^7.8.3"
     "@babel/plugin-syntax-json-strings" "^7.8.0"
 
-"@babel/plugin-proposal-object-rest-spread@^7.3.4":
-  version "7.8.0"
-  resolved "http://mirrors.cloud.tencent.com/npm/@babel%2fplugin-proposal-object-rest-spread/-/plugin-proposal-object-rest-spread-7.8.0.tgz#ca8ac673d32db774c2154a4c7517fd46ec45e9cf"
-  integrity sha512-SjJ2ZXCylpWC+5DTES0/pbpNmw/FnjU/3dF068xF0DU9aN+oOKah+3MCSFcb4pnZ9IwmxfOy4KnbGJSQR+hAZA==
+"@babel/plugin-proposal-nullish-coalescing-operator@^7.8.3":
+  version "7.8.3"
+  resolved "https://mirrors.cloud.tencent.com/npm/@babel%2fplugin-proposal-nullish-coalescing-operator/-/plugin-proposal-nullish-coalescing-operator-7.8.3.tgz#e4572253fdeed65cddeecfdab3f928afeb2fd5d2"
+  integrity sha512-TS9MlfzXpXKt6YYomudb/KU7nQI6/xnapG6in1uZxoxDghuSMZsPb6D2fyUwNYSAp4l1iR7QtFOjkqcRYcUsfw==
   dependencies:
-    "@babel/helper-plugin-utils" "^7.8.0"
-    "@babel/plugin-syntax-object-rest-spread" "^7.8.0"
+    "@babel/helper-plugin-utils" "^7.8.3"
+    "@babel/plugin-syntax-nullish-coalescing-operator" "^7.8.0"
 
-"@babel/plugin-proposal-optional-catch-binding@^7.2.0":
-  version "7.8.0"
-  resolved "http://mirrors.cloud.tencent.com/npm/@babel%2fplugin-proposal-optional-catch-binding/-/plugin-proposal-optional-catch-binding-7.8.0.tgz#6a7dee0bfd72751e3f1386ba4da03e6fa82fcd95"
-  integrity sha512-tHP3eez6TrpPJYttBZ/6uItRbIuXUIDpQ9xwvzKwR+RboWGMJ7WzFC5dDJ3vjLuCx0/DG1tM0MVkmgcBybth9w==
+"@babel/plugin-proposal-numeric-separator@^7.8.3":
+  version "7.8.3"
+  resolved "https://mirrors.cloud.tencent.com/npm/@babel%2fplugin-proposal-numeric-separator/-/plugin-proposal-numeric-separator-7.8.3.tgz#5d6769409699ec9b3b68684cd8116cedff93bad8"
+  integrity sha512-jWioO1s6R/R+wEHizfaScNsAx+xKgwTLNXSh7tTC4Usj3ItsPEhYkEpU4h+lpnBwq7NBVOJXfO6cRFYcX69JUQ==
   dependencies:
-    "@babel/helper-plugin-utils" "^7.8.0"
+    "@babel/helper-plugin-utils" "^7.8.3"
+    "@babel/plugin-syntax-numeric-separator" "^7.8.3"
+
+"@babel/plugin-proposal-object-rest-spread@^7.9.5":
+  version "7.9.5"
+  resolved "https://mirrors.cloud.tencent.com/npm/@babel%2fplugin-proposal-object-rest-spread/-/plugin-proposal-object-rest-spread-7.9.5.tgz#3fd65911306d8746014ec0d0cf78f0e39a149116"
+  integrity sha512-VP2oXvAf7KCYTthbUHwBlewbl1Iq059f6seJGsxMizaCdgHIeczOr7FBqELhSqfkIl04Fi8okzWzl63UKbQmmg==
+  dependencies:
+    "@babel/helper-plugin-utils" "^7.8.3"
+    "@babel/plugin-syntax-object-rest-spread" "^7.8.0"
+    "@babel/plugin-transform-parameters" "^7.9.5"
+
+"@babel/plugin-proposal-optional-catch-binding@^7.8.3":
+  version "7.8.3"
+  resolved "https://mirrors.cloud.tencent.com/npm/@babel%2fplugin-proposal-optional-catch-binding/-/plugin-proposal-optional-catch-binding-7.8.3.tgz#9dee96ab1650eed88646ae9734ca167ac4a9c5c9"
+  integrity sha512-0gkX7J7E+AtAw9fcwlVQj8peP61qhdg/89D5swOkjYbkboA2CVckn3kiyum1DE0wskGb7KJJxBdyEBApDLLVdw==
+  dependencies:
+    "@babel/helper-plugin-utils" "^7.8.3"
     "@babel/plugin-syntax-optional-catch-binding" "^7.8.0"
 
-"@babel/plugin-proposal-unicode-property-regex@^7.2.0":
-  version "7.8.0"
-  resolved "http://mirrors.cloud.tencent.com/npm/@babel%2fplugin-proposal-unicode-property-regex/-/plugin-proposal-unicode-property-regex-7.8.0.tgz#9e1c0481863485052bae8ac024fca7028e24ee31"
-  integrity sha512-3oK0Qt5w4arb+es3rWBribDbtc0TYJP7dFZ1dXcYul3cXderqfIOoSx9YUC1oD208nJwJO/++fvrgLmkYSbe8A==
+"@babel/plugin-proposal-optional-chaining@^7.9.0":
+  version "7.9.0"
+  resolved "https://mirrors.cloud.tencent.com/npm/@babel%2fplugin-proposal-optional-chaining/-/plugin-proposal-optional-chaining-7.9.0.tgz#31db16b154c39d6b8a645292472b98394c292a58"
+  integrity sha512-NDn5tu3tcv4W30jNhmc2hyD5c56G6cXx4TesJubhxrJeCvuuMpttxr0OnNCqbZGhFjLrg+NIhxxC+BK5F6yS3w==
   dependencies:
-    "@babel/helper-create-regexp-features-plugin" "^7.8.0"
-    "@babel/helper-plugin-utils" "^7.8.0"
+    "@babel/helper-plugin-utils" "^7.8.3"
+    "@babel/plugin-syntax-optional-chaining" "^7.8.0"
 
-"@babel/plugin-syntax-async-generators@^7.2.0", "@babel/plugin-syntax-async-generators@^7.8.0":
+"@babel/plugin-proposal-unicode-property-regex@^7.4.4", "@babel/plugin-proposal-unicode-property-regex@^7.8.3":
+  version "7.8.8"
+  resolved "https://mirrors.cloud.tencent.com/npm/@babel%2fplugin-proposal-unicode-property-regex/-/plugin-proposal-unicode-property-regex-7.8.8.tgz#ee3a95e90cdc04fe8cd92ec3279fa017d68a0d1d"
+  integrity sha512-EVhjVsMpbhLw9ZfHWSx2iy13Q8Z/eg8e8ccVWt23sWQK5l1UdkoLJPN5w69UA4uITGBnEZD2JOe4QOHycYKv8A==
+  dependencies:
+    "@babel/helper-create-regexp-features-plugin" "^7.8.8"
+    "@babel/helper-plugin-utils" "^7.8.3"
+
+"@babel/plugin-syntax-async-generators@^7.8.0":
   version "7.8.0"
   resolved "http://mirrors.cloud.tencent.com/npm/@babel%2fplugin-syntax-async-generators/-/plugin-syntax-async-generators-7.8.0.tgz#e6c3dba5a61ecf72ba00a3f3f5f1234989a58e6a"
   integrity sha512-a8w8k7pK8nYhem07rXdAq03T+DlTX8LFojUptrh9JEx80AgLqGiuoFIyQOGTWif39kFnDOQqbzl1s6KQqrfV+A==
   dependencies:
     "@babel/helper-plugin-utils" "^7.8.0"
 
-"@babel/plugin-syntax-decorators@^7.8.0":
-  version "7.8.0"
-  resolved "http://mirrors.cloud.tencent.com/npm/@babel%2fplugin-syntax-decorators/-/plugin-syntax-decorators-7.8.0.tgz#4a2930ef597c5bc5c5ae9a97d7883d03eeb48eb2"
-  integrity sha512-Qz68qh9jJqQePGWqbNW9PA7vkE2gvnWkYtx32jgPOszpE7u+xObPkRGm3B80oXAjQlBdTa4ktqjkOIRiKRuapw==
+"@babel/plugin-syntax-decorators@^7.8.3":
+  version "7.8.3"
+  resolved "https://mirrors.cloud.tencent.com/npm/@babel%2fplugin-syntax-decorators/-/plugin-syntax-decorators-7.8.3.tgz#8d2c15a9f1af624b0025f961682a9d53d3001bda"
+  integrity sha512-8Hg4dNNT9/LcA1zQlfwuKR8BUc/if7Q7NkTam9sGTcJphLwpf2g4S42uhspQrIrR+dpzE0dtTqBVFoHl8GtnnQ==
+  dependencies:
+    "@babel/helper-plugin-utils" "^7.8.3"
+
+"@babel/plugin-syntax-dynamic-import@^7.8.0", "@babel/plugin-syntax-dynamic-import@^7.8.3":
+  version "7.8.3"
+  resolved "https://mirrors.cloud.tencent.com/npm/@babel%2fplugin-syntax-dynamic-import/-/plugin-syntax-dynamic-import-7.8.3.tgz#62bf98b2da3cd21d626154fc96ee5b3cb68eacb3"
+  integrity sha512-5gdGbFon+PszYzqs83S3E5mpi7/y/8M9eC90MRTZfduQOYW76ig6SOSPNe41IG5LoP3FGBn2N0RjVDSQiS94kQ==
   dependencies:
     "@babel/helper-plugin-utils" "^7.8.0"
 
-"@babel/plugin-syntax-dynamic-import@^7.0.0":
-  version "7.8.0"
-  resolved "http://mirrors.cloud.tencent.com/npm/@babel%2fplugin-syntax-dynamic-import/-/plugin-syntax-dynamic-import-7.8.0.tgz#3a6c1cd36af923db602df83c5aa72e08bb14353a"
-  integrity sha512-Mx2RzpCHJaBfmFdA2abXDKRHVJdzJ6R0Wqwb6TxCgM7NRR5wcC4cyiAsRL7Ga+lwG8GG1cKvb+4ENjic8y15jA==
-  dependencies:
-    "@babel/helper-plugin-utils" "^7.8.0"
-
-"@babel/plugin-syntax-json-strings@^7.2.0", "@babel/plugin-syntax-json-strings@^7.8.0":
+"@babel/plugin-syntax-json-strings@^7.8.0":
   version "7.8.0"
   resolved "http://mirrors.cloud.tencent.com/npm/@babel%2fplugin-syntax-json-strings/-/plugin-syntax-json-strings-7.8.0.tgz#7f798eb7e8cfd3821388120679d23d530bae6e53"
   integrity sha512-LPykaAbH86L5NnDfCRSpNxtEHZk+6GaFzXfWEFU/6R4v69EXQr6GOp7hwH+Uw0QlYVN++s6TukTJ3flFcspahA==
   dependencies:
     "@babel/helper-plugin-utils" "^7.8.0"
 
-"@babel/plugin-syntax-jsx@^7.0.0", "@babel/plugin-syntax-jsx@^7.2.0":
+"@babel/plugin-syntax-jsx@^7.2.0":
   version "7.8.0"
   resolved "http://mirrors.cloud.tencent.com/npm/@babel%2fplugin-syntax-jsx/-/plugin-syntax-jsx-7.8.0.tgz#657a0306e2c74de84e0dcf8b6cb024ed990224fc"
   integrity sha512-zLDUckAuKeOtxJhfNE0TlR7iEApb2u7EYRlh5cxKzq6A5VzUbYEdyJGJlug41jDbjRbHTtsLKZUnUcy/8V3xZw==
   dependencies:
     "@babel/helper-plugin-utils" "^7.8.0"
 
-"@babel/plugin-syntax-object-rest-spread@^7.2.0", "@babel/plugin-syntax-object-rest-spread@^7.8.0":
+"@babel/plugin-syntax-jsx@^7.8.3":
+  version "7.8.3"
+  resolved "https://mirrors.cloud.tencent.com/npm/@babel%2fplugin-syntax-jsx/-/plugin-syntax-jsx-7.8.3.tgz#521b06c83c40480f1e58b4fd33b92eceb1d6ea94"
+  integrity sha512-WxdW9xyLgBdefoo0Ynn3MRSkhe5tFVxxKNVdnZSh318WrG2e2jH+E9wd/++JsqcLJZPfz87njQJ8j2Upjm0M0A==
+  dependencies:
+    "@babel/helper-plugin-utils" "^7.8.3"
+
+"@babel/plugin-syntax-nullish-coalescing-operator@^7.8.0":
+  version "7.8.3"
+  resolved "https://mirrors.cloud.tencent.com/npm/@babel%2fplugin-syntax-nullish-coalescing-operator/-/plugin-syntax-nullish-coalescing-operator-7.8.3.tgz#167ed70368886081f74b5c36c65a88c03b66d1a9"
+  integrity sha512-aSff4zPII1u2QD7y+F8oDsz19ew4IGEJg9SVW+bqwpwtfFleiQDMdzA/R+UlWDzfnHFCxxleFT0PMIrR36XLNQ==
+  dependencies:
+    "@babel/helper-plugin-utils" "^7.8.0"
+
+"@babel/plugin-syntax-numeric-separator@^7.8.0", "@babel/plugin-syntax-numeric-separator@^7.8.3":
+  version "7.8.3"
+  resolved "https://mirrors.cloud.tencent.com/npm/@babel%2fplugin-syntax-numeric-separator/-/plugin-syntax-numeric-separator-7.8.3.tgz#0e3fb63e09bea1b11e96467271c8308007e7c41f"
+  integrity sha512-H7dCMAdN83PcCmqmkHB5dtp+Xa9a6LKSvA2hiFBC/5alSHxM5VgWZXFqDi0YFe8XNGT6iCa+z4V4zSt/PdZ7Dw==
+  dependencies:
+    "@babel/helper-plugin-utils" "^7.8.3"
+
+"@babel/plugin-syntax-object-rest-spread@^7.8.0":
   version "7.8.0"
   resolved "http://mirrors.cloud.tencent.com/npm/@babel%2fplugin-syntax-object-rest-spread/-/plugin-syntax-object-rest-spread-7.8.0.tgz#9b37d580d459682364d8602494c69145b394fd4c"
   integrity sha512-dt89fDlkfkTrQcy5KavMQPyF2A6tR0kYp8HAnIoQv5hO34iAUffHghP/hMGd7Gf/+uYTmLQO0ar7peX1SUWyIA==
   dependencies:
     "@babel/helper-plugin-utils" "^7.8.0"
 
-"@babel/plugin-syntax-optional-catch-binding@^7.2.0", "@babel/plugin-syntax-optional-catch-binding@^7.8.0":
+"@babel/plugin-syntax-optional-catch-binding@^7.8.0":
   version "7.8.0"
   resolved "http://mirrors.cloud.tencent.com/npm/@babel%2fplugin-syntax-optional-catch-binding/-/plugin-syntax-optional-catch-binding-7.8.0.tgz#180c7bdd6b7fd81cc6d18269de12d5ddd60cabce"
   integrity sha512-EIgJVy+u1RvR2gJfX4ReLwAupO/twllUue1wPrRxhu18+eC3bGTEcOSXLQdaE9ya9NG1rE0eQs0GSiloUGFEwg==
   dependencies:
     "@babel/helper-plugin-utils" "^7.8.0"
 
-"@babel/plugin-transform-arrow-functions@^7.2.0":
-  version "7.8.0"
-  resolved "http://mirrors.cloud.tencent.com/npm/@babel%2fplugin-transform-arrow-functions/-/plugin-transform-arrow-functions-7.8.0.tgz#d98b7c425fed35f70cb85024a2b10008936631b3"
-  integrity sha512-9KfteDp9d8cF388dxFMOh3Dum41qpOVUPVjQhXGd1kPyQBE05FJgYndiAriML2yhMIbZ2bjgweh2nnvBXDH2MQ==
+"@babel/plugin-syntax-optional-chaining@^7.8.0":
+  version "7.8.3"
+  resolved "https://mirrors.cloud.tencent.com/npm/@babel%2fplugin-syntax-optional-chaining/-/plugin-syntax-optional-chaining-7.8.3.tgz#4f69c2ab95167e0180cd5336613f8c5788f7d48a"
+  integrity sha512-KoK9ErH1MBlCPxV0VANkXW2/dw4vlbGDrFgz8bmUsBGYkFRcbRwMh6cIJubdPrkxRwuGdtCk0v/wPTKbQgBjkg==
   dependencies:
     "@babel/helper-plugin-utils" "^7.8.0"
 
-"@babel/plugin-transform-async-to-generator@^7.3.4":
-  version "7.8.0"
-  resolved "http://mirrors.cloud.tencent.com/npm/@babel%2fplugin-transform-async-to-generator/-/plugin-transform-async-to-generator-7.8.0.tgz#6561fb6445d89bc20b72150430944cad0e501e4a"
-  integrity sha512-9dvBvJnEdsDWYMrykoMyLNVRPGoub6SFlARtsYgSQ1riTjnyBjhctihSME4XsSku86F59PDeFpC9PCU+9I154w==
+"@babel/plugin-syntax-top-level-await@^7.8.3":
+  version "7.8.3"
+  resolved "https://mirrors.cloud.tencent.com/npm/@babel%2fplugin-syntax-top-level-await/-/plugin-syntax-top-level-await-7.8.3.tgz#3acdece695e6b13aaf57fc291d1a800950c71391"
+  integrity sha512-kwj1j9lL/6Wd0hROD3b/OZZ7MSrZLqqn9RAZ5+cYYsflQ9HZBIKCUkr3+uL1MEJ1NePiUbf98jjiMQSv0NMR9g==
   dependencies:
-    "@babel/helper-module-imports" "^7.8.0"
-    "@babel/helper-plugin-utils" "^7.8.0"
-    "@babel/helper-remap-async-to-generator" "^7.8.0"
+    "@babel/helper-plugin-utils" "^7.8.3"
 
-"@babel/plugin-transform-block-scoped-functions@^7.2.0":
-  version "7.8.0"
-  resolved "http://mirrors.cloud.tencent.com/npm/@babel%2fplugin-transform-block-scoped-functions/-/plugin-transform-block-scoped-functions-7.8.0.tgz#2ea8a33ec78825ce91244980389cb96d4c6dc6bd"
-  integrity sha512-bim6gUfHq2kPN+aQst33ZEMeglpaUXAo6PWTZvOA8BOnWpNKgZcUzBvpZhh2ofL6YhZgzGoRwVVfzwynDEf47g==
+"@babel/plugin-transform-arrow-functions@^7.8.3":
+  version "7.8.3"
+  resolved "https://mirrors.cloud.tencent.com/npm/@babel%2fplugin-transform-arrow-functions/-/plugin-transform-arrow-functions-7.8.3.tgz#82776c2ed0cd9e1a49956daeb896024c9473b8b6"
+  integrity sha512-0MRF+KC8EqH4dbuITCWwPSzsyO3HIWWlm30v8BbbpOrS1B++isGxPnnuq/IZvOX5J2D/p7DQalQm+/2PnlKGxg==
   dependencies:
-    "@babel/helper-plugin-utils" "^7.8.0"
+    "@babel/helper-plugin-utils" "^7.8.3"
 
-"@babel/plugin-transform-block-scoping@^7.3.4":
-  version "7.8.0"
-  resolved "http://mirrors.cloud.tencent.com/npm/@babel%2fplugin-transform-block-scoping/-/plugin-transform-block-scoping-7.8.0.tgz#f6a81bc8c76dbbd202b718cb9e681a27f1d0af8f"
-  integrity sha512-FKTK4hzg7W950Yu9iqMl12WBixCmusMc5HBt3/ErvpFLnvr3/6mu/EBTZoCEJ0mw/lQUDfU01vTcZY9oEahlMg==
+"@babel/plugin-transform-async-to-generator@^7.8.3":
+  version "7.8.3"
+  resolved "https://mirrors.cloud.tencent.com/npm/@babel%2fplugin-transform-async-to-generator/-/plugin-transform-async-to-generator-7.8.3.tgz#4308fad0d9409d71eafb9b1a6ee35f9d64b64086"
+  integrity sha512-imt9tFLD9ogt56Dd5CI/6XgpukMwd/fLGSrix2httihVe7LOGVPhyhMh1BU5kDM7iHD08i8uUtmV2sWaBFlHVQ==
   dependencies:
-    "@babel/helper-plugin-utils" "^7.8.0"
+    "@babel/helper-module-imports" "^7.8.3"
+    "@babel/helper-plugin-utils" "^7.8.3"
+    "@babel/helper-remap-async-to-generator" "^7.8.3"
+
+"@babel/plugin-transform-block-scoped-functions@^7.8.3":
+  version "7.8.3"
+  resolved "https://mirrors.cloud.tencent.com/npm/@babel%2fplugin-transform-block-scoped-functions/-/plugin-transform-block-scoped-functions-7.8.3.tgz#437eec5b799b5852072084b3ae5ef66e8349e8a3"
+  integrity sha512-vo4F2OewqjbB1+yaJ7k2EJFHlTP3jR634Z9Cj9itpqNjuLXvhlVxgnjsHsdRgASR8xYDrx6onw4vW5H6We0Jmg==
+  dependencies:
+    "@babel/helper-plugin-utils" "^7.8.3"
+
+"@babel/plugin-transform-block-scoping@^7.8.3":
+  version "7.8.3"
+  resolved "https://mirrors.cloud.tencent.com/npm/@babel%2fplugin-transform-block-scoping/-/plugin-transform-block-scoping-7.8.3.tgz#97d35dab66857a437c166358b91d09050c868f3a"
+  integrity sha512-pGnYfm7RNRgYRi7bids5bHluENHqJhrV4bCZRwc5GamaWIIs07N4rZECcmJL6ZClwjDz1GbdMZFtPs27hTB06w==
+  dependencies:
+    "@babel/helper-plugin-utils" "^7.8.3"
     lodash "^4.17.13"
 
-"@babel/plugin-transform-classes@^7.3.4":
-  version "7.8.0"
-  resolved "http://mirrors.cloud.tencent.com/npm/@babel%2fplugin-transform-classes/-/plugin-transform-classes-7.8.0.tgz#eb4699613b3ea3ccaf095bb0447dac55f7454fc9"
-  integrity sha512-18RLDwKtGXCLLbf5V03GojebPH7dKYCmIBqQGhgfZDoYsyEzR9kMZ6IxlJP72K5ROC9ADa4KPI6ywuh7NfQOgQ==
+"@babel/plugin-transform-classes@^7.9.5":
+  version "7.9.5"
+  resolved "https://mirrors.cloud.tencent.com/npm/@babel%2fplugin-transform-classes/-/plugin-transform-classes-7.9.5.tgz#800597ddb8aefc2c293ed27459c1fcc935a26c2c"
+  integrity sha512-x2kZoIuLC//O5iA7PEvecB105o7TLzZo8ofBVhP79N+DO3jaX+KYfww9TQcfBEZD0nikNyYcGB1IKtRq36rdmg==
   dependencies:
-    "@babel/helper-annotate-as-pure" "^7.8.0"
-    "@babel/helper-define-map" "^7.8.0"
-    "@babel/helper-function-name" "^7.8.0"
-    "@babel/helper-optimise-call-expression" "^7.8.0"
-    "@babel/helper-plugin-utils" "^7.8.0"
-    "@babel/helper-replace-supers" "^7.8.0"
-    "@babel/helper-split-export-declaration" "^7.8.0"
+    "@babel/helper-annotate-as-pure" "^7.8.3"
+    "@babel/helper-define-map" "^7.8.3"
+    "@babel/helper-function-name" "^7.9.5"
+    "@babel/helper-optimise-call-expression" "^7.8.3"
+    "@babel/helper-plugin-utils" "^7.8.3"
+    "@babel/helper-replace-supers" "^7.8.6"
+    "@babel/helper-split-export-declaration" "^7.8.3"
     globals "^11.1.0"
 
-"@babel/plugin-transform-computed-properties@^7.2.0":
-  version "7.8.0"
-  resolved "http://mirrors.cloud.tencent.com/npm/@babel%2fplugin-transform-computed-properties/-/plugin-transform-computed-properties-7.8.0.tgz#c86c200ea42cbecda754fdf636a04dfbf6371cc7"
-  integrity sha512-FaODHuQRdnWFVwxLPlTN85Lk/aitfvQBHTXahf58FnatCynfhkeNUO8ID+AqAxY4IJsZjeH6OnKDzcGfgKJcVw==
+"@babel/plugin-transform-computed-properties@^7.8.3":
+  version "7.8.3"
+  resolved "https://mirrors.cloud.tencent.com/npm/@babel%2fplugin-transform-computed-properties/-/plugin-transform-computed-properties-7.8.3.tgz#96d0d28b7f7ce4eb5b120bb2e0e943343c86f81b"
+  integrity sha512-O5hiIpSyOGdrQZRQ2ccwtTVkgUDBBiCuK//4RJ6UfePllUTCENOzKxfh6ulckXKc0DixTFLCfb2HVkNA7aDpzA==
   dependencies:
-    "@babel/helper-plugin-utils" "^7.8.0"
+    "@babel/helper-plugin-utils" "^7.8.3"
 
-"@babel/plugin-transform-destructuring@^7.2.0":
-  version "7.8.0"
-  resolved "http://mirrors.cloud.tencent.com/npm/@babel%2fplugin-transform-destructuring/-/plugin-transform-destructuring-7.8.0.tgz#579d09e8dabf825cc3ac1524414ff99669f0abf9"
-  integrity sha512-D+69HT//cE86aBTLULzSBFLC5A7HcPQzJPiny6P4SLHkDF750MylRKO3iWvdgvb+OSp5dOrOxwXajvaxk1ZfYA==
+"@babel/plugin-transform-destructuring@^7.9.5":
+  version "7.9.5"
+  resolved "https://mirrors.cloud.tencent.com/npm/@babel%2fplugin-transform-destructuring/-/plugin-transform-destructuring-7.9.5.tgz#72c97cf5f38604aea3abf3b935b0e17b1db76a50"
+  integrity sha512-j3OEsGel8nHL/iusv/mRd5fYZ3DrOxWC82x0ogmdN/vHfAP4MYw+AFKYanzWlktNwikKvlzUV//afBW5FTp17Q==
   dependencies:
-    "@babel/helper-plugin-utils" "^7.8.0"
+    "@babel/helper-plugin-utils" "^7.8.3"
 
-"@babel/plugin-transform-dotall-regex@^7.2.0":
-  version "7.8.0"
-  resolved "http://mirrors.cloud.tencent.com/npm/@babel%2fplugin-transform-dotall-regex/-/plugin-transform-dotall-regex-7.8.0.tgz#7e9e439e85219be091c5dbf1be138320600d1172"
-  integrity sha512-pq/XLkDB4MPvTe9ktHJInfWksalXogrIGRZJUG7RiDXhEfdNrlducoMPbACZQuCFtelVgVpD0VyreiY0l38G7g==
+"@babel/plugin-transform-dotall-regex@^7.4.4", "@babel/plugin-transform-dotall-regex@^7.8.3":
+  version "7.8.3"
+  resolved "https://mirrors.cloud.tencent.com/npm/@babel%2fplugin-transform-dotall-regex/-/plugin-transform-dotall-regex-7.8.3.tgz#c3c6ec5ee6125c6993c5cbca20dc8621a9ea7a6e"
+  integrity sha512-kLs1j9Nn4MQoBYdRXH6AeaXMbEJFaFu/v1nQkvib6QzTj8MZI5OQzqmD83/2jEM1z0DLilra5aWO5YpyC0ALIw==
   dependencies:
-    "@babel/helper-create-regexp-features-plugin" "^7.8.0"
-    "@babel/helper-plugin-utils" "^7.8.0"
+    "@babel/helper-create-regexp-features-plugin" "^7.8.3"
+    "@babel/helper-plugin-utils" "^7.8.3"
 
-"@babel/plugin-transform-duplicate-keys@^7.2.0":
-  version "7.8.0"
-  resolved "http://mirrors.cloud.tencent.com/npm/@babel%2fplugin-transform-duplicate-keys/-/plugin-transform-duplicate-keys-7.8.0.tgz#913b3fdb5cbd35e3208b017dac5ef335ef6b0d65"
-  integrity sha512-REtYWvpP4TDw4oVeP01vQJcAeewjgk8/i7tPFP11vUjvarUGGyxJLeq79WEnIdnKPQJirZaoDRT4kEWEdSWkDw==
+"@babel/plugin-transform-duplicate-keys@^7.8.3":
+  version "7.8.3"
+  resolved "https://mirrors.cloud.tencent.com/npm/@babel%2fplugin-transform-duplicate-keys/-/plugin-transform-duplicate-keys-7.8.3.tgz#8d12df309aa537f272899c565ea1768e286e21f1"
+  integrity sha512-s8dHiBUbcbSgipS4SMFuWGqCvyge5V2ZeAWzR6INTVC3Ltjig/Vw1G2Gztv0vU/hRG9X8IvKvYdoksnUfgXOEQ==
   dependencies:
-    "@babel/helper-plugin-utils" "^7.8.0"
+    "@babel/helper-plugin-utils" "^7.8.3"
 
-"@babel/plugin-transform-exponentiation-operator@^7.2.0":
-  version "7.8.0"
-  resolved "http://mirrors.cloud.tencent.com/npm/@babel%2fplugin-transform-exponentiation-operator/-/plugin-transform-exponentiation-operator-7.8.0.tgz#72ddf89e1acfac75482992b8976df62f8ad813c4"
-  integrity sha512-vaDgF3gPLzVcoe3UZqnra6FA7O797sZc+UCHPd9eQTI34cPtpCA270LzopIXS3Fhc3UmFrijLmre9mHTmUKVgg==
+"@babel/plugin-transform-exponentiation-operator@^7.8.3":
+  version "7.8.3"
+  resolved "https://mirrors.cloud.tencent.com/npm/@babel%2fplugin-transform-exponentiation-operator/-/plugin-transform-exponentiation-operator-7.8.3.tgz#581a6d7f56970e06bf51560cd64f5e947b70d7b7"
+  integrity sha512-zwIpuIymb3ACcInbksHaNcR12S++0MDLKkiqXHl3AzpgdKlFNhog+z/K0+TGW+b0w5pgTq4H6IwV/WhxbGYSjQ==
   dependencies:
-    "@babel/helper-builder-binary-assignment-operator-visitor" "^7.8.0"
-    "@babel/helper-plugin-utils" "^7.8.0"
+    "@babel/helper-builder-binary-assignment-operator-visitor" "^7.8.3"
+    "@babel/helper-plugin-utils" "^7.8.3"
 
-"@babel/plugin-transform-for-of@^7.2.0":
-  version "7.8.0"
-  resolved "http://mirrors.cloud.tencent.com/npm/@babel%2fplugin-transform-for-of/-/plugin-transform-for-of-7.8.0.tgz#4a2960b76d42f4cc8a821edb66f4a7eadf6042ce"
-  integrity sha512-9j9g0qViCAo8E5qCBSaQdghymn7A9bRXSfS9jU7oLpYccYFZg9A+1KO8X+HV7fhJYH6mZ+e7MRg4p3sLo+RG6Q==
+"@babel/plugin-transform-for-of@^7.9.0":
+  version "7.9.0"
+  resolved "https://mirrors.cloud.tencent.com/npm/@babel%2fplugin-transform-for-of/-/plugin-transform-for-of-7.9.0.tgz#0f260e27d3e29cd1bb3128da5e76c761aa6c108e"
+  integrity sha512-lTAnWOpMwOXpyDx06N+ywmF3jNbafZEqZ96CGYabxHrxNX8l5ny7dt4bK/rGwAh9utyP2b2Hv7PlZh1AAS54FQ==
   dependencies:
-    "@babel/helper-plugin-utils" "^7.8.0"
+    "@babel/helper-plugin-utils" "^7.8.3"
 
-"@babel/plugin-transform-function-name@^7.2.0":
-  version "7.8.0"
-  resolved "http://mirrors.cloud.tencent.com/npm/@babel%2fplugin-transform-function-name/-/plugin-transform-function-name-7.8.0.tgz#9c5fdb20967f151c0e06419621d56d63120653c9"
-  integrity sha512-YL8Ol54UKeIyY1uUGfry+B9ppXAB3aVBB1gG9gxqhg/OBCPpV2QUNswmjvfmyXEdaWv8qODssBgX7on792h44w==
+"@babel/plugin-transform-function-name@^7.8.3":
+  version "7.8.3"
+  resolved "https://mirrors.cloud.tencent.com/npm/@babel%2fplugin-transform-function-name/-/plugin-transform-function-name-7.8.3.tgz#279373cb27322aaad67c2683e776dfc47196ed8b"
+  integrity sha512-rO/OnDS78Eifbjn5Py9v8y0aR+aSYhDhqAwVfsTl0ERuMZyr05L1aFSCJnbv2mmsLkit/4ReeQ9N2BgLnOcPCQ==
   dependencies:
-    "@babel/helper-function-name" "^7.8.0"
-    "@babel/helper-plugin-utils" "^7.8.0"
+    "@babel/helper-function-name" "^7.8.3"
+    "@babel/helper-plugin-utils" "^7.8.3"
 
-"@babel/plugin-transform-literals@^7.2.0":
-  version "7.8.0"
-  resolved "http://mirrors.cloud.tencent.com/npm/@babel%2fplugin-transform-literals/-/plugin-transform-literals-7.8.0.tgz#bda7a4773293ee9b687174eb4e1f91fe37ed576f"
-  integrity sha512-7UDPKG+uVltsZt98Hw+rMbLg772r8fQC6YJ2fNDckcpAXgIWqQbMCmCpfYo0hBNhdhqocM73auk4P/zziQshQw==
+"@babel/plugin-transform-literals@^7.8.3":
+  version "7.8.3"
+  resolved "https://mirrors.cloud.tencent.com/npm/@babel%2fplugin-transform-literals/-/plugin-transform-literals-7.8.3.tgz#aef239823d91994ec7b68e55193525d76dbd5dc1"
+  integrity sha512-3Tqf8JJ/qB7TeldGl+TT55+uQei9JfYaregDcEAyBZ7akutriFrt6C/wLYIer6OYhleVQvH/ntEhjE/xMmy10A==
   dependencies:
-    "@babel/helper-plugin-utils" "^7.8.0"
+    "@babel/helper-plugin-utils" "^7.8.3"
 
-"@babel/plugin-transform-modules-amd@^7.2.0":
-  version "7.8.0"
-  resolved "http://mirrors.cloud.tencent.com/npm/@babel%2fplugin-transform-modules-amd/-/plugin-transform-modules-amd-7.8.0.tgz#09f4fb47a2a7d4471866afeb446bc9a068a091b0"
-  integrity sha512-mFr1O3TaDL4XozM3AzNPz9AsxzzjTxwn4aOShYP5TlO+4rufvjagV2KKDTPMZTQm1ZA/C/PxJDsDekEnnUGz5A==
+"@babel/plugin-transform-member-expression-literals@^7.8.3":
+  version "7.8.3"
+  resolved "https://mirrors.cloud.tencent.com/npm/@babel%2fplugin-transform-member-expression-literals/-/plugin-transform-member-expression-literals-7.8.3.tgz#963fed4b620ac7cbf6029c755424029fa3a40410"
+  integrity sha512-3Wk2EXhnw+rP+IDkK6BdtPKsUE5IeZ6QOGrPYvw52NwBStw9V1ZVzxgK6fSKSxqUvH9eQPR3tm3cOq79HlsKYA==
   dependencies:
-    "@babel/helper-module-transforms" "^7.8.0"
-    "@babel/helper-plugin-utils" "^7.8.0"
+    "@babel/helper-plugin-utils" "^7.8.3"
+
+"@babel/plugin-transform-modules-amd@^7.9.0":
+  version "7.9.0"
+  resolved "https://mirrors.cloud.tencent.com/npm/@babel%2fplugin-transform-modules-amd/-/plugin-transform-modules-amd-7.9.0.tgz#19755ee721912cf5bb04c07d50280af3484efef4"
+  integrity sha512-vZgDDF003B14O8zJy0XXLnPH4sg+9X5hFBBGN1V+B2rgrB+J2xIypSN6Rk9imB2hSTHQi5OHLrFWsZab1GMk+Q==
+  dependencies:
+    "@babel/helper-module-transforms" "^7.9.0"
+    "@babel/helper-plugin-utils" "^7.8.3"
     babel-plugin-dynamic-import-node "^2.3.0"
 
-"@babel/plugin-transform-modules-commonjs@^7.2.0":
-  version "7.8.0"
-  resolved "http://mirrors.cloud.tencent.com/npm/@babel%2fplugin-transform-modules-commonjs/-/plugin-transform-modules-commonjs-7.8.0.tgz#69c682a41905f8885ffb9c37ab34ad1fe8ec3fd7"
-  integrity sha512-w2g8tmL7NgBYt6alc8YawMcmPiYqnVvvI0kLB++VOUOssqdJMAkfQOMGV+2M8H5uhJYDaAghAVMUYps3s+jMrw==
+"@babel/plugin-transform-modules-commonjs@^7.9.0":
+  version "7.9.0"
+  resolved "https://mirrors.cloud.tencent.com/npm/@babel%2fplugin-transform-modules-commonjs/-/plugin-transform-modules-commonjs-7.9.0.tgz#e3e72f4cbc9b4a260e30be0ea59bdf5a39748940"
+  integrity sha512-qzlCrLnKqio4SlgJ6FMMLBe4bySNis8DFn1VkGmOcxG9gqEyPIOzeQrA//u0HAKrWpJlpZbZMPB1n/OPa4+n8g==
   dependencies:
-    "@babel/helper-module-transforms" "^7.8.0"
-    "@babel/helper-plugin-utils" "^7.8.0"
-    "@babel/helper-simple-access" "^7.8.0"
+    "@babel/helper-module-transforms" "^7.9.0"
+    "@babel/helper-plugin-utils" "^7.8.3"
+    "@babel/helper-simple-access" "^7.8.3"
     babel-plugin-dynamic-import-node "^2.3.0"
 
-"@babel/plugin-transform-modules-systemjs@^7.3.4":
-  version "7.8.0"
-  resolved "http://mirrors.cloud.tencent.com/npm/@babel%2fplugin-transform-modules-systemjs/-/plugin-transform-modules-systemjs-7.8.0.tgz#b0ff0106a7f8a465a75ce5167c88b648770b0a0c"
-  integrity sha512-tKF9KLiIsiKyWTVU0yo+NcNAylGn7euggYwXw63/tMxGtDTPsB9Y7Ecqv4EoXEwtoJOJ0Lewf17oaWQtindxIA==
+"@babel/plugin-transform-modules-systemjs@^7.9.0":
+  version "7.9.0"
+  resolved "https://mirrors.cloud.tencent.com/npm/@babel%2fplugin-transform-modules-systemjs/-/plugin-transform-modules-systemjs-7.9.0.tgz#e9fd46a296fc91e009b64e07ddaa86d6f0edeb90"
+  integrity sha512-FsiAv/nao/ud2ZWy4wFacoLOm5uxl0ExSQ7ErvP7jpoihLR6Cq90ilOFyX9UXct3rbtKsAiZ9kFt5XGfPe/5SQ==
   dependencies:
-    "@babel/helper-hoist-variables" "^7.8.0"
-    "@babel/helper-module-transforms" "^7.8.0"
-    "@babel/helper-plugin-utils" "^7.8.0"
+    "@babel/helper-hoist-variables" "^7.8.3"
+    "@babel/helper-module-transforms" "^7.9.0"
+    "@babel/helper-plugin-utils" "^7.8.3"
     babel-plugin-dynamic-import-node "^2.3.0"
 
-"@babel/plugin-transform-modules-umd@^7.2.0":
-  version "7.8.0"
-  resolved "http://mirrors.cloud.tencent.com/npm/@babel%2fplugin-transform-modules-umd/-/plugin-transform-modules-umd-7.8.0.tgz#edc1a7a587a31a185070421f97ae3798b15df9b7"
-  integrity sha512-lAwNfXwmfTy7fl2XOyoVpMXnLkJANgH0vdSYNFcS4RuJPBtHfunGA+Y0L7wsHmfPzyVYt8sUglLjaWtdZMNJNg==
+"@babel/plugin-transform-modules-umd@^7.9.0":
+  version "7.9.0"
+  resolved "https://mirrors.cloud.tencent.com/npm/@babel%2fplugin-transform-modules-umd/-/plugin-transform-modules-umd-7.9.0.tgz#e909acae276fec280f9b821a5f38e1f08b480697"
+  integrity sha512-uTWkXkIVtg/JGRSIABdBoMsoIeoHQHPTL0Y2E7xf5Oj7sLqwVsNXOkNk0VJc7vF0IMBsPeikHxFjGe+qmwPtTQ==
   dependencies:
-    "@babel/helper-module-transforms" "^7.8.0"
-    "@babel/helper-plugin-utils" "^7.8.0"
+    "@babel/helper-module-transforms" "^7.9.0"
+    "@babel/helper-plugin-utils" "^7.8.3"
 
-"@babel/plugin-transform-named-capturing-groups-regex@^7.3.0":
-  version "7.8.0"
-  resolved "http://mirrors.cloud.tencent.com/npm/@babel%2fplugin-transform-named-capturing-groups-regex/-/plugin-transform-named-capturing-groups-regex-7.8.0.tgz#718e168e7f5ab83fa7e4dfd0cf1831804fc016f0"
-  integrity sha512-kq1rxQ1HviCP13SMGZ4WjBBpdogTGK7yn/g/+p+g1AQledgHOWKVeMY1DwKYGlGJ/grDGTOqpJLF1v3Sb7ghKA==
+"@babel/plugin-transform-named-capturing-groups-regex@^7.8.3":
+  version "7.8.3"
+  resolved "https://mirrors.cloud.tencent.com/npm/@babel%2fplugin-transform-named-capturing-groups-regex/-/plugin-transform-named-capturing-groups-regex-7.8.3.tgz#a2a72bffa202ac0e2d0506afd0939c5ecbc48c6c"
+  integrity sha512-f+tF/8UVPU86TrCb06JoPWIdDpTNSGGcAtaD9mLP0aYGA0OS0j7j7DHJR0GTFrUZPUU6loZhbsVZgTh0N+Qdnw==
   dependencies:
-    "@babel/helper-create-regexp-features-plugin" "^7.8.0"
+    "@babel/helper-create-regexp-features-plugin" "^7.8.3"
 
-"@babel/plugin-transform-new-target@^7.0.0":
-  version "7.8.0"
-  resolved "http://mirrors.cloud.tencent.com/npm/@babel%2fplugin-transform-new-target/-/plugin-transform-new-target-7.8.0.tgz#54d126788abc648cab27bc9b74a8306b4158f70f"
-  integrity sha512-hH1Afz9Xy/wkcxhoI0vYw48kTBJqYUhMmhp3SLI1p817iByM6ItH4LS8tZatDAIKmAQAXj8d3Ups1BgVJECDrA==
+"@babel/plugin-transform-new-target@^7.8.3":
+  version "7.8.3"
+  resolved "https://mirrors.cloud.tencent.com/npm/@babel%2fplugin-transform-new-target/-/plugin-transform-new-target-7.8.3.tgz#60cc2ae66d85c95ab540eb34babb6434d4c70c43"
+  integrity sha512-QuSGysibQpyxexRyui2vca+Cmbljo8bcRckgzYV4kRIsHpVeyeC3JDO63pY+xFZ6bWOBn7pfKZTqV4o/ix9sFw==
   dependencies:
-    "@babel/helper-plugin-utils" "^7.8.0"
+    "@babel/helper-plugin-utils" "^7.8.3"
 
-"@babel/plugin-transform-object-super@^7.2.0":
-  version "7.8.0"
-  resolved "http://mirrors.cloud.tencent.com/npm/@babel%2fplugin-transform-object-super/-/plugin-transform-object-super-7.8.0.tgz#aa35d295dd62b84bbea2e155e0b3a2017eb2f4e8"
-  integrity sha512-2DYqQ811nRlFVlni6iqfxBVVGqkBgfvEv/lcvmdNu2CaG+EA7zSP1hqYUsqamR+uCdDbsrV7uY6/0rkXbJo5YQ==
+"@babel/plugin-transform-object-super@^7.8.3":
+  version "7.8.3"
+  resolved "https://mirrors.cloud.tencent.com/npm/@babel%2fplugin-transform-object-super/-/plugin-transform-object-super-7.8.3.tgz#ebb6a1e7a86ffa96858bd6ac0102d65944261725"
+  integrity sha512-57FXk+gItG/GejofIyLIgBKTas4+pEU47IXKDBWFTxdPd7F80H8zybyAY7UoblVfBhBGs2EKM+bJUu2+iUYPDQ==
   dependencies:
-    "@babel/helper-plugin-utils" "^7.8.0"
-    "@babel/helper-replace-supers" "^7.8.0"
+    "@babel/helper-plugin-utils" "^7.8.3"
+    "@babel/helper-replace-supers" "^7.8.3"
 
-"@babel/plugin-transform-parameters@^7.2.0":
-  version "7.8.0"
-  resolved "http://mirrors.cloud.tencent.com/npm/@babel%2fplugin-transform-parameters/-/plugin-transform-parameters-7.8.0.tgz#edc1531beed51fb8a49e0a3f11ca6b508d083d6f"
-  integrity sha512-9R2yykk7H92rntETO0fq52vJ4OFaTcDA49K9s8bQPyoD4o3/SkWEklukArCsQC6fowEuraPkH/umopr9uO539g==
+"@babel/plugin-transform-parameters@^7.9.5":
+  version "7.9.5"
+  resolved "https://mirrors.cloud.tencent.com/npm/@babel%2fplugin-transform-parameters/-/plugin-transform-parameters-7.9.5.tgz#173b265746f5e15b2afe527eeda65b73623a0795"
+  integrity sha512-0+1FhHnMfj6lIIhVvS4KGQJeuhe1GI//h5uptK4PvLt+BGBxsoUJbd3/IW002yk//6sZPlFgsG1hY6OHLcy6kA==
   dependencies:
-    "@babel/helper-call-delegate" "^7.8.0"
-    "@babel/helper-get-function-arity" "^7.8.0"
-    "@babel/helper-plugin-utils" "^7.8.0"
+    "@babel/helper-get-function-arity" "^7.8.3"
+    "@babel/helper-plugin-utils" "^7.8.3"
 
-"@babel/plugin-transform-regenerator@^7.3.4":
-  version "7.8.0"
-  resolved "http://mirrors.cloud.tencent.com/npm/@babel%2fplugin-transform-regenerator/-/plugin-transform-regenerator-7.8.0.tgz#4a0a40af2f7d60a54a3fd7ce58f06b12ab14eaf9"
-  integrity sha512-n88GT8PZuOHWxqxCJORW3g1QaYzQhHu5sEslxYeQkHVoewfnfuWN37t7YGaRLaNUdaZUlRPXhDcLGT7zBa/u0g==
+"@babel/plugin-transform-property-literals@^7.8.3":
+  version "7.8.3"
+  resolved "https://mirrors.cloud.tencent.com/npm/@babel%2fplugin-transform-property-literals/-/plugin-transform-property-literals-7.8.3.tgz#33194300d8539c1ed28c62ad5087ba3807b98263"
+  integrity sha512-uGiiXAZMqEoQhRWMK17VospMZh5sXWg+dlh2soffpkAl96KAm+WZuJfa6lcELotSRmooLqg0MWdH6UUq85nmmg==
   dependencies:
-    regenerator-transform "^0.14.0"
+    "@babel/helper-plugin-utils" "^7.8.3"
 
-"@babel/plugin-transform-runtime@^7.4.0":
-  version "7.8.0"
-  resolved "http://mirrors.cloud.tencent.com/npm/@babel%2fplugin-transform-runtime/-/plugin-transform-runtime-7.8.0.tgz#394080e30a66cc17f63940543f60343a3b2c1d52"
-  integrity sha512-7AvNIKcpzx/0L9FYIJ3Rs231P3pwWrZ4XW3xt56Cejy1q0Ix+PbgCE17r12jUY8ygl5p4QhfANC0ZqLd8bz8aA==
+"@babel/plugin-transform-regenerator@^7.8.7":
+  version "7.8.7"
+  resolved "https://mirrors.cloud.tencent.com/npm/@babel%2fplugin-transform-regenerator/-/plugin-transform-regenerator-7.8.7.tgz#5e46a0dca2bee1ad8285eb0527e6abc9c37672f8"
+  integrity sha512-TIg+gAl4Z0a3WmD3mbYSk+J9ZUH6n/Yc57rtKRnlA/7rcCvpekHXe0CMZHP1gYp7/KLe9GHTuIba0vXmls6drA==
   dependencies:
-    "@babel/helper-module-imports" "^7.8.0"
-    "@babel/helper-plugin-utils" "^7.8.0"
+    regenerator-transform "^0.14.2"
+
+"@babel/plugin-transform-reserved-words@^7.8.3":
+  version "7.8.3"
+  resolved "https://mirrors.cloud.tencent.com/npm/@babel%2fplugin-transform-reserved-words/-/plugin-transform-reserved-words-7.8.3.tgz#9a0635ac4e665d29b162837dd3cc50745dfdf1f5"
+  integrity sha512-mwMxcycN3omKFDjDQUl+8zyMsBfjRFr0Zn/64I41pmjv4NJuqcYlEtezwYtw9TFd9WR1vN5kiM+O0gMZzO6L0A==
+  dependencies:
+    "@babel/helper-plugin-utils" "^7.8.3"
+
+"@babel/plugin-transform-runtime@^7.9.0":
+  version "7.9.0"
+  resolved "https://mirrors.cloud.tencent.com/npm/@babel%2fplugin-transform-runtime/-/plugin-transform-runtime-7.9.0.tgz#45468c0ae74cc13204e1d3b1f4ce6ee83258af0b"
+  integrity sha512-pUu9VSf3kI1OqbWINQ7MaugnitRss1z533436waNXp+0N3ur3zfut37sXiQMxkuCF4VUjwZucen/quskCh7NHw==
+  dependencies:
+    "@babel/helper-module-imports" "^7.8.3"
+    "@babel/helper-plugin-utils" "^7.8.3"
     resolve "^1.8.1"
     semver "^5.5.1"
 
-"@babel/plugin-transform-shorthand-properties@^7.2.0":
-  version "7.8.0"
-  resolved "http://mirrors.cloud.tencent.com/npm/@babel%2fplugin-transform-shorthand-properties/-/plugin-transform-shorthand-properties-7.8.0.tgz#38b43048e633878f82a3ef1353868c12015ac838"
-  integrity sha512-sExhzq63Gl2PMbl7ETpN7Z1A38rLD6GeCT6EEEIIKjTVt9u6dRqJ6nHhaquL7QgR3egj/8fcvq23UvzfPqGAYA==
+"@babel/plugin-transform-shorthand-properties@^7.8.3":
+  version "7.8.3"
+  resolved "https://mirrors.cloud.tencent.com/npm/@babel%2fplugin-transform-shorthand-properties/-/plugin-transform-shorthand-properties-7.8.3.tgz#28545216e023a832d4d3a1185ed492bcfeac08c8"
+  integrity sha512-I9DI6Odg0JJwxCHzbzW08ggMdCezoWcuQRz3ptdudgwaHxTjxw5HgdFJmZIkIMlRymL6YiZcped4TTCB0JcC8w==
   dependencies:
-    "@babel/helper-plugin-utils" "^7.8.0"
+    "@babel/helper-plugin-utils" "^7.8.3"
 
-"@babel/plugin-transform-spread@^7.2.0":
-  version "7.8.0"
-  resolved "http://mirrors.cloud.tencent.com/npm/@babel%2fplugin-transform-spread/-/plugin-transform-spread-7.8.0.tgz#939e17585b1f24535fdeafc5e11a439520f4b3ab"
-  integrity sha512-6Zjl0pv6x10YmFVRI0VhwJ/rE++geVHNJ9xwd+UIt3ON2VMRO7qI2lPsyLnzidR5HYNd/JXj47kdU9Rrn4YcnQ==
+"@babel/plugin-transform-spread@^7.8.3":
+  version "7.8.3"
+  resolved "https://mirrors.cloud.tencent.com/npm/@babel%2fplugin-transform-spread/-/plugin-transform-spread-7.8.3.tgz#9c8ffe8170fdfb88b114ecb920b82fb6e95fe5e8"
+  integrity sha512-CkuTU9mbmAoFOI1tklFWYYbzX5qCIZVXPVy0jpXgGwkplCndQAa58s2jr66fTeQnA64bDox0HL4U56CFYoyC7g==
   dependencies:
-    "@babel/helper-plugin-utils" "^7.8.0"
+    "@babel/helper-plugin-utils" "^7.8.3"
 
-"@babel/plugin-transform-sticky-regex@^7.2.0":
-  version "7.8.0"
-  resolved "http://mirrors.cloud.tencent.com/npm/@babel%2fplugin-transform-sticky-regex/-/plugin-transform-sticky-regex-7.8.0.tgz#98f634d133f7be471e1e6ccc613c6a95e7e9f1f5"
-  integrity sha512-uksok0Bqox8YeIRFhr6RRtlBXeGpN1ogiEVjEd7A7rVLPZBXKGbL7kODpE7MQ+avjDLv5EEKtDCeYuWZK7FF7g==
+"@babel/plugin-transform-sticky-regex@^7.8.3":
+  version "7.8.3"
+  resolved "https://mirrors.cloud.tencent.com/npm/@babel%2fplugin-transform-sticky-regex/-/plugin-transform-sticky-regex-7.8.3.tgz#be7a1290f81dae767475452199e1f76d6175b100"
+  integrity sha512-9Spq0vGCD5Bb4Z/ZXXSK5wbbLFMG085qd2vhL1JYu1WcQ5bXqZBAYRzU1d+p79GcHs2szYv5pVQCX13QgldaWw==
   dependencies:
-    "@babel/helper-plugin-utils" "^7.8.0"
-    "@babel/helper-regex" "^7.8.0"
+    "@babel/helper-plugin-utils" "^7.8.3"
+    "@babel/helper-regex" "^7.8.3"
 
-"@babel/plugin-transform-template-literals@^7.2.0":
-  version "7.8.0"
-  resolved "http://mirrors.cloud.tencent.com/npm/@babel%2fplugin-transform-template-literals/-/plugin-transform-template-literals-7.8.0.tgz#2e19e890cc5b0d58643ee6986840e928d707f7ef"
-  integrity sha512-EF7Q7LEgeMpogHcvmHMNXBWdLWG1tpA1ErXH3i8zTu3+UEKo6aBn+FldPAJ16UbbbOwSCUCiDP6oZxvVRPhwnQ==
+"@babel/plugin-transform-template-literals@^7.8.3":
+  version "7.8.3"
+  resolved "https://mirrors.cloud.tencent.com/npm/@babel%2fplugin-transform-template-literals/-/plugin-transform-template-literals-7.8.3.tgz#7bfa4732b455ea6a43130adc0ba767ec0e402a80"
+  integrity sha512-820QBtykIQOLFT8NZOcTRJ1UNuztIELe4p9DCgvj4NK+PwluSJ49we7s9FB1HIGNIYT7wFUJ0ar2QpCDj0escQ==
   dependencies:
-    "@babel/helper-annotate-as-pure" "^7.8.0"
-    "@babel/helper-plugin-utils" "^7.8.0"
+    "@babel/helper-annotate-as-pure" "^7.8.3"
+    "@babel/helper-plugin-utils" "^7.8.3"
 
-"@babel/plugin-transform-typeof-symbol@^7.2.0":
-  version "7.8.0"
-  resolved "http://mirrors.cloud.tencent.com/npm/@babel%2fplugin-transform-typeof-symbol/-/plugin-transform-typeof-symbol-7.8.0.tgz#a8d0dd317349d3dcbb9d659808099c94486554a5"
-  integrity sha512-rEUBEFzsA9mCS2r7EtXFlM/6GqtzgLdC4WVYM9fIgJX+HcSJ8oMmj8LinfKhbo0ipRauvUM2teE2iNDNqDwO1g==
+"@babel/plugin-transform-typeof-symbol@^7.8.4":
+  version "7.8.4"
+  resolved "https://mirrors.cloud.tencent.com/npm/@babel%2fplugin-transform-typeof-symbol/-/plugin-transform-typeof-symbol-7.8.4.tgz#ede4062315ce0aaf8a657a920858f1a2f35fc412"
+  integrity sha512-2QKyfjGdvuNfHsb7qnBBlKclbD4CfshH2KvDabiijLMGXPHJXGxtDzwIF7bQP+T0ysw8fYTtxPafgfs/c1Lrqg==
   dependencies:
-    "@babel/helper-plugin-utils" "^7.8.0"
+    "@babel/helper-plugin-utils" "^7.8.3"
 
-"@babel/plugin-transform-unicode-regex@^7.2.0":
-  version "7.8.0"
-  resolved "http://mirrors.cloud.tencent.com/npm/@babel%2fplugin-transform-unicode-regex/-/plugin-transform-unicode-regex-7.8.0.tgz#20988246a9d98271f861be422e5a17898b80e5b0"
-  integrity sha512-qDg8wsnE47B/Sj8ZtOndPHrGBxJMssZJ71SzXrItum9n++iVFN7kYuJO+OHhjom7+/or0zzYqvJNzCkUjyNKqg==
+"@babel/plugin-transform-unicode-regex@^7.8.3":
+  version "7.8.3"
+  resolved "https://mirrors.cloud.tencent.com/npm/@babel%2fplugin-transform-unicode-regex/-/plugin-transform-unicode-regex-7.8.3.tgz#0cef36e3ba73e5c57273effb182f46b91a1ecaad"
+  integrity sha512-+ufgJjYdmWfSQ+6NS9VGUR2ns8cjJjYbrbi11mZBTaWm+Fui/ncTLFF28Ei1okavY+xkojGr1eJxNsWYeA5aZw==
   dependencies:
-    "@babel/helper-create-regexp-features-plugin" "^7.8.0"
-    "@babel/helper-plugin-utils" "^7.8.0"
+    "@babel/helper-create-regexp-features-plugin" "^7.8.3"
+    "@babel/helper-plugin-utils" "^7.8.3"
 
-"@babel/preset-env@^7.0.0 < 7.4.0":
-  version "7.3.4"
-  resolved "http://mirrors.cloud.tencent.com/npm/@babel%2fpreset-env/-/preset-env-7.3.4.tgz#887cf38b6d23c82f19b5135298bdb160062e33e1"
-  integrity sha512-2mwqfYMK8weA0g0uBKOt4FE3iEodiHy9/CW0b+nWXcbL+pGzLx8ESYc+j9IIxr6LTDHWKgPm71i9smo02bw+gA==
+"@babel/preset-env@^7.9.0":
+  version "7.9.5"
+  resolved "https://mirrors.cloud.tencent.com/npm/@babel%2fpreset-env/-/preset-env-7.9.5.tgz#8ddc76039bc45b774b19e2fc548f6807d8a8919f"
+  integrity sha512-eWGYeADTlPJH+wq1F0wNfPbVS1w1wtmMJiYk55Td5Yu28AsdR9AsC97sZ0Qq8fHqQuslVSIYSGJMcblr345GfQ==
   dependencies:
-    "@babel/helper-module-imports" "^7.0.0"
-    "@babel/helper-plugin-utils" "^7.0.0"
-    "@babel/plugin-proposal-async-generator-functions" "^7.2.0"
-    "@babel/plugin-proposal-json-strings" "^7.2.0"
-    "@babel/plugin-proposal-object-rest-spread" "^7.3.4"
-    "@babel/plugin-proposal-optional-catch-binding" "^7.2.0"
-    "@babel/plugin-proposal-unicode-property-regex" "^7.2.0"
-    "@babel/plugin-syntax-async-generators" "^7.2.0"
-    "@babel/plugin-syntax-json-strings" "^7.2.0"
-    "@babel/plugin-syntax-object-rest-spread" "^7.2.0"
-    "@babel/plugin-syntax-optional-catch-binding" "^7.2.0"
-    "@babel/plugin-transform-arrow-functions" "^7.2.0"
-    "@babel/plugin-transform-async-to-generator" "^7.3.4"
-    "@babel/plugin-transform-block-scoped-functions" "^7.2.0"
-    "@babel/plugin-transform-block-scoping" "^7.3.4"
-    "@babel/plugin-transform-classes" "^7.3.4"
-    "@babel/plugin-transform-computed-properties" "^7.2.0"
-    "@babel/plugin-transform-destructuring" "^7.2.0"
-    "@babel/plugin-transform-dotall-regex" "^7.2.0"
-    "@babel/plugin-transform-duplicate-keys" "^7.2.0"
-    "@babel/plugin-transform-exponentiation-operator" "^7.2.0"
-    "@babel/plugin-transform-for-of" "^7.2.0"
-    "@babel/plugin-transform-function-name" "^7.2.0"
-    "@babel/plugin-transform-literals" "^7.2.0"
-    "@babel/plugin-transform-modules-amd" "^7.2.0"
-    "@babel/plugin-transform-modules-commonjs" "^7.2.0"
-    "@babel/plugin-transform-modules-systemjs" "^7.3.4"
-    "@babel/plugin-transform-modules-umd" "^7.2.0"
-    "@babel/plugin-transform-named-capturing-groups-regex" "^7.3.0"
-    "@babel/plugin-transform-new-target" "^7.0.0"
-    "@babel/plugin-transform-object-super" "^7.2.0"
-    "@babel/plugin-transform-parameters" "^7.2.0"
-    "@babel/plugin-transform-regenerator" "^7.3.4"
-    "@babel/plugin-transform-shorthand-properties" "^7.2.0"
-    "@babel/plugin-transform-spread" "^7.2.0"
-    "@babel/plugin-transform-sticky-regex" "^7.2.0"
-    "@babel/plugin-transform-template-literals" "^7.2.0"
-    "@babel/plugin-transform-typeof-symbol" "^7.2.0"
-    "@babel/plugin-transform-unicode-regex" "^7.2.0"
-    browserslist "^4.3.4"
+    "@babel/compat-data" "^7.9.0"
+    "@babel/helper-compilation-targets" "^7.8.7"
+    "@babel/helper-module-imports" "^7.8.3"
+    "@babel/helper-plugin-utils" "^7.8.3"
+    "@babel/plugin-proposal-async-generator-functions" "^7.8.3"
+    "@babel/plugin-proposal-dynamic-import" "^7.8.3"
+    "@babel/plugin-proposal-json-strings" "^7.8.3"
+    "@babel/plugin-proposal-nullish-coalescing-operator" "^7.8.3"
+    "@babel/plugin-proposal-numeric-separator" "^7.8.3"
+    "@babel/plugin-proposal-object-rest-spread" "^7.9.5"
+    "@babel/plugin-proposal-optional-catch-binding" "^7.8.3"
+    "@babel/plugin-proposal-optional-chaining" "^7.9.0"
+    "@babel/plugin-proposal-unicode-property-regex" "^7.8.3"
+    "@babel/plugin-syntax-async-generators" "^7.8.0"
+    "@babel/plugin-syntax-dynamic-import" "^7.8.0"
+    "@babel/plugin-syntax-json-strings" "^7.8.0"
+    "@babel/plugin-syntax-nullish-coalescing-operator" "^7.8.0"
+    "@babel/plugin-syntax-numeric-separator" "^7.8.0"
+    "@babel/plugin-syntax-object-rest-spread" "^7.8.0"
+    "@babel/plugin-syntax-optional-catch-binding" "^7.8.0"
+    "@babel/plugin-syntax-optional-chaining" "^7.8.0"
+    "@babel/plugin-syntax-top-level-await" "^7.8.3"
+    "@babel/plugin-transform-arrow-functions" "^7.8.3"
+    "@babel/plugin-transform-async-to-generator" "^7.8.3"
+    "@babel/plugin-transform-block-scoped-functions" "^7.8.3"
+    "@babel/plugin-transform-block-scoping" "^7.8.3"
+    "@babel/plugin-transform-classes" "^7.9.5"
+    "@babel/plugin-transform-computed-properties" "^7.8.3"
+    "@babel/plugin-transform-destructuring" "^7.9.5"
+    "@babel/plugin-transform-dotall-regex" "^7.8.3"
+    "@babel/plugin-transform-duplicate-keys" "^7.8.3"
+    "@babel/plugin-transform-exponentiation-operator" "^7.8.3"
+    "@babel/plugin-transform-for-of" "^7.9.0"
+    "@babel/plugin-transform-function-name" "^7.8.3"
+    "@babel/plugin-transform-literals" "^7.8.3"
+    "@babel/plugin-transform-member-expression-literals" "^7.8.3"
+    "@babel/plugin-transform-modules-amd" "^7.9.0"
+    "@babel/plugin-transform-modules-commonjs" "^7.9.0"
+    "@babel/plugin-transform-modules-systemjs" "^7.9.0"
+    "@babel/plugin-transform-modules-umd" "^7.9.0"
+    "@babel/plugin-transform-named-capturing-groups-regex" "^7.8.3"
+    "@babel/plugin-transform-new-target" "^7.8.3"
+    "@babel/plugin-transform-object-super" "^7.8.3"
+    "@babel/plugin-transform-parameters" "^7.9.5"
+    "@babel/plugin-transform-property-literals" "^7.8.3"
+    "@babel/plugin-transform-regenerator" "^7.8.7"
+    "@babel/plugin-transform-reserved-words" "^7.8.3"
+    "@babel/plugin-transform-shorthand-properties" "^7.8.3"
+    "@babel/plugin-transform-spread" "^7.8.3"
+    "@babel/plugin-transform-sticky-regex" "^7.8.3"
+    "@babel/plugin-transform-template-literals" "^7.8.3"
+    "@babel/plugin-transform-typeof-symbol" "^7.8.4"
+    "@babel/plugin-transform-unicode-regex" "^7.8.3"
+    "@babel/preset-modules" "^0.1.3"
+    "@babel/types" "^7.9.5"
+    browserslist "^4.9.1"
+    core-js-compat "^3.6.2"
     invariant "^2.2.2"
-    js-levenshtein "^1.1.3"
-    semver "^5.3.0"
+    levenary "^1.1.1"
+    semver "^5.5.0"
 
-"@babel/runtime-corejs2@^7.2.0":
-  version "7.8.0"
-  resolved "http://mirrors.cloud.tencent.com/npm/@babel%2fruntime-corejs2/-/runtime-corejs2-7.8.0.tgz#bdcd5d52c8c69ea4bd2dce62dc4fcad6159b2587"
-  integrity sha512-GsSb5MFUX2Q+zVUa7d4/8EXz7KPDuw0uNzY1sdBV7kvzdHzotxqi0HQlqesDRcffpvqcr+ZX8N+mMnb7/osExw==
+"@babel/preset-modules@^0.1.3":
+  version "0.1.3"
+  resolved "https://mirrors.cloud.tencent.com/npm/@babel%2fpreset-modules/-/preset-modules-0.1.3.tgz#13242b53b5ef8c883c3cf7dddd55b36ce80fbc72"
+  integrity sha512-Ra3JXOHBq2xd56xSF7lMKXdjBn3T772Y1Wet3yWnkDly9zHvJki029tAFzvAAK5cf4YV3yoxuP61crYRol6SVg==
   dependencies:
-    core-js "^2.6.5"
-    regenerator-runtime "^0.13.2"
+    "@babel/helper-plugin-utils" "^7.0.0"
+    "@babel/plugin-proposal-unicode-property-regex" "^7.4.4"
+    "@babel/plugin-transform-dotall-regex" "^7.4.4"
+    "@babel/types" "^7.4.4"
+    esutils "^2.0.2"
 
-"@babel/runtime@^7.0.0":
-  version "7.8.0"
-  resolved "http://mirrors.cloud.tencent.com/npm/@babel%2fruntime/-/runtime-7.8.0.tgz#8c81711517c56b3d00c6de706b0fb13dc3531549"
-  integrity sha512-Z7ti+HB0puCcLmFE3x90kzaVgbx6TRrYIReaygW6EkBEnJh1ajS4/inhF7CypzWeDV3NFl1AfWj0eMtdihojxw==
+"@babel/runtime@^7.8.4", "@babel/runtime@^7.9.2":
+  version "7.9.2"
+  resolved "https://mirrors.cloud.tencent.com/npm/@babel%2fruntime/-/runtime-7.9.2.tgz#d90df0583a3a252f09aaa619665367bae518db06"
+  integrity sha512-NE2DtOdufG7R5vnfQUTehdTfNycfUANEtCa9PssN9O/xmTzP4E08UI797ixaei6hBEVL9BI/PsdJS5x7mWoB9Q==
   dependencies:
-    regenerator-runtime "^0.13.2"
+    regenerator-runtime "^0.13.4"
 
-"@babel/template@^7.8.0":
-  version "7.8.0"
-  resolved "http://mirrors.cloud.tencent.com/npm/@babel%2ftemplate/-/template-7.8.0.tgz#a32f57ad3be89c0fa69ae87b53b4826844dc6330"
-  integrity sha512-0NNMDsY2t3ltAVVK1WHNiaePo3tXPUeJpCX4I3xSKFoEl852wJHG8mrgHVADf8Lz1y+8al9cF7cSSfzSnFSYiw==
+"@babel/template@^7.8.3", "@babel/template@^7.8.6":
+  version "7.8.6"
+  resolved "https://mirrors.cloud.tencent.com/npm/@babel%2ftemplate/-/template-7.8.6.tgz#86b22af15f828dfb086474f964dcc3e39c43ce2b"
+  integrity sha512-zbMsPMy/v0PWFZEhQJ66bqjhH+z0JgMoBWuikXybgG3Gkd/3t5oQ1Rw2WQhnSrsOmsKXnZOx15tkC4qON/+JPg==
   dependencies:
-    "@babel/code-frame" "^7.8.0"
-    "@babel/parser" "^7.8.0"
-    "@babel/types" "^7.8.0"
+    "@babel/code-frame" "^7.8.3"
+    "@babel/parser" "^7.8.6"
+    "@babel/types" "^7.8.6"
 
-"@babel/traverse@^7.8.0":
-  version "7.8.0"
-  resolved "http://mirrors.cloud.tencent.com/npm/@babel%2ftraverse/-/traverse-7.8.0.tgz#d85266fdcff553c10e57b672604b36383a127c1f"
-  integrity sha512-d/6sPXFLGlJHZO/zWDtgFaKyalCOHLedzxpVJn6el1cw+f2TZa7xZEszeXdOw6EUemqRFBAn106BWBvtSck9Qw==
+"@babel/traverse@^7.8.3", "@babel/traverse@^7.8.6", "@babel/traverse@^7.9.0":
+  version "7.9.5"
+  resolved "https://mirrors.cloud.tencent.com/npm/@babel%2ftraverse/-/traverse-7.9.5.tgz#6e7c56b44e2ac7011a948c21e283ddd9d9db97a2"
+  integrity sha512-c4gH3jsvSuGUezlP6rzSJ6jf8fYjLj3hsMZRx/nX0h+fmHN0w+ekubRrHPqnMec0meycA2nwCsJ7dC8IPem2FQ==
   dependencies:
-    "@babel/code-frame" "^7.8.0"
-    "@babel/generator" "^7.8.0"
-    "@babel/helper-function-name" "^7.8.0"
-    "@babel/helper-split-export-declaration" "^7.8.0"
-    "@babel/parser" "^7.8.0"
-    "@babel/types" "^7.8.0"
+    "@babel/code-frame" "^7.8.3"
+    "@babel/generator" "^7.9.5"
+    "@babel/helper-function-name" "^7.9.5"
+    "@babel/helper-split-export-declaration" "^7.8.3"
+    "@babel/parser" "^7.9.0"
+    "@babel/types" "^7.9.5"
     debug "^4.1.0"
     globals "^11.1.0"
     lodash "^4.17.13"
+
+"@babel/types@^7.4.4", "@babel/types@^7.8.3", "@babel/types@^7.8.6", "@babel/types@^7.9.0", "@babel/types@^7.9.5":
+  version "7.9.5"
+  resolved "https://mirrors.cloud.tencent.com/npm/@babel%2ftypes/-/types-7.9.5.tgz#89231f82915a8a566a703b3b20133f73da6b9444"
+  integrity sha512-XjnvNqenk818r5zMaba+sLQjnbda31UfUURv3ei0qPQw4u+j2jMyJ5b11y8ZHYTRSI3NnInQkkkRT4fLqqPdHg==
+  dependencies:
+    "@babel/helper-validator-identifier" "^7.9.5"
+    lodash "^4.17.13"
+    to-fast-properties "^2.0.0"
 
 "@babel/types@^7.8.0":
   version "7.8.0"
@@ -697,6 +845,23 @@
     get-own-enumerable-property-symbols "^3.0.0"
     is-obj "^1.0.1"
     is-regexp "^2.0.0"
+
+"@sindresorhus/is@^0.14.0":
+  version "0.14.0"
+  resolved "https://mirrors.cloud.tencent.com/npm/@sindresorhus%2fis/-/is-0.14.0.tgz#9fb3a3cf3132328151f353de4632e01e52102bea"
+  integrity sha512-9NET910DNaIPngYnLLPeg+Ogzqsi9uM4mSboU5y6p8S5DzMTVEsJZrawi+BoDNUVBa2DhJqQYUFvMDfgU062LQ==
+
+"@szmarczak/http-timer@^1.1.2":
+  version "1.1.2"
+  resolved "https://mirrors.cloud.tencent.com/npm/@szmarczak%2fhttp-timer/-/http-timer-1.1.2.tgz#b1665e2c461a2cd92f4c1bbf50d5454de0d4b421"
+  integrity sha512-XIB2XbzHTN6ieIjfIMV9hlVcfPU26s2vafYWQcZHWXHOxiaRZYEDKEwdl129Zyg50+foYV2jCgtrqSA6qNuNSA==
+  dependencies:
+    defer-to-connect "^1.0.1"
+
+"@types/color-name@^1.1.1":
+  version "1.1.1"
+  resolved "https://mirrors.cloud.tencent.com/npm/@types%2fcolor-name/-/color-name-1.1.1.tgz#1c1261bbeaa10a8055bbc5d8ab84b7b2afc846a0"
+  integrity sha512-rr+OQyAjxze7GgWrSaJwydHStIhHq2lvY3BOC2Mj7KnzI7XK0Uw1TOOdI9lDoajEbSWLiYgoo4f1R51erQfhPQ==
 
 "@types/events@*":
   version "3.0.0"
@@ -767,28 +932,29 @@
     lodash.kebabcase "^4.1.1"
     svg-tags "^1.0.0"
 
-"@vue/babel-preset-app@^3.1.1":
-  version "3.12.1"
-  resolved "http://mirrors.cloud.tencent.com/npm/@vue%2fbabel-preset-app/-/babel-preset-app-3.12.1.tgz#24c477052f078f30fdb7735103b14dd1fa2cbfe1"
-  integrity sha512-Zjy5jQaikV1Pz+ri0YgXFS7q4/5wCxB5tRkDOEIt5+4105u0Feb/pvH20nVL6nx9GyXrECFfcm7Yxr/z++OaPQ==
+"@vue/babel-preset-app@^4.1.2":
+  version "4.3.1"
+  resolved "https://mirrors.cloud.tencent.com/npm/@vue%2fbabel-preset-app/-/babel-preset-app-4.3.1.tgz#bb67aae562983067c5b242c27fb7de17f40cf109"
+  integrity sha512-iNkySkbRWXGUA+Cvzj+/gEP0Y0uVAwwzfn21S7hkggSeIg9LJyZ+QzdxgKO0wgi01yTdb2mYWgeLQAfHZ65aew==
   dependencies:
-    "@babel/helper-module-imports" "^7.0.0"
-    "@babel/plugin-proposal-class-properties" "^7.0.0"
-    "@babel/plugin-proposal-decorators" "^7.1.0"
-    "@babel/plugin-syntax-dynamic-import" "^7.0.0"
-    "@babel/plugin-syntax-jsx" "^7.0.0"
-    "@babel/plugin-transform-runtime" "^7.4.0"
-    "@babel/preset-env" "^7.0.0 < 7.4.0"
-    "@babel/runtime" "^7.0.0"
-    "@babel/runtime-corejs2" "^7.2.0"
-    "@vue/babel-preset-jsx" "^1.0.0"
-    babel-plugin-dynamic-import-node "^2.2.0"
-    babel-plugin-module-resolver "3.2.0"
-    core-js "^2.6.5"
+    "@babel/core" "^7.9.0"
+    "@babel/helper-compilation-targets" "^7.8.7"
+    "@babel/helper-module-imports" "^7.8.3"
+    "@babel/plugin-proposal-class-properties" "^7.8.3"
+    "@babel/plugin-proposal-decorators" "^7.8.3"
+    "@babel/plugin-syntax-dynamic-import" "^7.8.3"
+    "@babel/plugin-syntax-jsx" "^7.8.3"
+    "@babel/plugin-transform-runtime" "^7.9.0"
+    "@babel/preset-env" "^7.9.0"
+    "@babel/runtime" "^7.9.2"
+    "@vue/babel-preset-jsx" "^1.1.2"
+    babel-plugin-dynamic-import-node "^2.3.0"
+    core-js "^3.6.4"
+    core-js-compat "^3.6.4"
 
-"@vue/babel-preset-jsx@^1.0.0":
+"@vue/babel-preset-jsx@^1.0.0", "@vue/babel-preset-jsx@^1.1.2":
   version "1.1.2"
-  resolved "http://mirrors.cloud.tencent.com/npm/@vue%2fbabel-preset-jsx/-/babel-preset-jsx-1.1.2.tgz#2e169eb4c204ea37ca66c2ea85a880bfc99d4f20"
+  resolved "https://mirrors.cloud.tencent.com/npm/@vue%2fbabel-preset-jsx/-/babel-preset-jsx-1.1.2.tgz#2e169eb4c204ea37ca66c2ea85a880bfc99d4f20"
   integrity sha512-zDpVnFpeC9YXmvGIDSsKNdL7qCG2rA3gjywLYHPCKDT10erjxF4U+6ay9X6TW5fl4GsDlJp9bVfAVQAAVzxxvQ==
   dependencies:
     "@vue/babel-helper-vue-jsx-merge-props" "^1.0.0"
@@ -848,24 +1014,25 @@
     source-map "~0.6.1"
     vue-template-es2015-compiler "^1.9.0"
 
-"@vuepress/core@^1.2.0":
-  version "1.2.0"
-  resolved "http://mirrors.cloud.tencent.com/npm/@vuepress%2fcore/-/core-1.2.0.tgz#8e0c636b7f8676202fdd1ecfbe31bfe245dab2a8"
-  integrity sha512-ZIsUkQIF+h4Yk6q4okoRnRwRhcYePu/kNiL0WWPDGycjai8cFqFjLDP/tJjfTKXmn9A62j2ETjSwaiMxCtDkyw==
+"@vuepress/core@1.4.1":
+  version "1.4.1"
+  resolved "https://mirrors.cloud.tencent.com/npm/@vuepress%2fcore/-/core-1.4.1.tgz#b6f75720d9b7132b90cce46f620bcdda5d07e581"
+  integrity sha512-R1oJeSiDQPw8sVo70mrP1Zn2H0nCqnAHb6DV9mpJBQ6ur4VT6qQnCpd2onKU+bZRLlEhm4G8IQNDEV+DuE7zZQ==
   dependencies:
-    "@babel/core" "^7.0.0"
-    "@vue/babel-preset-app" "^3.1.1"
-    "@vuepress/markdown" "^1.2.0"
-    "@vuepress/markdown-loader" "^1.2.0"
-    "@vuepress/plugin-last-updated" "^1.2.0"
-    "@vuepress/plugin-register-components" "^1.2.0"
-    "@vuepress/shared-utils" "^1.2.0"
+    "@babel/core" "^7.8.4"
+    "@vue/babel-preset-app" "^4.1.2"
+    "@vuepress/markdown" "1.4.1"
+    "@vuepress/markdown-loader" "1.4.1"
+    "@vuepress/plugin-last-updated" "1.4.1"
+    "@vuepress/plugin-register-components" "1.4.1"
+    "@vuepress/shared-utils" "1.4.1"
     autoprefixer "^9.5.1"
     babel-loader "^8.0.4"
     cache-loader "^3.0.0"
     chokidar "^2.0.3"
     connect-history-api-fallback "^1.5.0"
     copy-webpack-plugin "^5.0.2"
+    core-js "^3.6.4"
     cross-spawn "^6.0.5"
     css-loader "^2.1.1"
     file-loader "^3.0.1"
@@ -886,26 +1053,26 @@
     vuepress-html-webpack-plugin "^3.2.0"
     vuepress-plugin-container "^2.0.2"
     webpack "^4.8.1"
-    webpack-chain "^4.6.0"
+    webpack-chain "^6.0.0"
     webpack-dev-server "^3.5.1"
     webpack-merge "^4.1.2"
     webpackbar "3.2.0"
 
-"@vuepress/markdown-loader@^1.2.0":
-  version "1.2.0"
-  resolved "http://mirrors.cloud.tencent.com/npm/@vuepress%2fmarkdown-loader/-/markdown-loader-1.2.0.tgz#f8972014616b4ab46a99c9aaac2dd414d437411c"
-  integrity sha512-gOZzoHjfp/W6t+qKBRdbHS/9TwRnNuhY7V+yFzxofNONFHQULofIN/arG+ptYc2SuqJ541jqudNQW+ldHNMC2w==
+"@vuepress/markdown-loader@1.4.1":
+  version "1.4.1"
+  resolved "https://mirrors.cloud.tencent.com/npm/@vuepress%2fmarkdown-loader/-/markdown-loader-1.4.1.tgz#7a97772ed5238c68eb1ab2921fc5ced21ff7e18e"
+  integrity sha512-FGtZ15rRwo9iVMcJ0eX4tf1bxWSKKpC4NGNLJuYzaPlO9ND/U04jsj4Xj454piokr2JzBSmaJlIZTAG1EuiTNw==
   dependencies:
-    "@vuepress/markdown" "^1.2.0"
+    "@vuepress/markdown" "1.4.1"
     loader-utils "^1.1.0"
     lru-cache "^5.1.1"
 
-"@vuepress/markdown@^1.2.0":
-  version "1.2.0"
-  resolved "http://mirrors.cloud.tencent.com/npm/@vuepress%2fmarkdown/-/markdown-1.2.0.tgz#7c457e0fab52ef8ac4dd1898ae450bc3aec30746"
-  integrity sha512-RLRQmTu5wJbCO4Qv+J0K53o5Ew7nAGItLwWyzCbIUB6pRsya3kqSCViWQVlKlS53zFTmRHuAC9tJMRdzly3mCA==
+"@vuepress/markdown@1.4.1":
+  version "1.4.1"
+  resolved "https://mirrors.cloud.tencent.com/npm/@vuepress%2fmarkdown/-/markdown-1.4.1.tgz#cc507ce4a3447dfc459082105cb83909db4b54f1"
+  integrity sha512-5a69ufnu1A3NXqQtzAE5LiR7EbtsQ1qe8UcIr+KizNO4gCg8+E8/uu3hxvDOLs2ElS6b0AihKIuwmeIgZkfeKA==
   dependencies:
-    "@vuepress/shared-utils" "^1.2.0"
+    "@vuepress/shared-utils" "1.4.1"
     markdown-it "^8.4.1"
     markdown-it-anchor "^5.0.2"
     markdown-it-chain "^1.3.0"
@@ -913,7 +1080,14 @@
     markdown-it-table-of-contents "^0.4.0"
     prismjs "^1.13.0"
 
-"@vuepress/plugin-active-header-links@^1.0.0-rc.1", "@vuepress/plugin-active-header-links@^1.2.0":
+"@vuepress/plugin-active-header-links@1.4.1":
+  version "1.4.1"
+  resolved "https://mirrors.cloud.tencent.com/npm/@vuepress%2fplugin-active-header-links/-/plugin-active-header-links-1.4.1.tgz#36c6952230f12056d18c63229e0e499c6ef74fe5"
+  integrity sha512-xv/qDY6S8rHzLGDHtwn3XV7Gi3Fnevp6d3H18PFK3sNwT2KGzKIe2c7lbn1qHDRUWcxY7+EoT7zmdJwIeG6dWQ==
+  dependencies:
+    lodash.debounce "^4.0.8"
+
+"@vuepress/plugin-active-header-links@^1.0.0-rc.1":
   version "1.2.0"
   resolved "http://mirrors.cloud.tencent.com/npm/@vuepress%2fplugin-active-header-links/-/plugin-active-header-links-1.2.0.tgz#46495c89e51a95e57139be007dffbcae4b229260"
   integrity sha512-vdi7l96pElJvEmcx6t9DWJNH25TIurS8acjN3+b7o4NzdaszFn5j6klN6WtI4Z+5BVDrxHP5W1F3Ebw8SZyupA==
@@ -945,31 +1119,46 @@
   resolved "http://mirrors.cloud.tencent.com/npm/@vuepress%2fplugin-google-analytics/-/plugin-google-analytics-1.2.0.tgz#54555fd14f01a032c5acff04ecbbe0911577d7d0"
   integrity sha512-0zol5D4Efb5GKel7ADO/s65MLtKSLnOEGkeWzuipkWomSQPzP7TJ3+/RcYBnGdyBFHd1BSpTUHGK0b/IGwM3UA==
 
-"@vuepress/plugin-last-updated@^1.2.0":
-  version "1.2.0"
-  resolved "http://mirrors.cloud.tencent.com/npm/@vuepress%2fplugin-last-updated/-/plugin-last-updated-1.2.0.tgz#7b34065b793848b0482a222b7a6f1b7df3668cdc"
-  integrity sha512-j4uZb/MXDyG+v9QCG3T/rkiaOhC/ib7NKCt1cjn3GOwvWTDmB5UZm9EBhUpbDNrBgxW+SaHOe3kMVNO8bGOTGw==
+"@vuepress/plugin-last-updated@1.4.1":
+  version "1.4.1"
+  resolved "https://mirrors.cloud.tencent.com/npm/@vuepress%2fplugin-last-updated/-/plugin-last-updated-1.4.1.tgz#89a9a4cbc242f9e0c5d380f73edb85ac4a7186c6"
+  integrity sha512-67ouc9cB3C19zcDqeJwhwqO9CXjy8G67tcXUgPpL/GsuK11oQbnR4rkupILvNa9HoemtCcF2aaxXSGsi/1VEtA==
   dependencies:
     cross-spawn "^6.0.5"
 
-"@vuepress/plugin-nprogress@^1.2.0":
-  version "1.2.0"
-  resolved "http://mirrors.cloud.tencent.com/npm/@vuepress%2fplugin-nprogress/-/plugin-nprogress-1.2.0.tgz#ff6166946a0b118a39a562acb57983529afce4d2"
-  integrity sha512-0apt3Dp6XVCOkLViX6seKSEJgARihi+pX3/r8j8ndFp9Y+vmgLFZnQnGE5iKNi1ty+A6PZOK0RQcBjwTAU4pAw==
+"@vuepress/plugin-nprogress@1.4.1":
+  version "1.4.1"
+  resolved "https://mirrors.cloud.tencent.com/npm/@vuepress%2fplugin-nprogress/-/plugin-nprogress-1.4.1.tgz#2a16217091102a2b4fddc1b09f5854ac4f80f992"
+  integrity sha512-CIhIuIgKtvk/ULENjefkZAJQqUstdZcqiM/Gs8CDyTKJITpwyqoZcgolFZ+1ZofUQuHuqDj1hKKm3AQ1cG3cBA==
   dependencies:
     nprogress "^0.2.0"
 
-"@vuepress/plugin-register-components@^1.2.0":
-  version "1.2.0"
-  resolved "http://mirrors.cloud.tencent.com/npm/@vuepress%2fplugin-register-components/-/plugin-register-components-1.2.0.tgz#95aa0e0af94b2758b26ab98814c43b0f7bcd502b"
-  integrity sha512-C32b8sbGtDEX8I3SUUKS/w2rThiRFiKxmzNcJD996me7VY/4rgmZ8CxGtb6G9wByVoK0UdG1SOkrgOPdSCm80A==
+"@vuepress/plugin-register-components@1.4.1":
+  version "1.4.1"
+  resolved "https://mirrors.cloud.tencent.com/npm/@vuepress%2fplugin-register-components/-/plugin-register-components-1.4.1.tgz#25d70834006960f54475da97255ebaca66ecc5a6"
+  integrity sha512-6yI4J/tMhOASSLmlP+5p4ccljlWuNBRsyYSKiD5jWAV181oMmN32LtuoCggXBhSvQUgn2grxyjmYw+tcSV5KGQ==
   dependencies:
-    "@vuepress/shared-utils" "^1.2.0"
+    "@vuepress/shared-utils" "1.4.1"
 
-"@vuepress/plugin-search@^1.2.0":
-  version "1.2.0"
-  resolved "http://mirrors.cloud.tencent.com/npm/@vuepress%2fplugin-search/-/plugin-search-1.2.0.tgz#0b27c467b7fd42bd4d9e32de0fe2fb81a24bd311"
-  integrity sha512-QU3JfnMfImDAArbJOVH1q1iCDE5QrT99GLpNGo6KQYZWqY1TWAbgyf8C2hQdaI03co1lkU2Wn/iqzHJ5WHlueg==
+"@vuepress/plugin-search@1.4.1":
+  version "1.4.1"
+  resolved "https://mirrors.cloud.tencent.com/npm/@vuepress%2fplugin-search/-/plugin-search-1.4.1.tgz#5842f7ef0214c8f9f3cafa6ca2f4648f8dbc03d2"
+  integrity sha512-J4JyXD6M1oOU013s4ZLKMkKEGd7qEtSIsAw2nZY2mckZ7ETX49R5Pv2S5uCqLRQfUQSIGR5TEABL22q0B8uCVA==
+
+"@vuepress/shared-utils@1.4.1":
+  version "1.4.1"
+  resolved "https://mirrors.cloud.tencent.com/npm/@vuepress%2fshared-utils/-/shared-utils-1.4.1.tgz#d09fcd742111f2efeef93b9c9b353bcd8202ae97"
+  integrity sha512-FBUHFhvR7vk6glQy/qUntBz8bVeWiNYZ2/G16EKaerKKn15xAiD7tUFCQ3L/KjtQJ8TV38GK47UEXh7UTcRwQg==
+  dependencies:
+    chalk "^2.3.2"
+    diacritics "^1.3.0"
+    escape-html "^1.0.3"
+    fs-extra "^7.0.1"
+    globby "^9.2.0"
+    gray-matter "^4.0.1"
+    hash-sum "^1.0.2"
+    semver "^6.0.0"
+    upath "^1.1.0"
 
 "@vuepress/shared-utils@^1.0.0", "@vuepress/shared-utils@^1.2.0":
   version "1.2.0"
@@ -986,14 +1175,14 @@
     semver "^6.0.0"
     upath "^1.1.0"
 
-"@vuepress/theme-default@^1.2.0":
-  version "1.2.0"
-  resolved "http://mirrors.cloud.tencent.com/npm/@vuepress%2ftheme-default/-/theme-default-1.2.0.tgz#3303af21a00031a3482ed1c494508234f545cbf1"
-  integrity sha512-mJxAMYQQv4OrGFsArMlONu8RpCzPUVx81dumkyTT4ay5PXAWTj+WDeFQLOT3j0g9QrDJGnHhbiw2aS+R/0WUyQ==
+"@vuepress/theme-default@1.4.1":
+  version "1.4.1"
+  resolved "https://mirrors.cloud.tencent.com/npm/@vuepress%2ftheme-default/-/theme-default-1.4.1.tgz#8a0ddc51bee6f3c3b93fae059cac76fe63c51db3"
+  integrity sha512-QhU1ORj20xmGr9Gk5szWJyzHm8i+NqxotBTeOF4WsKewB/3SPamJUoipgX4VdChw9jVew1oJQw0TpyDZfiHx+A==
   dependencies:
-    "@vuepress/plugin-active-header-links" "^1.2.0"
-    "@vuepress/plugin-nprogress" "^1.2.0"
-    "@vuepress/plugin-search" "^1.2.0"
+    "@vuepress/plugin-active-header-links" "1.4.1"
+    "@vuepress/plugin-nprogress" "1.4.1"
+    "@vuepress/plugin-search" "1.4.1"
     docsearch.js "^2.5.2"
     lodash "^4.17.15"
     stylus "^0.54.5"
@@ -1226,6 +1415,13 @@ alphanum-sort@^1.0.0:
   resolved "http://mirrors.cloud.tencent.com/npm/alphanum-sort/-/alphanum-sort-1.0.2.tgz#97a1119649b211ad33691d9f9f486a8ec9fbe0a3"
   integrity sha1-l6ERlkmyEa0zaR2fn0hqjsn74KM=
 
+ansi-align@^3.0.0:
+  version "3.0.0"
+  resolved "https://mirrors.cloud.tencent.com/npm/ansi-align/-/ansi-align-3.0.0.tgz#b536b371cf687caaef236c18d3e21fe3797467cb"
+  integrity sha512-ZpClVKqXN3RGBmKibdfWzqCY4lnjEuoNzU5T0oEFpfd/z5qJHVarukridD4juLO2FXMiwUQxr9WqQtaYa8XRYw==
+  dependencies:
+    string-width "^3.0.0"
+
 ansi-colors@^3.0.0:
   version "3.2.4"
   resolved "http://mirrors.cloud.tencent.com/npm/ansi-colors/-/ansi-colors-3.2.4.tgz#e3a3da4bfbae6c86a9c285625de124a234026fbf"
@@ -1258,6 +1454,11 @@ ansi-regex@^4.1.0:
   resolved "http://mirrors.cloud.tencent.com/npm/ansi-regex/-/ansi-regex-4.1.0.tgz#8b9f8f08cf1acb843756a839ca8c7e3168c51997"
   integrity sha512-1apePfXM1UOSqw0o9IiFAovVz9M5S1Dg+4TrDwfMewQ6p/rmMueb7tWZjQ1rx4Loy1ArBggoqGpfqqdI4rondg==
 
+ansi-regex@^5.0.0:
+  version "5.0.0"
+  resolved "https://mirrors.cloud.tencent.com/npm/ansi-regex/-/ansi-regex-5.0.0.tgz#388539f55179bf39339c81af30a654d69f87cb75"
+  integrity sha512-bY6fj56OUQ0hU1KjFNDQuJFezqKdrAyFdIevADiqrWHwSlbmBNMHp5ak2f40Pm8JTFyM2mqxkG6ngkHO11f/lg==
+
 ansi-styles@^2.2.1:
   version "2.2.1"
   resolved "http://mirrors.cloud.tencent.com/npm/ansi-styles/-/ansi-styles-2.2.1.tgz#b432dd3358b634cf75e1e4664368240533c1ddbe"
@@ -1269,6 +1470,14 @@ ansi-styles@^3.2.0, ansi-styles@^3.2.1:
   integrity sha512-VT0ZI6kZRdTh8YyJw3SMbYm/u+NqfsAxEpWO0Pf9sq8/e94WxxOpPKx9FR1FlyCtOVDNOQ+8ntlqFxiRc+r5qA==
   dependencies:
     color-convert "^1.9.0"
+
+ansi-styles@^4.1.0:
+  version "4.2.1"
+  resolved "https://mirrors.cloud.tencent.com/npm/ansi-styles/-/ansi-styles-4.2.1.tgz#90ae75c424d008d2624c5bf29ead3177ebfcf359"
+  integrity sha512-9VGjrMsG1vePxcSweQsN20KY/c4zN0h9fLjqAbwbPfahM3t+NL+M9HC8xeXG2I8pX5NoamTGNuomEUFI7fcUjA==
+  dependencies:
+    "@types/color-name" "^1.1.1"
+    color-convert "^2.0.1"
 
 anymatch@^2.0.0:
   version "2.0.0"
@@ -1441,23 +1650,12 @@ babel-loader@^8.0.4:
     mkdirp "^0.5.1"
     pify "^4.0.1"
 
-babel-plugin-dynamic-import-node@^2.2.0, babel-plugin-dynamic-import-node@^2.3.0:
+babel-plugin-dynamic-import-node@^2.3.0:
   version "2.3.0"
   resolved "http://mirrors.cloud.tencent.com/npm/babel-plugin-dynamic-import-node/-/babel-plugin-dynamic-import-node-2.3.0.tgz#f00f507bdaa3c3e3ff6e7e5e98d90a7acab96f7f"
   integrity sha512-o6qFkpeQEBxcqt0XYlWzAVxNCSCZdUgcR8IRlhD/8DylxjjO4foPcvTW0GGKa/cVt3rvxZ7o5ippJ+/0nvLhlQ==
   dependencies:
     object.assign "^4.1.0"
-
-babel-plugin-module-resolver@3.2.0:
-  version "3.2.0"
-  resolved "http://mirrors.cloud.tencent.com/npm/babel-plugin-module-resolver/-/babel-plugin-module-resolver-3.2.0.tgz#ddfa5e301e3b9aa12d852a9979f18b37881ff5a7"
-  integrity sha512-tjR0GvSndzPew/Iayf4uICWZqjBwnlMWjSx6brryfQ81F9rxBVqwDJtFCV8oOs0+vJeefK9TmdZtkIFdFe1UnA==
-  dependencies:
-    find-babel-config "^1.1.0"
-    glob "^7.1.2"
-    pkg-up "^2.0.0"
-    reselect "^3.0.1"
-    resolve "^1.4.0"
 
 balanced-match@^1.0.0:
   version "1.0.0"
@@ -1559,6 +1757,20 @@ boolbase@^1.0.0, boolbase@~1.0.0:
   resolved "http://mirrors.cloud.tencent.com/npm/boolbase/-/boolbase-1.0.0.tgz#68dff5fbe60c51eb37725ea9e3ed310dcc1e776e"
   integrity sha1-aN/1++YMUes3cl6p4+0xDcwed24=
 
+boxen@^4.2.0:
+  version "4.2.0"
+  resolved "https://mirrors.cloud.tencent.com/npm/boxen/-/boxen-4.2.0.tgz#e411b62357d6d6d36587c8ac3d5d974daa070e64"
+  integrity sha512-eB4uT9RGzg2odpER62bBwSLvUeGC+WbRjjyyFhGsKnc8wp/m0+hQsMUvUe3H2V0D5vw0nBdO1hCJoZo5mKeuIQ==
+  dependencies:
+    ansi-align "^3.0.0"
+    camelcase "^5.3.1"
+    chalk "^3.0.0"
+    cli-boxes "^2.2.0"
+    string-width "^4.1.0"
+    term-size "^2.1.0"
+    type-fest "^0.8.1"
+    widest-line "^3.1.0"
+
 brace-expansion@^1.1.7:
   version "1.1.11"
   resolved "http://mirrors.cloud.tencent.com/npm/brace-expansion/-/brace-expansion-1.1.11.tgz#3c7fcbf529d87226f3d2f52b966ff5271eb441dd"
@@ -1647,7 +1859,7 @@ browserify-zlib@^0.2.0:
   dependencies:
     pako "~1.0.5"
 
-browserslist@^4.0.0, browserslist@^4.3.4, browserslist@^4.8.0:
+browserslist@^4.0.0, browserslist@^4.8.0:
   version "4.8.3"
   resolved "http://mirrors.cloud.tencent.com/npm/browserslist/-/browserslist-4.8.3.tgz#65802fcd77177c878e015f0e3189f2c4f627ba44"
   integrity sha512-iU43cMMknxG1ClEZ2MDKeonKE1CCrFVkQK2AqO2YWFmvIrx4JWrvQ4w4hQez6EpVI8rHTtqh/ruHHDHSOKxvUg==
@@ -1655,6 +1867,16 @@ browserslist@^4.0.0, browserslist@^4.3.4, browserslist@^4.8.0:
     caniuse-lite "^1.0.30001017"
     electron-to-chromium "^1.3.322"
     node-releases "^1.1.44"
+
+browserslist@^4.8.5, browserslist@^4.9.1:
+  version "4.11.1"
+  resolved "https://mirrors.cloud.tencent.com/npm/browserslist/-/browserslist-4.11.1.tgz#92f855ee88d6e050e7e7311d987992014f1a1f1b"
+  integrity sha512-DCTr3kDrKEYNw6Jb9HFxVLQNaue8z+0ZfRBRjmCunKDEXEBajKDj2Y+Uelg+Pi29OnvaSGwjOsnRyNEkXzHg5g==
+  dependencies:
+    caniuse-lite "^1.0.30001038"
+    electron-to-chromium "^1.3.390"
+    node-releases "^1.1.53"
+    pkg-up "^2.0.0"
 
 buffer-from@^1.0.0:
   version "1.1.1"
@@ -1700,10 +1922,10 @@ bytes@3.1.0:
   resolved "http://mirrors.cloud.tencent.com/npm/bytes/-/bytes-3.1.0.tgz#f6cf7933a360e0588fa9fde85651cdc7f805d1f6"
   integrity sha512-zauLjrfCG+xvoyaqLoV8bLVXXNGC4JqlxFCutSDWA6fJrTo2ZuvLYTqZ7aHBLZSMOopbzwv8f+wZcVzfVTI2Dg==
 
-cac@^6.3.9:
-  version "6.5.3"
-  resolved "http://mirrors.cloud.tencent.com/npm/cac/-/cac-6.5.3.tgz#dcd8b7496b563b87e8a1fc69e3118bdf29c781f2"
-  integrity sha512-wZfzSWVXuue1H3J7TDNjbzg4KTqPXCmh7F3QIzEYXfnhMCcOUrx99M7rpO2UDVJA9dqv3butGj2nHvCV47CmPg==
+cac@^6.5.6:
+  version "6.5.8"
+  resolved "https://mirrors.cloud.tencent.com/npm/cac/-/cac-6.5.8.tgz#b15d183ee478226f846888be74612ac080533667"
+  integrity sha512-jLv2+ps4T2HRVR1k4UlQZoAFvliAhf5LVR0yjPjIaIr/Cw99p/I7CXIEkXtw5q+AkYk4NCFJcF5ErmELSyrZnw==
 
 cacache@^12.0.2, cacache@^12.0.3:
   version "12.0.3"
@@ -1753,6 +1975,19 @@ cache-loader@^3.0.0:
     neo-async "^2.6.1"
     schema-utils "^1.0.0"
 
+cacheable-request@^6.0.0:
+  version "6.1.0"
+  resolved "https://mirrors.cloud.tencent.com/npm/cacheable-request/-/cacheable-request-6.1.0.tgz#20ffb8bd162ba4be11e9567d823db651052ca912"
+  integrity sha512-Oj3cAGPCqOZX7Rz64Uny2GYAZNliQSqfbePrgAQ1wKAihYmCUnraBtJtKcGR4xz7wF+LoJC+ssFZvv5BgF9Igg==
+  dependencies:
+    clone-response "^1.0.2"
+    get-stream "^5.1.0"
+    http-cache-semantics "^4.0.0"
+    keyv "^3.0.0"
+    lowercase-keys "^2.0.0"
+    normalize-url "^4.1.0"
+    responselike "^1.0.2"
+
 call-me-maybe@^1.0.1:
   version "1.0.1"
   resolved "http://mirrors.cloud.tencent.com/npm/call-me-maybe/-/call-me-maybe-1.0.1.tgz#26d208ea89e37b5cbde60250a15f031c16a4d66b"
@@ -1785,7 +2020,7 @@ camel-case@3.0.x:
     no-case "^2.2.0"
     upper-case "^1.1.1"
 
-camelcase@^5.0.0, camelcase@^5.2.0:
+camelcase@^5.0.0, camelcase@^5.2.0, camelcase@^5.3.1:
   version "5.3.1"
   resolved "http://mirrors.cloud.tencent.com/npm/camelcase/-/camelcase-5.3.1.tgz#e3c9b31569e106811df242f715725a1f4c494320"
   integrity sha512-L28STB170nwWS63UjtlEOE3dldQApaJXZkOI1uMFfzf3rRuPegHaHesyee+YxQ+W6SvRDQV6UrdOdRiR153wJg==
@@ -1804,6 +2039,11 @@ caniuse-lite@^1.0.0, caniuse-lite@^1.0.30001012, caniuse-lite@^1.0.30001017:
   version "1.0.30001020"
   resolved "http://mirrors.cloud.tencent.com/npm/caniuse-lite/-/caniuse-lite-1.0.30001020.tgz#3f04c1737500ffda78be9beb0b5c1e2070e15926"
   integrity sha512-yWIvwA68wRHKanAVS1GjN8vajAv7MBFshullKCeq/eKpK7pJBVDgFFEqvgWTkcP2+wIDeQGYFRXECjKZnLkUjA==
+
+caniuse-lite@^1.0.30001038:
+  version "1.0.30001042"
+  resolved "https://mirrors.cloud.tencent.com/npm/caniuse-lite/-/caniuse-lite-1.0.30001042.tgz#c91ec21ec2d270bd76dbc2ce261260c292b8c93c"
+  integrity sha512-igMQ4dlqnf4tWv0xjaaE02op9AJ2oQzXKjWf4EuAHFN694Uo9/EfPVIPJcmn2WkU9RqozCxx5e2KPcVClHDbDw==
 
 caseless@~0.12.0:
   version "0.12.0"
@@ -1829,6 +2069,14 @@ chalk@^2.0.0, chalk@^2.3.2, chalk@^2.4.1, chalk@^2.4.2:
     ansi-styles "^3.2.1"
     escape-string-regexp "^1.0.5"
     supports-color "^5.3.0"
+
+chalk@^3.0.0:
+  version "3.0.0"
+  resolved "https://mirrors.cloud.tencent.com/npm/chalk/-/chalk-3.0.0.tgz#3f73c2bf526591f574cc492c51e2456349f844e4"
+  integrity sha512-4D3B6Wf41KOYRFdszmDqMCGq5VV/uMAB273JILmO+3jAlh8X4qDtdtgCR3fxtbLEMzSx22QdhnDcJvu2u1fVwg==
+  dependencies:
+    ansi-styles "^4.1.0"
+    supports-color "^7.1.0"
 
 chokidar@^2.0.2, chokidar@^2.0.3, chokidar@^2.1.8:
   version "2.1.8"
@@ -1866,6 +2114,11 @@ ci-info@^1.6.0:
   resolved "http://mirrors.cloud.tencent.com/npm/ci-info/-/ci-info-1.6.0.tgz#2ca20dbb9ceb32d4524a683303313f0304b1e497"
   integrity sha512-vsGdkwSCDpWmP80ncATX7iea5DWQemg1UgCW5J8tqjU3lYw4FBYuj89J0CTVomA7BEfvSZd84GmHko+MxFQU2A==
 
+ci-info@^2.0.0:
+  version "2.0.0"
+  resolved "https://mirrors.cloud.tencent.com/npm/ci-info/-/ci-info-2.0.0.tgz#67a9e964be31a51e15e5010d58e6f12834002f46"
+  integrity sha512-5tK7EtrZ0N+OLFMthtqOj4fI2Jeb88C4CAZPu25LDVUgXJ0A3Js4PMGqrn0JU1W0Mh1/Z8wZzYPxqUrXeBboCQ==
+
 cipher-base@^1.0.0, cipher-base@^1.0.1, cipher-base@^1.0.3:
   version "1.0.4"
   resolved "http://mirrors.cloud.tencent.com/npm/cipher-base/-/cipher-base-1.0.4.tgz#8760e4ecc272f4c363532f926d874aae2c1397de"
@@ -1891,6 +2144,11 @@ clean-css@4.2.x:
   dependencies:
     source-map "~0.6.0"
 
+cli-boxes@^2.2.0:
+  version "2.2.0"
+  resolved "https://mirrors.cloud.tencent.com/npm/cli-boxes/-/cli-boxes-2.2.0.tgz#538ecae8f9c6ca508e3c3c95b453fe93cb4c168d"
+  integrity sha512-gpaBrMAizVEANOpfZp/EEUixTXDyGt7DFzdK5hU+UbWt/J0lB0w20ncZj59Z9a93xHb9u12zF5BS6i9RKbtg4w==
+
 clipboard@^2.0.0:
   version "2.0.4"
   resolved "http://mirrors.cloud.tencent.com/npm/clipboard/-/clipboard-2.0.4.tgz#836dafd66cf0fea5d71ce5d5b0bf6e958009112d"
@@ -1908,6 +2166,13 @@ cliui@^4.0.0:
     string-width "^2.1.1"
     strip-ansi "^4.0.0"
     wrap-ansi "^2.0.0"
+
+clone-response@^1.0.2:
+  version "1.0.2"
+  resolved "https://mirrors.cloud.tencent.com/npm/clone-response/-/clone-response-1.0.2.tgz#d1dc973920314df67fbeb94223b4ee350239e96b"
+  integrity sha1-0dyXOSAxTfZ/vrlCI7TuNQI56Ws=
+  dependencies:
+    mimic-response "^1.0.0"
 
 coa@^2.0.2:
   version "2.0.2"
@@ -1938,12 +2203,19 @@ color-convert@^1.9.0, color-convert@^1.9.1:
   dependencies:
     color-name "1.1.3"
 
+color-convert@^2.0.1:
+  version "2.0.1"
+  resolved "https://mirrors.cloud.tencent.com/npm/color-convert/-/color-convert-2.0.1.tgz#72d3a68d598c9bdb3af2ad1e84f21d896abd4de3"
+  integrity sha512-RRECPsj7iu/xb5oKYcsFHSppFNnsj/52OVTRKb4zP5onXwVF3zVmmToNcOfGC+CRDpfK/U584fMg38ZHCaElKQ==
+  dependencies:
+    color-name "~1.1.4"
+
 color-name@1.1.3:
   version "1.1.3"
   resolved "http://mirrors.cloud.tencent.com/npm/color-name/-/color-name-1.1.3.tgz#a7d0558bd89c42f795dd42328f740831ca53bc25"
   integrity sha1-p9BVi9icQveV3UIyj3QIMcpTvCU=
 
-color-name@^1.0.0:
+color-name@^1.0.0, color-name@~1.1.4:
   version "1.1.4"
   resolved "http://mirrors.cloud.tencent.com/npm/color-name/-/color-name-1.1.4.tgz#c2a09a87acbde69543de6f63fa3995c826c536a2"
   integrity sha512-dOy+3AuW3a2wNbZHIuMZpTcgjGuLU/uBL/ubcZF9OXbDo8ff4O8yVp5Bf0efS8uEoYo5q4Fx7dY9OgQGXgAsQA==
@@ -2030,6 +2302,18 @@ concat-stream@^1.5.0:
     inherits "^2.0.3"
     readable-stream "^2.2.2"
     typedarray "^0.0.6"
+
+configstore@^5.0.1:
+  version "5.0.1"
+  resolved "https://mirrors.cloud.tencent.com/npm/configstore/-/configstore-5.0.1.tgz#d365021b5df4b98cdd187d6a3b0e3f6a7cc5ed96"
+  integrity sha512-aMKprgk5YhBNyH25hj8wGt2+D52Sw1DRRIzqBwLp2Ya9mFmY8KPvvtvmna8SxVR9JMZ4kzMD68N22vlaRpkeFA==
+  dependencies:
+    dot-prop "^5.2.0"
+    graceful-fs "^4.1.2"
+    make-dir "^3.0.0"
+    unique-string "^2.0.0"
+    write-file-atomic "^3.0.0"
+    xdg-basedir "^4.0.0"
 
 connect-history-api-fallback@^1.5.0, connect-history-api-fallback@^1.6.0:
   version "1.6.0"
@@ -2122,10 +2406,18 @@ copy-webpack-plugin@^5.0.2:
     serialize-javascript "^2.1.2"
     webpack-log "^2.0.0"
 
-core-js@^2.6.5:
-  version "2.6.11"
-  resolved "http://mirrors.cloud.tencent.com/npm/core-js/-/core-js-2.6.11.tgz#38831469f9922bded8ee21c9dc46985e0399308c"
-  integrity sha512-5wjnpaT/3dV+XB4borEsnAYQchn00XSgTAWKDkEqv+K8KevjbzmofK6hfJ9TZIlpj2N0xQpazy7PiRQiWHqzWg==
+core-js-compat@^3.6.2, core-js-compat@^3.6.4:
+  version "3.6.5"
+  resolved "https://mirrors.cloud.tencent.com/npm/core-js-compat/-/core-js-compat-3.6.5.tgz#2a51d9a4e25dfd6e690251aa81f99e3c05481f1c"
+  integrity sha512-7ItTKOhOZbznhXAQ2g/slGg1PJV5zDO/WdkTwi7UEOJmkvsE32PWvx6mKtDjiMpjnR2CNf6BAD6sSxIlv7ptng==
+  dependencies:
+    browserslist "^4.8.5"
+    semver "7.0.0"
+
+core-js@^3.6.4:
+  version "3.6.5"
+  resolved "https://mirrors.cloud.tencent.com/npm/core-js/-/core-js-3.6.5.tgz#7395dc273af37fb2e50e9bd3d9fe841285231d1a"
+  integrity sha512-vZVEEwZoIsI+vPEuoF9Iqf5H7/M3eeQqWlQnYa8FSKKePuYTf5MWnxb5SDAzCa60b3JBRS5g9b+Dq7b1y/RCrA==
 
 core-util-is@1.0.2, core-util-is@~1.0.0:
   version "1.0.2"
@@ -2200,6 +2492,11 @@ crypto-browserify@^3.11.0:
     public-encrypt "^4.0.0"
     randombytes "^2.0.0"
     randomfill "^1.0.3"
+
+crypto-random-string@^2.0.0:
+  version "2.0.0"
+  resolved "https://mirrors.cloud.tencent.com/npm/crypto-random-string/-/crypto-random-string-2.0.0.tgz#ef2a7a966ec11083388369baa02ebead229b30d5"
+  integrity sha512-v1plID3y9r/lPhviJ1wrXpLeyUIGAZ2SHNYTEapm7/8A9nLPoyvVp3RK/EPFqn5kEznyWgYZNsRtYYIWbuG8KA==
 
 css-color-names@0.0.4, css-color-names@^0.0.4:
   version "0.0.4"
@@ -2446,6 +2743,13 @@ decode-uri-component@^0.2.0:
   resolved "http://mirrors.cloud.tencent.com/npm/decode-uri-component/-/decode-uri-component-0.2.0.tgz#eb3913333458775cb84cd1a1fae062106bb87545"
   integrity sha1-6zkTMzRYd1y4TNGh+uBiEGu4dUU=
 
+decompress-response@^3.3.0:
+  version "3.3.0"
+  resolved "https://mirrors.cloud.tencent.com/npm/decompress-response/-/decompress-response-3.3.0.tgz#80a4dd323748384bfa248083622aedec982adff3"
+  integrity sha1-gKTdMjdIOEv6JICDYirt7Jgq3/M=
+  dependencies:
+    mimic-response "^1.0.0"
+
 deep-equal@^1.0.1:
   version "1.1.1"
   resolved "http://mirrors.cloud.tencent.com/npm/deep-equal/-/deep-equal-1.1.1.tgz#b5c98c942ceffaf7cb051e24e1434a25a2e6076a"
@@ -2457,6 +2761,11 @@ deep-equal@^1.0.1:
     object-is "^1.0.1"
     object-keys "^1.1.1"
     regexp.prototype.flags "^1.2.0"
+
+deep-extend@^0.6.0:
+  version "0.6.0"
+  resolved "https://mirrors.cloud.tencent.com/npm/deep-extend/-/deep-extend-0.6.0.tgz#c4fa7c95404a17a9c3e8ca7e1537312b736330ac"
+  integrity sha512-LOHxIOaPYdHlJRtCQfDIVZtfw/ufM8+rVj649RIHzcm/vGwQRXFt6OPqIFWsm2XEMrNIEtWR64sY1LEKD2vAOA==
 
 deepmerge@^1.5.2:
   version "1.5.2"
@@ -2470,6 +2779,11 @@ default-gateway@^4.2.0:
   dependencies:
     execa "^1.0.0"
     ip-regex "^2.1.0"
+
+defer-to-connect@^1.0.1:
+  version "1.1.3"
+  resolved "https://mirrors.cloud.tencent.com/npm/defer-to-connect/-/defer-to-connect-1.1.3.tgz#331ae050c08dcf789f8c83a7b81f0ed94f4ac591"
+  integrity sha512-0ISdNousHvZT2EiFlZeZAHBUvSxmKswVCEf8hW7KWgG4a8MVEu/3Vb6uWYozkjylyCxe0JBIiRB1jV45S70WVQ==
 
 define-properties@^1.1.2, define-properties@^1.1.3:
   version "1.1.3"
@@ -2665,6 +2979,18 @@ dot-prop@^4.1.1:
   dependencies:
     is-obj "^1.0.0"
 
+dot-prop@^5.2.0:
+  version "5.2.0"
+  resolved "https://mirrors.cloud.tencent.com/npm/dot-prop/-/dot-prop-5.2.0.tgz#c34ecc29556dc45f1f4c22697b6f4904e0cc4fcb"
+  integrity sha512-uEUyaDKoSQ1M4Oq8l45hSE26SnTxL6snNnqvK/VWx5wJhmff5z0FUVJDKDanor/6w3kzE3i7XZOk+7wC0EXr1A==
+  dependencies:
+    is-obj "^2.0.0"
+
+duplexer3@^0.1.4:
+  version "0.1.4"
+  resolved "https://mirrors.cloud.tencent.com/npm/duplexer3/-/duplexer3-0.1.4.tgz#ee01dd1cac0ed3cbc7fdbea37dc0a8f1ce002ce2"
+  integrity sha1-7gHdHKwO08vH/b6jfcCo8c4ALOI=
+
 duplexify@^3.4.2, duplexify@^3.6.0:
   version "3.7.1"
   resolved "http://mirrors.cloud.tencent.com/npm/duplexify/-/duplexify-3.7.1.tgz#2a4df5317f6ccfd91f86d6fd25d8d8a103b88309"
@@ -2693,6 +3019,11 @@ electron-to-chromium@^1.3.322:
   resolved "http://mirrors.cloud.tencent.com/npm/electron-to-chromium/-/electron-to-chromium-1.3.332.tgz#283df02d8269e25d9e2f424e11e909c9730a8a82"
   integrity sha512-AP2HkLhfSOIxP7gDjlyZ4ywGWIcxRMZoU9+JriuVkQe2pSLDdWBsE6+eI6BQOqun1dohLrUTOPHsQLLhhFA7Eg==
 
+electron-to-chromium@^1.3.390:
+  version "1.3.408"
+  resolved "https://mirrors.cloud.tencent.com/npm/electron-to-chromium/-/electron-to-chromium-1.3.408.tgz#e6a3a2b8f87c875dfd6e16501abe7a28f079bbb3"
+  integrity sha512-vn1zWIxIdyl0MR72lr81/7kHYTRlDRjJT4ocp8dtb85VhH46J3lNqDMEBljAKPKgguqjK0+WAbf3IL6ZKw72kQ==
+
 elliptic@^6.0.0:
   version "6.5.2"
   resolved "http://mirrors.cloud.tencent.com/npm/elliptic/-/elliptic-6.5.2.tgz#05c5678d7173c049d8ca433552224a495d0e3762"
@@ -2710,6 +3041,11 @@ emoji-regex@^7.0.1:
   version "7.0.3"
   resolved "http://mirrors.cloud.tencent.com/npm/emoji-regex/-/emoji-regex-7.0.3.tgz#933a04052860c85e83c122479c4748a8e4c72156"
   integrity sha512-CwBLREIQ7LvYFB0WyRvwhq5N5qPhc6PMjD6bYggFlI5YyDgl+0vxq5VHbMOFqLg7hfWzmu8T5Z1QofhmTIhItA==
+
+emoji-regex@^8.0.0:
+  version "8.0.0"
+  resolved "https://mirrors.cloud.tencent.com/npm/emoji-regex/-/emoji-regex-8.0.0.tgz#e818fd69ce5ccfcb404594f842963bf53164cc37"
+  integrity sha512-MSjYzcWNOA0ewAHpz0MxpYFvwg6yjy1NG3xteoqz644VCo/RPgnr1/GGt+ic3iJTzQ8Eu3TdM14SawnVUmGE6A==
 
 emojis-list@^2.0.0:
   version "2.1.0"
@@ -2804,6 +3140,11 @@ es6-promise@^4.1.0:
   version "4.2.8"
   resolved "http://mirrors.cloud.tencent.com/npm/es6-promise/-/es6-promise-4.2.8.tgz#4eb21594c972bc40553d276e510539143db53e0a"
   integrity sha512-HJDGx5daxeIvxdBxvG2cb9g4tEvwIk3i8+nhX0yGrYmZUzbkdg8QbDevheDB8gd0//uPj4c1EQua8Q+MViT0/w==
+
+escape-goat@^2.0.0:
+  version "2.1.1"
+  resolved "https://mirrors.cloud.tencent.com/npm/escape-goat/-/escape-goat-2.1.1.tgz#1b2dc77003676c457ec760b2dc68edb648188675"
+  integrity sha512-8/uIhbG12Csjy2JEW7D9pHbreaVaS/OpN3ycnyvElTdwM5n6GY6W6e2IPemfvGZeUMqZ9A/3GqIZMgKnBhAw/Q==
 
 escape-html@^1.0.3, escape-html@~1.0.3:
   version "1.0.3"
@@ -3075,14 +3416,6 @@ finalhandler@~1.1.2:
     statuses "~1.5.0"
     unpipe "~1.0.0"
 
-find-babel-config@^1.1.0:
-  version "1.2.0"
-  resolved "http://mirrors.cloud.tencent.com/npm/find-babel-config/-/find-babel-config-1.2.0.tgz#a9b7b317eb5b9860cda9d54740a8c8337a2283a2"
-  integrity sha512-jB2CHJeqy6a820ssiqwrKMeyC6nNdmrcgkKWJWmpoxpE8RKciYJXCcXRq1h2AzCo5I5BJeN2tkGEO3hLTuePRA==
-  dependencies:
-    json5 "^0.5.1"
-    path-exists "^3.0.0"
-
 find-cache-dir@^2.0.0, find-cache-dir@^2.1.0:
   version "2.1.0"
   resolved "http://mirrors.cloud.tencent.com/npm/find-cache-dir/-/find-cache-dir-2.1.0.tgz#8d0f94cd13fe43c6c7c261a0d86115ca918c05f7"
@@ -3236,10 +3569,17 @@ get-own-enumerable-property-symbols@^3.0.0:
   resolved "http://mirrors.cloud.tencent.com/npm/get-own-enumerable-property-symbols/-/get-own-enumerable-property-symbols-3.0.2.tgz#b5fde77f22cbe35f390b4e089922c50bce6ef664"
   integrity sha512-I0UBV/XOz1XkIJHEUDMZAbzCThU/H8DxmSfmdGcKPnVhu2VfFqr34jr9777IyaTYvxjedWhqVIilEDsCdP5G6g==
 
-get-stream@^4.0.0:
+get-stream@^4.0.0, get-stream@^4.1.0:
   version "4.1.0"
   resolved "http://mirrors.cloud.tencent.com/npm/get-stream/-/get-stream-4.1.0.tgz#c1b255575f3dc21d59bfc79cd3d2b46b1c3a54b5"
   integrity sha512-GMat4EJ5161kIy2HevLlr4luNjBgvmj413KaQA7jt4V8B4RDsfpHk7WQ9GVqfYyyx8OS/L66Kox+rJRNklLK7w==
+  dependencies:
+    pump "^3.0.0"
+
+get-stream@^5.1.0:
+  version "5.1.0"
+  resolved "https://mirrors.cloud.tencent.com/npm/get-stream/-/get-stream-5.1.0.tgz#01203cdc92597f9b909067c3e656cc1f4d3c4dc9"
+  integrity sha512-EXr1FOzrzTfGeL0gQdeFEvOMm2mzMOglyiOXSTpPC+iAjAKftbr3jpCMWynogwYnM+eSj9sHGc6wjIcDvYiygw==
   dependencies:
     pump "^3.0.0"
 
@@ -3284,6 +3624,13 @@ glob@^7.0.3, glob@^7.1.2, glob@^7.1.3, glob@^7.1.4:
     minimatch "^3.0.4"
     once "^1.3.0"
     path-is-absolute "^1.0.0"
+
+global-dirs@^2.0.1:
+  version "2.0.1"
+  resolved "https://mirrors.cloud.tencent.com/npm/global-dirs/-/global-dirs-2.0.1.tgz#acdf3bb6685bcd55cb35e8a052266569e9469201"
+  integrity sha512-5HqUqdhkEovj2Of/ms3IeS/EekcO54ytHRLV4PEY2rhRwrHXLQjeVEES0Lhka0xwNDtGYn58wyC4s5+MHsOO6A==
+  dependencies:
+    ini "^1.3.5"
 
 global@^4.3.2:
   version "4.4.0"
@@ -3342,6 +3689,23 @@ good-listener@^1.2.2:
   dependencies:
     delegate "^3.1.2"
 
+got@^9.6.0:
+  version "9.6.0"
+  resolved "https://mirrors.cloud.tencent.com/npm/got/-/got-9.6.0.tgz#edf45e7d67f99545705de1f7bbeeeb121765ed85"
+  integrity sha512-R7eWptXuGYxwijs0eV+v3o6+XH1IqVK8dJOEecQfTmkncw9AV4dcw/Dhxi8MdlqPthxxpZyizMzyg8RTmEsG+Q==
+  dependencies:
+    "@sindresorhus/is" "^0.14.0"
+    "@szmarczak/http-timer" "^1.1.2"
+    cacheable-request "^6.0.0"
+    decompress-response "^3.3.0"
+    duplexer3 "^0.1.4"
+    get-stream "^4.1.0"
+    lowercase-keys "^1.0.1"
+    mimic-response "^1.0.1"
+    p-cancelable "^1.0.0"
+    to-readable-stream "^1.0.0"
+    url-parse-lax "^3.0.0"
+
 graceful-fs@^4.1.11, graceful-fs@^4.1.15, graceful-fs@^4.1.2, graceful-fs@^4.1.6:
   version "4.2.3"
   resolved "http://mirrors.cloud.tencent.com/npm/graceful-fs/-/graceful-fs-4.2.3.tgz#4a12ff1b60376ef09862c2093edd908328be8423"
@@ -3387,6 +3751,11 @@ has-flag@^3.0.0:
   resolved "http://mirrors.cloud.tencent.com/npm/has-flag/-/has-flag-3.0.0.tgz#b5d454dc2199ae225699f3467e5a07f3b955bafd"
   integrity sha1-tdRU3CGZriJWmfNGfloH87lVuv0=
 
+has-flag@^4.0.0:
+  version "4.0.0"
+  resolved "https://mirrors.cloud.tencent.com/npm/has-flag/-/has-flag-4.0.0.tgz#944771fd9c81c81265c4d6941860da06bb59479b"
+  integrity sha512-EykJT/Q1KjTWctppgIAgfSO0tKVuZUjhgMr17kqTumMl6Afv3EISleU7qZUzoXDFTAHTDC4NOoG/ZxU3EvlMPQ==
+
 has-symbols@^1.0.0, has-symbols@^1.0.1:
   version "1.0.1"
   resolved "http://mirrors.cloud.tencent.com/npm/has-symbols/-/has-symbols-1.0.1.tgz#9f5214758a44196c406d9bd76cebf81ec2dd31e8"
@@ -3422,6 +3791,11 @@ has-values@^1.0.0:
   dependencies:
     is-number "^3.0.0"
     kind-of "^4.0.0"
+
+has-yarn@^2.1.0:
+  version "2.1.0"
+  resolved "https://mirrors.cloud.tencent.com/npm/has-yarn/-/has-yarn-2.1.0.tgz#137e11354a7b5bf11aa5cb649cf0c6f3ff2b2e77"
+  integrity sha512-UqBRqi4ju7T+TqGNdqAO0PaSVGsDGJUBQvk9eUWNGRY1CFGDzYhLWoM7JQEemnlvVcv/YEmc2wNW8BC24EnUsw==
 
 has@^1.0.0, has@^1.0.3:
   version "1.0.3"
@@ -3460,11 +3834,6 @@ hex-color-regex@^1.1.0:
   version "1.1.0"
   resolved "http://mirrors.cloud.tencent.com/npm/hex-color-regex/-/hex-color-regex-1.1.0.tgz#4c06fccb4602fe2602b3c93df82d7e7dbf1a8a8e"
   integrity sha512-l9sfDFsuqtOqKDsQdqrMRk0U85RZc0RtOR9yPI7mRVOa4FsR/BVnZ0shmQRM96Ji99kYZP/7hn1cedc1+ApsTQ==
-
-highlight@^0.2.4:
-  version "0.2.4"
-  resolved "http://mirrors.cloud.tencent.com/npm/highlight/-/highlight-0.2.4.tgz#8ac02875b03f5935e0675852b76cfe1fd58e0dff"
-  integrity sha1-isAodbA/WTXgZ1hSt2z+H9WODf8=
 
 hmac-drbg@^1.0.0:
   version "1.0.1"
@@ -3542,6 +3911,11 @@ htmlparser2@^3.3.0:
     entities "^1.1.1"
     inherits "^2.0.1"
     readable-stream "^3.1.1"
+
+http-cache-semantics@^4.0.0:
+  version "4.1.0"
+  resolved "https://mirrors.cloud.tencent.com/npm/http-cache-semantics/-/http-cache-semantics-4.1.0.tgz#49e91c5cbf36c9b94bcfcd71c23d5249ec74e390"
+  integrity sha512-carPklcUh7ROWRK7Cv27RPtdhYhUsela/ue5/jKzjegVvXDqM2ILE9Q2BGn9JZJh1g87cp56su/FgQSzcWS8cQ==
 
 http-deceiver@^1.2.7:
   version "1.2.7"
@@ -3684,6 +4058,11 @@ import-from@^2.1.0:
   dependencies:
     resolve-from "^3.0.0"
 
+import-lazy@^2.1.0:
+  version "2.1.0"
+  resolved "https://mirrors.cloud.tencent.com/npm/import-lazy/-/import-lazy-2.1.0.tgz#05698e3d45c88e8d7e9d92cb0584e77f096f3e43"
+  integrity sha1-BWmOPUXIjo1+nZLLBYTnfwlvPkM=
+
 import-local@^2.0.0:
   version "2.0.0"
   resolved "http://mirrors.cloud.tencent.com/npm/import-local/-/import-local-2.0.0.tgz#55070be38a5993cf18ef6db7e961f5bee5c5a09d"
@@ -3730,6 +4109,11 @@ inherits@2.0.3:
   resolved "http://mirrors.cloud.tencent.com/npm/inherits/-/inherits-2.0.3.tgz#633c2c83e3da42a502f52466022480f4208261de"
   integrity sha1-Yzwsg+PaQqUC9SRmAiSA9CCCYd4=
 
+ini@^1.3.5, ini@~1.3.0:
+  version "1.3.5"
+  resolved "https://mirrors.cloud.tencent.com/npm/ini/-/ini-1.3.5.tgz#eee25f56db1c9ec6085e0c22778083f596abf927"
+  integrity sha512-RZY5huIKCMRWDUqZlEi72f/lmXKMvuszcMBduliQ3nnWbx9X/ZBQO7DijMEYS9EhHBb2qacRUMtC7svLwe0lcw==
+
 internal-ip@^4.3.0:
   version "4.3.0"
   resolved "http://mirrors.cloud.tencent.com/npm/internal-ip/-/internal-ip-4.3.0.tgz#845452baad9d2ca3b69c635a137acb9a0dad0907"
@@ -3738,7 +4122,7 @@ internal-ip@^4.3.0:
     default-gateway "^4.2.0"
     ipaddr.js "^1.9.0"
 
-invariant@^2.2.2:
+invariant@^2.2.2, invariant@^2.2.4:
   version "2.2.4"
   resolved "http://mirrors.cloud.tencent.com/npm/invariant/-/invariant-2.2.4.tgz#610f3c92c9359ce1db616e538008d23ff35158e6"
   integrity sha512-phJfQVBuaJM5raOpJjSfkiD6BpbCE4Ns//LaXl6wGYtUBY83nWS6Rf9tXm2e8VaK60JEjYldbPif/A2B1C2gNA==
@@ -3831,6 +4215,13 @@ is-callable@^1.1.4, is-callable@^1.1.5:
   resolved "http://mirrors.cloud.tencent.com/npm/is-callable/-/is-callable-1.1.5.tgz#f7e46b596890456db74e7f6e976cb3273d06faab"
   integrity sha512-ESKv5sMCJB2jnHTWZ3O5itG+O128Hsus4K4Qh1h2/cgn2vbgnLSVqfV46AeJA9D5EeeLa9w81KUXMtn34zhX+Q==
 
+is-ci@^2.0.0:
+  version "2.0.0"
+  resolved "https://mirrors.cloud.tencent.com/npm/is-ci/-/is-ci-2.0.0.tgz#6bc6334181810e04b5c22b3d589fdca55026404c"
+  integrity sha512-YfJT7rkpQB0updsdHLGWrvhBJfcfzNNawYDNIyQXJz0IViGf75O8EBPKSdvw2rF+LGCsX4FZ8tcr3b19LcZq4w==
+  dependencies:
+    ci-info "^2.0.0"
+
 is-color-stop@^1.0.0:
   version "1.1.0"
   resolved "http://mirrors.cloud.tencent.com/npm/is-color-stop/-/is-color-stop-1.1.0.tgz#cfff471aee4dd5c9e158598fbe12967b5cdad345"
@@ -3914,6 +4305,11 @@ is-fullwidth-code-point@^2.0.0:
   resolved "http://mirrors.cloud.tencent.com/npm/is-fullwidth-code-point/-/is-fullwidth-code-point-2.0.0.tgz#a3b30a5c4f199183167aaab93beefae3ddfb654f"
   integrity sha1-o7MKXE8ZkYMWeqq5O+764937ZU8=
 
+is-fullwidth-code-point@^3.0.0:
+  version "3.0.0"
+  resolved "https://mirrors.cloud.tencent.com/npm/is-fullwidth-code-point/-/is-fullwidth-code-point-3.0.0.tgz#f116f8064fe90b3f7844a38997c0b75051269f1d"
+  integrity sha512-zymm5+u+sCsSWyD9qNaejV3DFvhCKclKdizYaJUuHA83RLjb7nSuGnddCHGv0hk+KY7BMAlsWeK4Ueg6EV6XQg==
+
 is-glob@^3.1.0:
   version "3.1.0"
   resolved "http://mirrors.cloud.tencent.com/npm/is-glob/-/is-glob-3.1.0.tgz#7ba5ae24217804ac70707b96922567486cc3e84a"
@@ -3928,6 +4324,19 @@ is-glob@^4.0.0, is-glob@^4.0.1:
   dependencies:
     is-extglob "^2.1.1"
 
+is-installed-globally@^0.3.1:
+  version "0.3.2"
+  resolved "https://mirrors.cloud.tencent.com/npm/is-installed-globally/-/is-installed-globally-0.3.2.tgz#fd3efa79ee670d1187233182d5b0a1dd00313141"
+  integrity sha512-wZ8x1js7Ia0kecP/CHM/3ABkAmujX7WPvQk6uu3Fly/Mk44pySulQpnHG46OMjHGXApINnV4QhY3SWnECO2z5g==
+  dependencies:
+    global-dirs "^2.0.1"
+    is-path-inside "^3.0.1"
+
+is-npm@^4.0.0:
+  version "4.0.0"
+  resolved "https://mirrors.cloud.tencent.com/npm/is-npm/-/is-npm-4.0.0.tgz#c90dd8380696df87a7a6d823c20d0b12bbe3c84d"
+  integrity sha512-96ECIfh9xtDDlPylNPXhzjsykHsMJZ18ASpaWzQyBr4YRTcVjUvzaHayDAES2oU/3KpljhHUjtSRNiDwi0F0ig==
+
 is-number@^3.0.0:
   version "3.0.0"
   resolved "http://mirrors.cloud.tencent.com/npm/is-number/-/is-number-3.0.0.tgz#24fd6201a4782cf50561c810276afc7d12d71195"
@@ -3939,6 +4348,11 @@ is-obj@^1.0.0, is-obj@^1.0.1:
   version "1.0.1"
   resolved "http://mirrors.cloud.tencent.com/npm/is-obj/-/is-obj-1.0.1.tgz#3e4729ac1f5fde025cd7d83a896dab9f4f67db0f"
   integrity sha1-PkcprB9f3gJc19g6iW2rn09n2w8=
+
+is-obj@^2.0.0:
+  version "2.0.0"
+  resolved "https://mirrors.cloud.tencent.com/npm/is-obj/-/is-obj-2.0.0.tgz#473fb05d973705e3fd9620545018ca8e22ef4982"
+  integrity sha512-drqDG3cbczxxEJRoOXcOjtdp1J/lyp1mNn0xaznRs8+muBhgQcrnbspox5X5fOw0HnMnbfDzvnEMEtqDEJEo8w==
 
 is-path-cwd@^2.0.0:
   version "2.2.0"
@@ -3958,6 +4372,11 @@ is-path-inside@^2.1.0:
   integrity sha512-wiyhTzfDWsvwAW53OBWF5zuvaOGlZ6PwYxAbPVDhpm+gM09xKQGjBq/8uYN12aDvMxnAnq3dxTyoSoRNmg5YFg==
   dependencies:
     path-is-inside "^1.0.2"
+
+is-path-inside@^3.0.1:
+  version "3.0.2"
+  resolved "https://mirrors.cloud.tencent.com/npm/is-path-inside/-/is-path-inside-3.0.2.tgz#f5220fc82a3e233757291dddc9c5877f2a1f3017"
+  integrity sha512-/2UGPSgmtqwo1ktx8NDHjuPwZWmHhO+gj0f93EkhLB5RgW9RZevWYYlIkS6zePc6U2WpOdQYIwHe9YC4DWEBVg==
 
 is-plain-obj@^1.0.0:
   version "1.1.0"
@@ -4007,7 +4426,7 @@ is-symbol@^1.0.2:
   dependencies:
     has-symbols "^1.0.1"
 
-is-typedarray@~1.0.0:
+is-typedarray@^1.0.0, is-typedarray@~1.0.0:
   version "1.0.0"
   resolved "http://mirrors.cloud.tencent.com/npm/is-typedarray/-/is-typedarray-1.0.0.tgz#e479c80858df0c1b11ddda6940f96011fcda4a9a"
   integrity sha1-5HnICFjfDBsR3dppQPlgEfzaSpo=
@@ -4021,6 +4440,11 @@ is-wsl@^1.1.0:
   version "1.1.0"
   resolved "http://mirrors.cloud.tencent.com/npm/is-wsl/-/is-wsl-1.1.0.tgz#1f16e4aa22b04d1336b66188a66af3c600c3a66d"
   integrity sha1-HxbkqiKwTRM2tmGIpmrzxgDDpm0=
+
+is-yarn-global@^0.3.0:
+  version "0.3.0"
+  resolved "https://mirrors.cloud.tencent.com/npm/is-yarn-global/-/is-yarn-global-0.3.0.tgz#d502d3382590ea3004893746754c89139973e232"
+  integrity sha512-VjSeb/lHmkoyd8ryPVIKvOCn4D1koMqY+vqyjjUfc3xyKtP4dYOxM44sZrnqQSzSds3xyOrUTLTC9LVCVgLngw==
 
 isarray@1.0.0, isarray@^1.0.0, isarray@~1.0.0:
   version "1.0.0"
@@ -4059,10 +4483,10 @@ javascript-stringify@^1.6.0:
   resolved "http://mirrors.cloud.tencent.com/npm/javascript-stringify/-/javascript-stringify-1.6.0.tgz#142d111f3a6e3dae8f4a9afd77d45855b5a9cce3"
   integrity sha1-FC0RHzpuPa6PSpr9d9RYVbWpzOM=
 
-js-levenshtein@^1.1.3:
-  version "1.1.6"
-  resolved "http://mirrors.cloud.tencent.com/npm/js-levenshtein/-/js-levenshtein-1.1.6.tgz#c6cee58eb3550372df8deb85fad5ce66ce01d59d"
-  integrity sha512-X2BB11YZtrRqY4EnQcLX5Rh373zbK4alC1FW7D7MBhL2gtcC17cTnr6DmfHZeS0s2rTHjUTMMHfG7gO8SSdw+g==
+javascript-stringify@^2.0.1:
+  version "2.0.1"
+  resolved "https://mirrors.cloud.tencent.com/npm/javascript-stringify/-/javascript-stringify-2.0.1.tgz#6ef358035310e35d667c675ed63d3eb7c1aa19e5"
+  integrity sha512-yV+gqbd5vaOYjqlbk16EG89xB5udgjqQF3C5FAORDg4f/IS1Yc5ERCv5e/57yBcfJYw05V5JyIXabhwb75Xxow==
 
 "js-tokens@^3.0.0 || ^4.0.0", js-tokens@^4.0.0:
   version "4.0.0"
@@ -4092,6 +4516,11 @@ jsesc@~0.5.0:
   resolved "http://mirrors.cloud.tencent.com/npm/jsesc/-/jsesc-0.5.0.tgz#e7dee66e35d6fc16f710fe91d5cf69f70f08911d"
   integrity sha1-597mbjXW/Bb3EP6R1c9p9w8IkR0=
 
+json-buffer@3.0.0:
+  version "3.0.0"
+  resolved "https://mirrors.cloud.tencent.com/npm/json-buffer/-/json-buffer-3.0.0.tgz#5b1f397afc75d677bde8bcfc0e47e1f9a3d9a898"
+  integrity sha1-Wx85evx11ne96Lz8Dkfh+aPZqJg=
+
 json-parse-better-errors@^1.0.1, json-parse-better-errors@^1.0.2:
   version "1.0.2"
   resolved "http://mirrors.cloud.tencent.com/npm/json-parse-better-errors/-/json-parse-better-errors-1.0.2.tgz#bb867cfb3450e69107c131d1c514bab3dc8bcaa9"
@@ -4117,7 +4546,7 @@ json3@^3.3.2:
   resolved "http://mirrors.cloud.tencent.com/npm/json3/-/json3-3.3.3.tgz#7fc10e375fc5ae42c4705a5cc0aa6f62be305b81"
   integrity sha512-c7/8mbUsKigAbLkD5B010BK4D9LZm7A1pNItkEwiUZRpIN66exu/e7YQWysGun+TRKaJp8MhemM+VkfWv42aCA==
 
-json5@^0.5.0, json5@^0.5.1:
+json5@^0.5.0:
   version "0.5.1"
   resolved "http://mirrors.cloud.tencent.com/npm/json5/-/json5-0.5.1.tgz#1eade7acc012034ad84e2396767ead9fa5495821"
   integrity sha1-Hq3nrMASA0rYTiOWdn6tn6VJWCE=
@@ -4129,12 +4558,12 @@ json5@^1.0.1:
   dependencies:
     minimist "^1.2.0"
 
-json5@^2.1.0:
-  version "2.1.1"
-  resolved "http://mirrors.cloud.tencent.com/npm/json5/-/json5-2.1.1.tgz#81b6cb04e9ba496f1c7005d07b4368a2638f90b6"
-  integrity sha512-l+3HXD0GEI3huGq1njuqtzYK8OYJyXMkOLtQ53pjWh89tvWS2h6l+1zMkYWqlb57+SiQodKZyvMEFb2X+KrFhQ==
+json5@^2.1.2:
+  version "2.1.3"
+  resolved "https://mirrors.cloud.tencent.com/npm/json5/-/json5-2.1.3.tgz#c9b0f7fa9233bfe5807fe66fcf3a5617ed597d43"
+  integrity sha512-KXPvOm8K9IJKFM0bmdn8QXh7udDh1g/giieX0NLCaMnb4hEiVFqnop2ImTXCc5e0/oHz3LTqmHGtExn5hfMkOA==
   dependencies:
-    minimist "^1.2.0"
+    minimist "^1.2.5"
 
 jsonfile@^4.0.0:
   version "4.0.0"
@@ -4159,6 +4588,13 @@ jsprim@^1.2.2:
     extsprintf "1.3.0"
     json-schema "0.2.3"
     verror "1.10.0"
+
+keyv@^3.0.0:
+  version "3.1.0"
+  resolved "https://mirrors.cloud.tencent.com/npm/keyv/-/keyv-3.1.0.tgz#ecc228486f69991e49e9476485a5be1e8fc5c4d9"
+  integrity sha512-9ykJ/46SN/9KPM/sichzQ7OvXyGDYKGTaDlKMGCAlg2UK8KRy4jb0d8sFc+0Tt0YYnThq8X2RZgCg74RPxgcVA==
+  dependencies:
+    json-buffer "3.0.0"
 
 killable@^1.0.1:
   version "1.0.1"
@@ -4197,12 +4633,31 @@ last-call-webpack-plugin@^3.0.0:
     lodash "^4.17.5"
     webpack-sources "^1.1.0"
 
+latest-version@^5.0.0:
+  version "5.1.0"
+  resolved "https://mirrors.cloud.tencent.com/npm/latest-version/-/latest-version-5.1.0.tgz#119dfe908fe38d15dfa43ecd13fa12ec8832face"
+  integrity sha512-weT+r0kTkRQdCdYCNtkMwWXQTMEswKrFBkm4ckQOMVhhqhIMI1UT2hMj+1iigIhgSZm5gTmrRXBNoGUgaTY1xA==
+  dependencies:
+    package-json "^6.3.0"
+
 lcid@^2.0.0:
   version "2.0.0"
   resolved "http://mirrors.cloud.tencent.com/npm/lcid/-/lcid-2.0.0.tgz#6ef5d2df60e52f82eb228a4c373e8d1f397253cf"
   integrity sha512-avPEb8P8EGnwXKClwsNUgryVjllcRqtMYa49NTsbQagYuT1DcXnl1915oxWjoyGrXR6zH/Y0Zc96xWsPcoDKeA==
   dependencies:
     invert-kv "^2.0.0"
+
+leven@^3.1.0:
+  version "3.1.0"
+  resolved "https://mirrors.cloud.tencent.com/npm/leven/-/leven-3.1.0.tgz#77891de834064cccba82ae7842bb6b14a13ed7f2"
+  integrity sha512-qsda+H8jTaUaN/x5vzW2rzc+8Rw4TAQ/4KjB46IwK5VH+IlVeeeje/EoZRpiXvIqjFgK84QffqPztGI3VBLG1A==
+
+levenary@^1.1.1:
+  version "1.1.1"
+  resolved "https://mirrors.cloud.tencent.com/npm/levenary/-/levenary-1.1.1.tgz#842a9ee98d2075aa7faeedbe32679e9205f46f77"
+  integrity sha512-mkAdOIt79FD6irqjYSs4rdbnlT5vRonMEvBVPVb3XmevfS8kgRXwfes0dhPdEtzTWD/1eNE/Bm/G1iRt6DcnQQ==
+  dependencies:
+    leven "^3.1.0"
 
 linkify-it@^2.0.0:
   version "2.2.0"
@@ -4343,6 +4798,16 @@ lower-case@^1.1.1:
   resolved "http://mirrors.cloud.tencent.com/npm/lower-case/-/lower-case-1.1.4.tgz#9a2cabd1b9e8e0ae993a4bf7d5875c39c42e8eac"
   integrity sha1-miyr0bno4K6ZOkv31YdcOcQujqw=
 
+lowercase-keys@^1.0.0, lowercase-keys@^1.0.1:
+  version "1.0.1"
+  resolved "https://mirrors.cloud.tencent.com/npm/lowercase-keys/-/lowercase-keys-1.0.1.tgz#6f9e30b47084d971a7c820ff15a6c5167b74c26f"
+  integrity sha512-G2Lj61tXDnVFFOi8VZds+SoQjtQC3dgokKdDG2mTm1tx4m50NUHBOZSBwQQHyy0V12A0JTG4icfZQH+xPyh8VA==
+
+lowercase-keys@^2.0.0:
+  version "2.0.0"
+  resolved "https://mirrors.cloud.tencent.com/npm/lowercase-keys/-/lowercase-keys-2.0.0.tgz#2603e78b7b4b0006cbca2fbcc8a3202558ac9479"
+  integrity sha512-tqNXrS78oMOE73NMxK4EMLQsQowWf8jKooH9g7xPavRT706R6bkQJ6DY2Te7QukaZsulxa30wQ7bk0pm4XiHmA==
+
 lru-cache@^4.1.2:
   version "4.1.5"
   resolved "http://mirrors.cloud.tencent.com/npm/lru-cache/-/lru-cache-4.1.5.tgz#8bbe50ea85bed59bc9e33dcab8235ee9bcf443cd"
@@ -4365,6 +4830,13 @@ make-dir@^2.0.0:
   dependencies:
     pify "^4.0.1"
     semver "^5.6.0"
+
+make-dir@^3.0.0:
+  version "3.0.2"
+  resolved "https://mirrors.cloud.tencent.com/npm/make-dir/-/make-dir-3.0.2.tgz#04a1acbf22221e1d6ef43559f43e05a90dbb4392"
+  integrity sha512-rYKABKutXa6vXTXhoV18cBE7PaewPXHe/Bdq4v+ZLMhxbWApkFFplT0LcbMW+6BbjnQXzZ/sAvSE/JdguApG5w==
+  dependencies:
+    semver "^6.0.0"
 
 mamacro@^0.0.3:
   version "0.0.3"
@@ -4563,6 +5035,11 @@ mimic-fn@^2.0.0:
   resolved "http://mirrors.cloud.tencent.com/npm/mimic-fn/-/mimic-fn-2.1.0.tgz#7ed2c2ccccaf84d3ffcb7a69b57711fc2083401b"
   integrity sha512-OqbOk5oEQeAZ8WXWydlu9HJjz9WVdEIvamMCcXmuqUYjTknH/sqsWvhQ3vgwKFRR1HpjvNBKQ37nbJgYzGqGcg==
 
+mimic-response@^1.0.0, mimic-response@^1.0.1:
+  version "1.0.1"
+  resolved "https://mirrors.cloud.tencent.com/npm/mimic-response/-/mimic-response-1.0.1.tgz#4923538878eef42063cb8a3e3b0798781487ab1b"
+  integrity sha512-j5EctnkH7amfV/q5Hgmoal1g2QHFJRraOtmx0JpIqkxhBhI/lJSl1nMpQ45hVarwNETOoWEimndZ4QK0RHxuxQ==
+
 min-document@^2.19.0:
   version "2.19.0"
   resolved "http://mirrors.cloud.tencent.com/npm/min-document/-/min-document-2.19.0.tgz#7bd282e3f5842ed295bb748cdd9f1ffa2c824685"
@@ -4606,6 +5083,11 @@ minimist@^1.2.0:
   version "1.2.0"
   resolved "http://mirrors.cloud.tencent.com/npm/minimist/-/minimist-1.2.0.tgz#a35008b20f41383eec1fb914f4cd5df79a264284"
   integrity sha1-o1AIsg9BOD7sH7kU9M1d95omQoQ=
+
+minimist@^1.2.5:
+  version "1.2.5"
+  resolved "https://mirrors.cloud.tencent.com/npm/minimist/-/minimist-1.2.5.tgz#67d66014b66a6a8aaa0c083c5fd58df4e4e97602"
+  integrity sha512-FM9nNUYrRBAELZQT3xeZQ7fmMOBg6nWNmJKTcgsJeaLstP/UODVpGsr5OhXhhXg6f+qtJ8uiZ+PUxkDWcgIXLw==
 
 mississippi@^3.0.0:
   version "3.0.0"
@@ -4768,6 +5250,11 @@ node-releases@^1.1.44:
   dependencies:
     semver "^6.3.0"
 
+node-releases@^1.1.53:
+  version "1.1.53"
+  resolved "https://mirrors.cloud.tencent.com/npm/node-releases/-/node-releases-1.1.53.tgz#2d821bfa499ed7c5dffc5e2f28c88e78a08ee3f4"
+  integrity sha512-wp8zyQVwef2hpZ/dJH7SfSrIPD6YoJz6BDQDpGEkcA0s3LpAQoxBIYmfIq6QAhC1DhwsyCgTaTTcONwX8qzCuQ==
+
 nopt@1.0.10:
   version "1.0.10"
   resolved "http://mirrors.cloud.tencent.com/npm/nopt/-/nopt-1.0.10.tgz#6ddd21bd2a31417b92727dd585f8a6f37608ebee"
@@ -4805,6 +5292,11 @@ normalize-url@^3.0.0:
   version "3.3.0"
   resolved "http://mirrors.cloud.tencent.com/npm/normalize-url/-/normalize-url-3.3.0.tgz#b2e1c4dc4f7c6d57743df733a4f5978d18650559"
   integrity sha512-U+JJi7duF1o+u2pynbp2zXDW2/PADgC30f0GsHZtRh+HOcXHnw137TrNlyxxRvWW5fjKd3bcLHPxofWuCjaeZg==
+
+normalize-url@^4.1.0:
+  version "4.5.0"
+  resolved "https://mirrors.cloud.tencent.com/npm/normalize-url/-/normalize-url-4.5.0.tgz#453354087e6ca96957bd8f5baf753f5982142129"
+  integrity sha512-2s47yzUxdexf1OhyRi4Em83iQk0aPvwTddtFz4hnSSw9dCEsLEGf6SwIO8ss/19S9iBb5sJaOuTvTGDeZI00BQ==
 
 npm-run-path@^2.0.0:
   version "2.0.2"
@@ -4976,6 +5468,11 @@ os-locale@^3.0.0:
     lcid "^2.0.0"
     mem "^4.0.0"
 
+p-cancelable@^1.0.0:
+  version "1.1.0"
+  resolved "https://mirrors.cloud.tencent.com/npm/p-cancelable/-/p-cancelable-1.1.0.tgz#d078d15a3af409220c886f1d9a0ca2e441ab26cc"
+  integrity sha512-s73XxOZ4zpt1edZYZzvhqFa6uvQc1vwUa0K0BdtIZgQMAJj9IbebH+JkgKZc9h+B05PKHLOTl4ajG1BmNrVZlw==
+
 p-defer@^1.0.0:
   version "1.0.0"
   resolved "http://mirrors.cloud.tencent.com/npm/p-defer/-/p-defer-1.0.0.tgz#9f6eb182f6c9aa8cd743004a7d4f96b196b0fb0c"
@@ -5040,6 +5537,16 @@ p-try@^2.0.0:
   version "2.2.0"
   resolved "http://mirrors.cloud.tencent.com/npm/p-try/-/p-try-2.2.0.tgz#cb2868540e313d61de58fafbe35ce9004d5540e6"
   integrity sha512-R4nPAVTAU0B9D35/Gk3uJf/7XYbQcyohSKdvAxIRSNghFl4e71hVoGnBNQz9cWaXxO2I10KTC+3jMdvvoKw6dQ==
+
+package-json@^6.3.0:
+  version "6.5.0"
+  resolved "https://mirrors.cloud.tencent.com/npm/package-json/-/package-json-6.5.0.tgz#6feedaca35e75725876d0b0e64974697fed145b0"
+  integrity sha512-k3bdm2n25tkyxcjSKzB5x8kfVxlMdgsbPr0GkZcwHsLpba6cBjqCt1KlcChKEvxHIcTB1FVMuwoijZ26xex5MQ==
+  dependencies:
+    got "^9.6.0"
+    registry-auth-token "^4.0.0"
+    registry-url "^5.0.0"
+    semver "^6.2.0"
 
 pako@~1.0.5:
   version "1.0.10"
@@ -5591,9 +6098,9 @@ prismjs@^1.13.0:
   optionalDependencies:
     clipboard "^2.0.0"
 
-private@^0.1.6:
+private@^0.1.8:
   version "0.1.8"
-  resolved "http://mirrors.cloud.tencent.com/npm/private/-/private-0.1.8.tgz#2381edb3689f7a53d653190060fcf822d2f368ff"
+  resolved "https://mirrors.cloud.tencent.com/npm/private/-/private-0.1.8.tgz#2381edb3689f7a53d653190060fcf822d2f368ff"
   integrity sha512-VvivMrbvd2nKkiG38qjULzlc+4Vx4wm/whI9pQD35YrARNnhxeiRktSOhSukRLFNlzg6Br/cJPet5J/u19r/mg==
 
 process-nextick-args@~2.0.0:
@@ -5686,6 +6193,13 @@ punycode@^2.1.0:
   resolved "http://mirrors.cloud.tencent.com/npm/punycode/-/punycode-2.1.1.tgz#b58b010ac40c22c5657616c8d2c2c02c7bf479ec"
   integrity sha512-XRsRjdf+j5ml+y/6GKHPZbrF/8p2Yga0JPtdqTIY2Xe5ohJPD9saDJJLPvp9+NSBprVvevdXZybnj2cv8OEd0A==
 
+pupa@^2.0.1:
+  version "2.0.1"
+  resolved "https://mirrors.cloud.tencent.com/npm/pupa/-/pupa-2.0.1.tgz#dbdc9ff48ffbea4a26a069b6f9f7abb051008726"
+  integrity sha512-hEJH0s8PXLY/cdXh66tNEQGndDrIKNqNC5xmrysZy3i5C3oEoLna7YAOad+7u125+zH1HNXUmGEkrhb3c2VriA==
+  dependencies:
+    escape-goat "^2.0.0"
+
 q@^1.1.2:
   version "1.5.1"
   resolved "http://mirrors.cloud.tencent.com/npm/q/-/q-1.5.1.tgz#7e32f75b41381291d04611f1bf14109ac00651d7"
@@ -5769,6 +6283,16 @@ raw-body@2.4.0:
     iconv-lite "0.4.24"
     unpipe "1.0.0"
 
+rc@^1.2.8:
+  version "1.2.8"
+  resolved "https://mirrors.cloud.tencent.com/npm/rc/-/rc-1.2.8.tgz#cd924bf5200a075b83c188cd6b9e211b7fc0d3ed"
+  integrity sha512-y3bGgqKj3QBdxLbLkomlohkvsA8gdAiUQlSBJnBhfn+BPxg4bc62d8TcBW15wavDfgexCgccckhcZvywyQYPOw==
+  dependencies:
+    deep-extend "^0.6.0"
+    ini "~1.3.0"
+    minimist "^1.2.0"
+    strip-json-comments "~2.0.1"
+
 "readable-stream@1 || 2", readable-stream@^2.0.0, readable-stream@^2.0.1, readable-stream@^2.0.2, readable-stream@^2.1.5, readable-stream@^2.2.2, readable-stream@^2.3.3, readable-stream@^2.3.6, readable-stream@~2.3.6:
   version "2.3.7"
   resolved "http://mirrors.cloud.tencent.com/npm/readable-stream/-/readable-stream-2.3.7.tgz#1eca1cf711aef814c04f62252a36a62f6cb23b57"
@@ -5807,10 +6331,10 @@ reduce@^1.0.1:
   dependencies:
     object-keys "^1.1.0"
 
-regenerate-unicode-properties@^8.1.0:
-  version "8.1.0"
-  resolved "http://mirrors.cloud.tencent.com/npm/regenerate-unicode-properties/-/regenerate-unicode-properties-8.1.0.tgz#ef51e0f0ea4ad424b77bf7cb41f3e015c70a3f0e"
-  integrity sha512-LGZzkgtLY79GeXLm8Dp0BVLdQlWICzBnJz/ipWUgo59qBaZ+BHtq51P2q1uVZlppMuUAT37SDk39qUbjTWB7bA==
+regenerate-unicode-properties@^8.2.0:
+  version "8.2.0"
+  resolved "https://mirrors.cloud.tencent.com/npm/regenerate-unicode-properties/-/regenerate-unicode-properties-8.2.0.tgz#e5de7111d655e7ba60c057dbe9ff37c87e65cdec"
+  integrity sha512-F9DjY1vKLo/tPePDycuH3dn9H1OTPIkVD9Kz4LODu+F2C75mgjAJ7x/gwy6ZcSNRAAkhNlJSOHRe8k3p+K9WhA==
   dependencies:
     regenerate "^1.4.0"
 
@@ -5819,17 +6343,18 @@ regenerate@^1.4.0:
   resolved "http://mirrors.cloud.tencent.com/npm/regenerate/-/regenerate-1.4.0.tgz#4a856ec4b56e4077c557589cae85e7a4c8869a11"
   integrity sha512-1G6jJVDWrt0rK99kBjvEtziZNCICAuvIPkSiUFIQxVP06RCVpq3dmDo2oi6ABpYaDYaTRr67BEhL8r1wgEZZKg==
 
-regenerator-runtime@^0.13.2:
-  version "0.13.3"
-  resolved "http://mirrors.cloud.tencent.com/npm/regenerator-runtime/-/regenerator-runtime-0.13.3.tgz#7cf6a77d8f5c6f60eb73c5fc1955b2ceb01e6bf5"
-  integrity sha512-naKIZz2GQ8JWh///G7L3X6LaQUAMp2lvb1rvwwsURe/VXwD6VMfr+/1NuNw3ag8v2kY1aQ/go5SNn79O9JU7yw==
+regenerator-runtime@^0.13.4:
+  version "0.13.5"
+  resolved "https://mirrors.cloud.tencent.com/npm/regenerator-runtime/-/regenerator-runtime-0.13.5.tgz#d878a1d094b4306d10b9096484b33ebd55e26697"
+  integrity sha512-ZS5w8CpKFinUzOwW3c83oPeVXoNsrLsaCoLtJvAClH135j/R77RuymhiSErhm2lKcwSCIpmvIWSbDkIfAqKQlA==
 
-regenerator-transform@^0.14.0:
-  version "0.14.1"
-  resolved "http://mirrors.cloud.tencent.com/npm/regenerator-transform/-/regenerator-transform-0.14.1.tgz#3b2fce4e1ab7732c08f665dfdb314749c7ddd2fb"
-  integrity sha512-flVuee02C3FKRISbxhXl9mGzdbWUVHubl1SMaknjxkFB1/iqpJhArQUvRxOOPEc/9tAiX0BaQ28FJH10E4isSQ==
+regenerator-transform@^0.14.2:
+  version "0.14.4"
+  resolved "https://mirrors.cloud.tencent.com/npm/regenerator-transform/-/regenerator-transform-0.14.4.tgz#5266857896518d1616a78a0479337a30ea974cc7"
+  integrity sha512-EaJaKPBI9GvKpvUz2mz4fhx7WPgvwRLY9v3hlNHWmAuJHI13T4nwKnNvm5RWJzEdnI5g5UwtOww+S8IdoUC2bw==
   dependencies:
-    private "^0.1.6"
+    "@babel/runtime" "^7.8.4"
+    private "^0.1.8"
 
 regex-not@^1.0.0, regex-not@^1.0.2:
   version "1.0.2"
@@ -5847,27 +6372,41 @@ regexp.prototype.flags@^1.2.0:
     define-properties "^1.1.3"
     es-abstract "^1.17.0-next.1"
 
-regexpu-core@^4.6.0:
-  version "4.6.0"
-  resolved "http://mirrors.cloud.tencent.com/npm/regexpu-core/-/regexpu-core-4.6.0.tgz#2037c18b327cfce8a6fea2a4ec441f2432afb8b6"
-  integrity sha512-YlVaefl8P5BnFYOITTNzDvan1ulLOiXJzCNZxduTIosN17b87h3bvG9yHMoHaRuo88H4mQ06Aodj5VtYGGGiTg==
+regexpu-core@^4.7.0:
+  version "4.7.0"
+  resolved "https://mirrors.cloud.tencent.com/npm/regexpu-core/-/regexpu-core-4.7.0.tgz#fcbf458c50431b0bb7b45d6967b8192d91f3d938"
+  integrity sha512-TQ4KXRnIn6tz6tjnrXEkD/sshygKH/j5KzK86X8MkeHyZ8qst/LZ89j3X4/8HEIfHANTFIP/AbXakeRhWIl5YQ==
   dependencies:
     regenerate "^1.4.0"
-    regenerate-unicode-properties "^8.1.0"
-    regjsgen "^0.5.0"
-    regjsparser "^0.6.0"
+    regenerate-unicode-properties "^8.2.0"
+    regjsgen "^0.5.1"
+    regjsparser "^0.6.4"
     unicode-match-property-ecmascript "^1.0.4"
-    unicode-match-property-value-ecmascript "^1.1.0"
+    unicode-match-property-value-ecmascript "^1.2.0"
 
-regjsgen@^0.5.0:
+registry-auth-token@^4.0.0:
+  version "4.1.1"
+  resolved "https://mirrors.cloud.tencent.com/npm/registry-auth-token/-/registry-auth-token-4.1.1.tgz#40a33be1e82539460f94328b0f7f0f84c16d9479"
+  integrity sha512-9bKS7nTl9+/A1s7tnPeGrUpRcVY+LUh7bfFgzpndALdPfXQBfQV77rQVtqgUV3ti4vc/Ik81Ex8UJDWDQ12zQA==
+  dependencies:
+    rc "^1.2.8"
+
+registry-url@^5.0.0:
+  version "5.1.0"
+  resolved "https://mirrors.cloud.tencent.com/npm/registry-url/-/registry-url-5.1.0.tgz#e98334b50d5434b81136b44ec638d9c2009c5009"
+  integrity sha512-8acYXXTI0AkQv6RAOjE3vOaIXZkT9wo4LOFbBKYQEEnnMNBpKqdUrI6S4NT0KPIo/WVvJ5tE/X5LF/TQUf0ekw==
+  dependencies:
+    rc "^1.2.8"
+
+regjsgen@^0.5.1:
   version "0.5.1"
-  resolved "http://mirrors.cloud.tencent.com/npm/regjsgen/-/regjsgen-0.5.1.tgz#48f0bf1a5ea205196929c0d9798b42d1ed98443c"
+  resolved "https://mirrors.cloud.tencent.com/npm/regjsgen/-/regjsgen-0.5.1.tgz#48f0bf1a5ea205196929c0d9798b42d1ed98443c"
   integrity sha512-5qxzGZjDs9w4tzT3TPhCJqWdCc3RLYwy9J2NB0nm5Lz+S273lvWcpjaTGHsT1dc6Hhfq41uSEOw8wBmxrKOuyg==
 
-regjsparser@^0.6.0:
-  version "0.6.2"
-  resolved "http://mirrors.cloud.tencent.com/npm/regjsparser/-/regjsparser-0.6.2.tgz#fd62c753991467d9d1ffe0a9f67f27a529024b96"
-  integrity sha512-E9ghzUtoLwDekPT0DYCp+c4h+bvuUpe6rRHCTYn6eGoqj1LgKXxT6I0Il4WbjhQkOghzi/V+y03bPKvbllL93Q==
+regjsparser@^0.6.4:
+  version "0.6.4"
+  resolved "https://mirrors.cloud.tencent.com/npm/regjsparser/-/regjsparser-0.6.4.tgz#a769f8684308401a66e9b529d2436ff4d0666272"
+  integrity sha512-64O87/dPDgfk8/RQqC4gkZoGyyWFIEUTTh80CU6CWuK5vkCGyekIx+oKcEIYtP/RAxSQltCZHCNu/mdd7fqlJw==
   dependencies:
     jsesc "~0.5.0"
 
@@ -5943,11 +6482,6 @@ requires-port@^1.0.0:
   resolved "http://mirrors.cloud.tencent.com/npm/requires-port/-/requires-port-1.0.0.tgz#925d2601d39ac485e091cf0da5c6e694dc3dcaff"
   integrity sha1-kl0mAdOaxIXgkc8NpcbmlNw9yv8=
 
-reselect@^3.0.1:
-  version "3.0.1"
-  resolved "http://mirrors.cloud.tencent.com/npm/reselect/-/reselect-3.0.1.tgz#efdaa98ea7451324d092b2b2163a6a1d7a9a2147"
-  integrity sha1-79qpjqdFEyTQkrKyFjpqHXqaIUc=
-
 resolve-cwd@^2.0.0:
   version "2.0.0"
   resolved "http://mirrors.cloud.tencent.com/npm/resolve-cwd/-/resolve-cwd-2.0.0.tgz#00a9f7387556e27038eae232caa372a6a59b665a"
@@ -5965,12 +6499,19 @@ resolve-url@^0.2.1:
   resolved "http://mirrors.cloud.tencent.com/npm/resolve-url/-/resolve-url-0.2.1.tgz#2c637fe77c893afd2a663fe21aa9080068e2052a"
   integrity sha1-LGN/53yJOv0qZj/iGqkIAGjiBSo=
 
-resolve@^1.2.0, resolve@^1.3.2, resolve@^1.4.0, resolve@^1.8.1:
+resolve@^1.2.0, resolve@^1.3.2, resolve@^1.8.1:
   version "1.14.2"
   resolved "http://mirrors.cloud.tencent.com/npm/resolve/-/resolve-1.14.2.tgz#dbf31d0fa98b1f29aa5169783b9c290cb865fea2"
   integrity sha512-EjlOBLBO1kxsUxsKjLt7TAECyKW6fOh1VRkykQkKGzcBbjjPIxBqGh0jf7GJ3k/f5mxMqW3htMD3WdTUVtW8HQ==
   dependencies:
     path-parse "^1.0.6"
+
+responselike@^1.0.2:
+  version "1.0.2"
+  resolved "https://mirrors.cloud.tencent.com/npm/responselike/-/responselike-1.0.2.tgz#918720ef3b631c5642be068f15ade5a46f4ba1e7"
+  integrity sha1-kYcg7ztjHFZCvgaPFa3lpG9Loec=
+  dependencies:
+    lowercase-keys "^1.0.0"
 
 ret@~0.1.10:
   version "0.1.15"
@@ -6075,12 +6616,24 @@ selfsigned@^1.10.7:
   dependencies:
     node-forge "0.9.0"
 
-semver@^5.1.0, semver@^5.3.0, semver@^5.4.1, semver@^5.5.0, semver@^5.5.1, semver@^5.6.0:
+semver-diff@^3.1.1:
+  version "3.1.1"
+  resolved "https://mirrors.cloud.tencent.com/npm/semver-diff/-/semver-diff-3.1.1.tgz#05f77ce59f325e00e2706afd67bb506ddb1ca32b"
+  integrity sha512-GX0Ix/CJcHyB8c4ykpHGIAvLyOwOobtM/8d+TQkAd81/bEjgPHrfba41Vpesr7jX/t8Uh+R3EX9eAS5be+jQYg==
+  dependencies:
+    semver "^6.3.0"
+
+semver@7.0.0:
+  version "7.0.0"
+  resolved "https://mirrors.cloud.tencent.com/npm/semver/-/semver-7.0.0.tgz#5f3ca35761e47e05b206c6daff2cf814f0316b8e"
+  integrity sha512-+GB6zVA9LWh6zovYQLALHwv5rb2PHGlJi3lfiqIHxR0uuwCgefcOJc59v9fv1w8GbStwxuuqqAjI9NMAOOgq1A==
+
+semver@^5.1.0, semver@^5.4.1, semver@^5.5.0, semver@^5.5.1, semver@^5.6.0:
   version "5.7.1"
   resolved "http://mirrors.cloud.tencent.com/npm/semver/-/semver-5.7.1.tgz#a954f931aeba508d307bbf069eff0c01c96116f7"
   integrity sha512-sauaDf/PZdVgrLTNYHRtpXa1iRiKcaebiKQ1BJdpQlWH2lCvexQdX55snPFyK7QzpudqbCI0qXFfOasHdyNDGQ==
 
-semver@^6.0.0, semver@^6.3.0:
+semver@^6.0.0, semver@^6.2.0, semver@^6.3.0:
   version "6.3.0"
   resolved "http://mirrors.cloud.tencent.com/npm/semver/-/semver-6.3.0.tgz#ee0a64c8af5e8ceea67687b133761e1becbd1d3d"
   integrity sha512-b39TBaTSfV6yBrapU89p5fKekE2m/NwnDocOVruQFS1/veMgdzuPcnOM34M6CwxW8jH/lxEa5rBoDeUwu5HHTw==
@@ -6186,6 +6739,11 @@ signal-exit@^3.0.0:
   version "3.0.2"
   resolved "http://mirrors.cloud.tencent.com/npm/signal-exit/-/signal-exit-3.0.2.tgz#b5fdc08f1287ea1178628e415e25132b73646c6d"
   integrity sha1-tf3AjxKH6hF4Yo5BXiUTK3NkbG0=
+
+signal-exit@^3.0.2:
+  version "3.0.3"
+  resolved "https://mirrors.cloud.tencent.com/npm/signal-exit/-/signal-exit-3.0.3.tgz#a1410c2edd8f077b08b4e253c8eacfcaf057461c"
+  integrity sha512-VUJ49FC8U1OxwZLxIbTTrDvLnf/6TDgxZcK8wxR8zs13xpx7xbG60ndBlhNrFi2EMuFRoeDoJO7wthSLq42EjA==
 
 simple-swizzle@^0.2.2:
   version "0.2.2"
@@ -6485,6 +7043,15 @@ string-width@^3.0.0:
     is-fullwidth-code-point "^2.0.0"
     strip-ansi "^5.1.0"
 
+string-width@^4.0.0, string-width@^4.1.0:
+  version "4.2.0"
+  resolved "https://mirrors.cloud.tencent.com/npm/string-width/-/string-width-4.2.0.tgz#952182c46cc7b2c313d1596e623992bd163b72b5"
+  integrity sha512-zUz5JD+tgqtuDjMhwIg5uFVV3dtqZ9yQJlZVfq4I01/K5Paj5UHj7VyrQOJvzawSVlKpObApbfD0Ed6yJc+1eg==
+  dependencies:
+    emoji-regex "^8.0.0"
+    is-fullwidth-code-point "^3.0.0"
+    strip-ansi "^6.0.0"
+
 string.prototype.trimleft@^2.1.1:
   version "2.1.1"
   resolved "http://mirrors.cloud.tencent.com/npm/string.prototype.trimleft/-/string.prototype.trimleft-2.1.1.tgz#9bdb8ac6abd6d602b17a4ed321870d2f8dcefc74"
@@ -6536,6 +7103,13 @@ strip-ansi@^5.0.0, strip-ansi@^5.1.0:
   dependencies:
     ansi-regex "^4.1.0"
 
+strip-ansi@^6.0.0:
+  version "6.0.0"
+  resolved "https://mirrors.cloud.tencent.com/npm/strip-ansi/-/strip-ansi-6.0.0.tgz#0b1571dd7669ccd4f3e06e14ef1eed26225ae532"
+  integrity sha512-AuvKTrTfQNYNIctbR1K/YGTR1756GycPsg7b9bdV9Duqur4gv6aKqHXah67Z8ImS7WEz5QVcOtlfW2rZEugt6w==
+  dependencies:
+    ansi-regex "^5.0.0"
+
 strip-bom-string@^1.0.0:
   version "1.0.0"
   resolved "http://mirrors.cloud.tencent.com/npm/strip-bom-string/-/strip-bom-string-1.0.0.tgz#e5211e9224369fbb81d633a2f00044dc8cedad92"
@@ -6545,6 +7119,11 @@ strip-eof@^1.0.0:
   version "1.0.0"
   resolved "http://mirrors.cloud.tencent.com/npm/strip-eof/-/strip-eof-1.0.0.tgz#bb43ff5598a6eb05d89b59fcd129c983313606bf"
   integrity sha1-u0P/VZim6wXYm1n80SnJgzE2Br8=
+
+strip-json-comments@~2.0.1:
+  version "2.0.1"
+  resolved "https://mirrors.cloud.tencent.com/npm/strip-json-comments/-/strip-json-comments-2.0.1.tgz#3c531942e908c2697c0ec344858c286c7ca0a60a"
+  integrity sha1-PFMZQukIwml8DsNEhYwobHygpgo=
 
 stylehacks@^4.0.0:
   version "4.0.3"
@@ -6597,6 +7176,13 @@ supports-color@^6.1.0:
   dependencies:
     has-flag "^3.0.0"
 
+supports-color@^7.1.0:
+  version "7.1.0"
+  resolved "https://mirrors.cloud.tencent.com/npm/supports-color/-/supports-color-7.1.0.tgz#68e32591df73e25ad1c4b49108a2ec507962bfd1"
+  integrity sha512-oRSIpR8pxT1Wr2FquTNnGet79b3BWljqOuoW/h4oBhxJ/HUbX5nX6JSruTkvXDCFMwDPvsaTTbvMLKZWSy0R5g==
+  dependencies:
+    has-flag "^4.0.0"
+
 svg-tags@^1.0.0:
   version "1.0.0"
   resolved "http://mirrors.cloud.tencent.com/npm/svg-tags/-/svg-tags-1.0.0.tgz#58f71cee3bd519b59d4b2a843b6c7de64ac04764"
@@ -6625,6 +7211,11 @@ tapable@^1.0.0, tapable@^1.1.3:
   version "1.1.3"
   resolved "http://mirrors.cloud.tencent.com/npm/tapable/-/tapable-1.1.3.tgz#a1fccc06b58db61fd7a45da2da44f5f3a3e67ba2"
   integrity sha512-4WK/bYZmj8xLr+HUCODHGF1ZFzsYffasLUgEiMBY4fgtltdO6B4WJtlSbPaDTLpYTcGVwM2qLnFTICEcNxs3kA==
+
+term-size@^2.1.0:
+  version "2.2.0"
+  resolved "https://mirrors.cloud.tencent.com/npm/term-size/-/term-size-2.2.0.tgz#1f16adedfe9bdc18800e1776821734086fcc6753"
+  integrity sha512-a6sumDlzyHVJWb8+YofY4TW112G6p2FCPEAFk+59gIYHv3XHRhm9ltVQ9kli4hNWeQBwSpe8cRN25x0ROunMOw==
 
 terser-webpack-plugin@^1.4.3:
   version "1.4.3"
@@ -6712,6 +7303,11 @@ to-object-path@^0.3.0:
   dependencies:
     kind-of "^3.0.2"
 
+to-readable-stream@^1.0.0:
+  version "1.0.0"
+  resolved "https://mirrors.cloud.tencent.com/npm/to-readable-stream/-/to-readable-stream-1.0.0.tgz#ce0aa0c2f3df6adf852efb404a783e77c0475771"
+  integrity sha512-Iq25XBt6zD5npPhlLVXGFN3/gyR2/qODcKNNyTMd4vbm39HUaOiAM4PMq0eMVC/Tkxz+Zjdsc55g9yyz+Yq00Q==
+
 to-regex-range@^2.1.0:
   version "2.1.1"
   resolved "http://mirrors.cloud.tencent.com/npm/to-regex-range/-/to-regex-range-2.1.1.tgz#7c80c17b9dfebe599e27367e0d4dd5590141db38"
@@ -6795,6 +7391,13 @@ type-is@~1.6.17, type-is@~1.6.18:
     media-typer "0.3.0"
     mime-types "~2.1.24"
 
+typedarray-to-buffer@^3.1.5:
+  version "3.1.5"
+  resolved "https://mirrors.cloud.tencent.com/npm/typedarray-to-buffer/-/typedarray-to-buffer-3.1.5.tgz#a97ee7a9ff42691b9f783ff1bc5112fe3fca9080"
+  integrity sha512-zdu8XMNEDepKKR+XYOXAVPtWui0ly0NtohUscw+UmaHiAWT8hrV1rr//H6V+0DvJ3OQ19S979M0laLfX8rm82Q==
+  dependencies:
+    is-typedarray "^1.0.0"
+
 typedarray@^0.0.6:
   version "0.0.6"
   resolved "http://mirrors.cloud.tencent.com/npm/typedarray/-/typedarray-0.0.6.tgz#867ac74e3864187b1d3d47d996a78ec5c8830777"
@@ -6826,10 +7429,10 @@ unicode-match-property-ecmascript@^1.0.4:
     unicode-canonical-property-names-ecmascript "^1.0.4"
     unicode-property-aliases-ecmascript "^1.0.4"
 
-unicode-match-property-value-ecmascript@^1.1.0:
-  version "1.1.0"
-  resolved "http://mirrors.cloud.tencent.com/npm/unicode-match-property-value-ecmascript/-/unicode-match-property-value-ecmascript-1.1.0.tgz#5b4b426e08d13a80365e0d657ac7a6c1ec46a277"
-  integrity sha512-hDTHvaBk3RmFzvSl0UVrUmC3PuW9wKVnpoUDYH0JDkSIovzw+J5viQmeYHxVSBptubnr7PbH2e0fnpDRQnQl5g==
+unicode-match-property-value-ecmascript@^1.2.0:
+  version "1.2.0"
+  resolved "https://mirrors.cloud.tencent.com/npm/unicode-match-property-value-ecmascript/-/unicode-match-property-value-ecmascript-1.2.0.tgz#0d91f600eeeb3096aa962b1d6fc88876e64ea531"
+  integrity sha512-wjuQHGQVofmSJv1uVISKLE5zO2rNGzM/KCYZch/QQvez7C1hUhBIuZ701fYXExuufJFMPhv2SyL8CyoIfMLbIQ==
 
 unicode-property-aliases-ecmascript@^1.0.4:
   version "1.0.5"
@@ -6870,6 +7473,13 @@ unique-slug@^2.0.0:
   dependencies:
     imurmurhash "^0.1.4"
 
+unique-string@^2.0.0:
+  version "2.0.0"
+  resolved "https://mirrors.cloud.tencent.com/npm/unique-string/-/unique-string-2.0.0.tgz#39c6451f81afb2749de2b233e3f7c5e8843bd89d"
+  integrity sha512-uNaeirEPvpZWSgzwsPGtU2zVSTrn/8L5q/IexZmH0eH6SA73CmAA5U4GwORTxQAZs95TAXLNqeLoPPNO5gZfWg==
+  dependencies:
+    crypto-random-string "^2.0.0"
+
 universalify@^0.1.0:
   version "0.1.2"
   resolved "http://mirrors.cloud.tencent.com/npm/universalify/-/universalify-0.1.2.tgz#b646f69be3942dabcecc9d6639c80dc105efaa66"
@@ -6898,6 +7508,25 @@ upath@^1.1.0, upath@^1.1.1:
   resolved "http://mirrors.cloud.tencent.com/npm/upath/-/upath-1.2.0.tgz#8f66dbcd55a883acdae4408af8b035a5044c1894"
   integrity sha512-aZwGpamFO61g3OlfT7OQCHqhGnW43ieH9WZeP7QxN/G/jS4jfqUkZxoryvJgVPEcrl5NL/ggHsSmLMHuH64Lhg==
 
+update-notifier@^4.0.0:
+  version "4.1.0"
+  resolved "https://mirrors.cloud.tencent.com/npm/update-notifier/-/update-notifier-4.1.0.tgz#4866b98c3bc5b5473c020b1250583628f9a328f3"
+  integrity sha512-w3doE1qtI0/ZmgeoDoARmI5fjDoT93IfKgEGqm26dGUOh8oNpaSTsGNdYRN/SjOuo10jcJGwkEL3mroKzktkew==
+  dependencies:
+    boxen "^4.2.0"
+    chalk "^3.0.0"
+    configstore "^5.0.1"
+    has-yarn "^2.1.0"
+    import-lazy "^2.1.0"
+    is-ci "^2.0.0"
+    is-installed-globally "^0.3.1"
+    is-npm "^4.0.0"
+    is-yarn-global "^0.3.0"
+    latest-version "^5.0.0"
+    pupa "^2.0.1"
+    semver-diff "^3.1.1"
+    xdg-basedir "^4.0.0"
+
 upper-case@^1.1.1:
   version "1.1.3"
   resolved "http://mirrors.cloud.tencent.com/npm/upper-case/-/upper-case-1.1.3.tgz#f6b4501c2ec4cdd26ba78be7222961de77621598"
@@ -6923,6 +7552,13 @@ url-loader@^1.0.1:
     loader-utils "^1.1.0"
     mime "^2.0.3"
     schema-utils "^1.0.0"
+
+url-parse-lax@^3.0.0:
+  version "3.0.0"
+  resolved "https://mirrors.cloud.tencent.com/npm/url-parse-lax/-/url-parse-lax-3.0.0.tgz#16b5cafc07dbe3676c1b1999177823d6503acb0c"
+  integrity sha1-FrXK/Afb42dsGxmZF3gj1lA6yww=
+  dependencies:
+    prepend-http "^2.0.0"
 
 url-parse@^1.4.3:
   version "1.4.7"
@@ -7202,6 +7838,11 @@ vuepress-plugin-table-of-contents@^1.0.2:
   resolved "http://mirrors.cloud.tencent.com/npm/vuepress-plugin-table-of-contents/-/vuepress-plugin-table-of-contents-1.1.5.tgz#6c3540c24a84e0eeaf67cbe734c118f0194454d6"
   integrity sha512-OiUqmMq/+oB3Q9IJ3y+mzurSBmQZ6VvW5j9EiIDeo2FBo4/OJ2zhPeCw0gpUcln07qJOKBPLVYzfSt3J30g9dg==
 
+vuepress-plugin-table-of-contents@^1.1.5:
+  version "1.1.5"
+  resolved "https://mirrors.cloud.tencent.com/npm/vuepress-plugin-table-of-contents/-/vuepress-plugin-table-of-contents-1.1.5.tgz#6c3540c24a84e0eeaf67cbe734c118f0194454d6"
+  integrity sha512-OiUqmMq/+oB3Q9IJ3y+mzurSBmQZ6VvW5j9EiIDeo2FBo4/OJ2zhPeCw0gpUcln07qJOKBPLVYzfSt3J30g9dg==
+
 vuepress-plugin-zooming@^1.1.2:
   version "1.1.7"
   resolved "http://mirrors.cloud.tencent.com/npm/vuepress-plugin-zooming/-/vuepress-plugin-zooming-1.1.7.tgz#837440f607f8a1782376ac8d20918842ea373f30"
@@ -7234,16 +7875,17 @@ vuepress-theme-meteorlxy@^1.7.1:
     vuepress-plugin-table-of-contents "^1.0.2"
     vuepress-plugin-zooming "^1.1.2"
 
-vuepress@^1.2.0:
-  version "1.2.0"
-  resolved "http://mirrors.cloud.tencent.com/npm/vuepress/-/vuepress-1.2.0.tgz#2f2cdf337ad40a3e4866dfd33e97b840db386af7"
-  integrity sha512-EfHo8Cc73qo+1Pm18hM0qOGynmDr8q5fu2664obynsdCJ1zpvoShVnA0Msraw4SI2xDc0iAoIb3dTwxUIM8DAw==
+vuepress@^1.4.1:
+  version "1.4.1"
+  resolved "https://mirrors.cloud.tencent.com/npm/vuepress/-/vuepress-1.4.1.tgz#726885da5c569755b40fd795ef3aed3fae13f83c"
+  integrity sha512-vFePZLEx9FRJf5buDqSSBHHbTrPzBsL1u3Z4LX0HI9iQmHjkP+cGA8MMS0zVYy/xyYf28xWLWo3L/gj0rdMy7w==
   dependencies:
-    "@vuepress/core" "^1.2.0"
-    "@vuepress/theme-default" "^1.2.0"
-    cac "^6.3.9"
+    "@vuepress/core" "1.4.1"
+    "@vuepress/theme-default" "1.4.1"
+    cac "^6.5.6"
     envinfo "^7.2.0"
     opencollective-postinstall "^2.0.2"
+    update-notifier "^4.0.0"
 
 watchpack@^1.6.0:
   version "1.6.0"
@@ -7266,13 +7908,21 @@ webidl-conversions@^4.0.2:
   resolved "http://mirrors.cloud.tencent.com/npm/webidl-conversions/-/webidl-conversions-4.0.2.tgz#a855980b1f0b6b359ba1d5d9fb39ae941faa63ad"
   integrity sha512-YQ+BmxuTgd6UXZW3+ICGfyqRyHXVlD5GtQr5+qjiNW7bF0cqrzX500HVXPBOvgXb5YnzDd+h0zqyv61KUD7+Sg==
 
-webpack-chain@^4.6.0, webpack-chain@^4.9.0:
+webpack-chain@^4.9.0:
   version "4.12.1"
   resolved "http://mirrors.cloud.tencent.com/npm/webpack-chain/-/webpack-chain-4.12.1.tgz#6c8439bbb2ab550952d60e1ea9319141906c02a6"
   integrity sha512-BCfKo2YkDe2ByqkEWe1Rw+zko4LsyS75LVr29C6xIrxAg9JHJ4pl8kaIZ396SUSNp6b4815dRZPSTAS8LlURRQ==
   dependencies:
     deepmerge "^1.5.2"
     javascript-stringify "^1.6.0"
+
+webpack-chain@^6.0.0:
+  version "6.4.0"
+  resolved "https://mirrors.cloud.tencent.com/npm/webpack-chain/-/webpack-chain-6.4.0.tgz#22f0b27b6a9bc9ee3cba4f9e6513cf66394034e2"
+  integrity sha512-f97PYqxU+9/u0IUqp/ekAHRhBD1IQwhBv3wlJo2nvyELpr2vNnUqO3XQEk+qneg0uWGP54iciotszpjfnEExFA==
+  dependencies:
+    deepmerge "^1.5.2"
+    javascript-stringify "^2.0.1"
 
 webpack-dev-middleware@^3.7.2:
   version "3.7.2"
@@ -7430,6 +8080,13 @@ which@^1.2.9:
   dependencies:
     isexe "^2.0.0"
 
+widest-line@^3.1.0:
+  version "3.1.0"
+  resolved "https://mirrors.cloud.tencent.com/npm/widest-line/-/widest-line-3.1.0.tgz#8292333bbf66cb45ff0de1603b136b7ae1496eca"
+  integrity sha512-NsmoXalsWVDMGupxZ5R08ka9flZjjiLvHVAWYOKtiKM8ujtZWr9cRffak+uSE48+Ob8ObalXpwyeUiyDD6QFgg==
+  dependencies:
+    string-width "^4.0.0"
+
 worker-farm@^1.7.0:
   version "1.7.0"
   resolved "http://mirrors.cloud.tencent.com/npm/worker-farm/-/worker-farm-1.7.0.tgz#26a94c5391bbca926152002f69b84a4bf772e5a8"
@@ -7459,12 +8116,27 @@ wrappy@1:
   resolved "http://mirrors.cloud.tencent.com/npm/wrappy/-/wrappy-1.0.2.tgz#b5243d8f3ec1aa35f1364605bc0d1036e30ab69f"
   integrity sha1-tSQ9jz7BqjXxNkYFvA0QNuMKtp8=
 
+write-file-atomic@^3.0.0:
+  version "3.0.3"
+  resolved "https://mirrors.cloud.tencent.com/npm/write-file-atomic/-/write-file-atomic-3.0.3.tgz#56bd5c5a5c70481cd19c571bd39ab965a5de56e8"
+  integrity sha512-AvHcyZ5JnSfq3ioSyjrBkH9yW4m7Ayk8/9My/DD9onKeu/94fwrMocemO2QAJFAlnnDN+ZDS+ZjAR5ua1/PV/Q==
+  dependencies:
+    imurmurhash "^0.1.4"
+    is-typedarray "^1.0.0"
+    signal-exit "^3.0.2"
+    typedarray-to-buffer "^3.1.5"
+
 ws@^6.2.1:
   version "6.2.1"
   resolved "http://mirrors.cloud.tencent.com/npm/ws/-/ws-6.2.1.tgz#442fdf0a47ed64f59b6a5d8ff130f4748ed524fb"
   integrity sha512-GIyAXC2cB7LjvpgMt9EKS2ldqr0MTrORaleiOno6TweZ6r3TKtoFQWay/2PceJ3RuBasOHzXNn5Lrw1X0bEjqA==
   dependencies:
     async-limiter "~1.0.0"
+
+xdg-basedir@^4.0.0:
+  version "4.0.0"
+  resolved "https://mirrors.cloud.tencent.com/npm/xdg-basedir/-/xdg-basedir-4.0.0.tgz#4bc8d9984403696225ef83a1573cbbcb4e79db13"
+  integrity sha512-PSNhEJDejZYV7h50BohL09Er9VaIefr2LMAf3OEmpCkjOi34eYyQYAXUTjEQtZJTKcF0E2UKTh+osDLsgNim9Q==
 
 xmlbuilder@^13.0.0:
   version "13.0.2"
