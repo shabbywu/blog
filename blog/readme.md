@@ -8,6 +8,3 @@ features:
 footer: Copyright © 2019-present Shabbywu
 ---
 随便写写，如有错漏，多多海涵，感恩💕。
-<ClientOnly>
-  <Vssue />
-</ClientOnly>

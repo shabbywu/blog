@@ -47,7 +47,7 @@ module.exports = {
       poweredBy: true,
 
       // 是否显示使用的主题
-      poweredByTheme: false,
+      poweredByTheme: true,
 
       // 添加自定义 footer (支持 HTML)
       custom: 'Copyright 2019-present <a href="https://github.com/shabbywu" target="_blank">shabbywu</a> | MIT License',
