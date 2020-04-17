@@ -6,11 +6,14 @@ category: python
 tags:
 -   python
 -   docs
+-   drf-yasg
 
 draft: false
 ---
 自动化生成文档的工具有很多, 这里介绍的是一款基于 **Swagger/OpenAPI 2.0** 规范的 API 文档自动化生成工具: **drf-yasg**。
-> 如果你不清楚什么是 **Swagger/OpenAPI 2.0** 规范, 没关系, 简单使用这个工具并不需要完全掌握这些规范。
+::: tip
+如果你不清楚什么是 **Swagger/OpenAPI 2.0** 规范, 没关系, 简单使用这个工具并不需要完全掌握这些规范。
+:::
 # [drf-yasg](https://drf-yasg.readthedocs.io/en/stable/readme.html) - Yet another Swagger generator
 API 文档自动化生成的工具有很多种, 其中大多数都是通过文档注释进行文档自动化生成的(如 APIDOC)。   
 然而 drf-yasg 选择了另辟蹊径, 它通过复用 **Serializers** 以及 **Models** 来自动化生成 API 文档。   

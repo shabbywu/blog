@@ -89,6 +89,6 @@ module.exports = {
         includeLevel: [1, 5], forceFullToc: true
       });
     },
-    extractHeaders: ['h1', 'h2', 'h3', 'h4' ]
+    extractHeaders: ['h1', 'h2', 'h3', 'h4', 'h5']
   }
 }
