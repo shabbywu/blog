@@ -82,5 +82,5 @@ drf-yasg 提供 4 种默认路径(endpoints), 分别为:
 - `/redoc/`, 基于 ReDoc 样式的前端页面
 
 ## 2. 常用配置
-### a. 1
+TODO: 如何应用
 详细的具体的函数参数解释建议阅读[官方文档](https://drf-yasg.readthedocs.io/en/stable/readme.html#configuration)
