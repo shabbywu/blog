@@ -3,7 +3,8 @@ USER root
 
 WORKDIR /
 ADD ./package.json .
-RUN yarn install
+ADD ./yarn.lock .
+RUN yarn install 
 ADD  ./blog ./blog
 RUN yarn run build
 
