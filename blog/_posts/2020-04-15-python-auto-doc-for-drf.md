@@ -21,6 +21,7 @@ API 文档自动化生成的工具有很多种, 其中大多数都是通过文�
 试想一下, 假若需要调整 API 请求参数或返回值结构, 在 coding 时必然会调整对应的 Serializers 或 Models, 这时候自动生成的文档也会同步更新, 这就避免了文档落后于代码的问题。
 
 # [drf-yasg 的使用方法](https://drf-yasg.readthedocs.io/en/stable/readme.html#usage)
+该节参考官方文档编写, 同时针对部分细节做了更详细的解释。
 ## 0. 安装
 在安装前, 建议先了解一下 drf-yasg 对 drf/django/python 各版本的兼容性。   
 ```yaml
@@ -53,7 +54,7 @@ from drf_yasg import openapi
 ...
 
 schema_view = get_schema_view(
-    # 具体定义详见 [Swagger/OpenAPI规范](https://swagger.io/specification/#infoObject)
+    # 具体定义详见 [Swagger/OpenAPI 规范](https://swagger.io/specification/#infoObject)
     openapi.Info(
         title="Snippets API",
         default_version='v1',
@@ -62,14 +63,14 @@ schema_view = get_schema_view(
         contact=openapi.Contact(email="contact@snippets.local"),
         license=openapi.License(name="BSD License"),
     ),
-    # public 表示无需鉴权
+    # public 表示文档完全公开, 无需针对用户鉴权
     public=True,
     # 可以传递 drf 的 BasePermission
     permission_classes=(permissions.AllowAny,),
 )
 
 urlpatterns = [
-    url(r'^swagger(?P<format>\.json|\.yaml)$', schema_view.without_ui(cache_timeout=0), name='schema-json'),
+    url(r'^swagger(?P<format>\.json|\.yaml)$', schema_view.without_ui(cache_timeout=0), name='schema-spec'),
     url(r'^swagger/$', schema_view.with_ui('swagger', cache_timeout=0), name='schema-swagger-ui'),
     url(r'^redoc/$', schema_view.with_ui('redoc', cache_timeout=0), name='schema-redoc'),
     ...
@@ -82,5 +83,43 @@ drf-yasg 提供 4 种默认路径(endpoints), 分别为:
 - `/redoc/`, 基于 ReDoc 样式的前端页面
 
 ## 2. 常用配置
-TODO: 如何应用
-详细的具体的函数参数解释建议阅读[官方文档](https://drf-yasg.readthedocs.io/en/stable/readme.html#configuration)
+这一节简单介绍 **drf-yasg** 的配置参数，其他参数的详细解释建议阅读[官方文档](https://drf-yasg.readthedocs.io/en/stable/readme.html#configuration)
+> 如果仅需简单应用, 参考 `1. 快速开始` 配置后即可通过对应的 `endpoints` 访问到自动生成的 API 文档。
+
+### a. `get_schema_view` 的配置
+函数 **get_schema_view** 的作用是返回自动生成 API 文档的视图类, 该函数接受以下参数:
+- **info**: Swagger API Info 对象, 具体定义详见 [Swagger/OpenAPI 规范](https://swagger.io/specification/#infoObject), 如果缺省, **drf-yasg** 默认会用 `DEFAULT_INFO` 进行填充。
+- **url**: 项目API的基础地址, 如果缺省, 则根据视图所在的位置进行推导。
+- **patterns**: 自定义的 urlpatterns, 该参数直接透传至 SchemaGenerator。
+- **urlconf**: 描述从哪个文件获取路由配置, 缺省值是 "urls", 该参数直接透传至 SchemaGenerator。
+- **public**: 描述API文档是否公开, 如果未 `False`, 则仅返回当前用户具有权限的接口(endpoints)的 API 文档。
+- **validators**: 用于校验自动生成的 Schema 的校验器, 目前仅支持 `ssv` 和 `flex`。
+- **generator_class**: 自定义 OpenAPI schema 生成器类, 该类应该继承自 `OpenAPISchemaGenerator`
+- **authentication_classes**: 用于 schema view 进行登录认证的类
+- **permission_classes**: 用于 schema view 进行权限校验的类
+
+### b. `SchemaView` 的配置
+通过函数 **get_schema_view** 可以获取对应的 **SchemaView**, 调用该类的 **with_ui** 或 **without_ui** 方法可生成对应的**视图函数**, 将其添加进 **urlpatterns** 即可访问到自动生成的 API 文档。
+- **SchemaView.with_ui(renderer, cache_timeout, cache_kwargs)**: 返回使用指定 UI 渲染器的视图函数, 可选的 UI 渲染器有: `swagger`, `redoc`。
+- **SchemaView.without_ui(cache_timeout, cache_kwargs)**: 返回无 UI 的视图函数, 该函数可以返回 json/yaml 格式的 swagger 文档。
+
+以上两个函数均支持通过 `cache_timeout` 或 `cache_kwargs` 配置缓存参数, 详见下一节。
+
+## 3. 缓存
+由于 schema 通常在服务运行期间不会发生改变, 因此 **drf-yasg** 使用 django 内置的 `cache_page` 实现开箱即用的缓存功能, 只需要配置对应的参数即可启用, 对应参数解释如下:   
+- **cache_timeout**: 用于指定缓存的生存时间
+- **cache_kwargs**: 用于传递 **cache_page** 允许接受的非位置参数, 如 `cache`(指定 cache backend), `key_prefix`(缓存 key 的前缀) 等等, 详见 django 官方文档。
+
+> 需要注意的是, 由于 **drf-yasg** 支持针对不同用户返回不一样的 API 文档(通过**public**、**authentication_classes**、**permission_classes**等参数配置), 因此对于不同用户(通过HTTP 请求头中的 **Cookie** 和 **Authorization** 进行区分), 会在内存中分别进行缓存。
+
+## 4. 校验文档有效性
+为保证自动生成文档的有效性, 可以通过在 **get_schema_view** 中设置 `validators` 参数开启校验自动化生成文档是否符合 OpenAPI2.0 规范的功能。
+> 该功能可能会降低文档生成的效率, 鉴于 schema 通常在服务运行期间不会发生改变, 该选项可仅在本地开发期间开启。
+
+## 5. 代码自动生成
+使用 Swagger/OpenAPI 规范生成文档的好处之一, 就是能通过 API 文档自动生成 **不同语言** 的 SDK，该功能由 **[swagger-codegen](https://github.com/swagger-api/swagger-codegen)** 提供。
+
+# drf-yasg 自动生成 API 文档的流程
+TODO
+# 结语
+TODO

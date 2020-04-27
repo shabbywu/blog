@@ -9,7 +9,7 @@ function genSidebarChildrun(subPath) {
   }).map(item => path.join('/', subPath, item))
 }
 
-DEVING = JSON.parse(process.env.WEBPACK_DEV_SERVER)
+DEVING = process.env.NODE_ENV === 'development'
 
 GITHUB_OAUTH_APP = {
   clientId: !DEVING ? '3934c6721961da9062bf': 'a70c4c9eafc5c615b3a3',
@@ -36,7 +36,7 @@ module.exports = {
       // 组织
       organization: 'Tencent',
       // 电子邮箱
-      email: 'shabbywu@tencent.com',
+      email: 'shabbywu@qq.com',
       // 头像
       avatar: '/img/avatar.png',
       sns: {
