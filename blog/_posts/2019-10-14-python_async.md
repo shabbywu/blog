@@ -314,8 +314,3 @@ B -> C: 执行协程C
 C -> A: 恢复线程A执行
 
 @enduml
-
-
-<ClientOnly>
-  <Vssue />
-</ClientOnly>
