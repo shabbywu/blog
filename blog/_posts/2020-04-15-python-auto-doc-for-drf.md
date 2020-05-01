@@ -120,6 +120,69 @@ drf-yasg 提供 4 种默认路径(endpoints), 分别为:
 使用 Swagger/OpenAPI 规范生成文档的好处之一, 就是能通过 API 文档自动生成 **不同语言** 的 SDK，该功能由 **[swagger-codegen](https://github.com/swagger-api/swagger-codegen)** 提供。
 
 # drf-yasg 自动生成 API 文档的流程
-TODO
+虽然在 Django Rest Framework 3.7 已经内置了自动生成 OpenAPI 2.0 Schema 的功能, 但是这个功能实际上是基于 [CoreAPI](https://www.coreapi.org/) 标准, 就功能和社区生态(周边工具)而言, 目前是远不如 [OpenAPI](https://djangoadventures.com/coreapi-vs-openapi/)。   
+因此, **drf-yasg** 基于 drf 的路由生成器(EndpointEnumerator), 用 OpenAPI 2.0 规范重新实现了一遍文档生成的流程。   
+鉴于文档生成的流程比较复杂, 这里笔者尝试将核心的流程用流程图记录如下。
+
+@startuml
+|WebAPI|
+partition Init_APIView {
+    :get_schema_view;
+    :serving;
+}
+fork 
+:userA request;
+fork again
+:userB request;
+end fork
+:SchemaView.get()|
+detach
+:SchemaView.get()|
+:init generator(default is **OpanAPISchemaGenerator**);
+
+:call generator.get_schema(request, public);
+|#fcefe8|CoreProcess|
+    :init_endpoints_enumerator(default is **EndpointEnumerator**.);
+    :init_reference_resolvers(default is **ReferenceResolver**.);;
+    :init_consumers;
+    :init_producers;
+    #HotPink:get_endpoints_from_enumerator;
+    |#e3f9fd|ImplementationDetail|
+    while (no more urlpattern?) is (False)
+    :get an urlpattern;
+    :get url path from pattern;
+    :mark relationshop between path and view as **Endpoint**;
+    endwhile
+    |CoreProcess|
+    #HotPink:get **Path** from endpoint;
+    |ImplementationDetail|
+    while (no more **EndPoint**?) is (False)
+    :get an endpoint;
+    :init inspector(default is **SwaggerAutoSchema**);
+    :generate operation id;
+    :parsing **request body parameters** with **inspector**;
+    :parsing **query parameters** with **inspector**;
+    :parsing **path parameters**;
+    :parsing docstring as description;
+    :get tags;
+    :parsing **response schema** with **inspector**;
+    :assemble **Operation**;
+    endwhile
+    |CoreProcess|
+    
+    #c2ccd0:get **SecurityDefinitions**;
+    #c2ccd0:parse **SecurityRequirements**;
+    :return OpenAPI Document;
+|WebAPI|
+
+:render OpenAPI Document with Swagger/Redoc OR return JSON/YAML format str straightly;
+end
+@enduml
+
+**drf-yasg** 自动生成文档的大致流程如上, 由于如何通过 **inspector** 从 **Endpoint** 解析出 **RequestBodyParameters**、**QueryParameters** 以及 **ResponseSchema** 的流程涉及到较多的 **Swagger/OpenAPI** 规范的知识, 这里的流程图省略了这些实现细节。
+::: tip
+建议感兴趣的读者先了解 OpenAPI2.0 规范, 再阅读对应的实现源码。
+:::
+
 # 结语
-TODO
+得益于 **drf-yasg** 选择了基于 drf-Serializer 和 Model 生成 API 文档, 不但复用了代码组件, 还降低了额外维护一份代码文档的开销成本，虽然文档生成流程中存在写瑕疵, 但瑕不掩瑜, **drf-yasg** 在目前还是 django/drf API 文档自动生成的最好用的工具库。
