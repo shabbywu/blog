@@ -1119,6 +1119,11 @@
   resolved "http://mirrors.cloud.tencent.com/npm/@vuepress%2fplugin-google-analytics/-/plugin-google-analytics-1.2.0.tgz#54555fd14f01a032c5acff04ecbbe0911577d7d0"
   integrity sha512-0zol5D4Efb5GKel7ADO/s65MLtKSLnOEGkeWzuipkWomSQPzP7TJ3+/RcYBnGdyBFHd1BSpTUHGK0b/IGwM3UA==
 
+"@vuepress/plugin-google-analytics@^1.5.2":
+  version "1.5.2"
+  resolved "http://mirrors.cloud.tencent.com/npm/@vuepress%2fplugin-google-analytics/-/plugin-google-analytics-1.5.2.tgz#45486a44125a9bba0a5f38ab6e59134bd83c870a"
+  integrity sha512-MrM/Zs0VbOclL0xKXS/Gi017Kl42oiWHUDr2Uz5VCQjqGB1FyAsQdGLtloE1Y6rtTuDXektsss9Bx9uX0f1amw==
+
 "@vuepress/plugin-last-updated@1.4.1":
   version "1.4.1"
   resolved "https://mirrors.cloud.tencent.com/npm/@vuepress%2fplugin-last-updated/-/plugin-last-updated-1.4.1.tgz#89a9a4cbc242f9e0c5d380f73edb85ac4a7186c6"

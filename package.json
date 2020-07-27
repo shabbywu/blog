@@ -3,7 +3,9 @@
     "dev": "cross-env NODE_ENV=development vuepress dev blog",
     "build": "cross-env NODE_ENV=production vuepress build blog"
   },
-  "devDependencies": {},
+  "devDependencies": {
+    "@vuepress/plugin-google-analytics": "^1.5.2"
+  },
   "dependencies": {
     "@vssue/api-github-v3": "^1.4.0",
     "@vssue/vuepress-plugin-vssue": "^1.4.2",

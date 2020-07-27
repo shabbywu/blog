@@ -76,6 +76,9 @@ module.exports = {
   plugins: {
     '@vuepress/active-header-links': {},
     '@vuepress/back-to-top': {},
+    '@vuepress/google-analytics': {
+      'ga': 'UA-171805433-1'
+    }
   },
   markdown: {
     // markdown-it-anchor 的选项
