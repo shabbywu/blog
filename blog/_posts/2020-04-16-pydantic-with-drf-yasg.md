@@ -213,8 +213,7 @@ SWAGGER_SETTINGS = {
 
 ```
 ## 项目场景
-在「IEG职业发展-用户画像开发项目」中, 完全使用 **pydantic** 取代了 **dataclass** 和 **drf-Serializer**。   
-在「PaaSNG-日志搜索重构」中, 使用 **pydantic** 进行取代 **dataclass** 进行数据建模, 省去了编写 **Serializer** 的开销。
+在实际开发中, 可以完全使用 **pydantic** 取代了 **dataclass** 和 **drf-Serializer**，也可以只使用 **pydantic** 进行取代 **dataclass** 进行数据建模, 省去了编写 **Serializer** 的开销。
 ### 经验分享
 #### 自定义返回值结构[全局]
 在 **career** 项目中, 整个项目定义了特地的返回值结构, 形如:
