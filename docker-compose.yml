@@ -7,3 +7,4 @@ services:
     environment:
     - NGINX_HOST=blog.shabbywu.com
     - NGINX_PORT=80
+    user: root
