@@ -3,16 +3,16 @@
     "dev": "cross-env NODE_ENV=development vuepress dev blog",
     "build": "cross-env NODE_ENV=production vuepress build blog"
   },
-  "devDependencies": {
-    "@vuepress/plugin-google-analytics": "^1.5.2"
-  },
+  "devDependencies": {},
   "dependencies": {
     "@vssue/api-github-v3": "^1.4.0",
     "@vssue/vuepress-plugin-vssue": "^1.4.2",
     "@vuepress/plugin-active-header-links": "^1.0.0-rc.1",
     "@vuepress/plugin-back-to-top": "^1.0.0-rc.1",
     "@vuepress/plugin-blog": "^1.7.1",
+    "@vuepress/plugin-google-analytics": "^1.5.2",
     "cross-env": "^7.0.2",
+    "markdown-it-anchor": "^7.0.1",
     "markdown-it-plantuml": "^1.4.1",
     "vuepress": "^1.4.1",
     "vuepress-plugin-table-of-contents": "^1.1.5",

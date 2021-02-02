@@ -7,6 +7,6 @@ export default ({
   }) => {
     setTimeout(function(){
       // 延迟注册, 避免被覆盖
-      Vue.component(TOC.name, TOC)
+      Vue.component("TOC", TOC)
     })
 }

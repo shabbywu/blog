@@ -87,11 +87,13 @@ module.exports = {
     toc: { includeLevel: [1, 5], },
     extendMarkdown: md => {
       // 使用更多的 markdown-it 插件!
-      md.use(require('markdown-it-plantuml'))
+      md.use(require('markdown-it-plantuml'));
+      // md.use(require("markdown-it-anchor").default);
       md.use(require("markdown-it-table-of-contents"), {
-        includeLevel: [1, 5], forceFullToc: true
+        includeLevel: [1, 5], forceFullToc: false
       });
     },
+    // 从 html 解析出的 headers
     extractHeaders: ['h1', 'h2', 'h3', 'h4', 'h5']
   }
 }
