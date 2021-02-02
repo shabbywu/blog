@@ -4,7 +4,7 @@ USER root
 WORKDIR /
 ADD ./package.json .
 ADD ./yarn.lock .
-RUN yarn install 
+RUN yarn install --frozen-lockfile
 ADD  ./blog ./blog
 RUN yarn run build
 
@@ -12,3 +12,4 @@ FROM nginx:1.17.7-alpine as runner
 USER root
 WORKDIR /root/
 COPY --from=builder /blog/.vuepress/dist/ /usr/share/nginx/html
+RUN chmod -R 777 /var/cache/nginx

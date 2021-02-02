@@ -2,8 +2,15 @@ version: '3.2'
 services:
   web:
     image: shabbywu_blog
-    ports:
-    - "8080:80"
     environment:
     - NGINX_HOST=blog.shabbywu.com
     - NGINX_PORT=80
+    user: root
+    deploy:
+      labels:
+        - traefik.http.routers.blog.rule=Host(`blog.shabbywu.cn`)
+        - traefik.http.services.blog.loadbalancer.server.port=80
+networks:
+  default:
+    external:
+      name: ingress-routing
