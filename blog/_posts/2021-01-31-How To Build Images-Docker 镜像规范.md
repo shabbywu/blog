@@ -1,6 +1,6 @@
 ---
 date: 2021-01-31
-title: How To Build Images: Docker 镜像规范 v1.2
+title: How To Build Images:Docker 镜像规范 v1.2
 sidebarDepth: 5
 category: docker
 tags:
