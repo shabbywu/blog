@@ -38,7 +38,7 @@ draft: false
 为了统一容器格式和运行时创建的标准, Docker 联合 CoreOS 等组织在 linux 基金会的主持下成立了 Open Container Initiative (OCI)。
 目前 OCI 已经提出了两个规范:[运行时规范(runtime-spec)](https://github.com/opencontainers/runtime-spec)和[镜像规范(image-spec)](https://github.com/opencontainers/image-spec), 但**由于 docker 尚未兼容 OCI 镜像规范, 本文不涉及 OCI 镜像规范的内容。** ~~(不排除以后会写😆)~~
 
-## 一个🌰: Docker 镜像的基本结构
+## 一个🌰 : Docker 镜像的基本结构
 我们以 busybox:latest 为例, 展示 Docker 镜像的基础结构。
 ```bash
 .
@@ -52,7 +52,7 @@ draft: false
 
 1 directory, 6 files
 ```
-接下来以该🌰详细介绍 Docker 镜像中各组成部分的含义和内容。
+接下来以该🌰 详细介绍 Docker 镜像中各组成部分的含义和内容。
 
 ### directories (backward)
 ```bash
@@ -430,10 +430,11 @@ CPU 份额(对于其他容器而言的相对值), 当创建容器时未指定该
 - empty_layer: 该字段用于标记历史记录项是否导致文件系统出现差异, 如果此历史记录项未对应到 `rootfs` 中实际的一项记录, 那么就应该将该项设置为 `true`(简单点, 就是如果 Dockerfile 里执行了类似 ENV, CMD 等指令, 由于这些指令不会导致文件系统的变更, empty_layer 就应该设置为 `true`)。
 
 # 总结
-本文主要先从梳理了Docker镜像规范的**版本历史**, 随后简单介绍了 OCI 组织和 OCI 镜像规范与 Docker 镜像规范之间的关系。接下来从一个简单但完整的 🌰 中展示了 **Docker 镜像的目录结构**, 接着则以此 🌰 介绍了**由于历史原因造成的目录结构**以及现行的 **manifest.json** 和 **Config** 这两个重要文件的含义和内容。
+本文主要先从梳理了Docker镜像规范的**版本历史**, 随后简单介绍了 OCI 组织和 OCI 镜像规范与 Docker 镜像规范之间的关系。接下来从一个简单但完整的 🌰 中展示了 **Docker 镜像的目录结构**, 再以此 🌰 介绍了现行镜像规范内容, 其中包括 **manifest.json** 和 **Config** 这两个重要文件的含义和内容。
+
 当你看到这里的时候, 现行的 Docker 镜像规范已经完全介绍完毕, 从下一篇文章开始就进入**实战**内容。预期在下一章里, 我会为大家介绍**如何借助 `runc` 将一个镜像实例化一个容器**, 进一步探讨镜像中各 `Layer` 中记录的 `Filesystem Changeset` 的内容, 为最后介绍如何构建镜像打下铺垫。
 
-> 吐槽: 规范是很文绉绉的内容, 而事实上 Docker 自身的镜像规范的描述得很混乱, 会出现术语混乱的情形。(例如 `Image JSON` 在 manifest.json 又被称之为 `Config`; 镜像分发规范和镜像规范又会同时出现 `manifest`; )
+> 吐槽: 规范是很文绉绉的内容, 而事实上 Docker 自身的镜像规范的描述得很混乱, 会出现术语混乱的情形。例如 `Image JSON` 在 manifest.json 又被称之为 `Config`; 镜像分发规范和镜像规范又会同时出现 `manifest`。
 
 # 附录
 ## 术语表
