@@ -64,9 +64,5 @@ export default {
       ])))
     }
     return h('div', [renderHeaders(this.headers)])
-  },
-
-  created () {
-    console.log("created toc", this)
   }
 }

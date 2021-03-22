@@ -16,7 +16,6 @@ GITHUB_OAUTH_APP = {
   clientSecret: !DEVING ? '12b75149dad24d3e398f130bcc5d639f6f1b5cbe': 'effd0f0406c557f4bb67ea19ec54f859d6044543',
 }
 
-console.log("process.env:", !DEVING)
 module.exports = {
   title: 'Shabbywu',
   description: '这是一个简单的博客',
