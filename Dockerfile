@@ -1,7 +1,7 @@
-FROM node:13.6.0-stretch-slim as builder
+FROM node:13.7.0-stretch-slim as builder
 USER root
 
-WORKDIR /
+WORKDIR /app
 ADD ./package.json .
 ADD ./yarn.lock .
 RUN yarn install --frozen-lockfile
@@ -11,5 +11,5 @@ RUN yarn run build
 FROM nginx:1.17.7-alpine as runner
 USER root
 WORKDIR /root/
-COPY --from=builder /blog/.vuepress/dist/ /usr/share/nginx/html
+COPY --from=builder /app/blog/.vuepress/dist/ /usr/share/nginx/html
 RUN chmod -R 777 /var/cache/nginx
