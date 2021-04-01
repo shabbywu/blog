@@ -16,7 +16,8 @@
     "cross-env": "^7.0.3",
     "markdown-it-anchor": "^7.0.1",
     "markdown-it-plantuml": "^1.4.1",
-    "vuepress": "^1.8.0",
+    "vue-json-pretty": "^1.7.1",
+    "vuepress": "^1.8.2",
     "vuepress-plugin-table-of-contents": "^1.1.5",
     "vuepress-theme-meteorlxy": "^1.9.0"
   }

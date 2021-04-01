@@ -19,7 +19,6 @@ GITHUB_OAUTH_APP = {
 module.exports = {
   title: 'Shabbywu',
   description: '这是一个简单的博客',
-  theme: 'meteorlxy',
   head: [
     ['link', { rel: 'icon', href: '/logo.png' }]
   ],
@@ -86,7 +85,10 @@ module.exports = {
     toc: { includeLevel: [1, 5], },
     extendMarkdown: md => {
       // 使用更多的 markdown-it 插件!
-      md.use(require('markdown-it-plantuml'));
+      md.use(require('markdown-it-plantuml'), {
+        openMarker: '@startuml',
+        closeMarker: '@enduml',
+      });
       // md.use(require("markdown-it-anchor").default);
       md.use(require("markdown-it-table-of-contents"), {
         includeLevel: [1, 5], forceFullToc: false

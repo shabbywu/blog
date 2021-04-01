@@ -2,7 +2,7 @@
 date: 2021-01-31
 title: How To Build Images:Docker 镜像规范 v1.2
 sidebarDepth: 2
-category: docker
+category: 容器技术
 tags:
 -   kaniko
 -   docker
@@ -11,10 +11,11 @@ tags:
 
 draft: false
 ---
+
 # 前言
 现在是容器化时代，不管是开发、测试还是运维，很少有人会不知道或不会用 Docker。使用 Docker 也很简单，很多时候启动容器无非就是执行 `docker run {your-image-name}`, 而构建镜像也就是执行一句 `docker build dockerfile .`的事情。
 也许正是由于 **Docker** 对实现细节封装得过于彻底，最近在学习 google 开源的镜像构建工具 [kaniko](https://github.com/GoogleContainerTools/kaniko) 时, 才发现我们也许只是学会了**如何使用`Docker CLI`** , 而并非明白 Docker 是如何运行的。
-所以笔者决定开始写「How To Build Images」这一系列文章，这是本系列的第一篇，「Docker 镜像规范」。
+所以笔者决定开始写『How To Build Images』这一系列文章，这是本系列的第一篇，『Docker 镜像规范』。
 > 注: 本文假设读者了解如何使用 Docker, 包括但不限于懂得执行 `docker run` 和 `docker build` 以及编写 Dockerfile。
 
 # [Docker镜像规范](https://github.com/moby/moby/tree/master/image/spec)
@@ -101,6 +102,7 @@ repositories 中存储了一个 json 对象, 该对象的每个 key 是镜像的
 - Layers: 指向描述该镜像文件系统各(Layer)的变更记录。
 - Parent: (可选) 该镜像的父镜像的 imageID, 该父镜像必须记录在当前的 manifest.json。
 > 需要注意的是, 该 manifest.json 与 Docker Register API 描述的 manifest.json 不是同一个文件。(详见附录部分)
+
 
 ### Config (aka Image JSON)
 ```json
@@ -432,7 +434,7 @@ CPU 份额(对于其他容器而言的相对值), 当创建容器时未指定该
 # 总结
 本文主要先从梳理了Docker镜像规范的**版本历史**, 随后简单介绍了 OCI 组织和 OCI 镜像规范与 Docker 镜像规范之间的关系。接下来从一个简单但完整的 🌰 中展示了 **Docker 镜像的目录结构**, 再以此 🌰 介绍了现行镜像规范内容, 其中包括 **manifest.json** 和 **Config** 这两个重要文件的含义和内容。自 v1.1 版本的镜像规范开始, Docker 引入了 **manifest.json** 的概念, 从此就无需关心镜像的目录结构, 镜像中有效的信息都被记录在 manifest 中。
 
-当你看到这里的时候, 现行的 Docker 镜像规范已经完全介绍完毕, 从下一篇文章开始就进入**实战**内容。预期在下一章里, 我会为大家介绍如何**徒手构建一个简单的 Docker 镜像, 再借助 runc 从该镜像创建容器实例**, 以进一步探讨镜像中各 `Layer` 中记录的 `Filesystem Changeset` 的内容, 为最后介绍如何构建镜像打下铺垫。
+当你看到这里的时候, 现行的 Docker 镜像规范已经完全介绍完毕, 从下一篇文章开始就进入**实战**内容。预期在下一章里, 我会为大家**介绍runc的基本原理, 展示如何基于 runc 启动容器实例, 最后徒手构建一个简单的可运行的 Docker 镜像**, 以进一步探讨镜像中各 `Layer` 中记录的 `Filesystem Changeset` 的内容, 为最后介绍如何构建镜像打下铺垫。
 
 > 吐槽: 规范是很文绉绉的内容, 而事实上 Docker 自身的镜像规范的描述得很混乱, 会出现术语混乱的情形。例如 `Image JSON` 在 manifest.json 又被称之为 `Config`; 镜像分发规范和镜像规范又会同时出现 `manifest`。
 
