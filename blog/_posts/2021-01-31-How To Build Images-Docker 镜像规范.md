@@ -4,10 +4,8 @@ title: How To Build Images:Docker 镜像规范 v1.2
 sidebarDepth: 2
 category: 容器技术
 tags:
--   kaniko
 -   docker
 -   build
--   image
 
 draft: false
 ---

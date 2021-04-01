@@ -6,7 +6,6 @@ category: 容器技术
 tags:
 -   OCI
 -   docker
--   runtime-spec
 
 draft: false
 ---
