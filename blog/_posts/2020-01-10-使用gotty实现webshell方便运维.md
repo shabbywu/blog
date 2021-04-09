@@ -7,7 +7,7 @@ tags:
 -   ops
 draft: true
 ---
-```file
+```
 [Unit]
 Description=gottyd
 After=network.target

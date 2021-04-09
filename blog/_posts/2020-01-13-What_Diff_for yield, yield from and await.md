@@ -101,6 +101,8 @@ else:
 ```
 我们知道, Python实现的是非对称式协程, 需要通过`yield/send`两个原语来实现协程的控制权转移操作。既然通过原语即可实现协程的相关操作, 为何又要在Python3.3里引入了额外的语法糖`yield from`呢, 我们通过上面的例子进行具体分析。
 从上面的例子可以看出, `yield` 与 `yield from`的核心差异在于, `yield`严格准守了他的语义, 含有`yield`语句的生成器(或称之为协程), 在执行到 `yield` 语句时, 会立刻将程序的控制权转移到其`调用链的上一层`中去，具体的执行顺序如下:
+
+```plantuml
 @startuml
 title 协程执行生命周期
 [-> Coroutine: Call
@@ -112,6 +114,8 @@ hnote over Coroutine: Coroutine running
 hnote over Coroutine: Coroutine running again
 [<-- Coroutine: Return result
 @enduml
+```
+
 虽然`yield from`并非实现协程的必需品, 但通过引入`yield from`能极大程度地简化`协程与协程`之间的交互(将内部协程与外部控制链路直接打通), 使得控制权能更方便地在协程之间转移，这也为后继在python中实现实现异步(async)埋下铺垫。
 
 

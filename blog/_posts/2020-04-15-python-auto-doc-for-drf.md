@@ -23,19 +23,24 @@ API 文档自动化生成的工具有很多种, 其中大多数都是通过文�
 # [drf-yasg 的使用方法](https://drf-yasg.readthedocs.io/en/stable/readme.html#usage)
 该节参考官方文档编写, 同时针对部分细节做了更详细的解释。
 ## 0. 安装
-在安装前, 建议先了解一下 drf-yasg 对 drf/django/python 各版本的兼容性。   
+在安装前, 建议先了解一下 drf-yasg 对 drf/django/python 各版本的兼容性。
+
 ```yaml
 # drf-yasg 兼容性状况
 -   Django Rest Framework: 3.8, 3.9, 3.10, 3.11
 -   Django: 1.11, 2.2, 3.0
 -   Python: 2.7, 3.6, 3.7, 3.8
 ```
+
 对于兼容的项目, 直接安装 drf-yasg 即可
+
 ```bash
 pip install -U drf-yasg
 ```
+
 ## 1. 快速开始
 首先, 在 django settings 里的 `INSTALLED_APPS` 添加 `drf_yasg`。
+
 ```python
 # IN YOUR settings.py
 INSTALLED_APPS = [
@@ -44,7 +49,7 @@ INSTALLED_APPS = [
    ...
 ]
 随后, 在 django urls 里添加对应的 url路由
-```python
+
 # IN YOUR urls.py
 ...
 from rest_framework import permissions
@@ -76,6 +81,7 @@ urlpatterns = [
     ...
 ]
 ```
+
 drf-yasg 提供 4 种默认路径(endpoints), 分别为:
 - `/swagger.json`, JSON 格式的 API 定义
 - `/swagger.yaml`, YAML 格式的 API 定义
@@ -124,6 +130,7 @@ drf-yasg 提供 4 种默认路径(endpoints), 分别为:
 因此, **drf-yasg** 基于 drf 的路由生成器(EndpointEnumerator), 用 OpenAPI 2.0 规范重新实现了一遍文档生成的流程。   
 鉴于文档生成的流程比较复杂, 这里笔者尝试将核心的流程用流程图记录如下。
 
+```plantuml
 @startuml
 |WebAPI|
 partition Init_APIView {
@@ -178,6 +185,7 @@ detach
 :render OpenAPI Document with Swagger/Redoc OR return JSON/YAML format str straightly;
 end
 @enduml
+```
 
 **drf-yasg** 自动生成文档的大致流程如上, 由于如何通过 **inspector** 从 **Endpoint** 解析出 **RequestBodyParameters**、**QueryParameters** 以及 **ResponseSchema** 的流程涉及到较多的 **Swagger/OpenAPI** 规范的知识, 这里的流程图省略了这些实现细节。
 ::: tip

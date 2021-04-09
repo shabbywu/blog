@@ -16,6 +16,10 @@ GITHUB_OAUTH_APP = {
   clientSecret: !DEVING ? '12b75149dad24d3e398f130bcc5d639f6f1b5cbe': 'effd0f0406c557f4bb67ea19ec54f859d6044543',
 }
 
+const PlantUMLHighlighter = require('./lib/markdown-it-plantuml');
+const plantUMLHighlighter = new PlantUMLHighlighter();
+const defaultHighlight = require("@vuepress/markdown/lib/highlight");
+
 module.exports = {
   title: 'Shabbywu',
   description: '这是一个简单的博客',
@@ -85,14 +89,19 @@ module.exports = {
     toc: { includeLevel: [1, 5], },
     extendMarkdown: md => {
       // 使用更多的 markdown-it 插件!
-      md.use(require('markdown-it-plantuml'), {
-        openMarker: '@startuml',
-        closeMarker: '@enduml',
-      });
+
       // md.use(require("markdown-it-anchor").default);
       md.use(require("markdown-it-table-of-contents"), {
         includeLevel: [1, 5], forceFullToc: false
       });
+
+      md.options.highlight = function (str, lang) {
+        if (lang === 'plantuml') {
+          return plantUMLHighlighter.handle(str, lang)
+        }
+        return defaultHighlight(str, lang)
+      }
+
     },
     // 从 html 解析出的 headers
     extractHeaders: ['h1', 'h2', 'h3', 'h4', 'h5']
