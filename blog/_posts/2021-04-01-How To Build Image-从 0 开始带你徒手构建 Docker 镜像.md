@@ -20,7 +20,7 @@ draft: false
 在讲解构建镜像之前, 不得不先了解 Docker 是如何将镜像转换成容器的。在 Docker1.11 之后, Docker 的架构图迭代为下图的模式:
 ![Docker1.11架构图](/img/Docker1.11架构图.png)
 
-如图所示，Docker 将运行时拆分成两个模块, 分别是 **containerd** 和 **runc**。这两者都是容器技术标准化之后的产物，其中 **containerd** 负责管理镜像和容器相关的网络设施等上层建筑，而 **runc** 则专注于容器化技术实现以及容器管理等底层设施。   
+如图所示，Docker 将运行时拆分成两个模块, 分别是 **containerd** 和 **runc**。这两者都是容器技术标准化之后的产物，其中 **containerd** 负责镜像管理和网络设施等上层建筑，而 **runc** 则专注于容器管理和容器化技术等底层设施。   
 
 我们平常执行 `docker run` 指令需要经历: *Docker Cli* 与 *Docker Engine* 通信, *Docker Engine* 将请求解析后再转发至 *containerd*, 最后 *containerd* 借助 *containerd-shim* 这个转换器调用 *runc*, 容器才真正被创建和运行。   
 
@@ -65,17 +65,17 @@ draft: false
 ```
 
 预料之内地出现了报错..., 毕竟我们容器什么都没有，又怎么能跑起来呢。   
-现在到了最后一步也是最重要的一步, 那就是创建容器根文件系统的内容。但是我们压根不知道容器内应该有什么内容...怎么办好呢？那就从 Docker 中导出一个容器来看看应该长什么样子呗！
+现在到了最后但也是最重要的一步, 那就是**创建容器根文件系统的内容**。但是我们压根不知道容器内应该有什么内容...怎么办好呢？那就从 Docker 中导出一个容器来看看应该长什么样子呗！
 
 ```bash
-# 导出
-➜ docker export $(docker create --rm --name busybox busybox) | tar -C rootfs -xvf - && docker stop busybox && docker rm busybox
+# 导出 busybox 容器
+➜ docker export $(docker create --name busybox busybox) | tar -C rootfs -xvf - && docker stop busybox && docker rm busybox
 
 # 确定 rootfs 内容
 ➜ ls rootfs
 bin  dev  etc  home  proc  root  sys  tmp  usr  var
 
-# 执行
+# 启动容器
 ➜ runc run mycontainer
 
 # 在容器内执行 ls 、hostname 和 whoami
@@ -89,11 +89,11 @@ runc
 root
 ```
 
-小结一下, 想要直接运行容器十分简单, 只需要:
+到这里我们成功用 runc 启动了容器, 我们先小结一下, 想要直接运行容器十分简单, 只需要:
 1. 将容器编排为文件系统捆绑包(Filesystem Bundle)的形式
 2. 往 `config.json` 编写正确的配置
 3. 往 `$root.path` 填充合理和可用的文件
-4. 执行 runc run $containerid
+4. 执行 runc run $containerid 启动容器
 
 # 照猫画虎-构建可运行的容器捆绑包
 我们在上一节借助了 Docker 导出了可运行的容器的根文件系统，那如果不借助外力，我们有没有可能创建一个简单的可运行的容器呢？答案是可以的，但是在此之前需要先复习容器相关的知识。
@@ -108,6 +108,7 @@ root
 
 ### 虚拟机的启动流程
 由于虚拟机是在硬件级别进行虚拟化，虚拟机的启动流程也即是计算机的启动流程。完整的计算机启动流程至少包括了 4 个阶段:
+
 ```plantuml
 @startuml
 skinparam activityShape octagon
@@ -125,6 +126,7 @@ partition 计算机启动 {
 
 ### 容器的启动流程
 由于容器与主机共享操作系统内核, 启动容器只包含 2 个阶段:
+
 ```plantuml
 @startuml
 skinparam activityShape octagon
@@ -211,7 +213,7 @@ ERRO[0000] container_linux.go:367: starting container process caused: exec: "sh"
 Hello runc!
 ```
 
-小结一下, 想要从 0 开始构建可运行的容器十分简单, 只需要:
+到这里我们成功用 runc 启动了我们亲手填充内容的容器，我们先小结一下, 想要从 0 开始构建可运行的容器十分简单, 只需要:
 1. 将容器编排为文件系统捆绑包(Filesystem Bundle)的形式
 2. 往 `$root.path` 中添加用户指定的应用程序和它的依赖项
 3. 保证 `config.json` 中的 **process.args** 指定的指令在容器中是可执行的
@@ -347,7 +349,7 @@ REPOSITORY   TAG       IMAGE ID       CREATED        SIZE
 hello-runc   nasm      112e38209f1b   51 years ago   1.04kB
 ```
 
-到目前为止, 我们已徒手构建 Docker 镜像, 并成功导入到 Docker 镜像列表中。为了彰显成功的喜悦，将验证环节放到下一节进行。我们现在小结一下，想要徒手构建 Docker 镜像十分简单, 只需要:
+到这里我们已徒手构建 Docker 镜像, 并成功导入到 Docker 镜像列表中。为了彰显成功的喜悦，将验证环节放到下一节进行。我们先小结一下，想要徒手构建 Docker 镜像十分简单, 只需要:
 1. 将容器编排为文件系统捆绑包(Filesystem Bundle)的形式
 2. 将容器文件系统捆绑包打包成 layer.tar 文件
 3. 依照容器运行时配置内容(runc 的 config.json), 编写镜像配置信息(Image JSON, 镜像的 config.json)
