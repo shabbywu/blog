@@ -63,7 +63,7 @@ draft: false
 }
 ```
 ::: tip
-值得注意的是, **application/vnd.docker.container.image.v1+json** 对应的类型即是在[『Docker 镜像规范 v1.2』](http://blog.shabbywu.cn/posts/2021/01/31/how-to-build-images-docker-%E9%95%9C%E5%83%8F%E8%A7%84%E8%8C%83.html)中介绍的 `Config`, 又被称之为 `Image JSON`。
+值得注意的是, **application/vnd.docker.container.image.v1+json** 对应的类型即是在[『Docker 镜像规范 v1.2』](http://blog.shabbywu.cn/posts/2021/01/31/how-to-build-images-docker-%E9%95%9C%E5%83%8F%E8%A7%84%E8%8C%83.html)中介绍的 `Config`(又被称之为 `Image JSON`)。
 :::
 
 ## 流程总结
