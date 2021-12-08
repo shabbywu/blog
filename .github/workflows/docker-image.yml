@@ -40,5 +40,5 @@ jobs:
         key: ${{ secrets.SERVER_KEY }}
         envs: WORKPLACE
         script: |
-          cd "${WORKPLACE}"
+          cd $WORKPLACE
           ./deploy.sh
