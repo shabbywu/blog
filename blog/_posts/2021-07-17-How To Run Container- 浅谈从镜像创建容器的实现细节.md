@@ -353,4 +353,4 @@ hello world
 # 总结
 这篇文章是『How To Run Container』系列的第二篇，主要以 Docker 镜像设计为切入点, 介绍了 Docker 镜像分层设计是借鉴于 Union FileSystem。Docker 在顶层设计上要求镜像中每层的内容只增不删, 但上层文件系统可借助 `Whiteout 协议` 屏蔽下层文件系统中的内容。同时, 得益于 `Copy-on-Write(写入时复制)` 技术, Docker 为每个容器分配了各自的可读写的层, 使得容器对镜像内容的修改互不干扰, 而这容器读写层亦记录了该容器的所有文件系统变更。最后, 这篇文章还演示了在不依赖 Docker Engine 的前提下, 如何从镜像构造出容器根文件系统并启动容器。   
 到目前为止, 我们已基本掌握容器化技术涉及到的所有技术, 本系列的下一篇文章将带大家深入 Linux 内核, 探索容器实现**资源限制**和**隔离性**的细节。   
-但在此之前, 笔者将先编写『How To Build Images』系列的第三篇文章, 在未来的这篇文章中将为大家剖析 `docker build dockerfile .` 背后被隐藏的细节, 同时将介绍 Google 提出的一个在容器内构建镜像的方案(kaniko)。
+但在此之前, 笔者将先编写『How To Build Images』系列的第三篇文章, 在未来的这篇文章中将与大家深入探讨 `Docker Daemon` 与 `Docker Registry` 的交互流程, 为大家剖析隐藏在 `docker pull` 与 `docker push` 背后的细节。

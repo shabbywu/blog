@@ -381,7 +381,7 @@ Hello runc!
 5. 编写容器清单文件 (manifest.json)
 6. tar打包归档成镜像
 
-这篇文章是『How To Build Images』系列的第二篇，主要以 runc 如何运行容器为切入点, 深入介绍了构建 Docker 镜像的各个步骤和实现细节，到这里为止，我们已经初步掌握了 **How To Build Images** 的知识，本系列的下一篇文章将带大家深入 Docker(moby) 的实现细节, 为大家剖析 `docker build dockerfile .` 背后被隐藏的细节。<sub>~~净听你吹牛逼~~</sub>
+这篇文章是『How To Build Images』系列的第二篇，主要以 runc 如何运行容器为切入点, 深入介绍了构建 Docker 镜像的各个步骤和实现细节，到这里为止，我们已经初步掌握了 **How To Build Images** 的知识，本系列的下一篇文章将与大家深入探讨 `Docker Daemon` 与 `Docker Registry` 的交互流程, 为大家剖析隐藏在 `docker pull` 与 `docker push` 背后的细节。<sub>~~净听你吹牛逼~~</sub>
 
 ---
 
