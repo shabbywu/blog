@@ -20,13 +20,16 @@ jobs:
       id: docker_build
       uses: docker/build-push-action@v2
       with:
-        pull: true
         push: true
         tags: "${{ secrets.TENCENT_YUN_REGISTRY_HOST }}/${{ github.repository }}:latest"
+        cache-from: type=registry,ref=${{ secrets.TENCENT_YUN_REGISTRY_HOST }}/${{ github.repository }}:buildcache
+        cache-to: type=registry,ref=${{ secrets.TENCENT_YUN_REGISTRY_HOST }}/${{ github.repository }}:buildcache,mode=max
   deploy:
     runs-on: ubuntu-latest
     environment: PROD
     needs: build
+    env:
+      WORKPLACE: ${{ secrets.WORKPLACE }}
     if: github.ref_name == 'master'
     steps:
     - name: Rolling update   
@@ -35,6 +38,7 @@ jobs:
         host: ${{ secrets.SERVER_HOST }}
         username: ${{ secrets.SERVER_USERNAME }}
         key: ${{ secrets.SERVER_KEY }}
+        envs: WORKPLACE
         script: |
-          cd ${{ secrets.WORKPLACE }}
+          cd "${WORKPLACE}"
           ./deploy.sh
