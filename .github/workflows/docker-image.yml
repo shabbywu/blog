@@ -25,6 +25,7 @@ jobs:
         tags: "${{ secrets.TENCENT_YUN_REGISTRY_HOST }}/${{ github.repository }}:latest"
   deploy:
     runs-on: ubuntu-latest
+    environment: PROD
     needs: build
     if: github.ref_name == 'master'
     steps:
