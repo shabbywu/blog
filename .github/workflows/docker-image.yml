@@ -28,8 +28,6 @@ jobs:
     runs-on: ubuntu-latest
     environment: PROD
     needs: build
-    env:
-      WORKPLACE: ${{ secrets.WORKPLACE }}
     if: github.ref_name == 'master'
     steps:
     - name: Rolling update   
@@ -38,7 +36,6 @@ jobs:
         host: ${{ secrets.SERVER_HOST }}
         username: ${{ secrets.SERVER_USERNAME }}
         key: ${{ secrets.SERVER_KEY }}
-        envs: WORKPLACE
         script: |
-          cd $WORKPLACE
+          cd "${{ secrets.WORKPLACE }}"
           ./deploy.sh
