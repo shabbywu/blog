@@ -22,4 +22,4 @@ jobs:
       uses: docker/build-push-action@v2
       with:
         push: true
-        tags: "${{ secrets.TENCENT_YUN_REGISTRY_HOST }}/${{ secrets.TENCENT_YUN_REGISTRY_USERNAME }}/blog:latest"
+        tags: "${{ secrets.TENCENT_YUN_REGISTRY_HOST }}/${{ github.repository }}:latest"
