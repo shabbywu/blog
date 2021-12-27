@@ -60,7 +60,7 @@ module.exports = {
       poweredByTheme: true,
 
       // 添加自定义 footer (支持 HTML)
-      custom: 'Copyright 2019-present <a href="https://github.com/shabbywu/" target="_blank">shabbywu</a> | MIT License',
+      custom: '<a href="https://github.com/shabbywu/" target="_blank">shabbywu</a> © 2019-present | <a href="http://www.beian.miit.gov.cn" target="_blank">粤ICP备2021176883号-1</a>',
     },
     // 评论配置
     comments: {
