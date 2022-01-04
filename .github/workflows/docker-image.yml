@@ -33,7 +33,8 @@ jobs:
       CloudRunSecretKey: "${{ secrets.CloudRunSecretKey }}"
       CloudRunSecretEnvId: "${{ secrets.CloudRunSecretEnvId }}"
       CloudRunServiceName: "${{ secrets.CloudRunServiceName }}"
-      RegistryHost : ${{ secrets.TENCENT_YUN_REGISTRY_HOST }}
+      RegistryHost: ${{ secrets.TENCENT_YUN_REGISTRY_HOST }}
+      RepoName: ${{ github.repository }}
     if: github.ref_name == 'master'
     steps:
     - name: 渲染 cloudbaserc.json
@@ -48,7 +49,7 @@ jobs:
                 "inputs": {
                   "uploadType": "image",
                   "imageInfo": {
-                    "imageUrl": "{{ env.RegistryHost }}/${{ github.repository }}:latest"
+                    "imageUrl": "{{ env.RegistryHost }}/{{ env.RepoName }}:latest"
                   },
                   "serviceName": "{{ env.CloudRunServiceName }}",
                   "servicePath": "/",
@@ -57,7 +58,7 @@ jobs:
                   "mem": 0.5,
                   "minNum": 0,
                   "maxNum": 2,
-                  "containerPort": 80,
+                  "containerPort": 80
                 }
               }
             }
