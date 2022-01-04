@@ -76,6 +76,6 @@ jobs:
         }
         EOF
   
-        tcb login --apiKeyId ${ CloudRunSecretId }} --apiKey ${ CloudRunSecretKey }
+        tcb login --apiKeyId ${ CloudRunSecretId } --apiKey ${ CloudRunSecretKey }
 
         tcb framework deploy
