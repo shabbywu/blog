@@ -29,10 +29,10 @@ jobs:
     environment: PROD
     needs: build
     env:
-      CloudRunSecretId: "${{ secrets.CloudRunSecretId }}"
-      CloudRunSecretKey: "${{ secrets.CloudRunSecretKey }}"
-      CloudRunSecretEnvId: "${{ secrets.CloudRunSecretEnvId }}"
-      CloudRunServiceName: "${{ secrets.CloudRunServiceName }}"
+      CloudRunSecretId: "${{ secrets.CLOUDRUN_SECRETID }}"
+      CloudRunSecretKey: "${{ secrets.CLOUDRUN_SECRETKEY }}"
+      CloudRunEnvId: "${{ secrets.CLOUDRUN_ENVID }}"
+      CloudRunServiceName: "${{ secrets.CLOUDRUN_SERVICENAME }}"
       RegistryHost: ${{ secrets.TENCENT_YUN_REGISTRY_HOST }}
       RepoName: ${{ github.repository }}
     if: github.ref_name == 'master'
@@ -41,7 +41,7 @@ jobs:
       run: |
         cat > cloudbaserc.json << EOF
         {
-          "envId": "{{ env.CloudRunSecretEnvId }}",
+          "envId": "{{ env.CloudRunEnvId }}",
           "framework": {
             "plugins": {
               "client": {
@@ -65,11 +65,9 @@ jobs:
           }
         }
         EOF
-        echo "cloudbaserc.json"
-        cat cloudbaserc.json
     - name: Deploy to Tencent CloudBase
       uses: TencentCloudBase/cloudbase-action@v2
       with:
-        secretId: ${{ secrets.CloudRunSecretId }}
-        secretKey: ${{ secrets.CloudRunSecretKey }}
-        envId: ${{ secrets.CloudRunSecretEnvId }}
+        secretId: ${{ secrets.CLOUDRUN_SECRETID }}
+        secretKey: ${{ secrets.CLOUDRUN_SECRETKEY }}
+        envId: ${{ secrets.CLOUDRUN_ENVID }}
