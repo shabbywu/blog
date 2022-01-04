@@ -33,6 +33,7 @@ jobs:
       CloudRunSecretKey: "${{ secrets.CLOUDRUN_SECRETKEY }}"
       CloudRunEnvId: "${{ secrets.CLOUDRUN_ENVID }}"
       CloudRunServiceName: "${{ secrets.CLOUDRUN_SERVICENAME }}"
+      CloudRunRegion: "${{ secrets.CLOUDRUN_REGION }}"
       RegistryHost: ${{ secrets.TENCENT_YUN_REGISTRY_HOST }}
       RepoName: ${{ github.repository }}
     if: github.ref_name == 'master'
@@ -42,6 +43,9 @@ jobs:
         cat > cloudbaserc.json << EOF
         {
           "envId": "{{ env.CloudRunEnvId }}",
+          "version": "2.0",
+          "$schema": "https://framework-1258016615.tcloudbaseapp.com/schema/latest.json",
+          "region": "{{ env.CloudRunRegion }}",
           "framework": {
             "plugins": {
               "client": {
