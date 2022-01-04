@@ -38,8 +38,13 @@ jobs:
       RepoName: ${{ github.repository }}
     if: github.ref_name == 'master'
     steps:
-    - name: 渲染 cloudbaserc.json
+    - uses: actions/setup-node@v2
+      with:
+        node-version: '14'
+    - name: Deploy to Tencent CloudBase
       run: |
+        npm install -g @cloudbase/cli@latest
+
         cat > cloudbaserc.json << EOF
         {
           "envId": "{{ env.CloudRunEnvId }}",
@@ -47,6 +52,7 @@ jobs:
           "$schema": "https://framework-1258016615.tcloudbaseapp.com/schema/latest.json",
           "region": "{{ env.CloudRunRegion }}",
           "framework": {
+            "name": "blog",
             "plugins": {
               "client": {
                 "use": "@cloudbase/framework-plugin-container",
@@ -69,9 +75,7 @@ jobs:
           }
         }
         EOF
-    - name: Deploy to Tencent CloudBase
-      uses: TencentCloudBase/cloudbase-action@v2
-      with:
-        secretId: ${{ secrets.CLOUDRUN_SECRETID }}
-        secretKey: ${{ secrets.CLOUDRUN_SECRETKEY }}
-        envId: ${{ secrets.CLOUDRUN_ENVID }}
+  
+        tcb login --apiKeyId ${{ CloudRunSecretId }} --apiKey ${{ CloudRunSecretKey }}
+
+        tcb framework deploy
