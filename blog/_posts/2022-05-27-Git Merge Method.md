@@ -4,10 +4,10 @@ title: Git 合并代码的不同方式 - Merge Commit、Squash and merge、Cherr
 sidebarDepth: 2
 category: 基础技术
 tags:
-*   git
-*   rebase
-*   commit
-*   squash
+-   git
+-   rebase
+-   commit
+-   squash
 
 draft: false
 ---
