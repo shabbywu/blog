@@ -4,3 +4,4 @@ node_modules/
 blog/.vscode
 blog/.vuepress/dist
 .github/
+.git
