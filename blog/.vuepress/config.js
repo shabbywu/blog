@@ -12,8 +12,8 @@ function genSidebarChildrun(subPath) {
 DEVING = process.env.NODE_ENV === 'development'
 
 GITHUB_OAUTH_APP = {
-  clientId: !DEVING ? '3934c6721961da9062bf': 'a70c4c9eafc5c615b3a3',
-  clientSecret: !DEVING ? '12b75149dad24d3e398f130bcc5d639f6f1b5cbe': 'effd0f0406c557f4bb67ea19ec54f859d6044543',
+  clientId: '3934c6721961da9062bf',
+  clientSecret: '12b75149dad24d3e398f130bcc5d639f6f1b5cbe'
 }
 
 const PlantUMLHighlighter = require('./lib/markdown-it-plantuml');
@@ -24,7 +24,7 @@ module.exports = {
   title: 'Shabbywu',
   description: '这是一个简单的博客',
   head: [
-    ['link', { rel: 'icon', href: '/logo.png' }]
+    ['link', { rel: 'icon', href: '/img/avatar.png' }]
   ],
   themeConfig: {
     // 主题语言，参考下方 [主题语言] 章节
@@ -55,10 +55,8 @@ module.exports = {
     footer: {
       // 是否显示 Powered by VuePress
       poweredBy: true,
-
       // 是否显示使用的主题
       poweredByTheme: true,
-
       // 添加自定义 footer (支持 HTML)
       custom: '<a href="https://github.com/shabbywu/" target="_blank">shabbywu</a> © 2019-present | <a href="http://beian.miit.gov.cn" target="_blank">粤ICP备2021176883号</a>',
     },
@@ -68,7 +66,14 @@ module.exports = {
       owner: 'shabbywu',
       repo: 'blog',
       ...GITHUB_OAUTH_APP,
-      autoCreateIssue: !DEVING , // 可选，这样设置可以在开发环境下不自动创建 Issue
+      autoCreateIssue: false,
+      proxy: (url) => {
+        if (DEVING) {
+          return `https://cors-anywhere.azm.workers.dev/${url}`
+        } else {
+          return `/cors/${url}`
+        }
+      }
     },
     nav: [
       { text: 'Home', link: '/', exact: true  },

@@ -1,2 +1,2 @@
 #!/usr/bin/env bash
-docker-compose up -d 
+docker-compose up -f runtime/docker-compose.yml -d
