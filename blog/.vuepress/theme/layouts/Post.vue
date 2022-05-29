@@ -39,7 +39,7 @@ export default {
   data: function () {
       return {
           options: {
-              proxy: (url) => `http://hk2.proxy.shabbywu.cn/${url}`
+              proxy: (url) => `http://hk2.proxy.shabbywu.cn:8888/${url}`
           }
       }
   },
@@ -61,9 +61,5 @@ export default {
       return this.$frontmatter['vssue-id'] || undefined
     },
   },
-
-  mounted: function () {
-      console.log(this)
-  }
 }
 </script>
