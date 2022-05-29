@@ -1,2 +1,2 @@
 #!/usr/bin/env bash
-docker build -t shabbywu_blog .
+docker build -t shabbywu/blog .

@@ -10,7 +10,13 @@ jobs:
     - uses: actions/checkout@v2
     - name: Set up Docker Buildx
       uses: docker/setup-buildx-action@v1
-    - name: Login to Docker Repository
+    - name: Login to Github Container Registry
+      uses: docker/login-action@v1 
+      with:
+        registry: ghcr.io
+        username:  ${{ github.actor }}
+        password: ${{ secrets.GITHUB_TOKEN }}
+    - name: Login to Tencent Clouds Registry
       uses: docker/login-action@v1 
       with:
         registry: ${{ secrets.TENCENT_YUN_REGISTRY_HOST }}
@@ -21,9 +27,11 @@ jobs:
       uses: docker/build-push-action@v2
       with:
         push: true
-        tags: "${{ secrets.TENCENT_YUN_REGISTRY_HOST }}/${{ github.repository }}:latest"
-        cache-from: type=registry,ref=${{ secrets.TENCENT_YUN_REGISTRY_HOST }}/${{ github.repository }}:buildcache
-        cache-to: type=registry,ref=${{ secrets.TENCENT_YUN_REGISTRY_HOST }}/${{ github.repository }}:buildcache,mode=max
+        tags: |
+          ghcr.io/${{ github.repository }}:latest
+          ${{ secrets.TENCENT_YUN_REGISTRY_HOST }}/${{ github.repository }}:latest
+        cache-from: type=registry,ref=ghcr.io/${{ github.repository }}:buildcache
+        cache-to: type=registry,ref=ghcr.io/${{ github.repository }}:buildcache,mode=max
   deploy:
     runs-on: ubuntu-latest
     environment: PROD
