@@ -62,7 +62,6 @@ module.exports = {
       ...GITHUB_OAUTH_APP,
       autoCreateIssue: false,
       proxy: (url) => `http://hk2.proxy.shabbywu.cn/${url}`
-      }
     },
     nav: [
       { text: 'Home', link: '/', exact: true  },
