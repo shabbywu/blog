@@ -69,6 +69,7 @@ jobs:
                   "imageInfo": {
                     "imageUrl": "{{ env.RegistryHost }}/{{ env.RepoName }}:latest"
                   },
+                  "bumpVersion": true,
                   "serviceName": "{{ env.CloudRunServiceName }}",
                   "servicePath": "/",
                   "mode": "low-cost",
