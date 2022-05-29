@@ -12,8 +12,8 @@ function genSidebarChildrun(subPath) {
 DEVING = process.env.NODE_ENV === 'development'
 
 GITHUB_OAUTH_APP = {
-  clientId: '3934c6721961da9062bf',
-  clientSecret: '12b75149dad24d3e398f130bcc5d639f6f1b5cbe'
+  clientId: !DEVING ? '3934c6721961da9062bf': 'a70c4c9eafc5c615b3a3',
+  clientSecret: !DEVING ? '12b75149dad24d3e398f130bcc5d639f6f1b5cbe': 'effd0f0406c557f4bb67ea19ec54f859d6044543',
 }
 
 const PlantUMLHighlighter = require('./lib/markdown-it-plantuml');
