@@ -61,12 +61,7 @@ module.exports = {
       repo: 'blog',
       ...GITHUB_OAUTH_APP,
       autoCreateIssue: false,
-      proxy: (url) => {
-        if (DEVING) {
-          return `https://cors-anywhere.azm.workers.dev/${url}`
-        } else {
-          return `/cors/${url}`
-        }
+      proxy: (url) => `http://hk2.proxy.shabbywu.cn/${url}`
       }
     },
     nav: [

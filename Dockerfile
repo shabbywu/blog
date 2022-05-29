@@ -12,5 +12,4 @@ FROM nginx:1.21.6-alpine as runner
 USER root
 WORKDIR /root/
 COPY --from=builder /app/blog/.vuepress/dist/ /usr/share/nginx/html
-COPY ./runtime/nginx.conf /etc/nginx/conf.d/default.conf
 RUN chmod -R 777 /var/cache/nginx
