@@ -3,12 +3,6 @@ const glob = require('glob');
 var ROOT_PATH = path.resolve(__dirname, '..');
 console.log(`ROOT_PATH: ${ROOT_PATH}`)
 
-function genSidebarChildrun(subPath) {
-  return glob.sync("**/*.md", {
-    cwd: path.join(ROOT_PATH, subPath)
-  }).map(item => path.join('/', subPath, item))
-}
-
 DEVING = process.env.NODE_ENV === 'development'
 
 GITHUB_OAUTH_APP = {

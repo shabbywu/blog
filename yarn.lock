@@ -987,15 +987,6 @@
   resolved "https://mirrors.tencent.com/npm/@nodelib%2ffs.stat/-/fs.stat-1.1.3.tgz#2b5a3ab3f918cca48a8c754c08168e3f03eba61b"
   integrity sha512-shAmDyaQC4H92APFoIaVDHCx5bStIocgvbwQyxPRrbUY20V1EYTbSDchWbuwlMG3V17cprZhA6+78JfB+3DTPw==
 
-"@shigma/stringify-object@^3.3.0":
-  version "3.3.0"
-  resolved "https://mirrors.tencent.com/npm/@shigma%2fstringify-object/-/stringify-object-3.3.0.tgz#c6611dcdf650024a9f6397580f821accd3021be3"
-  integrity sha512-tO5pn6RJp8m1ldYtqY3GEQA6+Nqp1cIZVrVx7iFVPx0YfhMqfplwrvyrQPP1cCwuyRoAyDr/BxVZYt+USm8LXQ==
-  dependencies:
-    get-own-enumerable-property-symbols "^3.0.0"
-    is-obj "^1.0.1"
-    is-regexp "^2.0.0"
-
 "@sindresorhus/is@^0.14.0":
   version "0.14.0"
   resolved "https://mirrors.tencent.com/npm/@sindresorhus%2fis/-/is-0.14.0.tgz#9fb3a3cf3132328151f353de4632e01e52102bea"
@@ -1182,7 +1173,7 @@
     anymatch "^3.0.0"
     source-map "^0.6.0"
 
-"@vssue/api-github-v3@^1.0.0", "@vssue/api-github-v3@^1.1.2", "@vssue/api-github-v3@^1.4.0":
+"@vssue/api-github-v3@^1.1.2", "@vssue/api-github-v3@^1.4.7":
   version "1.4.7"
   resolved "https://mirrors.tencent.com/npm/@vssue%2fapi-github-v3/-/api-github-v3-1.4.7.tgz#7e30304111ac34b5785abe2f99be8dcc04e94cdf"
   integrity sha512-ukhOnzGQarmj606ZiYN9iCMyr3EJS3YEPdZXX+zBLVsuzjTL5ffLbbpXsEtPBh2XNt3Ig3XdzCvA9bVXhwy4mQ==
@@ -1198,14 +1189,14 @@
     date-fns "^1.29.0"
     qs "^6.6.0"
 
-"@vssue/vuepress-plugin-vssue@^1.0.0", "@vssue/vuepress-plugin-vssue@^1.2.0", "@vssue/vuepress-plugin-vssue@^1.4.7":
+"@vssue/vuepress-plugin-vssue@^1.2.0", "@vssue/vuepress-plugin-vssue@^1.4.8":
   version "1.4.8"
   resolved "https://mirrors.tencent.com/npm/@vssue%2fvuepress-plugin-vssue/-/vuepress-plugin-vssue-1.4.8.tgz#37b8ada338c1222a143eb648555372d2959f4624"
   integrity sha512-0QzegHl/Rx4/XgXswThIJi4Yk+b6AIaM450jX6p4RbOM6yOTzEKLTMduUo54Rvhq/NHNusu4Yy/w1iY8NTqBEg==
   dependencies:
     vssue "^1.4.8"
 
-"@vue/babel-helper-vue-jsx-merge-props@^1.0.0", "@vue/babel-helper-vue-jsx-merge-props@^1.2.1":
+"@vue/babel-helper-vue-jsx-merge-props@^1.2.1":
   version "1.2.1"
   resolved "https://mirrors.tencent.com/npm/@vue%2fbabel-helper-vue-jsx-merge-props/-/babel-helper-vue-jsx-merge-props-1.2.1.tgz#31624a7a505fb14da1d58023725a4c5f270e6a81"
   integrity sha512-QOi5OW45e2R20VygMSNhyQHvpdUwQZqGPc748JLGCYEy+yp8fNFNdbNIGAgZmi9e+2JHPd6i6idRuqivyicIkA==
@@ -1264,7 +1255,7 @@
     core-js-compat "^3.6.5"
     semver "^6.1.0"
 
-"@vue/babel-preset-jsx@^1.0.0", "@vue/babel-preset-jsx@^1.2.4":
+"@vue/babel-preset-jsx@^1.2.4":
   version "1.2.4"
   resolved "https://mirrors.tencent.com/npm/@vue%2fbabel-preset-jsx/-/babel-preset-jsx-1.2.4.tgz#92fea79db6f13b01e80d3a0099e2924bdcbe4e87"
   integrity sha512-oRVnmN2a77bYDJzeGSt92AuHXbkIxbf/XXSE3klINnh9AXBmVS1DGa1f0d+dDYpLfsAKElMnqKTQfKn7obcL4w==
@@ -1420,7 +1411,7 @@
     "@vuepress/types" "1.9.7"
     lodash.debounce "^4.0.8"
 
-"@vuepress/plugin-back-to-top@^1.0.0-rc.1", "@vuepress/plugin-back-to-top@^1.3.0":
+"@vuepress/plugin-back-to-top@^1.0.0-rc.1":
   version "1.9.7"
   resolved "https://mirrors.tencent.com/npm/@vuepress%2fplugin-back-to-top/-/plugin-back-to-top-1.9.7.tgz#249a76d79f1e0c8c71a2804485ad0245837e6bfd"
   integrity sha512-DM1S+Q8Xn/i+zhe4zThekxb1M2abfKLklg/NKtQloklHKdNdVfk+EcxWYNmNfSii+ymDWaaG8lmH0xjVhy0iXw==
@@ -1442,7 +1433,7 @@
     vuepress-plugin-mailchimp "^1.4.1"
     vuepress-plugin-sitemap "^2.3.1"
 
-"@vuepress/plugin-google-analytics@^1.3.0", "@vuepress/plugin-google-analytics@^1.8.0":
+"@vuepress/plugin-google-analytics@^1.8.0":
   version "1.9.7"
   resolved "https://mirrors.tencent.com/npm/@vuepress%2fplugin-google-analytics/-/plugin-google-analytics-1.9.7.tgz#0162e7bb28686422298c04a12f2e7727a2708d90"
   integrity sha512-ZpsYrk23JdwbcJo9xArVcdqYHt5VyTX9UN9bLqNrLJRgRTV0X2jKUkM63dlKTJMpBf+0K1PQMJbGBXgOO7Yh0Q==
@@ -1480,7 +1471,7 @@
   dependencies:
     "@vuepress/types" "1.9.7"
 
-"@vuepress/shared-utils@1.9.7", "@vuepress/shared-utils@^1.2.0", "@vuepress/shared-utils@^1.3.0":
+"@vuepress/shared-utils@1.9.7", "@vuepress/shared-utils@^1.2.0":
   version "1.9.7"
   resolved "https://mirrors.tencent.com/npm/@vuepress%2fshared-utils/-/shared-utils-1.9.7.tgz#f1203c7f48e9d546078f5f9b2ec5200b29da481b"
   integrity sha512-lIkO/eSEspXgVHjYHa9vuhN7DuaYvkfX1+TTJDiEYXIwgwqtvkTv55C+IOdgswlt0C/OXDlJaUe1rGgJJ1+FTw==
@@ -2453,7 +2444,7 @@ chalk@^1.1.3:
     strip-ansi "^3.0.0"
     supports-color "^2.0.0"
 
-chalk@^2.0.0, chalk@^2.3.2, chalk@^2.4.1, chalk@^2.4.2:
+chalk@^2.0.0, chalk@^2.3.2, chalk@^2.4.1:
   version "2.4.2"
   resolved "https://mirrors.tencent.com/npm/chalk/-/chalk-2.4.2.tgz#cd42541677a54333cf541a49108c1432b44c9424"
   integrity sha512-Mti+f9lpJNcwF4tWV8/OrTTtF1gZi+f8FqlyAdouralcFWFQWF2+NgCHShjkCb+IFBLq9buZwE1xckQU4peSuQ==
@@ -3106,7 +3097,7 @@ dashdash@^1.12.0:
   dependencies:
     assert-plus "^1.0.0"
 
-date-fns@^1.29.0, date-fns@^1.30.1:
+date-fns@^1.29.0:
   version "1.30.1"
   resolved "https://mirrors.tencent.com/npm/date-fns/-/date-fns-1.30.1.tgz#2e71bf0b119153dbb4cc4e88d9ea5acfb50dc05c"
   integrity sha512-hBSVCvSmWC+QypYObzwGOd9wqdDpOt+0wl0KbU+R+uuZBS1jN8VsD1ss3irQDknRj5NvxiTF6oj/nDRnN/UQNw==
@@ -3800,7 +3791,7 @@ expand-brackets@^2.1.4:
     snapdragon "^0.8.1"
     to-regex "^3.0.1"
 
-express@^4.16.4, express@^4.17.1:
+express@^4.17.1:
   version "4.18.1"
   resolved "https://mirrors.tencent.com/npm/express/-/express-4.18.1.tgz#7797de8b9c72c857b9cd0e14a5eea80666267caf"
   integrity sha512-zZBcOX9TfehHQhtupq57OF8lFZ3UZi08Y97dwFCkD8p9d/d2Y3M+ykKcwaMDEL+4qyUolgBDX6AblpR3fL212Q==
@@ -3851,11 +3842,6 @@ extend-shallow@^3.0.0, extend-shallow@^3.0.2:
   dependencies:
     assign-symbols "^1.0.0"
     is-extendable "^1.0.1"
-
-extend@~1.2.1:
-  version "1.2.1"
-  resolved "https://mirrors.tencent.com/npm/extend/-/extend-1.2.1.tgz#a0f5fd6cfc83a5fe49ef698d60ec8a624dd4576c"
-  integrity sha1-oPX9bPyDpf5J72mNYOyKYk3UV2w=
 
 extend@~3.0.2:
   version "3.0.2"
@@ -4140,13 +4126,6 @@ gensync@^1.0.0-beta.2:
   resolved "https://mirrors.tencent.com/npm/gensync/-/gensync-1.0.0-beta.2.tgz#32a6ee76c3d7f52d46b2b1ae5d93fea8580a25e0"
   integrity sha512-3hN7NaskYvMDLQY55gnW3NQ+mesEAepTqlg+VEbj7zzqEMBVNhzcGYYeqFo/TlYz6eQiFcp1HcsCZO+nGgS8zg==
 
-geopattern@^1.2.3:
-  version "1.2.3"
-  resolved "https://mirrors.tencent.com/npm/geopattern/-/geopattern-1.2.3.tgz#de96602e46dba9095ca5774bfb3b36308f7e63fe"
-  integrity sha1-3pZgLkbbqQlcpXdL+zs2MI9+Y/4=
-  dependencies:
-    extend "~1.2.1"
-
 get-caller-file@^2.0.1:
   version "2.0.5"
   resolved "https://mirrors.tencent.com/npm/get-caller-file/-/get-caller-file-2.0.5.tgz#4f94412a82db32f36e3b0b9741f8a97feb031f7e"
@@ -4160,11 +4139,6 @@ get-intrinsic@^1.0.2, get-intrinsic@^1.1.0, get-intrinsic@^1.1.1:
     function-bind "^1.1.1"
     has "^1.0.3"
     has-symbols "^1.0.1"
-
-get-own-enumerable-property-symbols@^3.0.0:
-  version "3.0.2"
-  resolved "https://mirrors.tencent.com/npm/get-own-enumerable-property-symbols/-/get-own-enumerable-property-symbols-3.0.2.tgz#b5fde77f22cbe35f390b4e089922c50bce6ef664"
-  integrity sha512-I0UBV/XOz1XkIJHEUDMZAbzCThU/H8DxmSfmdGcKPnVhu2VfFqr34jr9777IyaTYvxjedWhqVIilEDsCdP5G6g==
 
 get-stream@^4.0.0, get-stream@^4.1.0:
   version "4.1.0"
@@ -5008,11 +4982,6 @@ is-number@^7.0.0:
   resolved "https://mirrors.tencent.com/npm/is-number/-/is-number-7.0.0.tgz#7535345b896734d5f80c4d06c50955527a14f12b"
   integrity sha512-41Cifkg6e8TylSpdtTpeLVMqvSBEVzTttHvERD741+pnZ8ANv0004MRL43QKPDlK9cGvNp6NZWZUBlbGXYxxng==
 
-is-obj@^1.0.1:
-  version "1.0.1"
-  resolved "https://mirrors.tencent.com/npm/is-obj/-/is-obj-1.0.1.tgz#3e4729ac1f5fde025cd7d83a896dab9f4f67db0f"
-  integrity sha1-PkcprB9f3gJc19g6iW2rn09n2w8=
-
 is-obj@^2.0.0:
   version "2.0.0"
   resolved "https://mirrors.tencent.com/npm/is-obj/-/is-obj-2.0.0.tgz#473fb05d973705e3fd9620545018ca8e22ef4982"
@@ -5066,11 +5035,6 @@ is-regex@^1.0.4, is-regex@^1.1.4:
   dependencies:
     call-bind "^1.0.2"
     has-tostringtag "^1.0.0"
-
-is-regexp@^2.0.0:
-  version "2.1.0"
-  resolved "https://mirrors.tencent.com/npm/is-regexp/-/is-regexp-2.1.0.tgz#cd734a56864e23b956bf4e7c66c396a4c0b22c2d"
-  integrity sha512-OZ4IlER3zmRIoB9AqNhEggVxqIH4ofDns5nRrPS6yQxXE1TPCUpFznBfRQmQa8uC+pXqjMnukiJBxCisIxiLGA==
 
 is-resolvable@^1.0.0:
   version "1.1.0"
@@ -5442,11 +5406,6 @@ lodash.templatesettings@^4.0.0:
   dependencies:
     lodash._reinterpolate "^3.0.0"
 
-lodash.throttle@^4.1.1:
-  version "4.1.1"
-  resolved "https://mirrors.tencent.com/npm/lodash.throttle/-/lodash.throttle-4.1.1.tgz#c23e91b710242ac70c37f1e1cda9274cc39bf2f4"
-  integrity sha1-wj6RtxAkKscMN/HhzaknTMOb8vQ=
-
 lodash.trimend@^4.5.1:
   version "4.5.1"
   resolved "https://mirrors.tencent.com/npm/lodash.trimend/-/lodash.trimend-4.5.1.tgz#12804437286b98cad8996b79414e11300114082f"
@@ -5543,11 +5502,6 @@ markdown-it-anchor@^7.0.1:
   version "7.1.0"
   resolved "https://mirrors.tencent.com/npm/markdown-it-anchor/-/markdown-it-anchor-7.1.0.tgz#30fb21497bf59e83ff4d1ddc052d821962e2489e"
   integrity sha512-loQggrwsIkkP7TOrESvmYkV2ikbQNNKhHcWyqC7/C2CmfHl1tkUizJJU8C5aGgg7J6oXVQJx17gk7i47tNn/lQ==
-
-markdown-it-center-text@^1.0.4:
-  version "1.0.4"
-  resolved "https://mirrors.tencent.com/npm/markdown-it-center-text/-/markdown-it-center-text-1.0.4.tgz#4e7f907b6539b62a6200fead50aebed587734b3c"
-  integrity sha512-7AA0gek4FYJ6gWB2kdGNx06k3GrlO97nEMY7uovQ70/6MtfqPznrgnKoWO3V4p36m3RT5GeQIFXqBH9Wr4iL/g==
 
 markdown-it-chain@^1.3.0:
   version "1.3.0"
@@ -6102,7 +6056,7 @@ opencollective-postinstall@^2.0.2:
   resolved "https://mirrors.tencent.com/npm/opencollective-postinstall/-/opencollective-postinstall-2.0.3.tgz#7a0fff978f6dbfa4d006238fbac98ed4198c3259"
   integrity sha512-8AV/sCtuzUeTo8gQK5qDZzARrulB3egtLzFgteqB2tcT4Mw7B8Kt7JcDHmltjz6FOAHsvTevk70gZEbhM4ZS9Q==
 
-opn@^5.4.0, opn@^5.5.0:
+opn@^5.5.0:
   version "5.5.0"
   resolved "https://mirrors.tencent.com/npm/opn/-/opn-5.5.0.tgz#fc7164fab56d235904c51c3b27da6758ca3b9bfc"
   integrity sha512-PqHpggC9bLV0VeWcdKhkpxY+3JTzetLSqTCWL/z/tFIbI6G8JCjondXklT1JinczLz2Xib62sSp0T/gKT4KksA==
@@ -7449,7 +7403,7 @@ slash@^2.0.0:
   resolved "https://mirrors.tencent.com/npm/slash/-/slash-2.0.0.tgz#de552851a1759df3a8f206535442f5ec4ddeab44"
   integrity sha512-ZYKh3Wh2z1PpEXWr0MpSBZ0V6mZHAQfYevttO11c51CaWjGTaadiKZ+wVt1PbMlDV5qhMFslpZCemhwOK7C89A==
 
-smoothscroll-polyfill@^0.4.3, smoothscroll-polyfill@^0.4.4:
+smoothscroll-polyfill@^0.4.3:
   version "0.4.4"
   resolved "https://mirrors.tencent.com/npm/smoothscroll-polyfill/-/smoothscroll-polyfill-0.4.4.tgz#3a259131dc6930e6ca80003e1cb03b603b69abf8"
   integrity sha512-TK5ZA9U5RqCwMpfoMq/l1mrH0JAR7y7KRvOBx0n2869aLxch+gT9GhN3yUfjiw+d/DiF1mKo14+hd62JyMmoBg==
@@ -8346,7 +8300,7 @@ vm-browserify@^1.0.1:
   resolved "https://mirrors.tencent.com/npm/vm-browserify/-/vm-browserify-1.1.2.tgz#78641c488b8e6ca91a75f511e7a3b32a86e5dda0"
   integrity sha512-2ham8XPWTONajOR0ohOKOHXkm3+gaBmGut3SRuu75xLd/RRaY6vqgh8NBYYk7+RW3u5AtzPQZG8F10LHkl0lAQ==
 
-vssue@^1.4.7, vssue@^1.4.8:
+vssue@^1.4.8:
   version "1.4.8"
   resolved "https://mirrors.tencent.com/npm/vssue/-/vssue-1.4.8.tgz#e0de059d16bf870dd7d72735d71761dfedfcfeb5"
   integrity sha512-Stp0CxF65Uv658qgYUgYKEDiWM8wskUfKCOT9ISJwz/Qn58N050vYnFYClnUXG060ZQi1YQxkTCuJAw8ee3YlQ==
@@ -8463,20 +8417,13 @@ vuepress-html-webpack-plugin@^3.2.0:
     toposort "^1.0.0"
     util.promisify "1.0.0"
 
-vuepress-plugin-container@^2.0.2, vuepress-plugin-container@^2.1.2:
+vuepress-plugin-container@^2.0.2:
   version "2.1.5"
   resolved "https://mirrors.tencent.com/npm/vuepress-plugin-container/-/vuepress-plugin-container-2.1.5.tgz#37fff05662fedbd63ffd3a5463b2592c7a7f3133"
   integrity sha512-TQrDX/v+WHOihj3jpilVnjXu9RcTm6m8tzljNJwYhxnJUW0WWQ0hFLcDTqTBwgKIFdEiSxVOmYE+bJX/sq46MA==
   dependencies:
     "@vuepress/shared-utils" "^1.2.0"
     markdown-it-container "^2.0.0"
-
-vuepress-plugin-dehydrate@1.1.5:
-  version "1.1.5"
-  resolved "https://mirrors.tencent.com/npm/vuepress-plugin-dehydrate/-/vuepress-plugin-dehydrate-1.1.5.tgz#c29f08b85f337d3bc7c0ba09fe58cd9ed2f6e6c1"
-  integrity sha512-9F2x1vLCK4poPUMkLupD4HsgWdbZ68Escvma+DE1Dk6aAJdH5FGwmfOMxj4sMCBwz7S4s6bTMna+QQgD3+bzBA==
-  dependencies:
-    "@vuepress/shared-utils" "^1.2.0"
 
 vuepress-plugin-disqus@^0.2.0:
   version "0.2.0"
@@ -8506,30 +8453,6 @@ vuepress-plugin-mailchimp@^1.4.1:
     jsonp "^0.2.1"
     query-string "^6.9.0"
 
-vuepress-plugin-nprogress@^1.1.6:
-  version "1.1.8"
-  resolved "https://mirrors.tencent.com/npm/vuepress-plugin-nprogress/-/vuepress-plugin-nprogress-1.1.8.tgz#92ee0002f0edd519542e0048481cb01f16e89e3c"
-  integrity sha512-MCM6/TN/klljh5s5pso1YM3XR89BQ1yOPyYqrI8NG8u6f/w3tAa8wKhmle789yeC02WSXbcLE7t6VTRTOWst+A==
-  dependencies:
-    nprogress "^0.2.0"
-
-vuepress-plugin-redirect@^1.2.3:
-  version "1.2.5"
-  resolved "https://mirrors.tencent.com/npm/vuepress-plugin-redirect/-/vuepress-plugin-redirect-1.2.5.tgz#1d5a8eacc6f8c511e5d72a379552771e931c2868"
-  integrity sha512-4RAWTVite154Tv7rUJEqWZ4fZtVXwKKoFOa2zY0Esn7cLi3Om2A+Pa2U84tBgPd90v2R7KEOy9jLEVphbsPK7g==
-  dependencies:
-    "@shigma/stringify-object" "^3.3.0"
-    vuepress-plugin-dehydrate "1.1.5"
-
-vuepress-plugin-serve@^2.0.0:
-  version "2.0.4"
-  resolved "https://mirrors.tencent.com/npm/vuepress-plugin-serve/-/vuepress-plugin-serve-2.0.4.tgz#d44f5e68810bba4129f6d0d38d483b761655496e"
-  integrity sha512-k48WdAJ42+llZNXCbQ1ekDAZU54YXJtJRUpalAUkCP3FkI3esnUrMzyEKsosSdW2NSRLN9cPlj1qfhfYGhDNMw==
-  dependencies:
-    chalk "^2.4.2"
-    express "^4.16.4"
-    opn "^5.4.0"
-
 vuepress-plugin-sitemap@^2.3.1:
   version "2.3.1"
   resolved "https://mirrors.tencent.com/npm/vuepress-plugin-sitemap/-/vuepress-plugin-sitemap-2.3.1.tgz#51298aca77a5de96396fdbd1103e1637dd61ae6a"
@@ -8544,49 +8467,10 @@ vuepress-plugin-smooth-scroll@^0.0.3:
   dependencies:
     smoothscroll-polyfill "^0.4.3"
 
-vuepress-plugin-smooth-scroll@^0.0.9:
-  version "0.0.9"
-  resolved "https://mirrors.tencent.com/npm/vuepress-plugin-smooth-scroll/-/vuepress-plugin-smooth-scroll-0.0.9.tgz#6c5d01db60def3d7b976b53404e56b97da9e8f39"
-  integrity sha512-UXX+HLZO1NKVwyiOJlj0smh8F9dKnwybjEi7w/Mj9EYLhKrNYr5uXs+N+OTt8VwKCn3f0vZ1XAwFIjsPlD7GJA==
-  dependencies:
-    smoothscroll-polyfill "^0.4.4"
-
 vuepress-plugin-table-of-contents@^1.1.5:
   version "1.1.7"
   resolved "https://mirrors.tencent.com/npm/vuepress-plugin-table-of-contents/-/vuepress-plugin-table-of-contents-1.1.7.tgz#e8b2d1b5e23a41902a4a44772a00eb7688ef6797"
   integrity sha512-zG35KYsuLSJaQiTavBN/Nk7/mYC4Kl7bTLXWusvcm0zs1wCzFZf78fkNWAmqc0V3z5W92H8HM3FR5vo4aT2w7w==
-
-vuepress-plugin-zooming@^1.1.7:
-  version "1.1.8"
-  resolved "https://mirrors.tencent.com/npm/vuepress-plugin-zooming/-/vuepress-plugin-zooming-1.1.8.tgz#d49f201218bbcc73bcd30a79071f0cde201327e0"
-  integrity sha512-QAspMEqzerd0n8z/oOL5a67V/QaFZyjSwfo86y6PWhDdVAeOLR7umJ7syQqJpMdN9EVxmAstuzbKHkRxWzL0NQ==
-  dependencies:
-    zooming "^2.1.1"
-
-vuepress-theme-meteorlxy@^1.9.0:
-  version "1.9.0"
-  resolved "https://mirrors.tencent.com/npm/vuepress-theme-meteorlxy/-/vuepress-theme-meteorlxy-1.9.0.tgz#f19fce28661dcca4a414ec6c64e12520bd624773"
-  integrity sha512-wrfhnVKn80U12oqYhbpjEizmwmQfV/W8vVyYLwVsVjtvG8uWiyJ+CmhdY89lGFl6pcSKfTcVeum3jOvttKcAyg==
-  dependencies:
-    "@vssue/api-github-v3" "^1.0.0"
-    "@vssue/vuepress-plugin-vssue" "^1.0.0"
-    "@vue/babel-helper-vue-jsx-merge-props" "^1.0.0"
-    "@vue/babel-preset-jsx" "^1.0.0"
-    "@vuepress/plugin-back-to-top" "^1.3.0"
-    "@vuepress/plugin-google-analytics" "^1.3.0"
-    "@vuepress/shared-utils" "^1.3.0"
-    date-fns "^1.30.1"
-    geopattern "^1.2.3"
-    lodash.debounce "^4.0.8"
-    lodash.throttle "^4.1.1"
-    markdown-it-center-text "^1.0.4"
-    vuepress-plugin-container "^2.1.2"
-    vuepress-plugin-nprogress "^1.1.6"
-    vuepress-plugin-redirect "^1.2.3"
-    vuepress-plugin-serve "^2.0.0"
-    vuepress-plugin-smooth-scroll "^0.0.9"
-    vuepress-plugin-table-of-contents "^1.1.5"
-    vuepress-plugin-zooming "^1.1.7"
 
 vuepress@^1.8.2:
   version "1.9.7"
@@ -8929,8 +8813,3 @@ zepto@^1.2.0:
   version "1.2.0"
   resolved "https://mirrors.tencent.com/npm/zepto/-/zepto-1.2.0.tgz#e127bd9e66fd846be5eab48c1394882f7c0e4f98"
   integrity sha1-4Se9nmb9hGvl6rSME5SIL3wOT5g=
-
-zooming@^2.1.1:
-  version "2.1.1"
-  resolved "https://mirrors.tencent.com/npm/zooming/-/zooming-2.1.1.tgz#3e05006b4e10335235ca626244d053d90a9c7e72"
-  integrity sha512-Z38dkZRQsFNBE67+xDBQLNKMs5J1Gc+s3/zO6iezTrC24VYLJV7YPBdBDJmiLhff5qa6Awxv4wsjqx3oYz2MYA==
