@@ -80,6 +80,8 @@ jobs:
           }
         }
         EOF
-  
+
+        ln -s /usr/local/lib/node_modules/ .
+
         tcb login --apiKeyId ${CloudRunSecretId} --apiKey ${CloudRunSecretKey}
         tcb framework deploy --verbose
