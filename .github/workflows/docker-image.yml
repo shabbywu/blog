@@ -65,7 +65,7 @@ jobs:
                   "imageInfo": {
                     "imageUrl": "{{ env.RegistryHost }}/{{ env.RepoName }}:latest"
                   },
-                  "bumpVersion": true,
+                  "bumpVersion": false,
                   "serviceName": "{{ env.CloudRunServiceName }}",
                   "servicePath": "/",
                   "mode": "low-cost",
@@ -82,4 +82,4 @@ jobs:
         EOF
   
         tcb login --apiKeyId ${CloudRunSecretId} --apiKey ${CloudRunSecretKey}
-        tcb framework deploy
+        tcb framework deploy -v
