@@ -84,6 +84,23 @@ def add(a, b):
 
 典型的代码冲突例子在前文已有提及, 再次强调, 通常情况下只有在两个开发者分别修改 1 个文件的相同行时, 或者是一个开发者在修改一份被另一个开发者删除的文件时, 才会出现代码冲突。但总会有些我们预料之外的非典型冲突。
 
+### Git Squash Merge 冲突
+
+在上一篇文章[Git 合并代码的不同方式](https://blog.shabbywu.cn/posts/2022/05/27/git-merge-method.html)中有提及, `Squash Merge` 会将代码提交记录压缩合并为 1个节点, 并追加至当前分支的末尾。使用 `Squash Merge` 会产生以下的拓扑结构:
+
+```
+                        H---I---J feature-xxx
+                        / 
+                E---F---G---K----L' develop (where L' == (H + I +J)
+                /
+    A---B---C---D master
+```
+
+使用 `Squash Merge` 后, Git 将不能追踪 **feature-xxx 分支** 与 **develop 分支** 之间的关系。如果此时继续在 **feature-xxx 分支** 开发, 那么很可能会产生不必要的冲突。
+
+最简单的例子, 如果进行 `Squash Merge` 时代码有冲突, 那么在 `Squash Merge` 后, 再执行 `Rebase` 那就会发现相似的冲突需要再次解决。
+> 因为 `Squash Merge` 会丢失新节点 L' 与原分支的关联关系。 Git 无法判断这两份代码之间的关联性(即使你知道它只是被 Squash 了而已)。
+
 ### Git Rebase 冲突
 
 在上一篇文章[Git 合并代码的不同方式](https://blog.shabbywu.cn/posts/2022/05/27/git-merge-method.html)中有提及, `Rebase(变基)` 即变更当前分支的根节点。对于以下的拓扑结构而言:
@@ -215,24 +232,7 @@ def sum(*args):
 
 软件开发中没有银弹, 唯一能避免冲突的方法就是不参与开发。`Rebase` 虽然灵活, 但是要得到什么就要付出同等的代价 -- ~~这就是炼金术的等价交换原则！~~
 
-## Git Squash Merge 冲突
-
-在上一篇文章[Git 合并代码的不同方式](https://blog.shabbywu.cn/posts/2022/05/27/git-merge-method.html)中有提及, `Squash Merge` 会将代码提交记录压缩合并为 1个节点, 并追加至当前分支的末尾。使用 `Squash Merge` 会产生以下的拓扑结构:
-
-```
-                        H---I---J feature-xxx
-                        / 
-                E---F---G---K----L' develop (where L' == (H + I +J)
-                /
-    A---B---C---D master
-```
-
-使用 `Squash Merge` 后, Git 将不能追踪 **feature-xxx 分支** 与 **develop 分支** 之间的关系。如果此时继续在 **feature-xxx 分支** 开发, 那么很可能会产生不必要的冲突。
-
-最简单的例子, 如果进行 `Squash Merge` 时代码有冲突, 那么在 `Squash Merge` 后, 再执行 `Rebase` 那就会发现相似的冲突需要再次解决。
-> 因为 `Squash Merge` 会丢失新节点 L' 与原分支的关联关系。 Git 无法判断这两份代码之间的关联性(即使你知道它只是被 Squash 了而已)。
-
-## Git 智能合并陷阱
+### Git 智能合并陷阱
 
 Git 合并不是万能的, 智能合并不一定能产生符合预期的代码。使用以下的拓扑结构进行介绍:
 
