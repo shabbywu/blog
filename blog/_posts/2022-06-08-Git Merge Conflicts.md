@@ -75,7 +75,7 @@ def add(a, b):
 - `git commit` >  提交（commit）会将当前暂存区域的所有变更保存至版本变更记录中。
 - `git reset` >  重置（reset）会只丢弃当前缓存区域的状态, 而保留工作目录的状态。如果文件不存在于版本库, 那么使用 `git reset` 即可将该文件的状态设置为 **untracked**。
 
-![Git 文件状态](/img/Git 文件状态.png)
+![Git文件状态](/img/Git文件状态.png)
 > 只有所有文件都处于 unmodified 或 untracked 时, Git 才能启动合并。
 
 ## Git 智能合并失败
