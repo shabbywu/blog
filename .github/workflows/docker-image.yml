@@ -35,7 +35,7 @@ jobs:
   deploy:
     if: github.ref_name == 'master'
     container: ghcr.io/shabbywu/blog:cloudbase
-    runs-on: self-hosted
+    runs-on: [self-hosted, Linux, X64]
     environment: PROD
     needs: build
     env:
