@@ -33,7 +33,8 @@ jobs:
         cache-from: type=registry,ref=ghcr.io/${{ github.repository }}:buildcache
         cache-to: type=registry,ref=ghcr.io/${{ github.repository }}:buildcache,mode=max
   deploy:
-    runs-on: ubuntu-latest
+    if: github.ref_name == 'master'
+    container: ghcr.io/shabbywu/blog:cloudbase
     environment: PROD
     needs: build
     env:
@@ -44,15 +45,9 @@ jobs:
       CloudRunRegion: "${{ secrets.CLOUDRUN_REGION }}"
       RegistryHost: ${{ secrets.TENCENT_YUN_REGISTRY_HOST }}
       RepoName: ${{ github.repository }}
-    if: github.ref_name == 'master'
     steps:
-    - uses: actions/setup-node@v2
-      with:
-        node-version: '14'
     - name: Deploy to Tencent CloudBase
       run: |
-        npm install -g @cloudbase/cli@latest
-
         cat > cloudbaserc.json << EOF
         {
           "envId": "{{ env.CloudRunEnvId }}",
@@ -86,5 +81,4 @@ jobs:
         EOF
   
         tcb login --apiKeyId ${CloudRunSecretId} --apiKey ${CloudRunSecretKey}
-
         tcb framework deploy
