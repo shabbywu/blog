@@ -81,7 +81,8 @@ jobs:
         }
         EOF
 
-        ln -s /usr/local/lib/node_modules/ .
+        mkdir -p ~/cloudbase-framework/registry
+        ln -s /usr/local/lib/node_modules/ ~/cloudbase-framework/registry
 
         tcb login --apiKeyId ${CloudRunSecretId} --apiKey ${CloudRunSecretKey}
         tcb framework deploy --verbose
