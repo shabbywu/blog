@@ -35,6 +35,7 @@ jobs:
   deploy:
     if: github.ref_name == 'master'
     container: ghcr.io/shabbywu/blog:cloudbase
+    runs-on: ubuntu-latest
     environment: PROD
     needs: build
     env:
