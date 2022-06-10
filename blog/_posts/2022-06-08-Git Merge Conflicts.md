@@ -20,7 +20,7 @@ def add(a, b):
     try:
         return 0, a + b
     except Exception:
-        raise -1, None
+        return -1, None
 ```
 
 ```python
