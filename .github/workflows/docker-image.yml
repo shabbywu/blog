@@ -65,6 +65,6 @@ jobs:
         sleep 1
 
         # 部署资源
-        /root/kubectl apply -f /tmp/deployment.yaml
-        /root/kubectl apply -f /tmp/service.yaml
-        /root/kubectl apply -f /tmp/ingress.yaml
+        /root/kubectl --kubeconfig=./kubeconfig.yaml apply -f /tmp/deployment.yaml
+        /root/kubectl --kubeconfig=./kubeconfig.yaml apply -f /tmp/service.yaml
+        /root/kubectl --kubeconfig=./kubeconfig.yaml apply -f /tmp/ingress.yaml
