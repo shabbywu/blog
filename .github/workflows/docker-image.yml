@@ -44,6 +44,7 @@ jobs:
       KUBE_CONFIG: ${{ secrets.KUBE_CONFIG }}
       FRPC_CONFIG: ${{ secrets.FRPC_CONFIG}}
     steps:
+    - uses: actions/checkout@v2
     - name: Deploy to self-hosted server
       run: |
         # generate frpc.ini
