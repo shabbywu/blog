@@ -34,55 +34,36 @@ jobs:
         cache-to: type=registry,ref=ghcr.io/${{ github.repository }}:buildcache,mode=max
   deploy:
     if: github.ref_name == 'master'
-    container: ghcr.io/shabbywu/blog:cloudbase
-    runs-on: [self-hosted, Linux, X64]
+    container: ghcr.io/shabbywu/github-deployer
+    runs-on: ubuntu-latest
     environment: PROD
     needs: build
     env:
-      CloudRunSecretId: "${{ secrets.CLOUDRUN_SECRETID }}"
-      CloudRunSecretKey: "${{ secrets.CLOUDRUN_SECRETKEY }}"
-      CloudRunEnvId: "${{ secrets.CLOUDRUN_ENVID }}"
-      CloudRunServiceName: "${{ secrets.CLOUDRUN_SERVICENAME }}"
-      CloudRunRegion: "${{ secrets.CLOUDRUN_REGION }}"
-      RegistryHost: ${{ secrets.TENCENT_YUN_REGISTRY_HOST }}
-      RepoName: ${{ github.repository }}
+      REPOSITORY: ${{ github.repository }}
+      INGRESS_HOST: ${{ secrets.INGRESS_HOST }}
+      KUBE_CONFIG: ${{ secrets.KUBE_CONFIG }}
+      FRPC_CONFIG: ${{ secrets.FRPC_CONFIG}}
     steps:
-    - name: Deploy to Tencent CloudBase
+    - name: Deploy to self-hosted server
       run: |
-        cat > cloudbaserc.json << EOF
-        {
-          "envId": "{{ env.CloudRunEnvId }}",
-          "version": "2.0",
-          "$schema": "https://framework-1258016615.tcloudbaseapp.com/schema/latest.json",
-          "region": "{{ env.CloudRunRegion }}",
-          "framework": {
-            "name": "blog",
-            "plugins": {
-              "client": {
-                "use": "@cloudbase/framework-plugin-container",
-                "inputs": {
-                  "uploadType": "image",
-                  "imageInfo": {
-                    "imageUrl": "{{ env.RegistryHost }}/{{ env.RepoName }}:latest"
-                  },
-                  "bumpVersion": false,
-                  "serviceName": "{{ env.CloudRunServiceName }}",
-                  "servicePath": "/",
-                  "mode": "low-cost",
-                  "cpu": 0.25,
-                  "mem": 0.5,
-                  "minNum": 0,
-                  "maxNum": 2,
-                  "containerPort": 80
-                }
-              }
-            }
-          }
-        }
-        EOF
+        # generate frpc.ini
+        echo "{{ env.FRPC_CONFIG }}" | base64 -d > frpc.ini
 
-        mkdir -p ~/cloudbase-framework/registry
-        ln -s /usr/local/lib/node_modules/ ~/cloudbase-framework/registry
+        # run frpc
+        ./frpc --config frpc.ini &
 
-        tcb login --apiKeyId ${CloudRunSecretId} --apiKey ${CloudRunSecretKey}
-        tcb framework deploy --verbose
+        # generate kubeconfig
+        echo "{{ env.KUBE_CONFIG }}" | base64 -d > kubeconfig.yaml
+
+        # render deploy configuration
+        cat runtime/deployment.yaml | envsubst > /tmp/deployment.yaml
+        cat runtime/service.yaml | envsubst > /tmp/service.yaml
+        cat runtime/ingress.yaml | envsubst > /tmp/ingress.yaml
+
+        # wait a second
+        sleep 1
+
+        # 部署资源
+        kubectl apply -f /tmp/deployment.yaml
+        kubectl apply -f /tmp/service.yaml
+        kubectl apply -f /tmp/ingress.yaml
