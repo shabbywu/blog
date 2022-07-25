@@ -47,13 +47,13 @@ jobs:
     - name: Deploy to self-hosted server
       run: |
         # generate frpc.ini
-        echo "{{ env.FRPC_CONFIG }}" | base64 -d > frpc.ini
+        echo "${FRPC_CONFIG}" | base64 -d > frpc.ini
 
         # run frpc
         ./frpc --config frpc.ini &
 
         # generate kubeconfig
-        echo "{{ env.KUBE_CONFIG }}" | base64 -d > kubeconfig.yaml
+        echo "${KUBE_CONFIG}" | base64 -d > kubeconfig.yaml
 
         # render deploy configuration
         cat runtime/deployment.yaml | envsubst > /tmp/deployment.yaml
