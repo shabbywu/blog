@@ -34,7 +34,7 @@ jobs:
         cache-to: type=registry,ref=ghcr.io/${{ github.repository }}:buildcache,mode=max
   deploy:
     if: github.ref_name == 'master'
-    container: ghcr.io/shabbywu/github-deployer
+    container: ghcr.io/${{ github.repository }}:deployer
     runs-on: ubuntu-latest
     environment: PROD
     needs: build
