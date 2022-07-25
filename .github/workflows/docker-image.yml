@@ -50,20 +50,20 @@ jobs:
         echo "${FRPC_CONFIG}" | base64 -d > frpc.ini
 
         # run frpc
-        ./frpc --config frpc.ini &
+        /root/frpc --config frpc.ini &
 
         # generate kubeconfig
         echo "${KUBE_CONFIG}" | base64 -d > kubeconfig.yaml
 
         # render deploy configuration
-        cat runtime/deployment.yaml | envsubst > /tmp/deployment.yaml
-        cat runtime/service.yaml | envsubst > /tmp/service.yaml
-        cat runtime/ingress.yaml | envsubst > /tmp/ingress.yaml
+        cat runtime/deployment.yaml | /root/envsubst > /tmp/deployment.yaml
+        cat runtime/service.yaml | /root/envsubst > /tmp/service.yaml
+        cat runtime/ingress.yaml | /root/envsubst > /tmp/ingress.yaml
 
         # wait a second
         sleep 1
 
         # 部署资源
-        kubectl apply -f /tmp/deployment.yaml
-        kubectl apply -f /tmp/service.yaml
-        kubectl apply -f /tmp/ingress.yaml
+        /root/kubectl apply -f /tmp/deployment.yaml
+        /root/kubectl apply -f /tmp/service.yaml
+        /root/kubectl apply -f /tmp/ingress.yaml
