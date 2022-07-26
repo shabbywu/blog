@@ -3,6 +3,10 @@ kind: Ingress
 metadata:
   name: blog-ingress
 spec:
+  tls:
+  - hosts:
+      - "${INGRESS_HOST}"
+    secretName: blog-tls
   rules:
   - host: "${INGRESS_HOST}"
     http:
