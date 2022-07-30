@@ -47,12 +47,6 @@ jobs:
     - uses: actions/checkout@v2
     - name: Deploy to self-hosted server
       run: |
-        # generate frpc.ini
-        echo "${FRPC_CONFIG}" | base64 -d > frpc.ini
-
-        # run frpc
-        /root/frpc --config frpc.ini &
-
         # generate kubeconfig
         echo "${KUBE_CONFIG}" | base64 -d > kubeconfig.yaml
 
@@ -60,9 +54,6 @@ jobs:
         cat runtime/deployment.yaml | /root/envsubst > /tmp/deployment.yaml
         cat runtime/service.yaml | /root/envsubst > /tmp/service.yaml
         cat runtime/ingress.yaml | /root/envsubst > /tmp/ingress.yaml
-
-        # wait a second
-        sleep 1
 
         # 部署资源
         /root/kubectl --kubeconfig=./kubeconfig.yaml apply -f /tmp/deployment.yaml
