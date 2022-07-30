@@ -54,8 +54,10 @@ jobs:
         cat runtime/deployment.yaml | /root/envsubst > /tmp/deployment.yaml
         cat runtime/service.yaml | /root/envsubst > /tmp/service.yaml
         cat runtime/ingress.yaml | /root/envsubst > /tmp/ingress.yaml
+        cat runtime/secret.yaml | /root/envsubst > /tmp/secret.yaml
 
         # 部署资源
         /root/kubectl --kubeconfig=./kubeconfig.yaml apply -f /tmp/deployment.yaml
         /root/kubectl --kubeconfig=./kubeconfig.yaml apply -f /tmp/service.yaml
         /root/kubectl --kubeconfig=./kubeconfig.yaml apply -f /tmp/ingress.yaml
+        /root/kubectl --kubeconfig=./kubeconfig.yaml apply -f /tmp/secret.yaml
