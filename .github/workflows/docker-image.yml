@@ -43,8 +43,6 @@ jobs:
       INGRESS_HOST: ${{ secrets.INGRESS_HOST }}
       KUBE_CONFIG: ${{ secrets.KUBE_CONFIG }}
       FRPC_CONFIG: ${{ secrets.FRPC_CONFIG}}
-      TLS_KEY: ${{ secrets.TLS_KEY }}
-      TLS_CRT: ${{ secrets.TLS_CRT }}
     steps:
     - uses: actions/checkout@v2
     - name: Deploy to self-hosted server
@@ -56,7 +54,6 @@ jobs:
         cat runtime/deployment.yaml | /root/envsubst > /tmp/deployment.yaml
         cat runtime/service.yaml | /root/envsubst > /tmp/service.yaml
         cat runtime/ingress.yaml | /root/envsubst > /tmp/ingress.yaml
-        cat runtime/secret.yaml | /root/envsubst > /tmp/secret.yaml
 
         # 部署资源
         /root/kubectl --kubeconfig=./kubeconfig.yaml apply -f /tmp/deployment.yaml

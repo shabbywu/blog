@@ -1,20 +1,31 @@
-apiVersion: networking.k8s.io/v1
-kind: Ingress
+apiVersion: traefik.containo.us/v1alpha1
+kind: IngressRoute
 metadata:
-  name: blog-ingress
+  name: blog-web
+  namespace: default
 spec:
+  entryPoints:
+    - web
+  routes:
+  - match: Host(`${INGRESS_HOST}`)
+    kind: Rule
+    services:
+    - name: blog-service
+      port: 80
+---
+apiVersion: traefik.containo.us/v1alpha1
+kind: IngressRoute
+metadata:
+  name: blog-websecure
+  namespace: default
+spec:
+  entryPoints:
+    - websecure
+  routes:
+  - match: Host(`${INGRESS_HOST}`)
+    kind: Rule
+    services:
+    - name: blog-service
+      port: 80
   tls:
-  - hosts:
-      - "${INGRESS_HOST}"
-    secretName: blog-tls
-  rules:
-  - host: "${INGRESS_HOST}"
-    http:
-      paths:
-      - path: /
-        pathType: Prefix
-        backend:
-          service:
-            name: blog-service
-            port:
-              number: 80
+    certResolver: myresolver
