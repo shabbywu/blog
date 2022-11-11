@@ -59,4 +59,3 @@ jobs:
         /root/kubectl --kubeconfig=./kubeconfig.yaml apply -f /tmp/deployment.yaml
         /root/kubectl --kubeconfig=./kubeconfig.yaml apply -f /tmp/service.yaml
         /root/kubectl --kubeconfig=./kubeconfig.yaml apply -f /tmp/ingress.yaml
-        /root/kubectl --kubeconfig=./kubeconfig.yaml apply -f /tmp/secret.yaml
