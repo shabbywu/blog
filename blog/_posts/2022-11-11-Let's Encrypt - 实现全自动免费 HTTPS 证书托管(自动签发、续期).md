@@ -15,8 +15,8 @@ draft: false
 
 ![Chrome不安全演示图片](/img/Chrome不安全演示.png)
 
-随着 Chrome 68 版本的覆盖范围，HTTP网站上的“不安全”警告将被越来越多的Chrome用户看到。因此，使用 HTTPS 加密协议提高网站安全性是每个网站所有者的义务。
-但是，为了确保私钥安全，SSL/TLS 证书都设置了有效期限，最新的国际标准中SSL证书最长有效期为2年（825天）。如果网站使用的 SSL 证书已过期，那么 Chrome 反而会出现**红色“不安全”**警告。
+随着 Chrome 68 版本的覆盖范围，HTTP网站上的“不安全”警告将被越来越多的Chrome用户看到。因此，使用 HTTPS 加密协议提高网站安全性是每个网站所有者的义务。   
+但是，为了确保私钥安全，SSL/TLS 证书都设置了有效期限，最新的国际标准中SSL证书最长有效期为**1年**。如果网站使用的 SSL 证书已过期，那么 Chrome 反而会出现 **红色“不安全”** 警告。
 
 ![Chrome不安全演示(红色)图片](/img/Chrome不安全演示(红色).png)
 
@@ -30,7 +30,7 @@ Let’s Encrypt 是一家全球性非盈利的证书颁发机构（CA），在�
 
 # 如何申请 Let's Encrypt 证书
 
-与其他常见的 CA 机构不同, Let's Encrypt 证书是基于 [**ACME(Automatic Certificate Management Environment) 协议**](https://www.rfc-editor.org/rfc/rfc8555) 全自助颁发、续期或吊销的。
+与其他常见的 CA 机构不同, Let's Encrypt 证书是基于 [**ACME(Automatic Certificate Management Environment) 协议**](https://www.rfc-editor.org/rfc/rfc8555) 全自助颁发、续期或吊销的。   
 一般而言，申请 Let's Encrypt 证书可拆分成 2 个步骤。
 - 首先, 向 Let's Encrypt 证明 Web 服务域名的**所有权**。*(与其他 CA 机构一样, 颁发 DV 证书都需要证明域名所有权)*
 - 然后, 调用 Let's Encrypt 提供的 API 颁发、续期或吊销该域名的证书。
@@ -38,7 +38,7 @@ Let’s Encrypt 是一家全球性非盈利的证书颁发机构（CA），在�
 
 ## Let's Encrypt 的工作原理
 
-Let's Encrypt 通过公私密钥对验证和区分不同的 ACME 客户端的请求。为了认证域名的所有权, ACME 协议目前提出了 3 种域名所有权认证的方式，分别是 `HTTP 01`、`DNS 01` 和 `TLS-ALPN-01`。我们可通过下面的流程图了解域名认证的大致流程。
+Let's Encrypt 通过公私密钥对验证和区分不同的 ACME 客户端的请求。为了认证域名的所有权, ACME 协议目前提供了 3 种认证的方式，分别是 `HTTP 01`、`DNS 01` 和 `TLS-ALPN-01`。我们可通过下面的流程图了解域名认证的大致流程。
 
 ```plantuml
 @startuml
@@ -76,10 +76,10 @@ participant letsencrypt [
 
 certbot -> letsencrypt: 注册账户(JWK)
 letsencrypt -> certbot: 返回账号URL(kid)
-certbot -> letsencrypt: 创建订单(domain, kid)
+certbot -> letsencrypt: 创建证书订单(domain, kid)
 letsencrypt -> certbot: 返回认证链接和一次性随机数(nonce)
-certbot -> letsencrypt: 访问认证链接换取 Token
-letsencrypt -> certbot: 返回认证方式
+certbot -> letsencrypt: 访问认证链接换取认证 Token
+letsencrypt -> certbot: 返回 CA 支持的认证方式
 
 group HTTP-01
     autonumber 7.1 
@@ -110,7 +110,7 @@ certbot -> letsencrypt: 下载证书
 
 ## 流程演示
 
-我们使用 [acme.sh](https://github.com/acmesh-official/acme.sh) 演示如何通过 `DNS-01` 认证域名所有权，并签发 HTTPS 证书。
+我们使用 [acme.sh](https://github.com/acmesh-official/acme.sh) 演示如何通过 `DNS-01` 申请 HTTPS 证书。
 
 ### Step 1. 发起域名证书申请请求
 
@@ -128,7 +128,7 @@ ACCOUNT_THUMBPRINT='******'
 # 使用手动模式申请域名证书
 ❯ acme.sh --issue --dns -d test.shabbywu.cn --server letsencrypt --yes-I-know-dns-manual-mode-enough-go-ahead-please
 
-Using CA: https://acme.zerossl.com/v2/DV90
+Using CA: https://acme-v02.api.letsencrypt.org/directory
 Creating domain key
 The domain key is here: /acme.sh/test.shabbywu.cn/test.shabbywu.cn.key
 Single domain='test.shabbywu.cn'
@@ -209,14 +209,14 @@ ACME 协议使得全自动签发和续签证书成为可能。目前较为热门
 
 ## 定时任务 - linux cron
 
-`acme.sh` 是 Bash 上的 ACME 客户端实现，可轻松借助 `linux cron` 定时任务实现证书的定时续期操作。
-`acme.sh` 提供了多种方式实现域名自动化认证，不仅可以与 `nginx`, `apache` 等主流 web server 配合自动完成 `HTTP-01` 认证，还提供了不依赖前端 web server 的 `standalone` 模式自动完成域名所有权认证(需要监听端口接受网络请求)。
-如果不希望服务器被 `Let's Encrypt` 访问, 亦可以借助 `dnsapi` 自动完成 `DNS-01` 认证。
+`acme.sh` 是 Bash 上的 ACME 客户端实现，可轻松借助 `linux cron` 定时任务实现证书的定时续期操作。   
+`acme.sh` 提供了多种方式实现域名自动化认证，不仅可以与 `nginx`, `apache` 等主流 web server 配合自动完成 `HTTP-01` 认证，还提供了不依赖前端 web server 的 `standalone` 模式自动完成域名所有权认证(需要监听端口接受网络请求)。   
+如果域名尚未能提供 HTTP 服务, 亦可以借助 `dnsapi` 自动完成 `DNS-01` 认证。
 
 ```bash
 # 自动 DNS 认证
 ❯ acme.sh --issue --dns dns_dp -d test.shabbywu.cn --server letsencrypt 
-Using CA: https://acme.zerossl.com/v2/DV90
+Using CA: https://acme-v02.api.letsencrypt.org/directory
 Create account key ok.
 Registering account: https://acme-v02.api.letsencrypt.org/directory
 Registered
@@ -272,7 +272,7 @@ Installing cron job
 
 ### Docker
 
-`traefik` 支持使用 labels 为 Docker 容器注入路由配置，以下是一份开启了 `ACME` 配置的 `docker-compose` 样例。
+`traefik` 支持使用 labels 为 Docker 容器注入路由配置，以下是一份开启了 `ACME` 配置样例。
 
 ```yaml
 version: "3.3"
@@ -314,7 +314,7 @@ services:
 ```
 
 ### K8S
-`traefik` 同时支持 [**K8s Ingress**](https://doc.traefik.io/traefik/providers/kubernetes-ingress/) 或者 [**IngressRoute(CRD)**](https://doc.traefik.io/traefik/providers/kubernetes-crd/) 进行路由配置。
+`traefik` 同时支持 [**K8s Ingress**](https://doc.traefik.io/traefik/providers/kubernetes-ingress/) 或者 [**IngressRoute(CRD)**](https://doc.traefik.io/traefik/providers/kubernetes-crd/) 进行路由配置。以下是分别是 `Ingress` 和 `IngressRoute` 开启 `ACME` 配置样例。
 
 ```yaml
 # Ingress 配置样例
