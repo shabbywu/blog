@@ -13,6 +13,7 @@ spec:
     metadata:
       labels:
         app: blog
+        sha256: "${GITHUB_SHA}"
     spec:
       containers:
       - name: blog
