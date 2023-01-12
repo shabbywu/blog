@@ -15,7 +15,7 @@ const plantUMLHighlighter = new PlantUMLHighlighter();
 const defaultHighlight = require("@vuepress/markdown/lib/highlight");
 
 module.exports = {
-  title: 'Shabbywu',
+  title: '个人技术文章分享',
   description: '这是一个简单的博客',
   head: [
     ['link', { rel: 'icon', href: '/img/avatar.png' }]
