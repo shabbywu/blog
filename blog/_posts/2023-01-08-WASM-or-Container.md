@@ -11,10 +11,12 @@ draft: false
 # 前言
 2013年3月20日, DotCloud 发布了 Docker 的首个版本, 从此开启了容器化时代的序幕。现在是容器化时代, 不管是开发、测试还是运维, 很少有人会不知道或不会用 Docker。自 Docker 发布至今的 10年内, 开源和社区共建让容器化技术如日中天。尽管容器化产品迭代迅速, 但是容器技术的核心却一直围绕着 Linux, 每当我们提及容器时, 实际上我们指代的往往是基于 Linux Kernel 的运行时实现。
 时至今日, 除了 Linux 容器以外还有很多容器运行时实现, 例如 [Kata Containers](https://github.com/kata-containers/kata-containers) 和 [gVisor](https://github.com/google/gvisor), 那究竟谁会是下一代运行时实现呢？-- 很可能是 Webassembly。
+
 这篇文章会介绍什么是 WebAssembly, 为什么它有成为下一代运行时实现的潜力, 并演示 WebAssembly 容器与常规的 Linux 容器的差异。
 
-::: details 延伸阅读: 什么是容器？
+::: tip 延伸阅读: 什么是容器？
 **容器镜像**是一个轻量级的、独立的、可执行的**软件包**, 只要**应用程序**打包成容器镜像交付, 无论在何种基础架构(Linux 或 Windows; ARM 或 X86), 它们都将始终以相同的方式运行。
+
 **容器**提供一种可以快速且可靠地将**应用程序**从一个计算环境运行到另一个计算环境的技术, 容器是软件即服务(Software as a service, SaaS)。
 :::
 
@@ -128,7 +130,9 @@ Docker 在 2022 年 10 月 24 日宣布将在 Docker Desktop 4.15 以 Beta 特�
 
 ## 构建并运行 Wasm 镜像
 我们知道, 对于编译型语言最终生成的是 .wasm 文件, 编译镜像无任何技术含量。为了提高挑战性, 我们使用解释型语言 [CPython](https://github.com/python/cpython) 完成这一节的演示。
+
 与 C 和 Rust 等编译型语言不同, 对于 Python、Ruby 等解释型语言, 我们需要将它们的解释器编译成 Wasm。一旦将解释器编译为 Wasm, 任何 Wasm 虚拟机都能够运行这些解释型语言。
+
 理论如此, 但由于 WASI 并未提供完整的 POISX 兼容, 在编译 CPython 时需要修改部分源码, 开源项目 [python-wasi](https://github.com/singlestore-labs/python-wasi.git) 已完成了这个实验, 借助该项目即可将 CPython 编译成 Wasm。
 
 ### 0. 整理项目结构
