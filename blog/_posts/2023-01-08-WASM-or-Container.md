@@ -124,7 +124,7 @@ WebAssembly 的特性让它天生支持容器化，*如果应用程序都编译�
 
 # 容器化 WebAssembly
 Docker 在 2022 年 10 月 24 日宣布将在 Docker Desktop 4.15 以 Beta 特性支持运行 Wasm 容器！正如前文所言, Wasm 是一个更快、更轻量的 Linux/Windows 容器的替代品。这一节将演示 Wasm 容器与常规的 Linux 容器的差异，包括构建 Wasm 镜像、运行 Wasm 容器和原生执行的对比。
-![Docker+Wasm](/img/Docer+Wasm.png)
+![Docker+Wasm](/img/Docker+Wasm.png)
 
 ## 构建并运行 Wasm 镜像
 我们知道, 对于编译型语言最终生成的是 .wasm 文件, 编译镜像无任何技术含量。为了提高挑战性, 我们使用解释型语言 [CPython](https://github.com/python/cpython) 完成这一节的演示。
