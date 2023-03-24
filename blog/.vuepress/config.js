@@ -67,13 +67,25 @@ module.exports = {
       { text: '文章', link: '/posts/', exact: false },
     ],
   },
-  plugins: {
-    '@vuepress/active-header-links': {},
-    '@vuepress/back-to-top': {},
-    '@vuepress/google-analytics': {
-      'ga': 'UA-171805433-1'
-    }
-  },
+  plugins: [
+    [
+      '@vuepress/active-header-links', {}
+    ],
+    [
+      '@vuepress/back-to-top', {}
+    ],
+    [
+      '@vuepress/google-analytics',
+      {
+        'ga': 'UA-171805433-1'
+      }
+    ],
+    ['vuepress-plugin-container', {
+      type: 'details',
+      before: info => `<details class="custom-block details">${info ? `<summary>${info}</summary>` : ''}\n`,
+      after: () => '</details>\n'
+    }],
+  ],
   markdown: {
     // markdown-it-anchor 的选项
     anchor: { permalink: false },
