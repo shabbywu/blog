@@ -1,5 +1,5 @@
 ---
-date: 2023-01-08
+date: 2023-03-23
 title: 蓝鲸智云 PaaS 平台重构小结 - Django 项目合并心得
 sidebarDepth: 2
 category: python
