@@ -1,4 +1,4 @@
-FROM node:13.7.0-stretch-slim as builder
+FROM node:14.21.3-slim as builder
 USER root
 
 WORKDIR /app
