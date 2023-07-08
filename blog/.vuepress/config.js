@@ -85,6 +85,11 @@ module.exports = {
       before: info => `<details class="custom-block details">${info ? `<summary>${info}</summary>` : ''}\n`,
       after: () => '</details>\n'
     }],
+    [
+      'sitemap', {
+        hostname: 'https://blog.shabbywu.cn'
+      }
+    ]
   ],
   markdown: {
     // markdown-it-anchor 的选项
