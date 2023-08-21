@@ -1,4 +1,4 @@
-import TOC from "./components/TOC"
+import TOC from "./theme/components/TOC"
 
 export default ({
     Vue, // VuePress 正在使用的 Vue 构造函数
@@ -8,6 +8,6 @@ export default ({
   }) => {
     setTimeout(function(){
       // 延迟注册, 避免被覆盖
-      Vue.component("TOC", TOC)
+      Vue.component("TOC", TOC);
     })
 }
