@@ -89,6 +89,11 @@ module.exports = {
       'sitemap', {
         hostname: 'https://blog.shabbywu.cn'
       }
+    ],
+    [
+      'feed', {
+        canonical_base: 'https://blog.shabbywu.cn'
+      }
     ]
   ],
   markdown: {
