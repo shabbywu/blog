@@ -8,6 +8,7 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
+    environment: PROD
     steps:
     - uses: actions/checkout@v2
     - name: Set up Docker Buildx
