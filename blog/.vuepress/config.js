@@ -60,7 +60,7 @@ module.exports = {
       owner: 'shabbywu',
       repo: 'blog',
       ...GITHUB_OAUTH_APP,
-      autoCreateIssue: false,
+      autoCreateIssue: true,
     },
     nav: [
       { text: 'Home', link: '/', exact: true  },
