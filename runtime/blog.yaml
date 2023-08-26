@@ -1,0 +1,89 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: blog-deployment
+  labels:
+    app: blog
+spec:
+  selector:
+    matchLabels:
+      app: blog
+  replicas: 2 # tells deployment to run 2 pods matching the template
+  template:
+    metadata:
+      labels:
+        app: blog
+        sha256: "${GITHUB_SHA}"
+    spec:
+      containers:
+      - name: blog
+        image: ghcr.io/${REPOSITORY}:latest
+        imagePullPolicy: Always
+        ports:
+        - name: http
+          containerPort: 80
+          protocol: TCP
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: blog-service
+  labels:
+    app: blog
+spec:
+  type: ClusterIP
+  ports:
+  - port: 80
+    targetPort: http
+    protocol: TCP
+    name: http
+  selector:
+    app: blog
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: blog-service
+  labels:
+    app: blog
+spec:
+  type: ClusterIP
+  ports:
+  - port: 80
+    targetPort: http
+    protocol: TCP
+    name: http
+  selector:
+    app: blog
+---
+apiVersion: traefik.containo.us/v1alpha1
+kind: IngressRoute
+metadata:
+  name: blog-web
+  namespace: default
+spec:
+  entryPoints:
+    - web
+  routes:
+  - match: Host(`${INGRESS_HOST}`)
+    kind: Rule
+    services:
+    - name: blog-service
+      port: 80
+---
+apiVersion: traefik.containo.us/v1alpha1
+kind: IngressRoute
+metadata:
+  name: blog-websecure
+  namespace: default
+spec:
+  entryPoints:
+    - websecure
+  routes:
+  - match: Host(`${INGRESS_HOST}`)
+    kind: Rule
+    services:
+    - name: blog-service
+      port: 80
+  tls:
+    certResolver: myresolver

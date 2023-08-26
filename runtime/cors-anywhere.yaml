@@ -1,0 +1,88 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: cors-anywhere-deployment
+  labels:
+    app: cors-anywhere
+spec:
+  selector:
+    matchLabels:
+      app: cors-anywhere
+  replicas: 1 # tells deployment to run 2 pods matching the template
+  template:
+    metadata:
+      labels:
+        app: cors-anywhere
+    spec:
+      containers:
+      - name: cors-anywhere
+        image: testcab/cors-anywhere
+        imagePullPolicy: Always
+        ports:
+        - name: http
+          containerPort: 8080
+          protocol: TCP
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: cors-anywhere-service
+  labels:
+    app: cors-anywhere
+spec:
+  type: ClusterIP
+  ports:
+  - port: 80
+    targetPort: http
+    protocol: TCP
+    name: http
+  selector:
+    app: cors-anywhere
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: cors-anywhere-service
+  labels:
+    app: cors-anywhere
+spec:
+  type: ClusterIP
+  ports:
+  - port: 80
+    targetPort: http
+    protocol: TCP
+    name: http
+  selector:
+    app: cors-anywhere
+---
+apiVersion: traefik.containo.us/v1alpha1
+kind: IngressRoute
+metadata:
+  name: cors-anywhere-web
+  namespace: default
+spec:
+  entryPoints:
+    - web
+  routes:
+  - match: Host(`cors.${INGRESS_HOST}`)
+    kind: Rule
+    services:
+    - name: cors-anywhere-service
+      port: 80
+---
+apiVersion: traefik.containo.us/v1alpha1
+kind: IngressRoute
+metadata:
+  name: cors-anywhere-websecure
+  namespace: default
+spec:
+  entryPoints:
+    - websecure
+  routes:
+  - match: Host(`cors.${INGRESS_HOST}`)
+    kind: Rule
+    services:
+    - name: cors-anywhere-service
+      port: 80
+  tls:
+    certResolver: myresolver

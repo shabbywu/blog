@@ -13,7 +13,7 @@ draft: false
 现在是容器化时代，不管是开发、测试还是运维，很少有人会不知道或不会用 Docker。使用 Docker 也很简单，很多时候启动容器无非就是执行 `docker run {your-image-name}`，而构建镜像也就是执行一句 `docker build dockerfile .`的事情。   
 也许正是由于 **Docker** 对实现细节封装得过于彻底，有时候会觉得我们也许只是学会了**如何使用`Docker CLI`** , 而并非明白 Docker 是如何运行的。   
 笔者将在『How To Build Images』系列文章讲述 `Docker build dockerfile .`相关的实现细节，本文是本系列的第二篇文章，将为各位展示从 0 开始徒手构建 Docker 镜像的相关知识。   
-> 注: 本文假设读者了解如何使用 Docker, 包括但不限于懂得执行 `docker run` 和 `docker build` 以及编写 Dockerfile，还需要懂得 [Docker 镜像规范](http://blog.shabbywu.cn/posts/2021/01/31/how-to-build-images-docker-%E9%95%9C%E5%83%8F%E8%A7%84%E8%8C%83.html)
+> 注: 本文假设读者了解如何使用 Docker, 包括但不限于懂得执行 `docker run` 和 `docker build` 以及编写 Dockerfile，还需要懂得 [Docker 镜像规范](/posts/2021/01/31/how-to-build-images-docker-%E9%95%9C%E5%83%8F%E8%A7%84%E8%8C%83.html)
 
 # 剖玄析微-原来容器是这样运行的
 ## Docker 架构简述
@@ -26,7 +26,7 @@ draft: false
 
 照这么说，我们可不可以砍掉中间商, 直接调用 `runc` 来创建容器呢？答案是可以的。我们只需要根据 **OCI 运行时规范** 将容器编排为文件系统捆绑包(Filesystem Bundle)的形式，即可使用 `runc` 启动该容器。
 > 注1: 对于 linux 系统, 一般安装 Docker 即会同时安装 runc, 如本机未安装 runc, 可直接在 github 下载预编译好的 [runc 二进制文件](https://github.com/opencontainers/runc/releases)。   
-> 注2: 想进一步了解 **OCI 运行时规范** 的读者, 可以阅读笔者另一个系列文章[『How To Run Container:OCI 运行时规范』](http://blog.shabbywu.cn/posts/2021/03/31/how-to-run-container-oci-%E8%BF%90%E8%A1%8C%E6%97%B6%E8%A7%84%E8%8C%83.html)
+> 注2: 想进一步了解 **OCI 运行时规范** 的读者, 可以阅读笔者另一个系列文章[『How To Run Container:OCI 运行时规范』](/posts/2021/03/31/how-to-run-container-oci-%E8%BF%90%E8%A1%8C%E6%97%B6%E8%A7%84%E8%8C%83.html)
 
 ## runc-如何运行一个容器镜像
 
@@ -238,7 +238,7 @@ Hello runc!
 
 其中只有 `manifest.json` 中声明的要素是镜像归档包的必要成分，其他文件都无需关注。也就是说, 只需要关注 `layer.tar`, `config.json` 以及 `manifest.json` 三个文件。
 > 注1: config.json 即 Image JSON, 在归档包中常以自身的 sha256sum 命名, 在上述案例中即 `6ad733544a6317992a6fac4eb19fe1df577d4dec7529efec28a5bd0edad0fd30.json`
-> 注2: 容器镜像归档包中包含的成分和含义详见本系列上一篇文章[『How To Build Images:Docker 镜像规范 v1.2』](http://blog.shabbywu.cn/posts/2021/01/31/how-to-build-images-docker-%E9%95%9C%E5%83%8F%E8%A7%84%E8%8C%83.html)
+> 注2: 容器镜像归档包中包含的成分和含义详见本系列上一篇文章[『How To Build Images:Docker 镜像规范 v1.2』](/posts/2021/01/31/how-to-build-images-docker-%E9%95%9C%E5%83%8F%E8%A7%84%E8%8C%83.html)
 
 ## 构建 layer.tar
 层归档包记录着镜像内容的变更历史, 我们这个镜像包有且只有一层, 因此只需要将 hello 文件打包进归档包即可。

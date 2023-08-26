@@ -1,5 +1,10 @@
 FROM node:14.21.3-slim as builder
 USER root
+ARG SITE_HOSTNAME=www.example.com
+ARG CORS_HOSTNAME=cors.example.com
+
+ENV SITE_HOSTNAME=${SITE_HOSTNAME}
+ENV CORS_HOSTNAME=${CORS_HOSTNAME}
 
 WORKDIR /app
 ADD ./package.json .

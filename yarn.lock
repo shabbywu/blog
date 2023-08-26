@@ -8616,7 +8616,7 @@ vuepress-plugin-disqus@^0.2.0:
   dependencies:
     vue-disqus "^3.0.5"
 
-vuepress-plugin-feed@^0.1.8:
+vuepress-plugin-feed@^0.1.8, vuepress-plugin-feed@^0.1.9:
   version "0.1.9"
   resolved "https://mirrors.tencent.com/npm/vuepress-plugin-feed/-/vuepress-plugin-feed-0.1.9.tgz#706fc381c1831c110d161b7e892057750c8904da"
   integrity sha512-iOJkR7zPmJAX0TEVdxNsUT07xNQB6lZFpU7DqsYzO01FhaPkMOOVM5Vx5a/iOOuOggAeoI9H9yuah+cRmCImlw==

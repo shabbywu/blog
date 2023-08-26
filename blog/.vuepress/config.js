@@ -66,6 +66,9 @@ module.exports = {
       { text: 'Home', link: '/', exact: true  },
       { text: '文章', link: '/posts/', exact: false },
     ],
+    corsConfig: {
+      proxyPrefix: `https://${process.env.CORS_HOSTNAME}`,
+    },
   },
   plugins: [
     [
@@ -87,12 +90,12 @@ module.exports = {
     }],
     [
       'sitemap', {
-        hostname: 'https://blog.shabbywu.cn'
+        hostname: `https://${process.env.SITE_HOSTNAME}`
       }
     ],
     [
       'feed', {
-        canonical_base: 'https://blog.shabbywu.cn'
+        canonical_base: `https://${process.env.SITE_HOSTNAME}`
       }
     ]
   ],
@@ -119,5 +122,5 @@ module.exports = {
     },
     // 从 html 解析出的 headers
     extractHeaders: ['h1', 'h2', 'h3', 'h4', 'h5']
-  }
+  },
 }

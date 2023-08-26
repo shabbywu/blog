@@ -39,7 +39,7 @@ export default {
   data: function () {
       return {
           options: {
-              proxy: (url) => `http://hk2.proxy.shabbywu.cn:8888/${url}`
+              proxy: (url) => `http://${this.$themeConfig.corsConfig.proxyPrefix}/${url}`
           }
       }
   },

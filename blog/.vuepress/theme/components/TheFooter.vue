@@ -102,7 +102,6 @@
       },
 
       feeds () {
-        window.BlogSite = this;
         return this.$themeConfig.footer.feeds !== false
       }
     },

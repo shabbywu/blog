@@ -10,7 +10,7 @@ draft: false
 ---
 # 前言
 
-在上一篇文章[Git 合并代码的不同方式](https://blog.shabbywu.cn/posts/2022/05/27/git-merge-method.html)中介绍了 Merge Commit、Squash Merge、Cherry-pick、Rebase Merge 等合并方法的差异和使用场景, 接下来我们继续讨论与 Git 密不可分的另一个话题 -- 代码合并冲突。   
+在上一篇文章[Git 合并代码的不同方式](/posts/2022/05/27/git-merge-method.html)中介绍了 Merge Commit、Squash Merge、Cherry-pick、Rebase Merge 等合并方法的差异和使用场景, 接下来我们继续讨论与 Git 密不可分的另一个话题 -- 代码合并冲突。   
 
 # 为什么会发生代码冲突？
 当多个开发者试图编辑相同的内容时, 那么就可能发送代码冲突。例如以下就是典型的代码冲突时的场景:
@@ -86,7 +86,7 @@ def add(a, b):
 
 ### Git Squash Merge 冲突
 
-在上一篇文章[Git 合并代码的不同方式](https://blog.shabbywu.cn/posts/2022/05/27/git-merge-method.html)中有提及, `Squash Merge` 会将代码提交记录压缩合并为 1个节点, 并追加至当前分支的末尾。使用 `Squash Merge` 会产生以下的拓扑结构:
+在上一篇文章[Git 合并代码的不同方式](/posts/2022/05/27/git-merge-method.html)中有提及, `Squash Merge` 会将代码提交记录压缩合并为 1个节点, 并追加至当前分支的末尾。使用 `Squash Merge` 会产生以下的拓扑结构:
 
 ```
                         H---I---J feature-xxx
@@ -103,7 +103,7 @@ def add(a, b):
 
 ### Git Rebase 冲突
 
-在上一篇文章[Git 合并代码的不同方式](https://blog.shabbywu.cn/posts/2022/05/27/git-merge-method.html)中有提及, `Rebase(变基)` 即变更当前分支的根节点。对于以下的拓扑结构而言:
+在上一篇文章[Git 合并代码的不同方式](/posts/2022/05/27/git-merge-method.html)中有提及, `Rebase(变基)` 即变更当前分支的根节点。对于以下的拓扑结构而言:
 
 ```
         E---F---G feature-xxx
