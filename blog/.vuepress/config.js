@@ -13,6 +13,10 @@ GITHUB_OAUTH_APP = {
 const PlantUMLHighlighter = require('./lib/markdown-it-plantuml');
 const plantUMLHighlighter = new PlantUMLHighlighter();
 const defaultHighlight = require("@vuepress/markdown/lib/highlight");
+const _		= {
+	defaultsDeep: require('lodash.defaultsdeep'),
+	isEmpty			: require('lodash.isempty'),
+};
 
 module.exports = {
   title: '个人技术文章分享',
@@ -95,7 +99,26 @@ module.exports = {
     ],
     [
       'feed', {
-        canonical_base: `https://${process.env.SITE_HOSTNAME}`
+        canonical_base: `https://${process.env.SITE_HOSTNAME}`,
+        is_feed_page: function (page) {
+          const directories = this.posts_directories || [];
+          // 未定义目录, 忽略
+          if ( _.isEmpty( directories ) ) return false;
+
+          const { frontmatter, path } = page;
+          // 未定义 frontmatter, 忽略
+          if ( _.isEmpty( frontmatter ) ) return false;
+          // 草稿, 忽略
+          if (frontmatter?.draft) return false;
+
+          for ( const dir of directories ) {
+            if ( path.startsWith(`${dir}`) ) {
+              console.log("is_feed_page", path);
+              return true
+            };
+          }
+          return false;
+        }
       }
     ]
   ],
