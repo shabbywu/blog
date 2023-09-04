@@ -10,6 +10,9 @@ tags:
 -   docs
 
 draft: false
+feed:
+    description: |
+        本文分享了使用 pydantic 完成 drf 文档自动生成的思路和代码实现。
 ---
 # 使用 pydantic 简化 API 文档生成的思路
 ## 前言-Type Hints简介

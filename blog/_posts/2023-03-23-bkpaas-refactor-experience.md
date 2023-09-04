@@ -8,6 +8,9 @@ tags:
 -   python
 
 draft: false
+feed:
+    description: |
+        本文分享了在对蓝鲸 PaaS（蓝鲸智云开发平台）进行重构过程中的经验和教训。
 ---
 
 # 背景介绍
