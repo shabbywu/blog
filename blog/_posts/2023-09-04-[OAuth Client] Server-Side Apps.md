@@ -11,7 +11,7 @@ draft: false
 
 # 前言
 OAuth2.0 是行业标准的用户授权框架，针对不同的使用场景提供了多种授权方式。关于 OAuth2.0 认证框架的所有细节都可以在 [RFC 6749](https://datatracker.ietf.org/doc/html/rfc6749) 找到对应的详细说明，然而阅读规范并不是了解 OAuth2.0 工作流程的最佳方式。   
-本文以接入 GitHub 授权作为使用场景，针对性介绍服务端应用(Server-Side Apps)如何使用 OAuth2.0 完成用户授权验证。
+本文以接入 GitHub 授权作为使用场景，针对性介绍服务端应用(*Server-Side Apps*)如何使用 OAuth2.0 完成用户授权验证。
 
 # 服务端应用如何接入 GitHub？
 
@@ -26,7 +26,7 @@ OAuth2.0 是行业标准的用户授权框架，针对不同的使用场景提�
 以接入 GitHub 为例:   
 客户端(*client*)即 GitHub OAuth App;   
 资源所有者(*resource owner*)即任一 GitHub 用户;   
-资源服务器(*resource server*)即 GitHub;
+资源服务器(*resource server*)即 GitHub;   
 授权服务器(*authorization server*)即 GitHub;
 :::
 
@@ -37,9 +37,9 @@ OAuth2.0 是行业标准的用户授权框架，针对不同的使用场景提�
 
 ## 2. 规划重定向地址(*Redirect URL*)
 
-重定向(*Redirect*)是授权服务器(*authorization server*)对客户端(*client*)发起的授权请求(*Authorization Request*)进行鉴权的重要措施。主要用途是防止攻击者拦截授权代码或访问令牌的重定向攻击。
+**重定向(*Redirect*)** 是 授权服务器(*authorization server*) 对 客户端(*client*) 发起的 **授权请求(*Authorization Request*)** 进行鉴权的重要措施。主要用途是防止攻击者拦截授权代码或访问令牌的重定向攻击。
 
-为了安全起见, 重定向地址(Redirect URL)应当尽量使用 HTTPS 地址以防止在授权过程中遭受被中间人拦截泄露授权码(*authorization code*)。
+为了安全起见, **重定向地址(Redirect URL)** 应当尽量使用 HTTPS 地址以防止在授权过程中遭受被中间人拦截泄露 **授权码(*authorization code*)**。
 
 ::: details 延伸阅读: 什么是授权码(<em>authorization code</em>)
 在 OAuth2.0 中 **授权码(*authorization code*)** 有两层含义:   
