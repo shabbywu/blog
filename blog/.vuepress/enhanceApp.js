@@ -1,4 +1,5 @@
 import TOC from "./theme/components/TOC"
+import DeviceFlow from "./theme/components/oauth/DeviceFlow"
 
 export default ({
     Vue, // VuePress 正在使用的 Vue 构造函数
@@ -6,6 +7,7 @@ export default ({
     router, // 当前应用的路由实例
     siteData // 站点元数据
   }) => {
+    Vue.component("DeviceFlow", DeviceFlow);
     setTimeout(function(){
       // 延迟注册, 避免被覆盖
       Vue.component("TOC", TOC);
