@@ -118,6 +118,7 @@ device_code=ABCDEF&expires_in=900&interval=5&user_code=WDJB-MJHT&verification_ur
 - 仅终端(terminal)的客户端应用
 - 具有图形界面(GUI)的客户端应用
 
+---
 对于仅终端(terminal)的客户端应用, 可参考 GitHub 官方提供的 SDK [cli/oauth](https://github.com/cli/oauth) 实现展示层(UI):
 ```bash
 ❯ myapp auth
@@ -126,10 +127,12 @@ First, copy your one-time code: WDJB-MJHT
 Then visiting that URL: https://github.com/login/device to continue in the web browser...
 ```
 
+---
 对于具有图形界面(GUI)的客户端应用, 可参考 GitHub Device Activation 页面实现展示层(UI):
 
 <DeviceFlow userCode="WDJB-MJHT" verificationUri="https://github.com/login/device"/>
 
+---
 用户在授权页面正确输入用户验证码后将看到以下界面:
 ![GitHub OAuth 授权示例](/img/GitHub-OAuth-Device-Flow-Example.png)
 
