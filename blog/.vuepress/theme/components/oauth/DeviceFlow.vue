@@ -56,11 +56,10 @@ export default {
 }
 
 .Box {
-    background-color: var(--bgColor-default, var(--color-canvas-default));
-    border-color: var(--borderColor-default, var(--color-border-default));
-    border-radius: var(--borderRadius-medium, 0.375rem);
+    border-color: rgb(44, 62, 80);
+    border-radius: 6px;
     border-style: solid;
-    border-width: var(--borderWidth-thin, max(1px, 0.0625rem));
+    border-width: 1px;
 }
 
 .Box-body:last-of-type {
