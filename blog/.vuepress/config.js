@@ -113,7 +113,6 @@ module.exports = {
 
           for ( const dir of directories ) {
             if ( path.startsWith(`${dir}`) ) {
-              console.log("is_feed_page", path);
               return true
             };
           }
