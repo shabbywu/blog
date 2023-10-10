@@ -10,7 +10,10 @@ draft: false
 ---
 
 # 背景介绍
-最近在开发 K8s Operator 时遇到一个奇怪的现象 -- 不管参数怎样传递, 请求发送到 Operator 时总会返回 `422 Unprocessable Content`。Apiserver 返回的错误提示非常清晰，就是 Operator 解析到的请求中缺了必须的字段(`FieldValueRequired`), 但请求中显然是已经传递了的。具体的请求和返回值如下所示(相关信息已脱敏):
+最近在开发 K8s Operator 时遇到一个奇怪的现象 -- 不管参数怎样传递, 请求发送到 Operator 时总会返回 `422 Unprocessable Content`。
+Apiserver 返回的错误提示非常清晰，就是请求中缺了必须的字段(`FieldValueRequired`)。   
+
+排查下来发现这些参数都已经传递了的。具体的请求和返回值如下所示(相关信息已脱敏):
 
 ```bash
 curl -X POST -H "Content-Type: application/json" https://example.com/apis/paas.bk.tencent.com/v1alpha1/namespaces/bkapp-foo-prod/bkapps -d `{
@@ -44,6 +47,7 @@ curl -X POST -H "Content-Type: application/json" https://example.com/apis/paas.b
 }`
 
 ---
+# 接口返回值如下:
 {
   "kind": "Status",
   "apiVersion": "v1",
