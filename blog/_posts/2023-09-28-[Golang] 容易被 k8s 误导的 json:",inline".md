@@ -213,7 +213,7 @@ C: {"key":"a"}
 虽然问题修复了，但想必大家都很好奇既然这个 struct tag 无效, 但为什么 k8s 仍然孜孜不倦地使用它？   
 一探究竟之下, 发现这其中的故事居然可追溯至 10 年前的[提案 - proposal: encoding/json: add "inline" struct tag](https://github.com/golang/go/issues/6213), 然而至今仍然未被标准库采纳。
 
-提案中的语法 `inline` 借鉴于 [mgo/bson](https://pkg.go.dev/labix.org/v2/mgo/bson), 实际上表达的含义是将 Struct 或 Map 的字段以内联的方式嵌套到上级结构体中, 达到实现动态结构体的需求, [Go Playground 传送门](https://go.dev/play/p/I5t6c9sxXmh)。 
+提案中的语法 `inline` 借鉴于 [mgo/bson](https://pkg.go.dev/labix.org/v2/mgo/bson), 实际上表达的含义是将 Struct 或 Map 的字段以内联的方式嵌套到上级结构体中, 达到实现动态结构体的需求, [Go Playground 传送门](https://go.dev/play/p/9TSm1-DTX3Y)。    
 具体的需求场景即是希望序列化后的 json 可以根据某个字段(例如 type) 拥有不同的数据结构, 例如:
 
 ```json
