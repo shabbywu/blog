@@ -18,3 +18,5 @@ jobs:
         TARGET_BRANCH: deploy
         BUILD_SCRIPT: yarn && yarn build
         BUILD_DIR: blog/.vuepress/dist/
+        SITE_HOSTNAME: ${{ secrets.INGRESS_HOST }}
+        CORS_HOSTNAME: cors.${{ secrets.INGRESS_HOST }}
