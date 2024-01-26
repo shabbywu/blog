@@ -21,4 +21,3 @@ jobs:
         BUILD_DIR: blog/.vuepress/dist/
         SITE_HOSTNAME: ${{ secrets.INGRESS_HOST }}
         CORS_HOSTNAME: cors.${{ secrets.INGRESS_HOST }}
-        CNAME: ${{ secrets.INGRESS_HOST }}
