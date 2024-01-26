@@ -4,7 +4,7 @@
   margin 0 auto
   padding 0 1rem
   @media (min-width $MQWide)
-    max-width (($MQWide + $MQNarrow) / 2)
+    max-width max((($MQWide + $MQNarrow) / 2), ($MQWide + $MQNarrow) * 0.85)
   @media (min-width $MQNarrow) and (max-width $MQWide - 1px)
     max-width $MQNarrow
   @media (max-width $MQMobile - 1px)
