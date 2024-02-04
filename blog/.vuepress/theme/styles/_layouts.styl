@@ -1,16 +1,17 @@
 @require '~@theme/styles/variables'
 
 .container
-  margin 0 auto
+  margin 0 1rem !important
   padding 0 1rem
   @media (min-width $MQWide)
-    max-width max((($MQWide + $MQNarrow) / 2), ($MQWide + $MQNarrow) * 0.85)
+    max-width ($MQWide / 2) + $MQNarrow
   @media (min-width $MQNarrow) and (max-width $MQWide - 1px)
     max-width $MQNarrow
   @media (max-width $MQMobile - 1px)
     padding 0 0.5rem
 
 .main-div
+  margin-top: 1rem
   padding 1.5rem
   background-color #ffffff
   border-radius 5px
