@@ -1,0 +1,116 @@
+@use "@sass-palette/hope-config";
+
+.blog-page {
+    margin: 0 1rem!important;
+    padding: 0 1rem;
+    display: flex;
+
+    .blog-main {
+        width: 75%;
+        @media print {
+            width: 100%;
+        }
+
+        .vp-page-title {
+            display: none;
+            padding-top: inherit !important;
+            @media print {
+                display: unset;
+            }
+        }
+    }
+    
+    .blog-aside {
+        padding-left: 1rem;
+        max-width: 100%;
+        width: 300px;
+
+        .sticky {
+            position: sticky;
+            top: calc(var(--navbar-height) + 2rem);
+            z-index: 99;
+            max-width: var(--content-width, 740px);
+            position: sticky;
+            line-break: strict;
+        }
+        .toc-place-holder {
+            padding: 0px;
+        }
+        #toc {
+            inset-inline-start: unset !important;
+            position: unset;
+            width: unset;
+
+            .toc-comment {
+                margin-top: 0.75rem;
+                margin-inline-start: 0.5rem;
+                font-weight: 600;
+                font-size: 0.875rem;
+            }
+        }
+
+        @media print {
+            display: none;
+        }
+    }
+}
+
+.main-div{
+    padding:  1.5rem;
+    background-color: var(--bg-color-float);
+    border-radius: 5px;
+    @media (max-width: calc(hope-config.$pc - 1px)) {
+        padding: 1rem;
+    }
+    &:not(:first-child) {
+        margin-top: 1rem;
+    }
+    &:not(:last-child) {
+        margin-bottom: 1rem;
+        @media (max-width: calc(hope-config.$pc - 1px)) {
+            margin-bottom: 0.5rem;
+        }
+    }
+    > :first-child {
+        margin-top: 0px;
+    }
+}
+
+.blog-post-content {
+    #markdown-content {
+        padding-top: inherit !important;
+    }
+}
+
+.post-meta {
+    .post-date {
+        color: #b3b3b3;
+        margin-bottom: 1rem;
+    }
+
+    .post-links {
+        display: block;
+        line-height: 1.7;
+        color: #858585;
+        font-weight: 400;
+        transition: all .2s;
+
+        a {
+            color: #858585;
+            :hover {
+                color: #1e90ff;
+            }
+        }
+    }
+
+    span {
+        display: inline-flex;
+        vertical-align: middle;
+    }
+
+    .icon {
+        width: 1em;
+        height: 1em;
+        margin-inline-end: 0.25em;
+    }
+}

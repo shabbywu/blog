@@ -3,3 +3,8 @@ node_modules/
 
 blog/.vscode
 blog/.vuepress/dist
+
+node_modules/
+src/.vuepress/.cache/
+src/.vuepress/.temp/
+src/.vuepress/dist/

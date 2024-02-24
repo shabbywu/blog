@@ -1,0 +1,51 @@
+@use "@sass-palette/hope-config";
+
+// 取消默认主题的 padding-top
+.theme-container .vp-page,
+.theme-container .vp-page.vp-blog {
+    padding-top: 0.5rem;
+}
+
+// 隐藏主页的介绍展示
+.vp-blog-hero {display: none;}
+
+// 隐藏博客内的面包屑
+.vp-breadcrumb {display: none;}
+
+// 博客宽度自适应限制
+.vp-blog-main {
+    @media (min-width: hope-config.$pc) {
+        max-width: (calc(hope-config.$pc / 2) + hope-config.$laptop);
+    }
+    @media (min-width: hope-config.$laptop) and (max-width: (hope-config.$pc - 1)) {
+        max-width: hope-config.$laptop;
+    }
+    @media (max-width: (hope-config.$laptop - 1)) {
+        padding: 0 0.5rem;
+    }
+}
+
+// 调宽文章下方信息的间隔 (从 0.5em -> 1em)
+.vp-article-item .page-info > span {
+    margin-inline-end: 1em;
+}
+
+#main-contain {
+    margin: 0 1rem!important
+}
+
+
+.theme-hope-content {
+    background-color: var(--bg-color-float);
+    border-radius: 5px;
+}
+
+body {
+    #{hope-config.$dark-selector} & {
+        background: #333;
+    }
+
+    #{hope-config.$light-selector} & {
+        background: #f6f6f0;
+    }
+}
