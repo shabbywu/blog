@@ -1,20 +1,15 @@
 FROM node:14.21.3-slim as builder
 USER root
-ARG SITE_HOSTNAME=www.example.com
-ARG CORS_HOSTNAME=cors.example.com
-
-ENV SITE_HOSTNAME=${SITE_HOSTNAME}
-ENV CORS_HOSTNAME=${CORS_HOSTNAME}
 
 WORKDIR /app
 ADD ./package.json .
 ADD ./yarn.lock .
 RUN yarn install --frozen-lockfile
-ADD  ./blog ./blog
-RUN yarn run build
+ADD  ./src ./src
+RUN npm run docs:build
 
 FROM nginx:1.21.6-alpine as runner
 USER root
 WORKDIR /root/
-COPY --from=builder /app/blog/.vuepress/dist/ /usr/share/nginx/html
+COPY --from=builder /app/src/.vuepress/dist/ /usr/share/nginx/html
 RUN chmod -R 777 /var/cache/nginx

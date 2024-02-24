@@ -17,7 +17,5 @@ jobs:
         ACCESS_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         TARGET_REPO: shabbywu/blog
         TARGET_BRANCH: deploy
-        BUILD_SCRIPT: yarn && yarn build
-        BUILD_DIR: blog/.vuepress/dist/
-        SITE_HOSTNAME: ${{ secrets.INGRESS_HOST }}
-        CORS_HOSTNAME: cors.${{ secrets.INGRESS_HOST }}
+        BUILD_SCRIPT: npm install && npm run docs:build
+        BUILD_DIR: src/.vuepress/dist/
