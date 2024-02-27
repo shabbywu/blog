@@ -43,7 +43,7 @@ export default hopeTheme({
       // QQ: "https://example.com",
       // Qzone: "https://example.com",
       // Reddit: "https://example.com",
-      Rss: "/rss.xml",
+      Rss: "/feed.json",
       // Steam: "https://example.com",
       // Twitter: "https://example.com",
       // Wechat: "https://example.com",

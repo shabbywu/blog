@@ -1,16 +1,16 @@
 <template>
-<component :is="Render">
-
+<div>
+    <component :is="Render">
 <div class="blog-page">
     <main id="main-content" class="blog-main">
-        <blog-post class="blog-post">
+        <div class="blog-post custom">
             <section class="post-meta main-div">
                 <div class="post-date"><span>{{ themeLocale.metaLocales.date }}：</span> <DateInfo :date="info.date" :localizedDate="info.localizedDate" ></DateInfo></div>
                 <div v-if="prevPage" class="post-links">
-                <a :href="prevPage.path"><span>{{ themeLocale.metaLocales.prevPost }}：</span><span> {{ prevPage.title }}</span></a>
+                <router-link :to="prevPage.path"><span>{{ themeLocale.metaLocales.prevPost }}：</span><span> {{ prevPage.title }}</span></router-link>
                 </div>
                 <div v-if="nextPage" class="post-links">
-                <a :href="nextPage.path"><span>{{ themeLocale.metaLocales.prevPost }}：</span><span> {{ nextPage.title }}</span></a>
+                <router-link :to="nextPage.path"><span>{{ themeLocale.metaLocales.prevPost }}：</span><span> {{ nextPage.title }}</span></router-link>
                 </div>
             </section>
             <article class="blog-post-content main-div">
@@ -27,7 +27,7 @@
                 </div>
             </section>
             <CommentService v-if="hasCommentService" :darkmode="isDarkmode" class="blog-post-comments"></CommentService>
-        </blog-post>
+        </div>
     </main>
     <aside class="blog-aside" v-if="tocEnable">
         <BloggerInfo class="main-div"></BloggerInfo>
@@ -43,12 +43,13 @@
     </aside>
 </div>
 </component>
+</div>
 </template>
 <script setup lang="ts">
 import "vuepress-theme-hope/styles/page.scss";
 import "./page.scss";
 
-import { computed } from "vue";
+import { computed, onUpdated } from "vue";
 import { usePages } from '@temp/pages'
 import { usePageData, usePageFrontmatter } from "vuepress/client";
 import { hasGlobalComponent } from "@vuepress/helper/client";
@@ -75,10 +76,10 @@ const hasCommentService = hasGlobalComponent("CommentService");
 const pages = usePages();
 const pageData = usePageData();
 
-
 const currentPageIndex = computed(() => {
     return pages.findIndex(p => p.filePathRelative === pageData.value.filePathRelative);
 })
+
 const prevPage = computed(() => {
     const prevPageIndex = currentPageIndex.value + 1;
     return prevPageIndex > pages.length - 1 ? null : pages[prevPageIndex];
@@ -87,4 +88,9 @@ const nextPage = computed(() => {
     const nextPageIndex = currentPageIndex.value - 1;
     return nextPageIndex < 0 ? null : pages[nextPageIndex];
 })
+
+onUpdated(() => {
+    console.log("update", pageData)
+})
+
 </script>

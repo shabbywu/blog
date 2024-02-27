@@ -6,12 +6,6 @@
     padding-top: 0.5rem;
 }
 
-// 隐藏主页的介绍展示
-.vp-blog-hero {display: none;}
-
-// 隐藏博客内的面包屑
-.vp-breadcrumb {display: none;}
-
 // 博客宽度自适应限制
 .vp-blog-main {
     @media (min-width: hope-config.$pc) {

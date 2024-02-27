@@ -1,5 +1,6 @@
 ---
 home: false
+hero: false
 layout: BlogHome
 icon: home
 title: 首页
