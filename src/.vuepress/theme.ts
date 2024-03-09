@@ -58,14 +58,12 @@ export default hopeTheme({
   footer: '<a href="http://beian.miit.gov.cn" target="_blank">粤ICP备2021176883号</a>',
   copyright: '<a href="https://github.com/shabbywu/" target="_blank">shabbywu</a> © 2019-' + new Date().getFullYear(),
   displayFooter: true,
+  sidebar: false,
 
   locales: {
     "/": {
       // navbar
       navbar: zhNavbar,
-
-      // sidebar
-      sidebar: "false",
       blog: {
         description: "全栈程序员",
         // TODO: 实现 intro.html ?
@@ -77,10 +75,9 @@ export default hopeTheme({
         comments: "评论",
       },
     },
-    "en": {
+    "/en/": {
       // navbar
       navbar: enNavbar,
-
       blog: {
         description: "Fullstack programer",
         // TODO: 实现 intro.html ?
@@ -91,7 +88,8 @@ export default hopeTheme({
 
   encrypt: {
     config: {
-      "/drafts/": ["君子协议"],
+      "/drafts/": ["nopassword"],
+      "/en/drafts/": ["nopassword"],
     },
   },
 

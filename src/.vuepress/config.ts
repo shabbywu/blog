@@ -18,7 +18,7 @@ export default defineUserConfig({
       description: "这是一个简单的博客",
     },
     "/en/": {
-      lang: "en",
+      lang: "en-US",
       title: "Personal technical article sharing",
       description: "Here is a simple blog",
     },
@@ -85,8 +85,14 @@ export default defineUserConfig({
         page.data.path = page.path;
 
         if (page.frontmatter.draft) {
-          page.path = path.join("/drafts/", page.path);
-          page.data.path = path.join("/drafts/", page.data.path);
+          if (page.path.startsWith("/en/")) {
+            page.path = page.path.replace("/en/", "/en/drafts/");
+            page.data.path = page.data.path.replace("/en/", "/en/drafts/");
+          } else {
+            page.path = page.path.replace("/", "/drafts/");
+            page.data.path = page.data.path.replace("/", "/drafts/");
+          }
+
         }
     }
   }

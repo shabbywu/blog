@@ -3,7 +3,7 @@ home: true
 hero: false
 layout: Layout
 icon: home
-title: 首页
+title: Home
 projects:
   - icon: project
     name: Battle-Brothers-CN
