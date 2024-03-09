@@ -29,15 +29,15 @@ export default defineUserConfig({
   alias: {
     "@theme-hope/components/NormalPage": path.resolve(
       __dirname,
-      "./theme/components/page/NormalPage.vue",
+      "./theme/page/components/NormalPage.vue",
     ),
     "@theme-hope/modules/navbar/components/Navbar": path.resolve(
       __dirname,
-      "./theme/components/navbar/NavbarWithBanner.ts",
+      "./theme/navbar/components/NavbarWithBanner.ts",
     ),
     "@theme-hope/modules/blog/components/BloggerInfo": path.resolve(
       __dirname,
-      "./theme/components/blog/BloggerInfo.ts",
+      "./theme/blog/components/BloggerInfo.ts",
     ),
   },
 
