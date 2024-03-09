@@ -1,44 +1,48 @@
 ---
 date: 2021-01-31
-title: How To Build Images:Docker 镜像规范 v1.2
+title: How To Build Images:Docker Image Specification v1.2
 sidebarDepth: 2
-category: 容器技术
+category: Container Technology
 tags:
 -   docker
 -   build
 
-draft: true
 ---
 
-## 前言
-现在是容器化时代，不管是开发、测试还是运维，很少有人会不知道或不会用 Docker。使用 Docker 也很简单，很多时候启动容器无非就是执行 `docker run {your-image-name}`, 而构建镜像也就是执行一句 `docker build dockerfile .`的事情。
-也许正是由于 **Docker** 对实现细节封装得过于彻底，最近在学习 google 开源的镜像构建工具 [kaniko](https://github.com/GoogleContainerTools/kaniko) 时, 才发现我们也许只是学会了**如何使用`Docker CLI`** , 而并非明白 Docker 是如何运行的。
-所以笔者决定开始写『How To Build Images』这一系列文章，这是本系列的第一篇，『Docker 镜像规范』。
-> 注: 本文假设读者了解如何使用 Docker, 包括但不限于懂得执行 `docker run` 和 `docker build` 以及编写 Dockerfile。
+## Preface
+We are now in the era of containerization, where hardly anyone in development, testing, or operations would be unfamiliar with or unable to use Docker. Using Docker is also straightforward; most of the time, launching a container simply involves executing `docker run {your-image-name}`, and building an image is as simple as executing `docker build dockerfile .`.   
+Perhaps it's precisely because Docker encapsulates implementation details so thoroughly that I recently realized, while learning about kaniko, an open-source image building tool by Google, that we may have only learned **how to use Docker CLI**, rather than understanding how Docker actually operates.   
+Therefore, I has decided to start writing a series of articles about **『How To Build Images』**, with this being the first installment: 『Docker Image Specification』.
+> Note: This article assumes that readers know how to use Docker, including but not limited to knowing how to execute `docker run` and `docker build` and writing a Dockerfile.
 
-## [Docker镜像规范](https://github.com/moby/moby/tree/master/image/spec)
-容器镜像存储了文件系统发生的变更，而容器镜像规范则描述了**如何记录该变更历史和相应操作的参数**以及**如何将容器镜像转换成容器**。
-> 简单点, 就是描述**容器>>序列化>>镜像**以及**镜像>>反序列化>>容器**的规范😯
+## [Docker Image Specification](https://github.com/moby/moby/tree/master/image/spec)
+Container images store changes to the file system, while container image specification describes **how to record the history of these changes and the corresponding operation parameters** as well as **how to convert container images into containers**.
+> Simply, it describes the specifications for **container >> serialization >> image** and **image >> deserialization >> container** 😯
 
-### 版本历史
+### Specification History
 - [v1](https://github.com/moby/moby/blob/master/image/spec/v1.md)
-    - 初版
+    - first edition
 - [v1.1](https://github.com/moby/moby/blob/master/image/spec/v1.1.md)
-    - 由 Docker v1.10 实现 (February, 2016)
-    - 确定使用 sha256 摘要作为各层(Layer)的 id (以前是随机值)
-    - 新增 **manifest.json** 文件, 该文件负责记录镜像内容和依赖关系的元数据。
+    - Implemented by Docker v1.10 (February, 2016)
+    - use sha256 digests as ids for each layer from now on(previously used random values)
+    - Added **manifest.json** file, which is responsible for recording metadata of image content and dependencies.
 - [v1.2](https://github.com/moby/moby/blob/master/image/spec/v1.2.md)
-    - 由  Docker v1.12 实现 (July, 2016)
-    - 将 Healthcheck 纳入镜像规范
+    - mplemented by Docker v1.12 (July, 2016)
+    - add Healthcheck into image specifications
 - [OCI v1 image]((https://github.com/opencontainers/image-spec))
-    - 由 Open Container Initiative (OCI) 提出的镜像规范
-    - 不兼容 [Docker(moby)](https://github.com/moby/moby/pull/33355), 但可以 push 至 Registry 然后再 pull 下来
+    - Image specification proposed by the Open Container Initiative (OCI)
+    - Not compatible with [Docker(moby)](https://github.com/moby/moby/pull/33355), But you can push image to the Registry and then pull it back and registry will auto convert it into the one docker(moby) is supported.
 
-为了统一容器格式和运行时创建的标准, Docker 联合 CoreOS 等组织在 linux 基金会的主持下成立了 Open Container Initiative (OCI)。
-目前 OCI 已经提出了两个规范:[运行时规范(runtime-spec)](https://github.com/opencontainers/runtime-spec)和[镜像规范(image-spec)](https://github.com/opencontainers/image-spec), 但**由于 docker 尚未兼容 OCI 镜像规范, 本文不涉及 OCI 镜像规范的内容。** ~~(不排除以后会写😆)~~
+To standardize container formats and runtime creation, Docker, along with organizations like CoreOS, established the Open Container Initiative (OCI) under the supervision of the Linux Foundation. Currently, OCI has proposed two specifications: the [Runtime Specification (runtime-spec)](https://github.com/opencontainers/runtime-spec) and the [Image Specification (image-spec)](https://github.com/opencontainers/image-spec).   
+However, **since Docker has not yet fully adopted the OCI image specification, this series of articles will not cover content related to the OCI image specification**. ~~(MAY be considered in the future 😆)~~
 
-### 一个🌰 : Docker 镜像的基本结构
-我们以 busybox:latest 为例, 展示 Docker 镜像的基础结构。
+### A 🌰: Basic Structure of Docker Images
+We will use *busybox:latest* as an example to show the basic structure of a Docker image.
+
+::: details What is 🌰 meaning?
+🌰 is the homophone of example in chinese.
+:::
+
 ```bash
 .
 ├── 036a82c6d65f2fa43a13599661490be3fca1c3d6790814668d4e8c0213153b12
@@ -51,9 +55,9 @@ draft: true
 
 1 directory, 6 files
 ```
-接下来以该🌰 详细介绍 Docker 镜像中各组成部分的含义和内容。
+Next, this 🌰 will introduce in detail the meaning and content of each component in the Docker image.
 
-#### directories (backward)
+#### files in directories (backward compatibility only)
 ```bash
 .
 ├── VERSION
@@ -62,13 +66,14 @@ draft: true
 
 0 directories, 3 files
 ```
-可以发现, 镜像中的每层(Layer)解压后可以对应到一个目录，这些目录的名称是根据该层(Layer)的相关信息使用一致性 hash 算法生成, (TIPS: v1版本规范是随机生成), 每个目录包括 3 个文件, 分别是:
-- VERSION, `json` 文件内容个格式规范, 目前只能是 1.0。
-- json, 在 v1 版本中定义的描述该层(Layer)信息的元数据，但由于 v1.2 版本中不需要依赖此文件，因此无需关注。
-- layer.tar, 存储该层(Layer)文件系统的变更记录的归档包。
-> 需要注意的是, 这些目录布局仅是为了向后兼容, 当前版本(v1.2)中每层(Layer)的归档包均在 `manifest.json` 指定。
 
-#### repositories (backward)
+It can be observed that each layer in the image can be mapped to a directory after decompression. The names of these directories are generated using a consistent hash algorithm based on the relevant information of the layer (TIPS: randomly generated in v1 specification). Each directory contains three files:
+- VERSION, the spec version of `json` file, which is currently set to 1.0.
+- json, which contain metadata defining information about the layer in v1 specification, but it is not required in v1.2 specification, so we can ignore this file.
+- layer.tar, an archive file storing the changes made to the file system of the layer.
+> It's worth noting that this directory layout is only for backward compatibility. In the current version (v1.2), the archive files for each layer are specified in `manifest.json`.
+
+#### repositories (backward compatibility only)
 ```json
 {
   "busybox": {
@@ -76,8 +81,9 @@ draft: true
   }
 }
 ```
-repositories 中存储了一个 json 对象, 该对象的每个 key 是镜像的名称, value 是`标签-镜像id映射表`。
-> 需要注意的是, 该文件同样是仅用于向后兼容, 当前版本(v1.2)中镜像与layer的关系均在 `manifest.json` 中指定。
+
+The `repositories` file contains a JSON object where each key represents the name of an image, and its corresponding value is **a mapping of tags to image IDs**.
+> It's important to note that this file is also used for backward compatibility. In the current version (v1.2), the relationship between images and layers is specified in `manifest.json`.
 
 #### manifest.json
 ```json
@@ -93,14 +99,12 @@ repositories 中存储了一个 json 对象, 该对象的每个 key 是镜像的
   }
 ]
 ```
-`mainfest.json` 记录了一个列表, 该列表中每一项描述了一个镜像的内容清单以及该镜像的父镜像(可选的)。
-该列表中每一项由以下几个字段组成:
-- Config: 引用启动容器的配置对象。
-- RepoTags: 描述该镜像的引用关系。
-- Layers: 指向描述该镜像文件系统各(Layer)的变更记录。
-- Parent: (可选) 该镜像的父镜像的 imageID, 该父镜像必须记录在当前的 manifest.json。
-> 需要注意的是, 该 manifest.json 与 Docker Register API 描述的 manifest.json 不是同一个文件。(详见附录部分)
-
+`manifest.json` records a list where each item describes the contents inventory of an image and its parent image (optional). Each item in this list consists of the following fields:
+- Config: Reference to the configuration object that starts the container.
+- RepoTags: Describes the reference relationships of the image.
+- Layers: Points to the records of changes made to the file system of the image's layers.
+- Parent: (optional) The image ID of the parent image. This parent image must be listed in the current `manifest.json`.
+> It's important to note that this `manifest.json` is not the same file as the `manifest.json` described in the Docker Registry API (see the appendix for details).
 
 #### Config (aka Image JSON)
 ```json
@@ -185,7 +189,7 @@ repositories 中存储了一个 json 对象, 该对象的每个 key 是镜像的
     "created": "2017-11-03T22:39:17.345892474Z"
 }
 ```
-ISO-8601 格式的字符串, 描述了当前镜像创建的日期和时间。
+`created` is a string in ISO-8601 format, describing the date and time the current image was created.
 
 ##### author `string`
 ```json
@@ -193,7 +197,7 @@ ISO-8601 格式的字符串, 描述了当前镜像创建的日期和时间。
     "author": "nobody"
 }
 ```
-描述创建并维护这个镜像的个人或实体的名称和/或电子邮箱。
+`author` describes the name and/or email address of the person or entity that created and maintains this image.
 
 ##### architecture `string`
 ```json
@@ -201,11 +205,11 @@ ISO-8601 格式的字符串, 描述了当前镜像创建的日期和时间。
     "architecture": "amd64"
 }
 ```
-描述该镜像中的二进制文件运行依赖的 CPU 架构，可能的值包括:
+`architecture` describes the CPU architecture that the binary files in this image depend on to run. Possible values include:
 - 386
 - amd64
 - arm
-> 需要注意的是, 可选范围的值未来可能会添加或减少, 同时, 这里声明的值在不一定会被容器运行时实现(e.g. runc 或 rkt)所支持。
+> It should be noted that the values in the optional range may be added or reduced in the future, and at the same time, the values declared here may not be supported by the container runtime implementation (e.g. runc or rkt).
 
 ##### os `string`
 ```json
@@ -213,11 +217,11 @@ ISO-8601 格式的字符串, 描述了当前镜像创建的日期和时间。
     "os": "linux"
 }
 ```
-描述该镜像运行所基于的操作系统的名称, 可能的值包括:
+`os` describes the name of the operating system this image is running on. Possible values include:
 - darwin
 - freebsd
 - linux
-> 需要注意的是, 可选范围的值未来可能会添加或减少, 同时, 这里声明的值在不一定会被容器运行时实现(e.g. runc 或 rkt)所支持。
+> It should be noted that the values in the optional range may be added or reduced in the future, and at the same time, the values declared here may not be supported by the container runtime implementation (e.g. runc or rkt).
 
 ##### config (aka Container RunConfig) `object, optional`
 ```json
@@ -238,8 +242,8 @@ ISO-8601 格式的字符串, 描述了当前镜像创建的日期和时间。
     }
 }
 ```
-描述容器运行时在实例化该镜像时, 所使用的默认参数。
-> 需要注意的是, 该字段可以为 null, 在这种情况下, 应在创建容器时指定运行所需要的任何参数。
+config describes the default parameters used by the container runtime when instantiating the image.
+> It should be noted that this field can be null, in which case any parameters required to run should be specified when creating the container.
 
 ###### User `string`
 ```json
@@ -249,15 +253,14 @@ ISO-8601 格式的字符串, 描述了当前镜像创建的日期和时间。
     }
 }
 ```
-描述容器中应该使用的用户名或UID, 当创建容器时未指定该值时，该值将用作默认值。
-该字段支持以下格式:
+`User` describes the username or UID that should be used in the container. This value will be used as the default when the value is not specified when the container is created. This field supports the following formats:
 - user
 - uid
 - user:group
 - uid:gid
 - uid:group
 - user:gid
-> 需要注意的是, 当不提供 `group/gid` 时, 默认行为会从容器中 /etc/passwd 中根据给定的 user/uid 配置默认组合补充组(supplementary groups)。
+> Note that when no `group/gid` is provided, the default behavior is to configure the default combination of supplementary groups from `/etc/passwd` in the container based on the given user/uid.
 
 ###### Memory `integer`
 ```json
@@ -267,7 +270,7 @@ ISO-8601 格式的字符串, 描述了当前镜像创建的日期和时间。
     }
 }
 ```
-描述容器实例的内存限制(以 bytes 为单位), 当创建容器时未指定该值时，该值将用作默认值。
+`Memory` describes the memory limit of the container instance (in bytes), which will be used as the default when this value is not specified when creating the container.
 
 ###### MemorySwap `integer`
 ```json
@@ -277,8 +280,8 @@ ISO-8601 格式的字符串, 描述了当前镜像创建的日期和时间。
     }
 }
 ```
-描述允许容器使用的总内存使用量(memory + swap), 当创建容器时未指定该值时，该值将用作默认值。
-> 需要注意的是, 设置该值为 -1 时, 表示关闭内存交换。
+`MemorySwap` describes the total memory usage (memory + swap) that the container is allowed to use. This value is used as the default value when this value is not specified when creating the container.
+> It should be noted that setting this value to -1 means turning off memory swapping.
 
 ###### CpuShares `integer`
 ```json
@@ -288,10 +291,10 @@ ISO-8601 格式的字符串, 描述了当前镜像创建的日期和时间。
     }
 }
 ```
-CPU 份额(对于其他容器而言的相对值), 当创建容器时未指定该值时，该值将用作默认值。
+`CpuShares` describes the cpu shares relative to other containers, used as the default when this value is not specified when creating the container.
 
 ###### WorkingDir `string`
-描述容器启动入口点进程时所在的工作目录, 当创建容器时未指定该值时，该值将用作默认值。
+`WorkingDir` describes the working directory where the container starts the entry point process. When this value is not specified when creating the container, this value will be used as the default value.
 
 ###### Env `array[string]`
 ```json
@@ -303,8 +306,8 @@ CPU 份额(对于其他容器而言的相对值), 当创建容器时未指定该
     }
 }
 ```
-描述运行该镜像时的默认环境变量, 这些值将用作默认值, 并会在创建容器时指定的值进行合并。
-该列表的每一项的格式为: `VARNAME="VAR VALUE"`
+`Env` describes the default environment variables when running this image. These values will be used as default values and will be combined with the values specified when creating the container.
+The format of each item in this list is: `VARNAME="VAR VALUE"`
 
 ###### Entrypoint `array[string]`
 ```json
@@ -317,7 +320,7 @@ CPU 份额(对于其他容器而言的相对值), 当创建容器时未指定该
     }
 }
 ```
-描述启动容器时要执行的命令的参数列表, 当创建容器时未指定该值时，该值将用作默认值。
+`Entrypoint` A list of parameters describing the command to be executed when starting the container, this value will be used as the default when this value is not specified when the container is created.
 
 ###### Cmd `array[string]`
 ```json
@@ -329,8 +332,8 @@ CPU 份额(对于其他容器而言的相对值), 当创建容器时未指定该
     }
 }
 ```
-描述容器入口(entry point) 的默认参数, 当创建容器时未指定该值时，该值将用作默认值。
-> 需要注意的是, 如果未指定 `Entrypoint`, 那么 cmd 数组中的第一项应当为要运行的可执行文件。
+`Cmd` describes the default parameters of the container entrypoint. When this value is not specified when creating the container, this value will be used as the default value.
+> It should be noted that if `Entrypoint` is not specified, the first item in the cmd array should be the executable file to be run.
 
 ###### Healthcheck `object`
 ```json
@@ -348,16 +351,16 @@ CPU 份额(对于其他容器而言的相对值), 当创建容器时未指定该
     }
 }
 ```
-描述确认容器是否健康的方法，该对象由 4 部分组成, 分别是:
-- Test `array[string]`, 检查容器是否健康的测试方法, 可选项为:
-    - `[]`: 从父级镜像继承健康检查配置
-    - `["None"]`: 禁用健康检查
-    - `["CMD", arg1, arg2, ...]`: 直接执行参数
-    - `["CMD-SHELL", command]`: 使用镜像中的默认Shell运行命令
-- Interval `integer`: 两次探测之间等待的纳秒数。
-- Timeout `integer`: 一次探测中等待的纳秒数。
-- Retries `integer`: 认为容器不健康所需的连续失败次数。
-如果省略该字段, 则表示该值应从父级镜像中获取，同时，这些值将用作默认值, 并会在创建容器时指定的值进行合并。
+Healthcheck describes the method to confirm whether the container is healthy. This object consists of 4 parts, namely:
+- Test `array[string]`, a test method to check whether the container is healthy, the options are:
+     - `[]`: Inherit health check configuration from parent image
+     - `["None"]`: disable health checks
+     - `["CMD", arg1, arg2, ...]`: execute parameters directly
+     - `["CMD-SHELL", command]`: Use the default shell in the image to run the command
+- Interval `integer`: Number of nanoseconds to wait between probes.
+- Timeout `integer`: The number of nanoseconds to wait in a probe.
+- Retries `integer`: The number of consecutive failures required to consider the container unhealthy.
+If this field is omitted, it means that the value should be obtained from the parent image, and these values will be used as default values, combined with the values specified when the container was created.
 
 ###### ExposedPorts `object, optional`
 ```json
@@ -371,12 +374,12 @@ CPU 份额(对于其他容器而言的相对值), 当创建容器时未指定该
     }
 }
 ```
-一组端口, 描述运行该镜像的容器所需要对外暴露的端口组。存储结构为一个 json 对象, 该对象的每个 key 是需要暴露的端口和协议, value 必须是空对象 `{}`。
-该对象的键(key)可以是以下的几种格式:
+ExposedPorts describes the port group that needs to be exposed to the outside world by the container running the image. The storage structure is a json object, each key of the object is the port and protocol that need to be exposed, and the value must be an empty object `{}`.
+The key of this object can be in the following formats:
 - port/tcp
 - port/udp
 - port
-> 需要注意的是, 该配置的结构之所以如此诡异, 是因为它是直接从 Go 类型 map[string]struct{} 序列化而成的, 因此在 json 中表现为 value 是空对象 `{}`。
+> It should be noted that the reason why the structure of this configuration is so weird is that it is directly serialized from the Go type map[string]struct{}, so the value in json is an empty object `{}` .
 
 ###### Volumes `object, optional`
 ```json
@@ -389,8 +392,8 @@ CPU 份额(对于其他容器而言的相对值), 当创建容器时未指定该
     }
 }
 ```
-一组目录, 描述运行该镜像的容器应该被挂载卷覆盖的目录路径。存储结构为一个 json 对象, 该对象的每个 key 是应该被挂载卷覆盖的目录路径, value 必须是空对象 `{}`。
-> 需要注意的是, 该配置的结构之所以如此诡异, 是因为它是直接从 Go 类型 map[string]struct{} 序列化而成的, 因此在 json 中表现为 value 是空对象 `{}`。
+Volumes describes the directory path that the container running the image should be covered by the mounted volume. The storage structure is a json object. Each key of the object is a directory path that should be covered by the mounted volume. The value must be an empty object `{}`.
+> It should be noted that the reason why the structure of this configuration is so weird is that it is directly serialized from the Go type map[string]struct{}, so the value in json is an empty object `{}` .
 
 ##### rootfs `object`
 ```json
@@ -403,9 +406,9 @@ CPU 份额(对于其他容器而言的相对值), 当创建容器时未指定该
     }
 }
 ```
-`rootfs` 描述该镜像引用的 Layer DiffIDs (详情见附录-术语表), 在镜像配置(Config)存放该值, 可以使得计算镜像配置文件的hash值时, 会根据关联的文件系统的 hash 值的变化而变化。该对象包含两部分, 分别是:
-- type: 通常将该值设置为 `layers`。
-- diff_ids `(array[Layer DiffIDs])`: 按依赖顺序排序, 即从最底部的层(Layer)到最顶部的层(Layer)排序。
+`rootfs` describes the Layer DiffIDs referenced by the image (see Appendix - Glossary for details). Storing this value in the image configuration (Config) allows the hash value of the image configuration file to be calculated based on the hash value of the associated file system. Change with change. This object contains two parts, namely:
+- type: Normally set this value to `layers`.
+- diff_ids `(array[Layer DiffIDs])`: Sort in dependency order, that is, from the bottom layer (Layer) to the top layer (Layer).
 
 ##### history `array`
 ```json
@@ -422,56 +425,67 @@ CPU 份额(对于其他容器而言的相对值), 当创建容器时未指定该
 	]
 }
 ```
-`history`描述了该镜像每层(Layer)的历史记录的对象数组，数组按照依赖关系排序，即从最底部的层(Layer)到最顶部的层(Layer)排序。数组中每个对象具有以下的字段:
-- created: 该字段描述了该层(Layer)的创建的日期和时间, 要求为ISO-8601 格式的字符串。
-- author: 该字段描述创建并维护该层(Layer)的个人或实体的名称和/或电子邮箱。
-- created_by: 该字段描述创建该层(Layer)时调用的指令。
-- comment: 该字段描述创建该层(Layer)时的自定义注解。
-- empty_layer: 该字段用于标记历史记录项是否导致文件系统出现差异, 如果此历史记录项未对应到 `rootfs` 中实际的一项记录, 那么就应该将该项设置为 `true`(简单点, 就是如果 Dockerfile 里执行了类似 ENV, CMD 等指令, 由于这些指令不会导致文件系统的变更, empty_layer 就应该设置为 `true`)。
+`history` is an object array that describes the history of each layer of the image. The array is sorted according to dependency, that is, from the bottom layer to the top layer. Each object in the array has the following fields:
+- created: This field describes the date and time when the layer was created, which must be a string in ISO-8601 format.
+- author: This field describes the name and/or email address of the person or entity who created and maintains this layer (Layer).
+- created_by: This field describes the instruction called when creating this layer (Layer).
+- comment: This field describes the custom comment when creating this layer (Layer).
+- empty_layer: This field is used to mark whether the history item causes differences in the file system. If this history item does not correspond to an actual record in `rootfs`, then this item should be set to `true`. (Simply, if instructions like ENV, CMD, etc. are executed in the Dockerfile, since these instructions will not cause changes to the file system, `empty_layer` should be set to `true`).
 
-## 总结
-本文主要先从梳理了Docker镜像规范的**版本历史**, 随后简单介绍了 OCI 组织和 OCI 镜像规范与 Docker 镜像规范之间的关系。接下来从一个简单但完整的 🌰 中展示了 **Docker 镜像的目录结构**, 再以此 🌰 介绍了现行镜像规范内容, 其中包括 **manifest.json** 和 **Config** 这两个重要文件的含义和内容。自 v1.1 版本的镜像规范开始, Docker 引入了 **manifest.json** 的概念, 从此就无需关心镜像的目录结构, 镜像中有效的信息都被记录在 manifest 中。
+## Summary
+This article primarily begins by outlining the **version history** of Docker image specifications. It then briefly introduces the relationship between the OCI organization and the OCI image specification and the Docker image specification. Next, it demonstrates the **directory structure of Docker images** through a simple yet comprehensive 🌰. Following this example 🌰, the current image specification content is introduced, including the meanings and contents of the **manifest.json** and **Config** files. Since version 1.1 of the image specification, Docker has introduced the concept of **manifest.json**, eliminating the need to concern oneself with the directory structure of images, as all relevant information is now recorded in the manifest.
 
-当你看到这里的时候, 现行的 Docker 镜像规范已经完全介绍完毕, 从下一篇文章开始就进入**实战**内容。预期在下一章里, 我会为大家**分享从 0 开始构建 Docker 镜像的经验**, 以进一步探讨镜像中各 `Layer` 中记录的 `Filesystem Changeset` 的内容, 为最后介绍如何构建镜像打下铺垫。
+By the time you reach this point, the current Docker image specification has been fully covered. Starting from the next article, we will delve into **practical** content. In the upcoming chapters, I will share my experience of **building Docker images from scratch**, further exploring the contents of `Filesystem Changeset` recorded in each `Layer` of the image. This will lay the groundwork for the final discussion on how to build images.
 
-> 吐槽: 规范是很文绉绉的内容, 而事实上 Docker 自身的镜像规范的描述得很混乱, 会出现术语混乱的情形。例如 `Image JSON` 在 manifest.json 又被称之为 `Config`; 镜像分发规范和镜像规范又会同时出现 `manifest`。
+> Critique: Specifications are often presented in a very formal and verbose manner, yet in reality, Docker's own image specification is described in a confusing manner, leading to instances of terminology confusion. For example, the `Image JSON` is referred to as `Config` within `manifest.json`; there is also confusion between the image distribution specification and the image specification, with both referring to `manifest`.
 
 ---
 
-## 附录
-### 术语表
+## Appendix
+### Glossary
 #### Layer
-Docker 镜像采用了分层结构。每层都是一组文件系统的变更历史。`Layer` 不负责存储诸如环境变量或默认参数等配置元数据, 这些都是整个镜像的属性, 而不属于任何特地的层。
+Docker images adopt a layered structure. Each layer is a history of changes to a set of file systems. `Layer` is not responsible for storing configuration metadata such as environment variables or default parameters, which are properties of the entire image and do not belong to any particular layer.
 
 #### Image JSON
-每个镜像都有一个关联的 JSON 结构(被称之为 Image JSON), 这个结构描述有关该镜像的一些基本信息, 例如创建日期, 作者和其父镜像的ID, 以及运行时的相关配置(包括入口点(entry point), 默认参数, CPU/内存限制, 网络配置以及挂载卷信息等)。除此之外, 该结构还记录着该镜像引用的每一层的hash签名, 并提供这些层的历史信息。
-依据规范, 该结构被认为是不可变的, 因为修改本结构就意味着需要重新计算 `ImageID`, 也就意味着创建了新的派生镜像, 原镜像的 Image JSON 并未发送变化。
+Each image has an associated JSON structure, referred to as the Image JSON. This structure describes some basic information about the image, such as its creation date, author, the ID of its parent image, and runtime-related configurations (including entry point, default parameters, CPU/memory limits, network configuration, and mounted volume information, etc.). Additionally, this structure records the hash signatures of each layer referenced by the image and provides historical information about these layers.
+
+According to the specification, this structure is considered immutable because modifying it would require recalculating the `ImageID`, which in turn means creating a new derived image. The Image JSON of the original image remains unchanged.
 
 #### Image Filesystem Changeset
-Docker 镜像中每一层都保存着相对于它上一层而言, 新添加(added), 发送变更(changed), 或者删除(deleted)的文件的归档包(又称之为文件系统变更集)。通过使用基于层(layer-based)的文件系统或者联合(union)文件系统(例如AUFS), 或者通过计算文件系统快照的差异, 文件系统变更集(`Filesystem Changeset`)可以表现这一系列的镜像层, 就好像这些变更是发送在同一个文件系统上的一样。
+In a Docker image, each layer stores an archive package, also known as a filesystem changeset, containing files that are added, modified, or deleted relative to the layer below it. By utilizing a layer-based or union filesystem (such as AUFS) or calculating the differences in filesystem snapshots, the `filesystem changeset ` represents a series of image layers as if these changes were applied to the same filesystem.
 
 #### Layer DiffID
-Docker 使用在镜像分发传输时, 每层的 tar 归档文件的 SHA256 摘要来引用镜像层。例如, `sha256:0271b8eebde3fa9a6126b1f2335e170f902731ab4942f9f1914e77016540c7bb` 则是一个合法的 `Layer DiffID`。
-> 需要注意的是, 必须使用可再现(重放)的方式打包和解包镜像层, 以免更改镜像层ID。例如, 通过使用 `tar-split` 来保存 tar 头。
-> 同时, `Layer DiffID` 必须是从未压缩过的 tar 版本计算而来的。
+When distributing Docker images, Docker references each layer using the SHA256 digest of its tar archive file. For example, `sha256:0271b8eebde3fa9a6126b1f2335e170f902731ab4942f9f1914e77016540c7bb` is a valid Layer DiffID.
+
+> It's important to note that packing and unpacking image layers must be done in a reproducible (replayable) manner to prevent changes in the layer IDs. For example, using `tar-split` to preserve tar headers.
+> Additionally, the Layer DiffID must be calculated from the uncompressed tar version.
 
 #### Layer ChainID
-为了方便起见, 有时需要用单个 ID 来表示一层一系列镜像层, 这就引入了 `Layer ChainID` 这一概念。对于仅有一层或者位于最底部的层而言, `Layer ChainID` 等同于 `Layer DiffID`; 而对于其他层而言, `Layer ChainID` 可由以下公示计算: `ChainID(Layer N) = SHA256hex(ChainID(Layer N-1) + " " + DiffID(Layer N))`。
+For convenience, sometimes it's necessary to represent a series of image layers with a single ID. This introduces the concept of the `Layer ChainID`. For a single-layer image or the bottom-most layer, the `Layer ChainID` is equivalent to the `Layer DiffID`. However, for other layers, the `Layer ChainID` can be calculated using the following formula: 
+
+```
+ChainID(Layer N) = SHA256hex(ChainID(Layer N-1) + " " + DiffID(Layer N))
+```
+
+This formula calculates the `Layer ChainID` of Layer N based on the `Layer ChainID` of the previous layer (Layer N-1) concatenated with the `Layer DiffID` of Layer N, and then hashed using SHA256.
 
 #### ImageID
-使用以下公示计算镜像ID: `ImageID = SHA256hex(Image JSON)`, 由于 `Image JSON`中引用了镜像中每一层的 hash 值, 因此 ImageID 的计算方法使得镜像内容可寻址(content-addressable)。
-> 需要注意的是, Docker 规范中 `Image JSON` 是不含有任何格式化的。因此在计算 SHA256hex 时, 需要保证不含有任何缩进。
+The image ID is calculated using the following formula: `ImageID = SHA256hex(Image JSON)`. Since the Image JSON references the hash values of every layer in the image, this calculation method makes the image content addressable.
+> It's important to note that according to the Docker specification, the Image JSON does not contain any formatting. Therefore, when calculating SHA256hex, it's crucial to ensure that there is no indentation or formatting present in the JSON structure.
 
 #### Tag
-`Tag` 可用于将用户提供的描述性名称映射到任意单个 `ImageID`, `Tag` 只能从以下的字符集中取值: `[a-zA-Z0-9_.-]`, 同时首字符又不允许为 `.` 或 `-`, 而且长度不允许大于 **128** 个字符。 
+A `Tag` can be used to map a descriptive name provided by the user to any single `ImageID`. The `Tag` can only consist of characters from the following character set: `[a-zA-Z0-9_.-]`. Additionally, the first character cannot be `.` or `-`, and the length of the `Tag` cannot exceed **128** characters.
 
 #### Repository
-`Repository` 即镜像名称中 `:` 之前的部分。例如, 一个镜像被命名为 `my-app:3.1.4`, 那么 `my-app` 即被称之为 `Repository`。`Repository`由 `/` 分割的名称组成, 可以选择以 DNS 主机名作为前缀(必须符合标准 DNS 规则, 但不允许含有 `_` 字符)。同时, 如果 `Repository` 存在主机名, 那么就可以在其后加上端口号, （e.g. `:8080`)。最后, `Repository` 不允许以 `/` 开头或者结尾。
+The `Repository` refers to the part of the image name before the `:`. For example, if an image is named `my-app:3.1.4`, then `my-app` is referred to as the `Repository`. The `Repository` consists of a name separated by `/`, which can optionally begin with a DNS hostname prefix (must adhere to standard DNS rules but cannot contain `_` characters). Additionally, if the `Repository` includes a hostname, a port number can be added after it (e.g., `:8080`). Lastly, the `Repository` cannot begin or end with `/`.
 
 ### Image Manifest Version 2
-与镜像规范中的 `Manifest.json` 不同, `Image Manifest Version 2` 主要被使用于 `Docker Registry API V2`, 即 `docker pull` 以及 `docker push` 等操作之中。
-目前 `Image Manifest Version 2` 已推出两个版本, 分别是:
+Unlike the `Manifest.json` in the image specification, the `Image Manifest Version 2` is primarily used in the `Docker Registry API V2`, which includes operations such as `docker pull` and `docker push`.
+
+Currently, there are two versions of `Image Manifest Version 2`:
 - [Image Manifest V 2, Schema 1](https://docs.docker.com/registry/spec/manifest-v2-1/)
 - [Image Manifest V 2, Schema 2](https://docs.docker.com/registry/spec/manifest-v2-2/)
-该协议通过引入额外的 Media Type 和 Registry 的 manifest 结构, 解决了 Registry 能提供哪些镜像, 镜像的格式、兼容的操作系统以及镜像各层应该从何处获取等问题。
-> 简单点, 就是一份描述镜像文件分发的协议, 对此, OCI 也拟了一份[规范](https://github.com/opencontainers/distribution-spec)。
+
+This protocol addresses issues related to what images the registry can provide, the format of the images, compatible operating systems, and where the layers of the image should be obtained from by introducing additional media types and the manifest structure of the registry.
+
+> Simply, it is a protocol for describing the distribution of image files. OCI has also proposed a specification for this purpose, see also [OCI Distribution Specification](https://github.com/opencontainers/distribution-spec).

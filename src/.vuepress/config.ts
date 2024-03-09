@@ -92,10 +92,9 @@ export default defineUserConfig({
             page.path = page.path.replace("/", "/drafts/");
             page.data.path = page.data.path.replace("/", "/drafts/");
           }
-
         }
     }
-  }
+  },
 
   // Enable it with pwa
   // shouldPrefetch: false,

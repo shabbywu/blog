@@ -1,6 +1,5 @@
 import { hopeTheme } from "vuepress-theme-hope";
 import { enNavbar, zhNavbar } from "./navbar/index.js";
-import { MR_HOPE_AVATAR } from "./logo.js";
 
 export default hopeTheme({
   hostname: "https://blog.shabbywu.cn",

@@ -448,7 +448,7 @@ Docker 镜像采用了分层结构。每层都是一组文件系统的变更历�
 依据规范, 该结构被认为是不可变的, 因为修改本结构就意味着需要重新计算 `ImageID`, 也就意味着创建了新的派生镜像, 原镜像的 Image JSON 并未发送变化。
 
 #### Image Filesystem Changeset
-Docker 镜像中每一层都保存着相对于它上一层而言, 新添加(added), 发送变更(changed), 或者删除(deleted)的文件的归档包(又称之为文件系统变更集)。通过使用基于层(layer-based)的文件系统或者联合(union)文件系统(例如AUFS), 或者通过计算文件系统快照的差异, 文件系统变更集(`Filesystem Changeset`)可以表现这一系列的镜像层, 就好像这些变更是发送在同一个文件系统上的一样。
+Docker 镜像中每一层都保存着相对于它上一层而言, 新添加(added), 发生变更(changed), 或者删除(deleted)的文件的归档包(又称之为文件系统变更集)。通过使用基于层(layer-based)的文件系统或者联合(union)文件系统(例如AUFS), 或者通过计算文件系统快照的差异, 文件系统变更集(`Filesystem Changeset`)可以表现这一系列的镜像层, 就好像这些变更是发送在同一个文件系统上的一样。
 
 #### Layer DiffID
 Docker 使用在镜像分发传输时, 每层的 tar 归档文件的 SHA256 摘要来引用镜像层。例如, `sha256:0271b8eebde3fa9a6126b1f2335e170f902731ab4942f9f1914e77016540c7bb` 则是一个合法的 `Layer DiffID`。
