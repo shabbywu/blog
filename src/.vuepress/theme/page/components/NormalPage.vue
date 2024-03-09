@@ -49,7 +49,7 @@
 import "vuepress-theme-hope/styles/page.scss";
 import "./page.scss";
 
-import { computed, onUpdated } from "vue";
+import { computed, onUpdated, reactive } from "vue";
 import { usePages } from '@temp/pages'
 import { usePageData, usePageFrontmatter } from "vuepress/client";
 import { hasGlobalComponent } from "@vuepress/helper/client";
@@ -73,8 +73,18 @@ const tocEnable = computed(() => frontmatter.value.toc ||
 const { info } = usePageInfo();
 const Render = hasGlobalComponent("LocalEncrypt")? "LocalEncrypt": "RenderDefault";
 const hasCommentService = hasGlobalComponent("CommentService");
-const pages = usePages();
+const _pages = usePages();
 const pageData = usePageData();
+
+
+const pages = _pages.filter(page => {
+    if (themeLocale.value.lang == "zh-CN") {
+        return page.path.startsWith("/posts");
+    } else {
+        return page.path.startsWith("/en/posts");
+    }
+})
+
 
 const currentPageIndex = computed(() => {
     return pages.findIndex(p => p.filePathRelative === pageData.value.filePathRelative);
@@ -90,7 +100,7 @@ const nextPage = computed(() => {
 })
 
 onUpdated(() => {
-    console.log("update", pageData)
+    
 })
 
 </script>

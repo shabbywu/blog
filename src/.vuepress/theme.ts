@@ -55,6 +55,10 @@ export default hopeTheme({
     },
   },
 
+  footer: '<a href="http://beian.miit.gov.cn" target="_blank">粤ICP备2021176883号</a>',
+  copyright: '<a href="https://github.com/shabbywu/" target="_blank">shabbywu</a> © 2019-' + new Date().getFullYear(),
+  displayFooter: true,
+
   locales: {
     "/": {
       // navbar
@@ -62,49 +66,27 @@ export default hopeTheme({
 
       // sidebar
       sidebar: "false",
-
-      footer: '<a href="http://beian.miit.gov.cn" target="_blank">粤ICP备2021176883号</a>',
-      copyright: '<a href="https://github.com/shabbywu/" target="_blank">shabbywu</a> © 2019-' + new Date().getFullYear(),
-
-      displayFooter: true,
-
       blog: {
         description: "全栈程序员",
         // TODO: 实现 intro.html ?
         intro: "https://github.com/shabbywu",
       },
-
       metaLocales: {
         prevPost: "上一篇",
         nextPost: "下一篇",
         comments: "评论",
       },
     },
+    "en": {
+      // navbar
+      navbar: enNavbar,
 
-    // /**
-    //  * Chinese locale config
-    //  */
-    // "/zh/": {
-    //   // navbar
-    //   navbar: zhNavbar,
-
-    //   // sidebar
-    //   sidebar: zhSidebar,
-
-    //   footer: "默认页脚",
-
-    //   displayFooter: true,
-
-    //   blog: {
-    //     description: "一个前端开发者",
-    //     intro: "/zh/intro.html",
-    //   },
-
-    //   // page meta
-    //   metaLocales: {
-    //     editLink: "在 GitHub 上编辑此页",
-    //   },
-    // },
+      blog: {
+        description: "Fullstack programer",
+        // TODO: 实现 intro.html ?
+        intro: "https://github.com/shabbywu",
+      },
+    }
   },
 
   encrypt: {

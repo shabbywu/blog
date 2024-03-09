@@ -17,11 +17,11 @@ export default defineUserConfig({
       title: "个人技术文章分享",
       description: "这是一个简单的博客",
     },
-    // "/zh/": {
-    //   lang: "zh-CN",
-    //   title: "博客演示",
-    //   description: "vuepress-theme-hope 的博客演示",
-    // },
+    "/en/": {
+      lang: "en",
+      title: "Personal technical article sharing",
+      description: "Here is a simple blog",
+    },
   },
 
   theme,
@@ -43,7 +43,10 @@ export default defineUserConfig({
 
   plugins: [
     usePagesPlugin({
-      startsWith: "/posts/"
+      startsWith: "/",
+      filter(page) {
+        return page.path.startsWith("/posts/") || page.path.startsWith("/en/posts/") 
+      },
     }),
     googleAnalyticsPlugin({
       id: "UA-171805433-1"
@@ -60,18 +63,14 @@ export default defineUserConfig({
   },
 
   extendsPageOptions: (pageOptions, app) => {
-    if (pageOptions.filePath?.startsWith(app.dir.source("_posts"))) {
+    if (pageOptions.filePath?.startsWith(app.dir.source("_posts")) || pageOptions.filePath?.startsWith(app.dir.source("en/_posts"))) {
+
       pageOptions.frontmatter = pageOptions.frontmatter ?? {}
       // 调整 TOC 消失的最低宽度
       // 整体背景色
       pageOptions.frontmatter.draft = pageOptions.frontmatter.draft || false
       pageOptions.frontmatter.permalinkPattern = '/posts/:year/:month/:day/:slug.html'
       pageOptions.frontmatter.type = 'post'
-
-      // 草稿
-      if (pageOptions.frontmatter.draft) {
-        pageOptions.frontmatter.permalinkPattern = '/drafts/:year/:month/:day/:slug.html'
-      }
     }
   },
 
@@ -84,6 +83,11 @@ export default defineUserConfig({
         parts[parts.length-1] = defaultSlugify(filename.replace(".html", "")) + ".html";
         page.path = encodeURI(parts.join("/"));
         page.data.path = page.path;
+
+        if (page.frontmatter.draft) {
+          page.path = path.join("/drafts/", page.path);
+          page.data.path = path.join("/drafts/", page.data.path);
+        }
     }
   }
 
