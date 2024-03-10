@@ -1,22 +1,21 @@
 ---
 date: 2021-08-12
-title: How To Run Container-浅谈从镜像创建容器的实现细节
+title: How To Run Container - Discussion on the implementation details of creating a container from an image
 sidebarDepth: 2
-category: 容器技术
+category: Container Technology
 tags:
 -   docker
 -   container
 
-draft: true
 ---
-## 前言
-现在是容器化时代，不管是开发、测试还是运维，很少有人会不知道或不会用 Docker。使用 Docker 也很简单，很多时候启动容器无非就是执行 `docker run {your-image-name}`，而构建镜像也就是执行一句 `docker build dockerfile .`的事情。   
-也许正是由于 **Docker** 对实现细节封装得过于彻底，有时候会觉得我们也许只是学会了**如何使用`Docker CLI`** , 而并非明白 Docker 是如何运行的。  
-笔者将在『How To Run Container』系列文章讲述 `docker run {your-image-name}` 相关的实现细节，本文是本系列的第二篇文章，将为各位介绍从镜像创建容器涉及到的实现细节。 
+## Preface
+We are now in the era of containerization, where hardly anyone in development, testing, or operations would be unfamiliar with or unable to use Docker. Using Docker is also straightforward; most of the time, launching a container simply involves executing `docker run {your-image-name}`, and building an image is as simple as executing `docker build dockerfile .`.   
+Perhaps it's precisely because Docker encapsulates implementation details so thoroughly that I recently realized that we may have only learned **how to use Docker CLI**, rather than understanding how Docker actually operates.   
+I will discuss the implementation details related to `docker run {your-image-name}` in the 『How To Run Container』 series. This article is the second in the series and will introduce the implementation details involved in creating a container from an image.
 
-## 什么是镜像和容器？
-### 1. 什么是镜像？
-正如我上一篇文章[『Docker 镜像规范 v1.2』](/posts/2021/01/31/how-to-build-images-docker-%E9%95%9C%E5%83%8F%E8%A7%84%E8%8C%83.html)中指出的, `镜像`是一个**存储了文件系统发生的变更历史**的归档包。一般而言，一个基本的镜像具有以下的目录结构:
+## What Are Images and Containers?
+### 1. What is an Image?
+As mentioned in my previous article [『Docker 镜像规范 v1.2』](/en/posts/2021/01/31/how-to-build-images-docker-%E9%95%9C%E5%83%8F%E8%A7%84%E8%8C%83.html), an `image` is an archive that **stores the history of changes made to a file system**. Generally, a image has the following directory structure:
 ```bash
 .
 ├── 036a82c6d65f2fa43a13599661490be3fca1c3d6790814668d4e8c0213153b12
@@ -31,54 +30,54 @@ draft: true
 ├── manifest.json
 └── repositories
 ```
+When storing changes to the file system, an `image` defines **a history of changes to a set of file systems** as `「image layers」`. Each image layer is responsible for recording the differences between the file systems of that layer and the previous layer. The relationships between these image layers are maintained by an `image manifest`.
 
-在存储文件系统发生的变更时, 镜像(Image) 将**一组文件系统的变更历史**定义为`「镜像层(Image Layer)」`, 每个镜像层负责记录该层镜像与上一层镜像的文件系统之间的差异, 而这些镜像层之间的关系则由`镜像清单(Image manifest)`负责维护。   
-综上所述, **镜像可以简单地理解成由多个镜像层叠加起来的文件系统**。(如下图)
+In summary, **an image can be understood simply as a file system composed of multiple image layers stacked on top of each other** (as shown in the diagram below).
 ```plantuml
 @startuml
 package Image{
-    file 镜像清单 {
-        
-    }
+    file "Image Manifest"
 
-    file 镜像配置
+    file "Image Configuration"
     
-    artifact Layer1 {
-    }
-    
-    artifact Layer2 {
-        
-    }
+    artifact Layer1 
+    artifact Layer2 
+    artifact LayerN 
 
-    artifact LayerN {
-        
-    }
+    Layer1 <.. Layer2: Overlay
 
-    Layer1 <.. Layer2: 覆盖
-
-    Layer2 <.. LayerN: 覆盖
+    Layer2 <.. LayerN: Overlay
 }
 @enduml
 ```
-> 事实上, 镜像内还记录了该镜像的一些基本信息, 例如创建日期, 作者和其父镜像的ID, 以及运行时的相关配置, 关于镜像内容更详细的描述可参考我的另一篇文章[『Docker 镜像规范 v1.2』](/posts/2021/01/31/how-to-build-images-docker-%E9%95%9C%E5%83%8F%E8%A7%84%E8%8C%83.html)
+> In fact, the image also contains some basic information, such as the creation date, author, the ID of its parent image, and relevant configurations for runtime. For a more detailed description of image content, please refer to my another article [『Docker Image Specification v1.2』](/en/posts/2021/01/31/how-to-build-images-docker-%E9%95%9C%E5%83%8F%E8%A7%84%E8%8C%83.html)
 
-### 2.什么是容器？
-根据 OCI 的定义, `容器`是一个可配置**资源限制**和**隔离性**的, 用于**执行进程的环境**。我们知道, `Linux 容器`的**资源限制**和**隔离性**是分别基于 `Cgroup` 和 `Linux Namespace` 实现的, 两者都是 Linux 内核提供的功能, 其中 Cgroup 用于限制和隔离一组进程对系统资源的使用, 而 Linux Namespace 对内核资源(IPC、Network、Mount、PID、UTS 和 User)进行了封装, 使得不同进程在各自的 Namespace 下操作同一种资源时, 不会影响 Namespace 下的进程。  
-`容器`和`镜像`的关系就像是模板和实例, 镜像提供了**运行容器的必要元素(文件系统和运行配置)**，但不依赖镜像也可运行容器, 简而言之, 我们可以认为**镜像是容器的充分不必要条件**。
-> 关于“充分不必要条件”, 感兴趣的读者可以阅读我在上一篇文章[『从 0 开始带你徒手构建 Docker 镜像』](/posts/2021/04/01/how-to-build-image-%E4%BB%8E-0-%E5%BC%80%E5%A7%8B%E5%B8%A6%E4%BD%A0%E5%BE%92%E6%89%8B%E6%9E%84%E5%BB%BA-docker-%E9%95%9C%E5%83%8F.html#%E7%85%A7%E7%8C%AB%E7%94%BB%E8%99%8E-%E6%9E%84%E5%BB%BA%E5%8F%AF%E8%BF%90%E8%A1%8C%E7%9A%84%E5%AE%B9%E5%99%A8%E6%8D%86%E7%BB%91%E5%8C%85)。在这篇文章中, 我先后为大家展示了**如何使用镜像运行容器**和**如何在不依赖镜像的前提下, 构建容器运行要素并运行容器**。
+### 2. What is a Container?
+According to the definition of OCI (Open Container Initiative), a `container` is a configurable environment used for **executing processes**, with **resource constraints** and **isolation**. We know that the **resource constraints** and **isolation** of `Linux containers` are implemented based on `Cgroups` and `Linux namespaces` respectively. Both are functionalities provided by the Linux kernel. Cgroups are used to restrict and isolate a group of processes' usage of system resources, while Linux namespaces encapsulate kernel resources (IPC, Network, Mount, PID, UTS, and User), ensuring that different processes operating on the same resource within their respective namespace do not affect processes in other namespaces.
 
-## Docker 是如何从镜像创建容器？
-正如前文所言, `镜像`是一个**存储了文件系统发生的变更历史**的归档包, 而`容器`是一个可配置**资源限制**和**隔离性**的, 用于**执行进程的环境**。从本质而言, 镜像为容器提供了文件系统和运行参数配置, 而容器则是从镜像创建出来的一个实例。   
-接下来, 我们将深入探讨 Docker 从镜像创建出容器的实现细节。
+The relationship between a `container` and an `image` is like that of a template and an instance. An image provides the **necessary elements (file system and runtime configuration)** to run a container, but a container can also run without depending on an image. In other words, we can consider an image as a **sufficient but not necessary condition** for a container to run.
 
-### 镜像存储和 UnionFS
-Docker 镜像分层的存储设计借鉴自 UnionFS。UnionFS 是一种可以将多个独立的文件系统中的文件和目录联合挂载, 形成一个统一的, 屏蔽底层细节的文件系统的技术。   
-Docker 镜像中每个镜像层都是一个**不完整**的文件系统, 它记录该层镜像与上一层镜像的文件系统之间的差异。这种分层策略赋予了 Docker 更轻量的镜像(相对于虚拟机而言), 分发镜像时只需要下载对应的镜像层即可。   
-当然, 这种分层镜像设计也引入了一个难题, **如何删除上层镜像的文件?**   
-对于这个问题, Docker 也是原封不动地引入了 UnionFS 的解决方案: `Whiteout` 和` Opaque`。
+> For more details on "sufficient but not necessary conditions," interested readers can refer to my previous article [『Guide you to build Docker image manually from scratch』](/en/posts/2021/04/01/how-to-build-image-%E4%BB%8E-0-%E5%BC%80%E5%A7%8B%E5%B8%A6%E4%BD%A0%E5%BE%92%E6%89%8B%E6%9E%84%E5%BB%BA-docker-%E9%95%9C%E5%83%8F.html#%E7%85%A7%E7%8C%AB%E7%94%BB%E8%99%8E-%E6%9E%84%E5%BB%BA%E5%8F%AF%E8%BF%90%E8%A1%8C%E7%9A%84%E5%AE%B9%E5%99%A8%E6%8D%86%E7%BB%91%E5%8C%85). In that article, I demonstrated **how to run a container using an image** and **how to build and run a container without relying on an image**.
+
+## How does Docker create a container from an image?
+
+As mentioned earlier, an `image` is an archive that stores the history of changes made to a file system, while a `container` is a configurable environment used for *executing processes* with **resource constraints** and **isolation**. Essentially, an image provides the file system and runtime parameter configuration for a container, and the container is an instance created from an image.
+
+Next, we will delve into the implementation details of how Docker creates a container from an image.
+
+### Image Storage and UnionFS
+Docker's layered image storage design is inspired by *UnionFS*. *UnionFS* is a technology that can mount files and directories from multiple independent file systems into a unified file system, masking the underlying details.
+
+Each image layer in a Docker image is an **incomplete** file system that records the differences between the file systems of that layer and the previous layer. This layered approach gives Docker lighter-weight images (compared to virtual machines), and distributing images only requires downloading the corresponding image layers.
+
+However, this layered image design also introduces a challenge: **how to delete files from upper layers of an image?**
+
+For this problem, Docker has directly adopted UnionFS's solution: `Whiteout` and `Opaque`.
 
 #### Whiteout
-所谓的 `Whiteout` 和` Opaque Whiteout` 是借鉴自 UnionFS 协议, Docker 镜像通过约定的文件命名方式, 描述了下层文件系统需要屏蔽上层文件系统中的哪些文件或目录。例如, 以下是包含多个资源的基础层:
+
+The concepts of `Whiteout` and `Opaque Whiteout` are borrowed from the UnionFS protocol. In Docker images, by using a convention for file naming, the lower layer file system describes which files or directories from the upper layer file system need to be masked. For example, here's a basic layer containing multiple resources:
+
 ```bash
 ❯ tree .
 .
@@ -91,7 +90,9 @@ Docker 镜像中每个镜像层都是一个**不完整**的文件系统, 它记�
 
 3 directories, 3 files
 ```
-如果下层文件系统内需要删除 `a/b/c/foo` 这个文件, 那么下层文件系统则需要创建一个以 `.wh.<filename>` 为命名的隐藏文件, 即下层文件系统应当具有以下的文件系统结构:
+
+If the file `a/b/c/foo` needs to be deleted from the lower layer file system, then the lower layer file system needs to create a hidden file named with `.wh.<filename>`. Therefore, the lower layer file system should have the following file system structure:
+
 ```bash {6}
 ❯ tree . -a
 .
@@ -104,8 +105,9 @@ Docker 镜像中每个镜像层都是一个**不完整**的文件系统, 它记�
 ```
 
 #### Opaque Whiteout
-除了通过 `Whiteout` 描述删除单个文件的协议外, 还可以通过 `Opaque Whiteout` 描述删除某个目录下的所有文件。   
-以上面提到的基础文件系统为例, 如果下层文件系统希望删除 `a` 目录下的所有文件, 那么下层文件系统则需要在 `a` 目录下创建命名为 `.wh..wh..opq` 的隐藏文件, 即下层文件系统应当具有以下的文件系统结构:
+In addition to using `Whiteout` to describe the protocol for deleting individual files, it is also possible to use `Opaque Whiteout` to describe the deletion of all files within a particular directory.
+
+Taking the basic file system mentioned earlier as an example, if the lower layer file system wants to delete all files within the `a` directory, then the lower layer file system needs to create a hidden file named `.wh..wh..opq` within the `a` directory. Therefore, the lower layer file system should have the following file system structure:
 ```bash {4}
 ❯ tree . -a
 .
@@ -114,7 +116,8 @@ Docker 镜像中每个镜像层都是一个**不完整**的文件系统, 它记�
 
 1 directory, 1 file
 ```
-当然, 我们也可以通过 `Whiteout` 达到与 `Opaque Whiteout` 等价的效果, 例如以上面提到的基础文件系统为例, 我们希望删除 `a` 目录下的所有文件, 还可以采用以下的文件系统结构获得等价的结果:
+
+Of course, we can achieve equivalent effects to `Opaque Whiteout` using `Whiteout` as well. For example, considering the basic file system mentioned earlier, if we want to delete all files within the `a` directory, we can also obtain equivalent results with the following file system structure:
 ```bash {4,5}
 ❯ tree . -a 
 .
@@ -124,23 +127,25 @@ Docker 镜像中每个镜像层都是一个**不完整**的文件系统, 它记�
 
 1 directory, 2 files
 ```
-> 值得注入的是: 如 `Opaque Whiteout` 不同的是, 如果 `a` 目录下新增一个新的文件或目录, 那么通过 `Whiteout` 删除 `a` 目录下的所有文件则需要为这个新的文件或目录创建新的 `Whiteout` 隐藏文件, 而使用 `Opaque Whiteout` 则不需要。
+> It's worth noting that unlike `Opaque Whiteout`, if a new file or directory is added under the `a` directory, using `Whiteout` to delete all files in the `a` directory would require creating a new `Whiteout` hidden file for this new file or directory. However, when using `Opaque Whiteout`, this is not necessary.
 
 ### ReadOnly & Copy on Write
 #### ReadOnly Layer
-Docker 在 UnionFS 的基础上设计了镜像内容(文件系统变更历史)的存储方案, 同时又增加了一个限制: **所有镜像层只读, 不允许更改镜像层内容**。   
-这个限制不但避免了容器内容在运行时出现意外变更<sup>注</sup>, 而且使得容器镜像比虚拟机而言更加轻量。
-> 注: 试想下, 如果上层文件系统内容变更后, 联合挂载的文件系统是否需要同步变更内容？
+Docker has designed a storage solution for image content (file system change history) based on UnionFS, while imposing a restriction: **all image layers are read-only, and modifying the content of image layers is not allowed**.
 
-![镜像层只读样例(以 ubuntu 镜像为例)](/img/镜像层只读样例.png) 
+This restriction not only prevents unexpected changes to container content during runtime^[1]^ but also makes container images lighter-weight compared to virtual machines.
 
-基于 Docker 出色的镜像设计方案, 使得每台主机只需要为每个镜像层存储一个副本<sup>注</sup>, 同时在分发镜像时也只需下载缺失的镜像层内容, 这大大节省了存储和网络带宽。   
-> 注: 是否所有
+> ^[1]^Consider this: if the content of the upper layer file system changes, does the union-mounted file system need to synchronize the changed content?
 
-接下来, 那么容器如何在只读的镜像层增删内容呢？这就不得不介绍另一个技术: **Copy-on-Write**
+![Example of read-only image layers (using the Ubuntu image as an example)](/img/镜像层只读样例.png) 
+
+Based on Docker's excellent image design, each host only needs to store one copy of each image layer, and when distributing images, only the missing image layer content needs to be downloaded, greatly saving storage and network bandwidth.
+
+Next, how do containers modify content in read-only image layers? This leads us to another technique: **Copy-on-Write**.
 
 #### Copy-on-Write
-**Copy-on-Write(简称, Cow)** 实际上是一种计算机程序设计领域的优化策略, 顾名思义, 如果有多个用户同时请求相同的资源时(如内存或磁盘上的数据), 他们首先会获得指向相同资源的地址, 直到某个用户视图修改资源的内容时, 系统才会真正复制一份专属副本给该用户, 而其他用户所访问的资源仍然保持不变。  
+**Copy-on-Write (also known as CoW)** is actually an optimization strategy in the field of computer program design. As the name suggests, when multiple users simultaneously request the same resource (such as data in memory or on disk), they initially obtain addresses pointing to the same resource. Only when one user attempts to modify the content of the resource will the system actually make a copy of an exclusive version for that user, while the resource accessed by other users remains unchanged.
+
 ```plantuml
 @startuml
 
@@ -149,56 +154,56 @@ skinparam packageStyle rectangle
 actor userA
 actor userB
 
-rectangle 资源 {
+rectangle Resource {
   (A) . (B)
   (C) . (B)
 }
 
-rectangle A用户空间 {
-    (A副本) as AA
-    (B指针) as AB
-    (C指针) as AC
-    (AA) == (A): 复制自
-    (AB) .. (B): 链接
-    (AC) .. (C): 链接
+rectangle "User Space for A" {
+    (A Copy) as AA
+    (B Pointer) as AB
+    (C Pointer) as AC
+    (AA) == (A): Copy from
+    (AB) .. (B): Link
+    (AC) .. (C): Link
 }
 
-rectangle B用户空间 {
-    (A副本) as BA
-    (B指针) as BB
-    (C指针) as BC
+rectangle "User Space for B" {
+    (A Copy) as BA
+    (B Pointer) as BB
+    (C Pointer) as BC
 
-    (A) .. (BA): 链接
-    (B) .. (BB): 链接
-    (C) == (BC): 复制自
+    (A) .. (BA): Link
+    (B) .. (BB): Link
+    (C) == (BC): Copy from
 }
 
-userA ==> (AA): 读写
-userA ..> (AB): 只读
-userA ..> (AC): 只读
+userA ==> (AA): Read/Write
+userA ..> (AB): Read Only
+userA ..> (AC): Read Only
 
-(BA) <.. userB: 只读
-(BB) <.. userB: 只读
-(BC) <== userB: 读写
+(BA) <.. userB: Read Only
+(BB) <.. userB: Read Only
+(BC) <== userB: Read/Write
 
 @enduml
 ```
-容器引入Cow(🐂)技术, 通过**延迟拷贝**的方式节省了创建多个完整副本时带来的空间和时间上的开销。该技术在容器上则表现为每个容器在 UnionFS 的基础上增加了各自的读写层(R/W Layer), 该层中的所有内容即是该容器的所有文件系统变更<sup>注</sup>。
-> 注: 借助 Cow 技术, 构建镜像时只需要将每层镜像的读写层归档成镜像层即可。
+Containers introduce Copy-on-Write (Cow) technology, which saves space and time overheads incurred by creating multiple complete copies through **lazy copying**. This technology manifests in containers by adding a read/write layer (R/W Layer) on top of UnionFS for each container. All content within this layer represents all file system changes for that container.
+> With the help of Cow technology, when building images, it's only necessary to archive the read/write layer of each image layer.
+![Readable Layer in Containers (using the Ubuntu image as an example)](/img/容器可读层.jpg)
 
-![容器可读层(以 ubuntu 镜像为例)](/img/容器可读层.jpg)
 
-## 实战: 基于 OverlayFS2, 徒手从镜像创建容器
-使用 runc 启动容器的流程已经在上一篇文章[『从 0 开始带你徒手构建 Docker 镜像』](/posts/2021/04/01/how-to-build-image-%E4%BB%8E-0-%E5%BC%80%E5%A7%8B%E5%B8%A6%E4%BD%A0%E5%BE%92%E6%89%8B%E6%9E%84%E5%BB%BA-docker-%E9%95%9C%E5%83%8F.html)充分演示, 这里重新回顾下流程, 想要直接运行容器十分简单, 只需要:
-1. 将容器编排为文件系统捆绑包(Filesystem Bundle)的形式
-2. 往 `config.json` 编写正确的配置
-3. 往 `$root.path` 填充合理和可用的文件
-4. 执行 runc run $containerid 启动容器
+## Hands-on: Creating a Container from an Image Using OverlayFS2
+The process of starting a container using runc has been thoroughly demonstrated in the previous article [『从 0 开始带你徒手构建 Docker 镜像』](/en/posts/2021/04/01/how-to-build-image-%E4%BB%8E-0-%E5%BC%80%E5%A7%8B%E5%B8%A6%E4%BD%A0%E5%BE%92%E6%89%8B%E6%9E%84%E5%BB%BA-docker-%E9%95%9C%E5%83%8F.html). Here, let's review the process briefly. To directly run a container, it's quite simple:
+1. Organize the container as a Filesystem Bundle.
+2. Write correct configurations into `config.json`.
+3. Populate `$root.path` with appropriate and available files.
+4. Execute `runc run $containerid` to start the container.
 
-但是如上一篇文章不同的是, 我们这次不再是徒手构建 Docker 镜像, 而是从 DockerHub 中获取镜像，充分模拟 `docker run {your-image-name}` 涉及的流程。
+However, unlike the previous article where we built Docker images from scratch, this time we will obtain the image from DockerHub, fully simulating the process involved in `docker run {your-image-name}`.
 
-### 1. 获取镜像
-我们知道, DockerHub 并不需要 Docker Engine 即可访问, 其接口规范遵循 Docker Registry API V2。也就是说, 我们只需要使用 REST API 即可从 DockerHub 获取镜像。这里使用到一个开源脚本[download-frozen-image-v2.sh](https://raw.githubusercontent.com/moby/moby/master/contrib/download-frozen-image-v2.sh), 该脚本使用 curl, jq 等工具实现了`Token 认证`, `拉取镜像清单`, `拉取镜像层` 等流程, 下面演示如何使用该脚本拉取 alpine/git:v2.30.2 镜像
+### 1. Obtaining the Image
+We know that DockerHub can be accessed without Docker Engine, and its interface specification follows Docker Registry API V2. This means we only need to use the REST API to obtain images from DockerHub. Here, we'll use an open-source script [download-frozen-image-v2.sh](https://raw.githubusercontent.com/moby/moby/master/contrib/download-frozen-image-v2.sh). This script implements processes like `Token authentication`, `pulling image manifests`, and `pulling image layers` using tools like curl and jq. Below is a demonstration of how to use this script to pull the alpine/git:v2.30.2 image.
 
 ```bash {5,19,23,27,29,32,34}
 ❯ ./download-frozen-image-v2.sh -h
@@ -240,13 +245,13 @@ alpine/
 3 directories, 12 files
 ```
 
-### 2. 构建 Overlay 文件系统
-在获取到镜像之后, 我们则可以开始将镜像内容编排为文件系统捆绑包(Filesystem Bundle)的形式, 这里根据 [Docker Overlay2 Driver](https://github.com/moby/moby/blob/master/daemon/graphdriver/overlay2/overlay.go) 的流程来构建容器的 rootfs。
-> OverlayFS 是一个与 AUFS 类似的但性能更快, 实现更简单的现代联合文件系统, 已集成至 linux 3.8 以上版本的内核，是 Docker 推荐使用在生产环境的文件系统。
+### 2. Building the Overlay File System
+After obtaining the image, we can start organizing the image content into a Filesystem Bundle. Here, we'll follow the process outlined in the [Docker Overlay2 Driver](https://github.com/moby/moby/blob/master/daemon/graphdriver/overlay2/overlay.go) to construct the container's rootfs.
+> OverlayFS is a modern union file system similar to AUFS but with faster performance and simpler implementation. It has been integrated into Linux kernel versions 3.8 and above and is recommended by Docker for use as the file system in production environments.
 
 ```bash
-## 解压缩镜像内容
-### 确定镜像层顺序
+## Extracting the image content
+### Determining the order of image layers
 ❯ cat alpine/manifest.json
 [
   {
@@ -262,36 +267,36 @@ alpine/
   }
 ]
 
-### 创建镜像层解压缩的目录
+### Creating directories for extracting image layers
 ❯ mkdir -p /tmp/overlay/image/1 /tmp/overlay/image/2 /tmp/overlay/image/3 
 
-### 解压镜像层内容, 并按顺序进行编排
+### Extracting the content of image layers and arranging them in order
 ❯ tar -C /tmp/overlay/image/1 -xf alpine/86f68eb8bb2057574a5385c9ce7528b70632e1c750fb36d5ac76c0a5460f5d95/layer.tar
 ❯ tar -C /tmp/overlay/image/2 -xf alpine/09af0b97aec5975955488d528e8535d2678b75cb29adb6827abd85b52802d1b1/layer.tar 
 ❯ tar -C /tmp/overlay/image/3 -xf alpine/d8aa90f099f0f17f3ad894f0909e6bfd026cc4c76eec03e3e50391af42f41976/layer.tar
 
-## 构建 OverlayFS
-### 创建挂载点(空目录)
+## Building OverlayFS
+### Creating mount points (empty directories)
 ❯ mkdir -p /tmp/overlay/container-a/merged /tmp/overlay/container-a/upperdir /tmp/overlay/container-a/workdir
 
-### 挂载镜像文件系统至 /tmp/overlay/container-a/merged 目录, 其中镜像的读写层内容存储在 /tmp/overlay/container-a/upperdir
+### Mounting the image file system to the /tmp/overlay/container-a/merged directory, where the content of the read/write layer of the image is stored in /tmp/overlay/container-a/upperdir
 ❯ cd /tmp/overlay/ && \
   mount -t overlay overlay \
   -o lowerdir=image/1:image/2:image/3,upperdir=container-a/upperdir,workdir=container-a/workdir \
   /tmp/overlay/container-a/merged
 
-## 验证挂载记录
+## Verifying mount records
 ❯ mount |grep overlay
 overlay on /tmp/overlay/container-a/merged type overlay (rw,relatime,lowerdir=image/1:image/2:image/3,upperdir=container-a/upperdir,workdir=container-a/workdir)
 
-## 验证读写层不会影响底层文件系统
+## Verifying that changes in the read/write layer do not affect the lower layer file system
 ❯ echo "1" > /tmp/overlay/container-a/merged/a
 
-## 只有读写层(upperdir)会被写入
+## Only the read/write layer (upperdir) will be written to
 ❯ cat /tmp/overlay/container-a/upperdir/a
 1
 
-## 底层文件系统(lowerdir)不会被修改
+## The lower layer file system (lowerdir) remains unchanged
 ❯ cat image/1/a
 cat: image/1/a: No such file or directory
 ❯ cat image/2/a
@@ -299,58 +304,60 @@ cat: image/2/a: No such file or directory
 ❯ cat image/3/a
 cat: image/3/a: No such file or directory
 
-## 但是, 挂载后修改底层文件系统则会体现到挂载的联合文件系统之中
+## However, modifying the lower layer file system after mounting will reflect in the mounted union file system
 ❯ echo "2" > image/1/b
 ❯ cat container-a/merged/b
 2
 
-## 然后在 merged 层中删除 b, 再查看读写层的内容
+## Then delete 'b' in the merged layer and check the content of the read/write layer
 ❯ rm container-a/merged/b && ls -ahl container-a/upperdir
 总用量 8.0K
 drwxr-xr-x 2 root root 4.0K 8月  12 17:08 .
 drwxr-xr-x 5 root root 4.0K 8月  12 12:05 ..
 c--------- 1 root root 0, 0 8月  12 17:08 b
 
-## 验证并不影响底层的镜像文件系统
+## Verify that it does not affect the lower layer of the image file system
 ❯ cat image/1/b
 2
 ```
 
-### 3. 启动容器
-在步骤 1,2 中以成功从镜像创建出容器的文件系统, 现在只需要使用 runc 启动即可。
+### 3. Starting the Container
+After successfully creating the container's file system from the image in steps 1 and 2, now all that's left is to start it using runc.
 
 ```bash
 ❯ cd /tmp/overlay/container-a/
 
-## 创建 config.json
+## Create config.json
 ❯ runc spec
 
-## 将 "rootfs" 替换成 "merged", 即设置容器的启动目录在 merged
+## Replace "rootfs" with "merged", setting the container's startup directory to merged
 ❯ sed -i "s/\"rootfs\"/\"merged\"/" config.json
-## 取消 readonly
+## Disable readonly
 ❯ sed -i "s/\"readonly\": true/\"readonly\": false/" config.json
 
-## 启动！
+## Start the container!
 ❯ runc run container-a
 
-## 尝试写入文件
+## Try writing to a file
 ❯ echo "hello world" > container-a
 ❯ cat container-a
 hello world
 
-## 容器外验证文件是否写入成功
+## Verify if the file was successfully written outside the container
 ❯ cat cat upperdir/container-a
 hello world
 ```
 
-### 4. 小结
-到这里我们成功从镜像创建出容器的文件系统, 并成功启动容器, 最后我们总结一下, 从镜像创建容器十分简单, 只需要:
-0. 熟悉 Docker Registry API V2 规范, 了解如何从 DocerHub 下载镜像(可选, 如果已有镜像则不需要)
-1. 熟悉 Docker 镜像规范, 了解如何从镜像转换成文件系统
-  - 如果镜像内屏蔽下层文件系统中的内容, 那么还需要了解不同 UnionFS 实现 Whiteout 的方式
-2. 熟悉 OCI 运行时规范, 了解如何从根文件系统启动容器
+### 4. Conclusion
+In this article, we successfully created a container file system from an image and successfully started the container. Let's summarize the process:
+0. Familiarize yourself with the Docker Registry API V2 specification and understand how to download images from DockerHub (optional, if you already have the image).
+1. Understand the Docker image specification and how to convert images into file systems.
+   - If the image shields content from lower layers of the file system, then understanding the different UnionFS implementations of the Whiteout protocol is necessary.
+2. Familiarize yourself with the OCI runtime specification and understand how to start a container from a root file system.
 
-## 总结
-这篇文章是『How To Run Container』系列的第二篇，主要以 Docker 镜像设计为切入点, 介绍了 Docker 镜像分层设计是借鉴于 Union FileSystem。Docker 在顶层设计上要求镜像中每层的内容只增不删, 但上层文件系统可借助 `Whiteout 协议` 屏蔽下层文件系统中的内容。同时, 得益于 `Copy-on-Write(写入时复制)` 技术, Docker 为每个容器分配了各自的可读写的层, 使得容器对镜像内容的修改互不干扰, 而这容器读写层亦记录了该容器的所有文件系统变更。最后, 这篇文章还演示了在不依赖 Docker Engine 的前提下, 如何从镜像构造出容器根文件系统并启动容器。   
-到目前为止, 我们已基本掌握容器化技术涉及到的所有技术, 本系列的下一篇文章将带大家深入 Linux 内核, 探索容器实现**资源限制**和**隔离性**的细节。   
-但在此之前, 笔者将先编写『How To Build Images』系列的第三篇文章, 在未来的这篇文章中将与大家深入探讨 `Docker Daemon` 与 `Docker Registry` 的交互流程, 为大家剖析隐藏在 `docker pull` 与 `docker push` 背后的细节。
+## Summary
+This article is the second installment of the 『How To Run Container』 series, focusing on Docker image design and introducing how Docker image layering design is inspired by Union FileSystem. Docker requires that the content of each layer in the image only increases but does not decrease at the top level. However, the upper layer file system can shield content from the lower layer file system using the `Whiteout protocol`. Furthermore, thanks to the `Copy-on-Write (COW)` technology, Docker allocates a writable layer for each container, ensuring that modifications to the image content by one container do not affect others. This writable layer also records all file system changes for the container. Finally, this article demonstrated how to construct a container root file system and start a container without relying on Docker Engine.
+
+So far, we have covered most of the technologies involved in containerization. The next article in this series will delve into the Linux kernel to explore the details of **resource limitation** and **isolation** in container implementation.
+
+Before that, however, I will be writing the third article in the "How To Build Images" series. In this upcoming article, I will delve into the interaction process between `Docker Daemon` and `Docker Registry`, dissecting the details behind `docker pull` and `docker push`.
