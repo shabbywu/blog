@@ -5,8 +5,6 @@ sidebarDepth: 2
 category: 容器技术
 tags:
 -   Webassembly
-
-draft: false
 ---
 ## 前言
 2013年3月20日, DotCloud 发布了 Docker 的首个版本, 从此开启了容器化时代的序幕。现在是容器化时代, 不管是开发、测试还是运维, 很少有人会不知道或不会用 Docker。自 Docker 发布至今的 10年内, 开源和社区共建让容器化技术如日中天。尽管容器化产品迭代迅速, 但是容器技术的核心却一直围绕着 Linux, 每当我们提及容器时, 实际上我们指代的往往是基于 Linux Kernel 的运行时实现。
