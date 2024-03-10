@@ -126,7 +126,7 @@ Docker Registry 采用中央认证服务实现用户身份认证, 具体的认�
 ![v2-auth-via-central-service](/img/Docker-Registry-v2-auth-via-central-service.png)
 
 1. `Docker Daemon` 尝试进行 pull/push 操作
-2. 如果 `Docker Registry` 需要进行用户认证, 那么就应该返回 `401 Unauthorized` 的 HTTP 相应, 并在返回头里描述如何进行用户认证(基于 WWW-Authenticate 协议)
+2. 如果 `Docker Registry` 需要进行用户认证, 那么就应该返回 `HTTP 401 Unauthorized` 的响应, 并在返回头里描述如何进行用户认证(基于 WWW-Authenticate 协议)
 3. `Docker Daemon` 向中央认证服务进行用户认证
 4. 中央认证服务向 `Docker Daemon` 返回一个 `Bearer token`, 代表用户的身份
 5. `Docker Daemon` 重试 **步骤1** 中发送的请求, 并在请求头中带上 **步骤4** 中返回的 `Bearer token`

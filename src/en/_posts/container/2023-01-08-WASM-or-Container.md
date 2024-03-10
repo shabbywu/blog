@@ -2,7 +2,7 @@
 date: 2023-01-08
 title: Webassembly - 会是下一代的容器运行时吗?  
 sidebarDepth: 2
-category: 容器技术
+category: Container Technology
 tags:
 -   Webassembly
 

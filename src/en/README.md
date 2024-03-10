@@ -7,18 +7,16 @@ title: Home
 projects:
   - icon: project
     name: Battle-Brothers-CN
-    desc: Battle Brothers(战场兄弟)中文翻译项目
+    desc: Battle Brothers Chinese Localization
     link: https://github.com/shabbywu/Battle-Brothers-CN
 
   - icon: project
     name: GameMod
-    desc: shabbywu's Unity Mod 集合
+    desc: shabbywu's Unity Mods
     link: https://github.com/shabbywu/GameMod
 
   - icon: project
     name: blueking-paas
-    desc: 蓝鲸智云PaaS平台
+    desc: Blueking PaaS
     link: https://github.com/TencentBlueKing/blueking-paas
 ---
-
-# Test

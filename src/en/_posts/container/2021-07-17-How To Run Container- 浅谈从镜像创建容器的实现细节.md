@@ -355,7 +355,7 @@ In this article, we successfully created a container file system from an image a
    - If the image shields content from lower layers of the file system, then understanding the different UnionFS implementations of the Whiteout protocol is necessary.
 2. Familiarize yourself with the OCI runtime specification and understand how to start a container from a root file system.
 
-## Summary
+## Conclusion
 This article is the second installment of the 『How To Run Container』 series, focusing on Docker image design and introducing how Docker image layering design is inspired by Union FileSystem. Docker requires that the content of each layer in the image only increases but does not decrease at the top level. However, the upper layer file system can shield content from the lower layer file system using the `Whiteout protocol`. Furthermore, thanks to the `Copy-on-Write (COW)` technology, Docker allocates a writable layer for each container, ensuring that modifications to the image content by one container do not affect others. This writable layer also records all file system changes for the container. Finally, this article demonstrated how to construct a container root file system and start a container without relying on Docker Engine.
 
 So far, we have covered most of the technologies involved in containerization. The next article in this series will delve into the Linux kernel to explore the details of **resource limitation** and **isolation** in container implementation.

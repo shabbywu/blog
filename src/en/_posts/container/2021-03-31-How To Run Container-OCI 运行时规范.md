@@ -230,5 +230,5 @@ At present, the OCI runtime specification mainly makes differentiated settings f
 ```
 Due to limited space, here will not continue to list the differentiated configurations between platforms. You can read the OCI Runtime Specification from [GITHUB](https://github.com/opencontainers/runtime-spec/).
 
-## Summary
+## Conclusion
 This article mainly summarizes the main contents of the OCI runtime specification to facilitate those who are interested in container technology to quickly understand the areas involved in the OCI runtime specification.
