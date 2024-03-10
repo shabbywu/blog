@@ -1,34 +1,34 @@
 ---
 date: 2023-01-08
-title: Webassembly - 会是下一代的容器运行时吗?  
+title: Webassembly - Will the next generation container runtime?
 sidebarDepth: 2
 category: Container Technology
 tags:
 -   Webassembly
-
-draft: true
 ---
-## 前言
-2013年3月20日, DotCloud 发布了 Docker 的首个版本, 从此开启了容器化时代的序幕。现在是容器化时代, 不管是开发、测试还是运维, 很少有人会不知道或不会用 Docker。自 Docker 发布至今的 10年内, 开源和社区共建让容器化技术如日中天。尽管容器化产品迭代迅速, 但是容器技术的核心却一直围绕着 Linux, 每当我们提及容器时, 实际上我们指代的往往是基于 Linux Kernel 的运行时实现。
-时至今日, 除了 Linux 容器以外还有很多容器运行时实现, 例如 [Kata Containers](https://github.com/kata-containers/kata-containers) 和 [gVisor](https://github.com/google/gvisor), 那究竟谁会是下一代运行时实现呢？-- 很可能是 Webassembly。
+## Preface
+On March 20, 2013, DotCloud released the first version of Docker, marking the beginning of the era of containerization. Now, in the age of containerization, whether it's development, testing, or operations, few people are unaware of or do not know how to use Docker. Over the past decade since Docker's release, open source collaboration has propelled containerization technology to great heights. Despite rapid iteration of containerization products, the core of container technology has always revolved around Linux. Whenever we mention containers, we are essentially referring to runtime implementations based on the Linux Kernel.
 
-这篇文章会介绍什么是 WebAssembly, 为什么它有成为下一代运行时实现的潜力, 并演示 WebAssembly 容器与常规的 Linux 容器的差异。
+Today, besides Linux containers, there are many other container runtime implementations, such as [Kata Containers](https://github.com/kata-containers/kata-containers) and [gVisor](https://github.com/google/gvisor). So, who might be the next generation runtime implementation? -- It's quite likely to be WebAssembly.
 
-::: tip 延伸阅读: 什么是容器？
-**容器镜像**是一个轻量级的、独立的、可执行的**软件包**, 只要**应用程序**打包成容器镜像交付, 无论在何种基础架构(Linux 或 Windows; ARM 或 X86), 它们都将始终以相同的方式运行。
+This article will introduce what WebAssembly is, why it has the potential to become the next generation runtime implementation, and demonstrate the differences between WebAssembly containers and conventional Linux containers.
 
-**容器**提供一种可以快速且可靠地将**应用程序**从一个计算环境运行到另一个计算环境的技术, 容器是软件即服务(Software as a service, SaaS)。
+::: tip Further Reading: What are Containers?
+A **container image** is a lightweight, standalone, executable **software package**. When **applications** are packaged as container images for delivery, regardless of the underlying infrastructure (Linux or Windows; ARM or X86), they will always run in the same way.
+
+**Containers** provide a technology for quickly and reliably running **applications** from one computing environment to another. Containers are a form of Software as a Service (SaaS).
 :::
 
-## 什么是 Webassembly (aka Wasm)
-WebAssembly 是一种安全的、可移植的、低级别的(类似于汇编)的编程语言(或者说是二进制指令格式, 类似于汇编), 需要在基于堆栈的虚拟机中执行。
-Wasm 被设计为编程语言的可移植编译目标, 主要目标是在 Web 上实现高性能的应用。
+## What is WebAssembly (aka Wasm)
+WebAssembly is a secure, portable, low-level (similar to assembly) programming language (or binary instruction format, akin to assembly) designed to be executed in a stack-based virtual machine.
+Wasm is designed as a portable compilation target for programming languages, with the primary aim of achieving high performance applications on the Web.
 
 ## Hello Wasm
-我们通过简单的 Hello World Demo 快速认识什么是 Wasm 程序。
+We'll quickly understand what a Wasm program is through a simple Hello World Demo.
 
-### 源语言 Rust
-Wasm 是编程语言的可移植编译目标, 因此需要从另一种语言编译生成, 常见的源语言是 Rust, 以下是一个最简单的基于 Rust 的 Hello World 样例代码:
+### Source Language: Rust
+WebAssembly is a portable compilation target for programming languages, thus requiring compilation from another language. A common source language is Rust. Below is the simplest example of a Hello World sample code based on Rust:
+
 ```rust
 // file: hello.rs
 fn main() {
@@ -36,7 +36,7 @@ fn main() {
 }
 ```
 
-由于 Rust 的规则, 还需要编写 Cargo.toml 才能编译代码。
+Due to Rust's conventions, it's also necessary to write a `Cargo.toml` file in order to compile the code.
 ```toml
 ## file: Cargo.toml
 [package]
@@ -50,7 +50,7 @@ path = "hello.rs"
 [dependencies]
 ```
 
-测试运行 hello.rs
+Les's run hello.rs
 ```bash
 ❯ cargo run
    Compiling hello v0.0.1
@@ -59,84 +59,91 @@ path = "hello.rs"
 Hello Wasm
 ```
 
-### 编译 Wasm
-默认情况下, Rust 会被编译成可执行文件, 我们需要指定额外的编译参数才能编译得到 Wasm
+### Compiling Wasm
+By default, Rust compiles into executable files. We need to specify additional compilation parameters to compile into Wasm.
 
 ```bash
-## 安装编译依赖
+## Install compilation dependencies
 ❯ rustup target add wasm32-wasi
 info: downloading component 'rust-std' for 'wasm32-wasi'
 info: installing component 'rust-std' for 'wasm32-wasi'
-## 编译成 Wasm
+
+## Compile into Wasm
 ❯ rustc hello.rs --target wasm32-wasi
-## 编译生成 hello.wasm
+
+## Compile to generate hello.wasm
 ❯ ls -lah hello.wasm
 -rwxr-xr-x  1 shabbywu  staff   2.1M  1  8 16:04 hello.wasm
 ```
 
-### 执行
-WebAssembly 是一种用于基于堆栈的虚拟机的二进制指令格式, 需要使用 WebAssembly 虚拟机才能执行 Wasm。常见的主要浏览器引擎(如 Chrome, Edge, Firefox 和 Safari)均支持执行 Wasm, 但想要在终端执行则需要先安装 Wasm 运行时, 以下是目前流行的 Wasm 运行时实现:
-- [Wasmtime](https://wasmtime.dev/), 是由[字节码联盟(Bytecode Alliance)](https://bytecodealliance.org/)开发的快速, 安全的 WebAssembly 运行时。
-- [WAMR](https://github.com/bytecodealliance/wasm-micro-runtime), 是由[字节码联盟(Bytecode Alliance)](https://bytecodealliance.org/)开发的 WebAssembly 轻量级运行时, 适用于嵌入式、物联网、边缘计算、智能设备等场景。
-- [Wasmer](https://wasmer.io/) 提供基于 WebAssembly 的超轻量级容器,其可以在任何地方运行：从桌面到云、以及 IoT 设备, 并且也能嵌入到 任何编程语言中。
-- [Wasm3](https://github.com/wasm3/wasm3) 是最快 WebAssembly **解释器**, 也是最通用的 Wasm 运行时。
-- [WasmEdge](https://wasmedge.org/) 是一种轻量级、高性能且可扩展的 WebAssembly 运行时, 适用于云原生、边缘和去中心化应用程序。 它为无服务器应用程序、嵌入式功能、微服务、智能合约和物联网设备提供支持。
+### Execution
+WebAssembly is a binary instruction format for stack-based virtual machines and requires a WebAssembly virtual machine to execute Wasm. Common major browser engines (such as Chrome, Edge, Firefox, and Safari) all support executing Wasm. However, to execute in the terminal, you need to install a Wasm runtime first. Here are popular Wasm runtime implementations:
+- [Wasmtime](https://wasmtime.dev/), a fast, secure WebAssembly runtime developed by the Bytecode Alliance.
+- [WAMR](https://github.com/bytecodealliance/wasm-micro-runtime), a lightweight WebAssembly runtime developed by the Bytecode Alliance, suitable for embedded, IoT, edge computing, smart devices, and other scenarios.
+- [Wasmer](https://wasmer.io/), offering ultra-lightweight containers based on WebAssembly that can run anywhere: from desktop to cloud, IoT devices, and can also be embedded into any programming language.
+- [Wasm3](https://github.com/wasm3/wasm3), the fastest WebAssembly **interpreter**, and the most universal Wasm runtime.
+- [WasmEdge](https://wasmedge.org/), a lightweight, high-performance, and scalable WebAssembly runtime suitable for cloud-native, edge, and decentralized applications. It supports serverless applications, embedded functions, microservices, smart contracts, and IoT devices.
 
-我们选用 Star 数最多的 Wasmer 演示执行 Wasm:
+We'll demonstrate executing Wasm using Wasmer, which has the highest number of stars.
 ```bash
-## 安装 Wasmer
+## Install Wasmer
 ❯ curl https://get.wasmer.io -sSfL | sh
-## 执行 hello.wasm
+
+## Execute hello.wasm
 ❯ wasmer run hello.wasm
 Hello Wasm
 ```
 
-##  为什么说 WebAssembly 具有成为下一代运行时实现的潜力？
-Wasm 的特性让它充满无限可能:
-- **标准** —— Wasm 被设计成无版本、特性可测试、向后兼容的, 主流浏览器均已实现初版 Wasm 规范。
-- **快速** —— 它可以通过大多数运行时的 JIT/AOT 能力提供类似原生的速度。 与启动 VM 或启动容器不同的是, 它没有冷启动。
-- **安全** —— 默认情况下, Wasm 运行时是沙箱化的, 允许安全访问内存。基于能力的模型确保 Wasm 应用程序只能访问得到明确允许的内容。软件供应链更加安全。
-- **可移植** —— Wasm 的二进制格式是被设计成可在不同操作系统(目前支持 Linux、Windows、macOS、Android、甚至是嵌入式设备)与指令集（目前支持 x86、ARM、RISC-V等）上高效执行的。
-- **高性能** —— Wasm 只需极小的内存占用和超低的 CPU 门槛就能运行。
-- ️**支持多语言** —— [多种编程语言](https://github.com/appcypher/awesome-wasm-langs)可以编译成 Wasm。
+## Why is WebAssembly said to have the potential to become the next generation runtime implementation?
+WebAssembly's features make it full of possibilities:
+- **Standard**: WebAssembly is designed to be versionless, feature-testable, and backward-compatible. Major browsers have already implemented the initial version of the WebAssembly specification.
+- **Fast**: It can provide near-native speed through Just-In-Time (JIT) or Ahead-Of-Time (AOT) compilation capabilities of most runtimes. Unlike starting a VM or a container, it doesn't have cold starts.
+- **Secure**: By default, WebAssembly runtimes are sandboxed, allowing secure memory access. A capability-based model ensures that WebAssembly applications can only access explicitly allowed content, making the software supply chain more secure.
+- **Portable**: The binary format of WebAssembly is designed to execute efficiently on different operating systems (currently supporting Linux, Windows, macOS, Android, and even embedded devices) and instruction sets (currently supporting x86, ARM, RISC-V, etc.).
+- **High Performance**: WebAssembly requires minimal memory footprint and ultra-low CPU thresholds to run.
+- **Multi-Language Support**: [Several programming languages](https://github.com/appcypher/awesome-wasm-langs) can compile to WebAssembly.
 
-### WebAssembly 正从浏览器走向服务端
-WebAssembly 起源于浏览器, 最初主要用于补齐 JavaScript 在执行性能方面的短板, 但 Wasm 并非为了取代 JavaScript, 而是希望提供一种在浏览器(沙盒环境)执行大型应用程序的能力。
-Wasm 依赖虚拟机执行, 而浏览器引擎能运行 Wasm 程序是因为浏览器引起集成了 Wasm 虚拟机。如果将 Wasm 虚拟机剥离出来单独运行, 那我们就可以在浏览器之外的地方执行 Wasm 程序。与浏览器执行环境不同, 服务端程序需要与外部环境(如文件系统、网络等)交互, 由于 Wasm 设计上是在安全沙箱执行的语言, 与外部环境交互将引入潜在的安全风险，因此 Wasm 提出了 [WASI(WebAssembly System Interface)](https://github.com/WebAssembly/WASI/blob/main/phases/snapshot/docs.md) 描述了 Wasm 程序支持的操作接口。
-> WASI 由 Wasm 运行时实现, 例如 [fd_readdir](https://github.com/bytecodealliance/wasmtime/blob/main/crates/wasi-common/src/snapshots/preview_1.rs#L596) 是 [Wasmtime](https://wasmtime.dev/) 的读取目录接口的实现。
+### WebAssembly Transitioning from Browser to Server-side
+WebAssembly originated in the browser, primarily to complement JavaScript's shortcomings in execution performance. However, WebAssembly is not meant to replace JavaScript but rather to provide the capability to execute large applications in the browser's (sandboxed) environment.
 
-作为开发者并不需要关心 Wasm 虚拟机的具体实现, 只需要将应用程序编译为 Wasm 二进制指令即可在任意服务器上执行。
-![Wasm执行在服务端的原理](/img/Wasm-work-on-servers.png)
+WebAssembly relies on a virtual machine for execution, and the ability of browser engines to run WebAssembly programs is due to their integration of WebAssembly virtual machines. If the WebAssembly virtual machine is separated and run independently, then we can execute WebAssembly programs outside the browser. Unlike the browser execution environment, server-side programs need to interact with external environments (such as file systems, networks, etc.). Since WebAssembly is designed to execute in a secure sandboxed environment, interacting with the external environment introduces potential security risks. Therefore, WebAssembly has proposed [WASI (WebAssembly System Interface)](https://github.com/WebAssembly/WASI/blob/main/phases/snapshot/docs.md), which describes the operation interfaces supported by WebAssembly programs.
 
-### WebAssembly 对软件交付的影响
-在容器化时代, 容器已成为软件交付的事实标准，基本上所有软件均提供了「容器」部署的方案。
-为了统一容器的生命周期管理和交付介质，Open Container Initiative(OCI)提出了[5点标准容器需要符合的原则](https://github.com/opencontainers/runtime-spec/blob/main/principles.md), 而 WebAssembly 基本符合这些原则:
-- Standard operations(标准操作): Wasm 定义了 main 函数作为主入口, Wasm 虚拟机执行 main 函数即可启动 Wasm 程序。
-- Content-agnostic(与内容无关): Wasm 编译后以二进制文件交付, 天然与内容无关。
-- Infrastructure-agnostic(与基础设施无关): Wasm 依赖基于堆栈的虚拟机, 而虚拟机实现不依赖基础设施。
-- Industrial-grade delivery(工业级交付): Wasm 一次编译, 到处执行。Wasm 无需关心软件交付的问题。
-- ❌ Designed for automation(为自动化而设计): Wasm 并不关心自动化部署的事宜, 但这不影响 Wasm 容器化，只是目前仍然缺乏标准流程和工具链(类似于 Dockerfile 和 Docker Cli)。
+> WASI is implemented by WebAssembly runtimes, for example, [fd_readdir](https://github.com/bytecodealliance/wasmtime/blob/main/crates/wasi-common/src/snapshots/preview_1.rs#L596) is the implementation of the directory reading interface in [Wasmtime](https://wasmtime.dev/).
 
-WebAssembly 的特性让它天生支持容器化，*如果应用程序都编译成 Wasm 交付*, 那意味着我们只需要完成一系列的封装操作，即可将 Wasm 程序自动化部署至所有服务器。为此, Solomon Hykes(Docker创始人)甚至提出 WASM+WASI 将是服务器软件基础设施的下一个发展方向。
-::: warning [Solomon Hykes(Docker创始人)的推文]((https://twitter.com/solomonstre/status/1111004913222324225))
+As developers, we don't need to concern ourselves with the specific implementation of the WebAssembly virtual machine; we only need to compile the application into WebAssembly binary instructions to execute it on any server.
+![The principle of running WebAssembly on servers](/img/Wasm-work-on-servers.png)
+
+### Impact of WebAssembly on Software Delivery
+In the era of containerization, containers have become the de facto standard for software delivery, with virtually all software providing container deployment solutions.
+
+To standardize container lifecycle management and delivery media, the Open Container Initiative (OCI) proposed [5 principles that containers need to adhere to](https://github.com/opencontainers/runtime-spec/blob/main/principles.md). WebAssembly essentially aligns with these principles:
+- **Standard operations**: Wasm defines the main function as the primary entry point, and the Wasm virtual machine executes the main function to start the Wasm program.
+- **Content-agnostic**: Wasm is delivered as a binary file after compilation, naturally independent of content.
+- **Infrastructure-agnostic**: Wasm relies on a stack-based virtual machine, and the virtual machine implementation does not depend on the infrastructure.
+- **Industrial-grade delivery**: Wasm is compiled once and executed everywhere. Wasm does not need to concern itself with software delivery issues.
+- ❌ **Designed for automation**: While Wasm does not concern itself with automated deployment, it does not hinder Wasm containerization. However, there is still a lack of standard processes and toolchains (similar to Dockerfile and Docker CLI) at present.
+
+The characteristics of WebAssembly naturally support containerization. *If all applications are compiled into Wasm for delivery*, it means that we only need to complete a series of packaging operations to automatically deploy Wasm programs to all servers. For this reason, Solomon Hykes (the founder of Docker) even proposed that WASM+WASI would be the next development direction for server software infrastructure.
+
+::: warning [Tweet from Solomon Hykes (Founder of Docker)]((https://twitter.com/solomonstre/status/1111004913222324225))
 "If WASM+WASI existed in 2008, we wouldn't have needed to created Docker. That's how important it is. Webassembly on the server is the future of computing. A standardized system interface was the missing link. Let's hope WASI is up to the task!" -- Solomon Hykes, creator of Docker
 :::
 
-确实, 如果操作系统集成了 Wasm 虚拟机(就像浏览器一样), 同时*如果应用程序都编译成 Wasm*, 那么我们根本不需要 "Linux 容器", 不需要虚拟一层完整的 Linux 操作系统, 只需要 Wasm 虚拟机, 即可完成 Wasm 程序的"容器化部署"。
+Indeed, if the operating system integrates a Wasm virtual machine (similar to browsers), and *if all applications are compiled into Wasm*, then we don't need "Linux containers" at all. We don't need to virtualize a complete layer of Linux operating systems; we only need a Wasm virtual machine to achieve "containerized deployment" of Wasm programs.
 
-## 容器化 WebAssembly
-Docker 在 2022 年 10 月 24 日宣布将在 Docker Desktop 4.15 以 Beta 特性支持运行 Wasm 容器！正如前文所言, Wasm 是一个更快、更轻量的 Linux/Windows 容器的替代品。这一节将演示 Wasm 容器与常规的 Linux 容器的差异，包括构建 Wasm 镜像、运行 Wasm 容器和原生执行的对比。
+## Containerizing WebAssembly
+Docker announced on October 24, 2022, that it will support running Wasm containers as a Beta feature in Docker Desktop 4.15! As mentioned earlier, Wasm is a faster, lighter alternative to Linux/Windows containers. This section will demonstrate the differences between Wasm containers and conventional Linux containers, including building Wasm images, running Wasm containers, and comparing them with native execution.
 ![Docker+Wasm](/img/Docker+Wasm.png)
 
-### 构建并运行 Wasm 镜像
-我们知道, 对于编译型语言最终生成的是 .wasm 文件, 编译镜像无任何技术含量。为了提高挑战性, 我们使用解释型语言 [CPython](https://github.com/python/cpython) 完成这一节的演示。
+### Building and Running Wasm Images
+We know that for compiled languages, the final output is a .wasm file, making building images trivial. To raise the challenge, we'll use an interpreted language, [CPython](https://github.com/python/cpython), for this demonstration.
 
-与 C 和 Rust 等编译型语言不同, 对于 Python、Ruby 等解释型语言, 我们需要将它们的解释器编译成 Wasm。一旦将解释器编译为 Wasm, 任何 Wasm 虚拟机都能够运行这些解释型语言。
+Unlike compiled languages like C and Rust, for interpreted languages like Python and Ruby, we need to compile their interpreters into Wasm. Once the interpreter is compiled into Wasm, any Wasm virtual machine can run these interpreted languages.
 
-理论如此, 但由于 WASI 并未提供完整的 POISX 兼容, 在编译 CPython 时需要修改部分源码, 开源项目 [python-wasi](https://github.com/singlestore-labs/python-wasi.git) 已完成了这个实验, 借助该项目即可将 CPython 编译成 Wasm。
+In theory, this works, but since WASI does not provide complete POSIX compatibility, modifying some source code is required when compiling CPython. The open-source project [python-wasi](https://github.com/singlestore-labs/python-wasi.git) has completed this experiment, allowing CPython to be compiled into Wasm with the help of this project.
 
 #### 0. 整理项目结构
-为了方便描述, 我们假设项目结构符合以下目录树, 具体内容见上文。
+For the convenience of description, we assume that the project structure conforms to the following directory tree. See above for details.
 ```bash
 .
 ├── build.sh
@@ -146,10 +153,10 @@ Docker 在 2022 年 10 月 24 日宣布将在 Docker Desktop 4.15 以 Beta 特�
     └── [python-wasi](https://github.com/singlestore-labs/python-wasi)
 ```
 
-其中, main.py 内容如下:
+Among them, the content of main.py is as follows:
 ```python
 import os
-## 打印环境变量, 测试安全性
+## Print environment variables to test security
 for k, v in os.environ.items():
   print(f"{k}={v}")
 
@@ -159,8 +166,8 @@ print("------")
 print(os.listdir())
 ```
 
-#### 1. 编写 buildah 构建脚本
-目前 Docker Engine 并未支持构建 Wasm 镜像, 因此需要使用 buildah 进行镜像构建, 由于需要将 CPython 编译成 wasm, 因此需要使用多阶段构建。
+#### 1. Write the buildah build script
+Currently, Docker Engine does not support building Wasm images, so you need to use buildah to build the image. Since CPython needs to be compiled into wasm, you need to use a multi-stage build.
 ```bash
 ## build.sh
 ### python-wasi-builder
@@ -177,7 +184,7 @@ buildah config --annotation "module.wasm.image/variant=compat" --entrypoint '["p
 buildah commit wasm-cpython docker.io/435495971/wasm-cpython
 ```
 
-为了方便阅读, 上述 build.sh 与下列的 Dockerfile 等价
+For ease of reading, the above build.sh is equivalent to the following Dockerfile
 ```dockerfile
 FROM docker.io/435495971/python-wasi-builder as build
 COPY src/python-wasi .
@@ -195,18 +202,18 @@ COPY src/main.py main.py
 ENTRYPOINT [ "python3.wasm", "main.py"]
 ```
 
-#### 2. 构建并上传镜像
-构建镜像时需要指定平台架构为 `wasi/wasm32`
+#### 2. Build and upload the image
+When building the image, you need to specify the platform architecture as `wasi/wasm32`
 
 ```bash
-## 构建镜像
+## Build image
 ❯ chmod +x build.sh
 ❯ ./build.sh
 ❯ buildah push docker.io/435495971/wasm-cpython
 ```
 
-#### 3. 运行镜像
-运行 `wasi/wasm32` 需要指定平台架构为 `wasi/wasm32` 和运行时为 `io.containerd.wasmedge.v1`, 由于 WASI 协议不稳定, 目前只有 wasmtime 可以运行 wasm-cpython, 因此只能使用 [runwasi](https://github.com/containerd/runwasi) 运行 Wasm 容器。
+#### 3. Run image
+Running `wasi/wasm32` requires specifying the platform architecture as `wasi/wasm32` and the runtime as `io.containerd.wasmedge.v1`. Due to the unstable nature of the WASI protocol, currently only wasmtime can run wasm-cpython. Therefore, we can only use [runwasi](https://github.com/containerd/runwasi) to run Wasm containers.
 
 ```bash
 ❯ ctr run --rm \
@@ -221,8 +228,8 @@ Hello World
 ['main.py', 'python3.wasm']
 ```
 
-### 原生 vs Wasm
-现在我们将**原生 Linux Container**执行与 Wasm 执行进行比较, 对照组使用以下 Dockerfile 构建。
+### Native vs. Wasm
+Now, let's compare the execution of **native Linux Containers** with Wasm execution. The control group will use the following Dockerfile for construction.
 
 ```dockerfile
 FROM python:3.11.1
@@ -230,8 +237,7 @@ COPY main.py main.py
 ENTRYPOINT ["python", "main.py"]
 ```
 
-以下是构建镜像执行的输出结果:
-
+The following is the output of building the image execution:
 ```bash
 ## docker run -it --rm raw-example 
 PATH=/usr/local/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
@@ -251,9 +257,7 @@ Hello World
 ['mnt', 'home', 'var', 'run', 'boot', 'srv', 'tmp', 'sbin', 'media', 'dev', 'bin', 'lib', 'root', 'opt', 'etc', 'sys', 'usr', 'lib64', 'proc', '.dockerenv', 'main.py']
 ```
 
-从对照实验可以看出, Wasm 容器输出的环境变量更少, 这是 Wasm 安全特性导致的。除非明确声明，否则 Wasm 程序无法获取到任何额外的环境变量。同时, 由于 Wasm 编译后不依赖外部链接, 容器内容更简洁。
+From the control experiment, it can be observed that Wasm containers output fewer environment variables, which is a result of Wasm's security features. Unless explicitly declared, Wasm programs cannot access any additional environment variables. Additionally, since Wasm is compiled without external linking dependencies, the contents of the container are more concise.
 
-### Wasm in K8s
-边缘计算是近几年云原生最热门的话题之一, Wasm 的可移植性
-
-[runwasi](https://github.com/containerd/runwasi) 同时支持在 K8s 上运行 Wasm 容器, 由于 WASM 还未成熟默认未集成, 需要修改部分配置才能开启该特性。
+## Conclusion
+This article first introduces what WebAssembly is and why WebAssembly has the potential to become the next generation runtime implementation. Finally, it shows how to build a WebAssembly container, and briefly compares the running differences between WebAssembly containers and Linux containers.

@@ -253,7 +253,5 @@ Hello World
 
 从对照实验可以看出, Wasm 容器输出的环境变量更少, 这是 Wasm 安全特性导致的。除非明确声明，否则 Wasm 程序无法获取到任何额外的环境变量。同时, 由于 Wasm 编译后不依赖外部链接, 容器内容更简洁。
 
-### Wasm in K8s
-边缘计算是近几年云原生最热门的话题之一, Wasm 的可移植性
-
-[runwasi](https://github.com/containerd/runwasi) 同时支持在 K8s 上运行 Wasm 容器, 由于 WASM 还未成熟默认未集成, 需要修改部分配置才能开启该特性。
+## 总结
+本文首先介绍了什么是 WebAssembly 以及 WebAssembly 为何具备成为下一代运行时实现的潜力。最后展示了如何构建 WebAssembly 容器, 并简单对比了 WebAssembly 容器和 Linux 容器的运行差异。
