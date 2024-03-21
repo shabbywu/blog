@@ -100,6 +100,7 @@ export default hopeTheme({
       excerpt: false,
     },
     catalog: false,
+    git: false,
 
     // install @waline/client before enabling it
     // WARNING: This is a test server for demo only.

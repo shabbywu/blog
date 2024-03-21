@@ -1,4 +1,4 @@
-import { getDirname, path } from "vuepress/utils";
+import { getDirname, path, fs, debug } from "vuepress/utils";
 import { defineUserConfig } from "vuepress";
 import { googleAnalyticsPlugin } from '@vuepress/plugin-google-analytics'
 import { usePagesPlugin } from 'vuepress-plugin-use-pages'
@@ -62,7 +62,9 @@ export default defineUserConfig({
     }
   },
 
-  extendsPageOptions: (pageOptions, app) => {
+  extendsPageOptions: async (pageOptions, app) => {
+    var log = debug("vuepress:core/page");
+    var DATE_RE = /(\d{4}-\d{1,2}(-\d{1,2})?)-(.*)/;
     if (pageOptions.filePath?.startsWith(app.dir.source("_posts")) || pageOptions.filePath?.startsWith(app.dir.source("en/_posts"))) {
 
       pageOptions.frontmatter = pageOptions.frontmatter ?? {}
@@ -71,19 +73,30 @@ export default defineUserConfig({
       pageOptions.frontmatter.draft = pageOptions.frontmatter.draft || false
       pageOptions.frontmatter.permalinkPattern = '/posts/:year/:month/:day/:slug.html'
       pageOptions.frontmatter.type = 'post'
+      
+      // 重写文件路径, 解决 vuepress 默认的 slugify 逻辑不兼容 vuepress 1 的问题
+      const filePath = pageOptions.filePath;
+      const parts = pageOptions.filePath.split("/");
+      const filename = path.parse(filePath).name;
+      const match = filename.match(DATE_RE);
+      if (match) {
+        parts[parts.length-1] = match[1] + "-" + defaultSlugify(match[3].replace(".md", "")) + ".md";
+      } else {
+        parts[parts.length-1] = defaultSlugify(filename.replace(".md", "")) + ".md";
+      }
+      pageOptions.filePath = parts.join("/");
+      try {
+        const content = await fs.readFile(filePath, "utf-8");
+        return content;
+      } catch (e) {
+        log(e instanceof Error ? e.message : e);
+      }
+
     }
   },
 
   extendsPage: (page) => {
     if (page.frontmatter.type === 'post') {
-        // 重写 url 路径
-        const pagePath = page.permalink || page.pathInferred || "";
-        const parts = pagePath.split("/");
-        const filename = parts[parts.length-1];
-        parts[parts.length-1] = defaultSlugify(filename.replace(".html", "")) + ".html";
-        page.path = encodeURI(parts.join("/"));
-        page.data.path = page.path;
-
         if (page.frontmatter.draft) {
           if (page.path.startsWith("/en/")) {
             page.path = page.path.replace("/en/", "/en/drafts/");

@@ -87,8 +87,6 @@ const pages = _pages.filter(page => {
 
 
 const currentPageIndex = computed(() => {
-    console.log(pages)
-    console.log(pageData.value)
     return pages.findIndex(p => p.filePathRelative === pageData.value.filePathRelative);
 })
 
