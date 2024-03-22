@@ -87,7 +87,7 @@ export default defineUserConfig({
       pageOptions.filePath = parts.join("/");
       try {
         const content = await fs.readFile(filePath, "utf-8");
-        return content;
+        pageOptions.content = content;
       } catch (e) {
         log(e instanceof Error ? e.message : e);
       }
