@@ -80,7 +80,7 @@ export default hopeTheme({
       blog: {
         description: "Fullstack programer",
         // TODO: 实现 intro.html ?
-        intro: "https://github.com/shabbywu",
+        intro: "/en/resume/",
       },
     }
   },

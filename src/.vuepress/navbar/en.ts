@@ -11,6 +11,11 @@ export const enNavbar = navbar([
     icon: "book",
     link: "/en/article/",
   },
+  {
+    text: "About Me",
+    icon: "circle-question",
+    link: "/en/resume/",
+  },
   // {
   //   text: "博文",
   //   icon: "pen-to-square",
