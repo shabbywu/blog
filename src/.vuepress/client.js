@@ -7,5 +7,5 @@ export default defineClientConfig({
     layouts: {
         Layout: Layout,
         ResumeLayout: ResumeLayout,
-    }
+    },
 })
