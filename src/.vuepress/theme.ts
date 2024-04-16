@@ -66,7 +66,7 @@ export default hopeTheme({
       blog: {
         description: "全栈程序员",
         // TODO: 实现 intro.html ?
-        intro: "https://github.com/shabbywu",
+        intro: "/resume/",
       },
       metaLocales: {
         prevPost: "上一篇",

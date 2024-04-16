@@ -11,6 +11,11 @@ export const zhNavbar = navbar([
     icon: "book",
     link: "/article/",
   },
+  {
+    text: "关于我",
+    icon: "circle-question",
+    link: "/resume/",
+  },
   // {
   //   text: "博文",
   //   icon: "pen-to-square",
