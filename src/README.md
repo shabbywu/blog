@@ -19,4 +19,11 @@ projects:
     name: blueking-paas
     desc: 蓝鲸智云PaaS平台
     link: https://github.com/TencentBlueKing/blueking-paas
+head:
+  - - meta
+    - name: bytedance-verification-code
+      content: NXLaaJSyX79ZnWTRv0wf
+  - - meta
+    - name: baidu-site-verification
+      content: codeva-KeKKC9uoYN
 ---
