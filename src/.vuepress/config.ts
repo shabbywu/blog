@@ -5,9 +5,20 @@ import { usePagesPlugin } from 'vuepress-plugin-use-pages'
 import { slugify as defaultSlugify } from "@mdit-vue/shared";
 import PlantUMLHighlighter from './libs/markdown-it-plantuml.js';
 import theme from "./theme.js";
+import { gitPlugin } from '@vuepress/plugin-git'
 const __dirname = getDirname(import.meta.url);
 
 const plantUMLHighlighter = new PlantUMLHighlighter();
+const gitPluginInstance = {
+  getInstance(app) {
+    if (this.instance) {
+      return this.instance;
+    }
+    this.instance = gitPlugin()(app);
+    return this.instance;
+  }
+}
+
 
 export default defineUserConfig({
   base: "/",
@@ -73,7 +84,9 @@ export default defineUserConfig({
       pageOptions.frontmatter.draft = pageOptions.frontmatter.draft || false
       pageOptions.frontmatter.permalinkPattern = '/posts/:year/:month/:day/:slug.html'
       pageOptions.frontmatter.type = 'post'
-      
+      // 保存原始路径
+      pageOptions.frontmatter.filePathRelative = path.relative(app.dir.source(), pageOptions.filePath);
+
       // 重写文件路径, 解决 vuepress 默认的 slugify 逻辑不兼容 vuepress 1 的问题
       const filePath = pageOptions.filePath;
       const parts = pageOptions.filePath.split("/");
@@ -95,7 +108,12 @@ export default defineUserConfig({
     }
   },
 
-  extendsPage: (page) => {
+  extendsPage: (page, app) => {
+    if (page.frontmatter?.filePathRelative !== undefined) {
+      page.filePathRelative = page.frontmatter.filePathRelative;
+      gitPluginInstance.getInstance(app).extendsPage(page);
+    }
+
     if (page.frontmatter.type === 'post') {
         if (page.frontmatter.draft) {
           if (page.path.startsWith("/en/")) {
@@ -108,7 +126,7 @@ export default defineUserConfig({
         }
     }
   },
-
+  
   // Enable it with pwa
   // shouldPrefetch: false,
 });
