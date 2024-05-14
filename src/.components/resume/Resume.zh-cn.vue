@@ -162,12 +162,11 @@
 
 <script setup>
 import {onMounted} from "vue"
-
 import "./fonts.css"
 import "./scss/orbit-1.scss"
+import "bootstrap/dist/css/bootstrap.min.css"
 
 onMounted(async () => {
-    await import("bootstrap/dist/css/bootstrap.min.css");
     await import("bootstrap");
 })
 </script>

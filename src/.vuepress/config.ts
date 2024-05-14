@@ -4,6 +4,7 @@ import { googleAnalyticsPlugin } from '@vuepress/plugin-google-analytics'
 import { usePagesPlugin } from 'vuepress-plugin-use-pages'
 import { slugify as defaultSlugify } from "@mdit-vue/shared";
 import PlantUMLHighlighter from './libs/markdown-it-plantuml.js';
+import { viteBundler } from '@vuepress/bundler-vite'
 import theme from "./theme.js";
 import { gitPlugin } from '@vuepress/plugin-git'
 const __dirname = getDirname(import.meta.url);
@@ -126,6 +127,14 @@ export default defineUserConfig({
         }
     }
   },
+
+  bundler: viteBundler({
+    viteOptions: {
+      build: {
+        cssCodeSplit: true,
+      }
+    }
+  }),
   
   // Enable it with pwa
   // shouldPrefetch: false,
