@@ -9,11 +9,8 @@ export default defineComponent({
     name: "ResumeLayout",
     slots: Object,
     setup(_props, { slots }) {
-        const page = usePageData();
-        const frontmatter = usePageFrontmatter();
-
         return () => h(RenderDefault, {}, {
-            default: () => slots.default?.() || h(FadeSlideY, () => h(Content))
+            default: () => slots.default?.() || h(FadeSlideY, () => h(Content, {style: {height: "100%"}}))
         });
     }
 });
