@@ -51,8 +51,7 @@
                 <h2 class="section-title"><span class="icon-holder"><i class="fa-solid fa-user"></i></span>Career Profile</h2>
                 <div class="summary">
                     <p style="margin-bottom: 0px;">
-                        Software Engineer with 5 years of experience in full-stack development, proficient in Python and Container Technology, experience JavaScript, Vue and CI/CD. 
-                        Mainly developing and maintaining an Application PaaS(Blueking PaaS), which is one of the cornerstones of Tencent game operation system.
+                        Software engineer with 5 years of experience in full-stack development, proficient in Python and Container Technology, familiar with Golang and C++ development, and has rich experience in JavaScript, Vue and CI/CD. While working at Tencent, I am mainly involved in the development and maintenance of an Application PaaS(Blueking PaaS), which is one of the cornerstones of Tencent game operation system.
                     </p>
                 </div><!--//summary-->
             </section><!--//section-->
@@ -77,15 +76,15 @@
             <section class="section projects-section">
                 <h2 class="section-title"><span class="icon-holder"><i class="fa-solid fa-archive"></i></span>Projects</h2>
                 <div class="item">
-                    <span class="project-title"><a href="https://github.com/TencentBlueKing/blueking-paas" target="_blank">Blueking PaaS</a></span> - <span class="project-tagline">The BlueKing PaaS is an application development platform which with thousands of SaaS applications hosted and running within Tencent.</span>
-                </div><!--//item-->
-
-                <div class="item">
-                    <span class="project-title"><a href="javascript:void(0);">paas-analysis</a></span> - <span class="project-tagline">paas-analysis is a lightweight PV statistics project, developed in Fastapi, Redis and Lua in OpenResty.</span>
+                    <span class="project-title"><a href="https://github.com/TencentBlueKing/blueking-paas" target="_blank">Blueking PaaS</a></span> - <span class="project-tagline">The BlueKing PaaS is an application development platform which with 1600+ SaaS applications hosted and running within Tencent.</span>
                 </div><!--//item-->
 
                 <div class="item">
                     <span class="project-title"><a href="javascript:void(0);">Career Homepage</a></span> - <span class="project-tagline">Career Homepage is a staff profiling system within Tencent IEG's Technical Operations Department. The system is based on the Blueking Operations and Maintenance Basic Data Platform(bk-data), and uses a configurable indicators calculation system to quantify staff capabilities in four dimensions: mass automation, operations and maintenance development, DevOps, and AIOps.</span>
+                </div><!--//item-->
+
+                <div class="item">
+                    <span class="project-title"><a href="javascript:void(0);">PaaS-Analysis</a></span> - <span class="project-tagline">paas-analysis is a lightweight PV statistics project, developed in Fastapi, Redis and Lua in OpenResty.</span>
                 </div><!--//item-->
 
                 <hr/>
@@ -100,7 +99,8 @@
             
             <section class="skills-section section">
                 <h2 class="section-title"><span class="icon-holder"><i class="fa-solid fa-rocket"></i></span>Skills &amp; Proficiency</h2>
-                <div class="skillset">        
+                <div class="skillset">   
+
                     <div class="item">
                         <h3 class="level-title">Python &amp; Django</h3>
                         <div class="progress level-bar">
@@ -128,7 +128,21 @@
                             <div class="progress-bar theme-progress-bar" role="progressbar" style="width: 80%" aria-valuenow="80" aria-valuemin="0" aria-valuemax="100"></div>
                         </div>                              
                     </div><!--//item-->
-                    
+
+                    <div class="item">
+                        <h3 class="level-title">Golang</h3>
+                        <div class="progress level-bar">
+                            <div class="progress-bar theme-progress-bar" role="progressbar" style="width: 75%" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100"></div>
+                        </div>                              
+                    </div><!--//item-->
+
+                    <div class="item">
+                        <h3 class="level-title">C++</h3>
+                        <div class="progress level-bar">
+                            <div class="progress-bar theme-progress-bar" role="progressbar" style="width: 65%" aria-valuenow="65" aria-valuemin="0" aria-valuemax="100"></div>
+                        </div>                              
+                    </div><!--//item-->
+
                     <div class="item">
                         <h3 class="level-title">MySQL &amp; Redis</h3>
                         <div class="progress level-bar">

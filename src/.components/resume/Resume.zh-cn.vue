@@ -12,7 +12,7 @@
                     <li class="email"><i class="fa-solid fa-envelope"></i><a href="mailto: shabbywu@qq.com">shabbywu@qq.com</a></li>
                     <li class="phone"><i class="fa-solid fa-phone"></i><a href="tel:+86 18620447891">+86 18620447891</a></li>
                     <li class="website"><i class="fa-solid fa-globe"></i><a href="https://blog.shabbywu.cn/" target="_blank">blog.shabbywu.cn</a></li>
-                    <li class="github"><i class="fa-brands fa-github"></i><a href="#" target="_blank">github.com/shabbywu</a></li>
+                    <li class="github"><i class="fa-brands fa-github"></i><a href="https://github.com/shabbywu" target="_blank">github.com/shabbywu</a></li>
                     <!-- <li class="twitter"><i class="fa-brands fa-twitter"></i><a href="https://twitter.com/3rdwave_themes" target="_blank">@twittername</a></li> -->
                 </ul>
             </div><!--//contact-container-->
@@ -28,9 +28,9 @@
             <div class="languages-container container-block">
                 <h2 class="container-block-title">语言</h2>
                 <ul class="list-unstyled interests-list">
-                    <li>Chinese <span class="lang-desc">(Native)</span></li>
-                    <li>Cantonese <span class="lang-desc">(Native)</span></li>
-                    <li>English <span class="lang-desc">(Good working knowledge)</span></li>
+                    <li>中文 <span class="lang-desc">(母语)</span></li>
+                    <li>粤语 <span class="lang-desc">(母语)</span></li>
+                    <li>英语 <span class="lang-desc">(工作交流)</span></li>
                 </ul>
             </div><!--//interests-->
             
@@ -49,7 +49,7 @@
                 <h2 class="section-title"><span class="icon-holder"><i class="fa-solid fa-user"></i></span>简介</h2>
                 <div class="summary">
                     <p style="margin-bottom: 0px;">
-                        软件工程师，5年以上全栈开发经验，精通 Python 和容器技术，有JavaScript、Vue和 CI/CD 经验。主要参与开发和维护腾讯游戏运营体系的基石之一--蓝鲸智云 PaaS 平台。
+                        软件工程师，5年以上全栈开发经验，精通 Python 和容器技术，熟悉 Golang 和 C++ 开发，有较丰富的 JavaScript、Vue和 CI/CD 经验。在腾讯工作期间主要参与开发和维护蓝鲸智云 PaaS 平台。
                     </p>
                 </div><!--//summary-->
             </section><!--//section-->
@@ -61,7 +61,7 @@
                     <div class="meta">
                         <div class="upper-row">
                             <h3 class="job-title">高级工程师</h3>
-                            <div class="time">2019 - Present</div>
+                            <div class="time">2019 - 至今</div>
                         </div><!--//upper-row-->
                         <div class="company">腾讯, 深圳</div>
                     </div><!--//meta-->
@@ -74,30 +74,35 @@
             <section class="section projects-section">
                 <h2 class="section-title"><span class="icon-holder"><i class="fa-solid fa-archive"></i></span>项目</h2>
                 <div class="item">
-                    <span class="project-title"><a href="https://github.com/TencentBlueKing/blueking-paas" target="_blank">Blueking PaaS</a></span> - <span class="project-tagline">蓝鲸智云 PaaS 平台是一个开放式的开发平台，在腾讯内部托管运行着上千个 SaaS 应用。我在项目中充当主要开发，基本上所有的核心功能如应用构建与部署、集群管理、接入层管理、日志查询等都由我主导开发。</span>
+                    <span class="project-title"><a href="https://github.com/TencentBlueKing/blueking-paas" target="_blank">Blueking PaaS</a></span> - <span class="project-tagline">蓝鲸智云 PaaS 平台是一个开放式的开发平台，在腾讯内部托管运行着 1600+ SaaS 应用。该项目的 Web API 使用 Django(DRF) 和 Celery 开发, 应用构建依托于 Cloud Native Buildpacks 和 Kaniko, 应用运行生命周期使用 K8S Operator(Golang) 管理。</span>
+                    <blockquote class="project-roleline">我在该项目的角色是后台开发，基本上所有的核心功能如应用构建与部署、集群管理、接入层管理、日志采集与查询等都由我主导开发。</blockquote>
                 </div><!--//item-->
 
                 <div class="item">
-                    <span class="project-title"><a href="javascript:void(0);">paas-analysis</a></span> - <span class="project-tagline">paas-analysis 是一个轻量级的访问统计项目(Page View), 后端使用 Fastapi、Redis 和 Lua(OpenResty) 开发。</span>
+                    <span class="project-title"><a href="javascript:void(0);">Career Homepage</a></span> - <span class="project-tagline">Career Homepage 是腾讯 IEG 技术运营部内的职员画像系统。该系统以蓝鲸运维基础数据平台为基座, 使用可配置的指标计算系统从海量自动化、运维开发、DevOps、AIOps四个维度量化职员能力, 每个绩效评估周期都会用于评估技术营业部 500+ 职员能力。</span>
+                    <blockquote class="project-roleline">我在该项目的角色是后台开发，主要负责与产品讨论和分析需求，设计实现方案、完成代码开发以及与前端联调。</blockquote>
                 </div><!--//item-->
 
                 <div class="item">
-                    <span class="project-title"><a href="javascript:void(0);">Career Homepage</a></span> - <span class="project-tagline">Career Homepage 是腾讯 IEG 技术运营部内的职员画像系统。该系统以蓝鲸运维基础数据平台为基座, 使用可配置的指标计算系统从海量自动化、运维开发、DevOps、AIOps四个维度量化职员能力。</span>
+                    <span class="project-title"><a href="javascript:void(0);">PaaS-Analysis</a></span> - <span class="project-tagline">PaaS-Analysis 是一个轻量级的访问统计项目(Page View), 提供 js-sdk 和接入层统计两种方式计算网站的访问量。该项目使用 Fastapi、Redis 和 Lua(OpenResty) 开发。</span>
+                    <blockquote class="project-roleline">我在该项目的角色是后台开发, 主要负责开发 Web API(Fastapi)和后台任务(Python asyncio, Redis)。</blockquote>
                 </div><!--//item-->
 
                 <hr/>
 
                 <div class="item">
-                    <span class="project-title"><a href="https://github.com/shabbywu/distribution" target="_blank">moby-distribution</a></span> - <span class="project-tagline">moby-distribution 是一个使用 python 开发的, 用于操作 Docker Image Manifest 和 Blob（Layers、Config 等）的库。</span>
+                    <span class="project-title"><a href="https://github.com/shabbywu/distribution" target="_blank">moby-distribution</a></span> - <span class="project-tagline">moby-distribution 是一个使用 python 开发的, 用于操作 Docker Image Manifest 和 Blob（Layers、Config 等）的库。这个工具库由我独立开发和维护，使用该库可实现不依赖 Docker Daemon 的镜像创建，推送等操作。目前该库被应用在 Blueking PaaS 项目, 用于合成并上传 S-Mart 应用镜像。</span>
                 </div><!--//item-->
+
                 <div class="item">
-                    <span class="project-title"><a href="https://github.com/shabbywu/Battle-Brothers-CN" target="_blank">Battle-Brothers-CN</a></span> - <span class="project-tagline">Battle-Brothers-CN 是游戏 <a href="https://store.steampowered.com/app/365360/Battle_Brothers/">Battle Brothers</a> 的本地化项目, 该项目的运维完全基于自动化的 CI/CD 工具。</span>
+                    <span class="project-title"><a href="https://github.com/shabbywu/Battle-Brothers-CN" target="_blank">Battle-Brothers-CN</a></span> - <span class="project-tagline">Battle-Brothers-CN 是游戏 <a href="https://store.steampowered.com/app/365360/Battle_Brothers/">Battle Brothers</a> 的中文语言本地化项目。中文语言本地化项目主要分为 4 个模块 - 文本提取、文本汉化、文本替换、内核汉化器。目前该项目的日常运维(持续性的文本更新)完全基于自动化的 CI/CD 工具。</span>
                 </div><!--//item-->
             </section><!--//section-->
             
             <section class="skills-section section">
                 <h2 class="section-title"><span class="icon-holder"><i class="fa-solid fa-rocket"></i></span>技能 &amp; 熟练度</h2>
-                <div class="skillset">        
+                <div class="skillset">    
+    
                     <div class="item">
                         <h3 class="level-title">Python &amp; Django</h3>
                         <div class="progress level-bar">
@@ -125,7 +130,21 @@
                             <div class="progress-bar theme-progress-bar" role="progressbar" style="width: 80%" aria-valuenow="80" aria-valuemin="0" aria-valuemax="100"></div>
                         </div>                              
                     </div><!--//item-->
-                    
+
+                    <div class="item">
+                        <h3 class="level-title">Golang</h3>
+                        <div class="progress level-bar">
+                            <div class="progress-bar theme-progress-bar" role="progressbar" style="width: 75%" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100"></div>
+                        </div>                              
+                    </div><!--//item-->
+
+                    <div class="item">
+                        <h3 class="level-title">C++</h3>
+                        <div class="progress level-bar">
+                            <div class="progress-bar theme-progress-bar" role="progressbar" style="width: 65%" aria-valuenow="65" aria-valuemin="0" aria-valuemax="100"></div>
+                        </div>                              
+                    </div><!--//item-->
+
                     <div class="item">
                         <h3 class="level-title">MySQL &amp; Redis</h3>
                         <div class="progress level-bar">

@@ -226,7 +226,14 @@ p {
             margin-bottom: 30px;
         }
         .item {
-            margin-bottom: 15px;
+            margin-bottom: 20px;
+            .project-roleline {
+                font-style:oblique;
+            }
+            blockquote {
+                margin-top: 2px;
+
+            }
         }
     }
     
