@@ -160,12 +160,12 @@
 
 <script setup>
 import {onMounted} from "vue"
-import "bootstrap/dist/css/bootstrap.min.css"
 
 import "./fonts.css"
 import "./scss/orbit-1.scss"
 
 onMounted(async () => {
+    await import("bootstrap/dist/css/bootstrap.min.css");
     await import("bootstrap");
 })
 </script>
