@@ -163,6 +163,7 @@ import {onMounted} from "vue"
 import "./fonts.css"
 import "./scss/orbit-1.scss"
 import "bootstrap/dist/css/bootstrap.min.css"
+import "@fortawesome/fontawesome-free/js/all.js"
 
 onMounted(async () => {
     await import("bootstrap");

@@ -9,7 +9,7 @@ export default hopeTheme({
     url: "https://github.com/shabbywu",
   },
 
-  iconAssets: "fontawesome-with-brands",
+  // iconAssets: "fontawesome-with-brands",
 
   logo: "/img/avatar.png",
   favicon: "/img/avatar.png",
