@@ -49,7 +49,7 @@
                 <h2 class="section-title"><span class="icon-holder"><i class="fa-solid fa-user"></i></span>简介</h2>
                 <div class="summary">
                     <p style="margin-bottom: 0px;">
-                        软件工程师，5年以上全栈开发经验，精通 Python 和容器技术，熟悉 Golang 和 C++ 开发，有较丰富的 JavaScript、Vue和 CI/CD 经验。在腾讯工作期间主要参与开发和维护蓝鲸智云 PaaS 平台。
+                        软件工程师，5年以上全栈开发经验，精通 Python，熟悉 Golang 、容器技术 和 C++ 开发，有较丰富的 JavaScript、Vue和 CI/CD 经验。在腾讯工作期间主要参与开发和维护蓝鲸智云 PaaS 平台。
                     </p>
                 </div><!--//summary-->
             </section><!--//section-->
@@ -74,8 +74,8 @@
             <section class="section projects-section">
                 <h2 class="section-title"><span class="icon-holder"><i class="fa-solid fa-archive"></i></span>项目</h2>
                 <div class="item">
-                    <span class="project-title"><a href="https://github.com/TencentBlueKing/blueking-paas" target="_blank">Blueking PaaS</a></span> - <span class="project-tagline">蓝鲸智云 PaaS 平台是一个开放式的开发平台，在腾讯内部托管运行着 1600+ SaaS 应用。该项目的 Web API 使用 Django(DRF) 和 Celery 开发, 应用构建依托于 Cloud Native Buildpacks 和 Kaniko, 应用运行生命周期使用 K8S Operator(Golang) 管理。</span>
-                    <blockquote class="project-roleline">我在该项目的角色是后台开发，基本上所有的核心功能如应用构建与部署、集群管理、接入层管理、日志采集与查询等都由我主导开发。</blockquote>
+                    <span class="project-title"><a href="https://github.com/TencentBlueKing/blueking-paas" target="_blank">Blueking PaaS</a></span> - <span class="project-tagline">蓝鲸智云 PaaS 平台是一个开放式的开发平台，在腾讯内部托管运行着 1600+ SaaS 应用。该项目的 Web API 使用 Django(DRF) 和 Celery 开发, 应用构建依托于 Cloud Native Buildpacks 和 Kaniko, 应用运行生命周期使用 K8S Operator(Golang) 管理。接入层使用 Nginx Ingress 作流量转发, 支持常规 ELK 方案和蓝鲸自研日志采集器采集日志。</span>
+                    <blockquote class="project-roleline">我在该项目的角色是后台开发，基本上所有的核心功能如应用构建与部署、应用离线交付方案、接入层管理、日志采集与查询等都由我主导开发。</blockquote>
                 </div><!--//item-->
 
                 <div class="item">
@@ -95,7 +95,7 @@
                 </div><!--//item-->
 
                 <div class="item">
-                    <span class="project-title"><a href="https://github.com/shabbywu/Battle-Brothers-CN" target="_blank">Battle-Brothers-CN</a></span> - <span class="project-tagline">Battle-Brothers-CN 是游戏 <a href="https://store.steampowered.com/app/365360/Battle_Brothers/">Battle Brothers</a> 的中文语言本地化项目。中文语言本地化项目主要分为 4 个模块 - 文本提取、文本汉化、文本替换、内核汉化器。目前该项目的日常运维(持续性的文本更新)完全基于自动化的 CI/CD 工具。</span>
+                    <span class="project-title"><a href="https://github.com/shabbywu/Battle-Brothers-CN" target="_blank">Battle-Brothers-CN</a></span> - <span class="project-tagline">Battle-Brothers-CN 是游戏 <a href="https://store.steampowered.com/app/365360/Battle_Brothers/">Battle Brothers</a> 的中文语言本地化项目。中文语言本地化项目主要分为 4 个模块 - 文本提取、文本翻译、文本替换、内核汉化器。目前该项目的日常运维(持续性的文本更新)完全基于自动化的 CI/CD 工具。</span>
                 </div><!--//item-->
             </section><!--//section-->
             
