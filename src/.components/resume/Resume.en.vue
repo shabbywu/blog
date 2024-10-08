@@ -63,7 +63,7 @@
                     <div class="meta">
                         <div class="upper-row">
                             <h3 class="job-title">Senior Software Engineer</h3>
-                            <div class="time">2019 - Present</div>
+                            <div class="time">2019 - 2024</div>
                         </div><!--//upper-row-->
                         <div class="company">Tencent, Shenzhen, China</div>
                     </div><!--//meta-->

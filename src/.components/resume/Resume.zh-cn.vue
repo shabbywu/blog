@@ -61,7 +61,7 @@
                     <div class="meta">
                         <div class="upper-row">
                             <h3 class="job-title">高级工程师</h3>
-                            <div class="time">2019 - 至今</div>
+                            <div class="time">2019 - 2024</div>
                         </div><!--//upper-row-->
                         <div class="company">腾讯, 深圳</div>
                     </div><!--//meta-->
