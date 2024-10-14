@@ -12,7 +12,7 @@
                     <li class="email"><i class="fa-solid fa-envelope"></i><a href="mailto: shabbywu@qq.com">shabbywu@qq.com</a></li>
                     <li class="phone"><i class="fa-solid fa-phone"></i><a href="tel:+86 18620447891">+86 18620447891</a></li>
                     <li class="website"><i class="fa-solid fa-globe"></i><a href="https://blog.shabbywu.cn/" target="_blank">blog.shabbywu.cn</a></li>
-                    <li class="github"><i class="fa-brands fa-github"></i><a href="https://github.com/shabbywu" target="_blank">github.com/shabbywu</a></li>
+                    <li class="github"><i class="fa-brands fa-github"></i><a href="https://github.com/shabbywu" target="_blank">shabbywu</a></li>
                     <!-- <li class="twitter"><i class="fa-brands fa-twitter"></i><a href="https://twitter.com/3rdwave_themes" target="_blank">@twittername</a></li> -->
                 </ul>
             </div><!--//contact-container-->
