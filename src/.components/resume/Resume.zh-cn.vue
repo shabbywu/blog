@@ -89,7 +89,7 @@
                         <div class="darken">职责: </div>
                         <div class="detail">
                             <!-- <div class="project-roleline">我在该项目的角色是后台开发，基本上所有的核心功能如应用构建与部署、应用离线交付方案、接入层管理、日志采集与查询等都由我主导开发。</div> -->
-                            <div class="project-roleline">※ 设计从源码到构建的执行流程和数据存储结构, 实现从 heroku-buildpack 到 cloud native buildpack 架构的无缝升级。</div>
+                            <div class="project-roleline">※ 设计从源码到构建的执行流程和数据存储结构, 实现从二进制制品到云原生容器镜像的构建系统的无缝升级(胶水层代码无需改动)。</div>
                             <div class="project-roleline">※ 设计应用(SaaS)离线交付方案和构建工具, 支持以镜像层为粒度交付应用(SaaS)的镜像。通过自研的镜像层合并方案降低容器镜像的交付体积。</div>
                             <div class="project-roleline">※ 运用设计原则和对模板、组合、策略等设计模式的综合使用, 搭建了同时支持 ELK 和蓝鲸日志平台的日志采集、查询链路；搭建了支持 git/svn/容器镜像的应用源码(或镜像)的源码拉取模块。</div>
                             <div  class="project-roleline">※ 设计了一套用于开发后台管理页面的开发流程，不仅可以用 Vue 还能使用 Django 的 Server Side Rendering, 降低了 80% 后台管理页面的接口开发复杂度。</div>
