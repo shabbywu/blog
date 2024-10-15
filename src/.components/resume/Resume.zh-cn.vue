@@ -126,13 +126,22 @@
                     <div class="project-title">
                         <span class="darken">名称: </span>
                         <div class="detail">
-                            <a href="https://github.com/shabbywu/distribution" target="_blank">moby-distribution</a>
-                            <span class="timetag">2023</span>
+                            <a href="https://github.com/shabbywu/Battle-Brothers-CN" target="_blank">Battle-Brothers-CN</a>
+                            <span class="timetag">2022-2024</span>
                         </div>
                     </div>
                     <div class="project-description">
                         <span class="darken">描述: </span>
-                        <div class="detail">moby-distribution 是一个使用 python 开发的, 用于操作 Docker Image Manifest 和 Blob（Layers、Config 等）的库。这个工具库由我独立开发和维护，使用该库可实现不依赖 Docker Daemon 的镜像创建，推送等操作。目前该库被应用在 Blueking PaaS 项目, 用于合成并上传 S-Mart 应用镜像。</div>
+                        <div class="detail">Battle-Brothers-CN 是游戏 <a href="https://store.steampowered.com/app/365360/Battle_Brothers/">Battle Brothers</a> 的中文语言本地化项目。中文语言本地化项目主要分为 4 个模块 - 文本提取、文本翻译、文本替换、内核汉化器。目前该项目的日常运维(持续性的文本更新)完全基于自动化的 CI/CD 工具。</div>
+                    </div>
+                    <div class="project-roleblock">
+                        <div class="darken">职责: </div>
+                        <div class="detail">
+                            <!-- <div class="project-roleline">我是战场兄弟游戏内核汉化的发起人和技术负责人。</div> -->
+                            <li class="project-roleline">反编译游戏客户端，通过 windows hooks 技术为游戏客户端增加额外功能: 重写游戏字体的渲染逻辑，让游戏支持使用 TTF 字体渲染字符; 引入 nakama-sdk 实现联机对战功能; 实现 DLL 扩展等等。</li>
+                            <li class="project-roleline">反编译游戏脚本并分析虚拟机运行原理，开发出文本提取、文本替换等配套工具。</li>
+                            <li class="project-roleline">制定在线协同规范，并定制自动化的 CI/CD 流程，打通多人协同与文本发布的最后一道工序，做到 Daily Release。</li>
+                        </div>
                     </div>
                 </div><!--//item-->
 
@@ -140,15 +149,22 @@
                     <div class="project-title">
                         <span class="darken">名称: </span>
                         <div class="detail">
-                            <a href="https://github.com/shabbywu/Battle-Brothers-CN" target="_blank">Battle-Brothers-CN</a>
-                            <span class="timetag">2023-2024</span>
+                            <a href="https://github.com/shabbywu/distribution" target="_blank">moby-distribution</a>
+                            <span class="timetag">2023</span>
                         </div>
                     </div>
                     <div class="project-description">
                         <span class="darken">描述: </span>
-                        <div class="detail">Battle-Brothers-CN 是游戏 <a href="https://store.steampowered.com/app/365360/Battle_Brothers/">Battle Brothers</a> 的中文语言本地化项目。中文语言本地化项目主要分为 4 个模块 - 文本提取、文本翻译、文本替换、内核汉化器。目前该项目的日常运维(持续性的文本更新)完全基于自动化的 CI/CD 工具。</div>
+                        <div class="detail">moby-distribution 是一个使用 python 开发的, 用于操作 Docker Image Manifest 和 Blob（Layers、Config 等）的库。</div>
+                    </div>
+                    <div class="project-roleblock">
+                        <div class="darken">职责: </div>
+                        <div class="detail">
+                            <div class="project-roleline">由我独立开发和维护，使用该库可实现不依赖 Docker Daemon 的镜像创建，推送等操作。目前该库被应用在 Blueking PaaS 项目, 用于合成并上传离线交付的应用镜像。</div>
+                        </div>
                     </div>
                 </div><!--//item-->
+
             </section><!--//section-->
             
             <section class="skills-section section">
