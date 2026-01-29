@@ -1,0 +1,1630 @@
+<?xml version="1.0" encoding="utf-8"?><?xml-stylesheet type="text/xsl" href="https://blog.shabbywu.cn/en/atom.xsl"?>
+<feed xmlns="http://www.w3.org/2005/Atom" xml:lang="en-US">
+  <id>https://blog.shabbywu.cn/en/</id>
+  <title>Personal technical article sharing</title>
+  <subtitle>Here is a simple blog</subtitle>
+  <icon>https://blog.shabbywu.cn/img/avatar.png</icon>
+  <updated>2026-01-29T11:59:17.910Z</updated>
+  <generator>@vuepress/plugin-feed</generator>
+  <link rel="self" href="https://blog.shabbywu.cn/en/atom.xml"/>
+  <link rel="alternate" href="https://blog.shabbywu.cn/en/"/>
+  <category term="Container Technology"/>
+  <entry>
+    <title type="text">How To Build Images:Docker Image Specification v1.2</title>
+    <id>https://blog.shabbywu.cn/en/posts/2021/01/31/how-to-build-images-docker-%E9%95%9C%E5%83%8F%E8%A7%84%E8%8C%83.html</id>
+    <link href="https://blog.shabbywu.cn/en/posts/2021/01/31/how-to-build-images-docker-%E9%95%9C%E5%83%8F%E8%A7%84%E8%8C%83.html"/>
+    <updated>2024-03-10T11:33:17.000Z</updated>
+    <summary type="html"><![CDATA[<h2>Preface</h2>
+<p>We are now in the era of containerization, where hardly anyone in development, testing, or operations would be unfamiliar with or unable to use Docker. Using Docker is also straightforward; most of the time, launching a container simply involves executing <code>docker run {your-image-name}</code>, and building an image is as simple as executing <code>docker build dockerfile .</code>.<br>
+Perhaps it's precisely because Docker encapsulates implementation details so thoroughly that I recently realized, while learning about kaniko, an open-source image building tool by Google, that we may have only learned <strong>how to use Docker CLI</strong>, rather than understanding how Docker actually operates.<br>
+Therefore, I has decided to start writing a series of articles about <strong>『How To Build Images』</strong>, with this being the first installment: 『Docker Image Specification』.</p>]]></summary>
+    <content type="html"><![CDATA[<h2>Preface</h2>
+<p>We are now in the era of containerization, where hardly anyone in development, testing, or operations would be unfamiliar with or unable to use Docker. Using Docker is also straightforward; most of the time, launching a container simply involves executing <code>docker run {your-image-name}</code>, and building an image is as simple as executing <code>docker build dockerfile .</code>.<br>
+Perhaps it's precisely because Docker encapsulates implementation details so thoroughly that I recently realized, while learning about kaniko, an open-source image building tool by Google, that we may have only learned <strong>how to use Docker CLI</strong>, rather than understanding how Docker actually operates.<br>
+Therefore, I has decided to start writing a series of articles about <strong>『How To Build Images』</strong>, with this being the first installment: 『Docker Image Specification』.</p>
+<blockquote>
+<p>Note: This article assumes that readers know how to use Docker, including but not limited to knowing how to execute <code>docker run</code> and <code>docker build</code> and writing a Dockerfile.</p>
+</blockquote>
+<h2><a class="header-anchor" href="#docker-image-specification"><span></span></a><a href="https://github.com/moby/moby/tree/master/image/spec" target="_blank" rel="noopener noreferrer">Docker Image Specification</a></h2>
+<p>Container images store changes to the file system, while container image specification describes <strong>how to record the history of these changes and the corresponding operation parameters</strong> as well as <strong>how to convert container images into containers</strong>.</p>
+<blockquote>
+<p>Simply, it describes the specifications for <strong>container &gt;&gt; serialization &gt;&gt; image</strong> and <strong>image &gt;&gt; deserialization &gt;&gt; container</strong> 😯</p>
+</blockquote>
+<h3>Specification History</h3>
+<ul>
+<li><a href="https://github.com/moby/moby/blob/master/image/spec/v1.md" target="_blank" rel="noopener noreferrer">v1</a>
+<ul>
+<li>first edition</li>
+</ul>
+</li>
+<li><a href="https://github.com/moby/moby/blob/master/image/spec/v1.1.md" target="_blank" rel="noopener noreferrer">v1.1</a>
+<ul>
+<li>Implemented by Docker v1.10 (February, 2016)</li>
+<li>use sha256 digests as ids for each layer from now on(previously used random values)</li>
+<li>Added <strong>manifest.json</strong> file, which is responsible for recording metadata of image content and dependencies.</li>
+</ul>
+</li>
+<li><a href="https://github.com/moby/moby/blob/master/image/spec/v1.2.md" target="_blank" rel="noopener noreferrer">v1.2</a>
+<ul>
+<li>mplemented by Docker v1.12 (July, 2016)</li>
+<li>add Healthcheck into image specifications</li>
+</ul>
+</li>
+<li><a href="(https://github.com/opencontainers/image-spec)">OCI v1 image</a>
+<ul>
+<li>Image specification proposed by the Open Container Initiative (OCI)</li>
+<li>Not compatible with <a href="https://github.com/moby/moby/pull/33355" target="_blank" rel="noopener noreferrer">Docker(moby)</a>, But you can push image to the Registry and then pull it back and registry will auto convert it into the one docker(moby) is supported.</li>
+</ul>
+</li>
+</ul>
+<p>To standardize container formats and runtime creation, Docker, along with organizations like CoreOS, established the Open Container Initiative (OCI) under the supervision of the Linux Foundation. Currently, OCI has proposed two specifications: the <a href="https://github.com/opencontainers/runtime-spec" target="_blank" rel="noopener noreferrer">Runtime Specification (runtime-spec)</a> and the <a href="https://github.com/opencontainers/image-spec" target="_blank" rel="noopener noreferrer">Image Specification (image-spec)</a>.<br>
+However, <strong>since Docker has not yet fully adopted the OCI image specification, this series of articles will not cover content related to the OCI image specification</strong>. <s>(MAY be considered in the future 😆)</s></p>
+<h3>A 🌰: Basic Structure of Docker Images</h3>
+<p>We will use <em>busybox:latest</em> as an example to show the basic structure of a Docker image.</p>
+<details class="hint-container details"><summary>What is 🌰 meaning?</summary>
+<p>🌰 is the homophone of example in chinese.</p>
+</details>
+<div class="language-bash" data-ext="sh" data-title="sh"><pre class="language-bash"><code>.
+├── 036a82c6d65f2fa43a13599661490be3fca1c3d6790814668d4e8c0213153b12
+│&nbsp;&nbsp; ├── VERSION
+│&nbsp;&nbsp; ├── json
+│&nbsp;&nbsp; └── layer.tar
+├── 6ad733544a6317992a6fac4eb19fe1df577d4dec7529efec28a5bd0edad0fd30.json
+├── manifest.json
+└── repositories
+
+1 directory, 6 files
+</code></pre></div><p>Next, this 🌰 will introduce in detail the meaning and content of each component in the Docker image.</p>
+<h4>files in directories (backward compatibility only)</h4>
+<div class="language-bash" data-ext="sh" data-title="sh"><pre class="language-bash"><code>.
+├── VERSION
+├── json
+└── layer.tar
+
+0 directories, 3 files
+</code></pre></div><p>It can be observed that each layer in the image can be mapped to a directory after decompression. The names of these directories are generated using a consistent hash algorithm based on the relevant information of the layer (TIPS: randomly generated in v1 specification). Each directory contains three files:</p>
+<ul>
+<li>VERSION, the spec version of <code>json</code> file, which is currently set to 1.0.</li>
+<li>json, which contain metadata defining information about the layer in v1 specification, but it is not required in v1.2 specification, so we can ignore this file.</li>
+<li>layer.tar, an archive file storing the changes made to the file system of the layer.</li>
+</ul>
+<blockquote>
+<p>It's worth noting that this directory layout is only for backward compatibility. In the current version (v1.2), the archive files for each layer are specified in <code>manifest.json</code>.</p>
+</blockquote>
+<h4>repositories (backward compatibility only)</h4>
+<div class="language-json" data-ext="json" data-title="json"><pre class="language-json"><code>{
+  "busybox": {
+    "latest": "036a82c6d65f2fa43a13599661490be3fca1c3d6790814668d4e8c0213153b12"
+  }
+}
+</code></pre></div><p>The <code>repositories</code> file contains a JSON object where each key represents the name of an image, and its corresponding value is <strong>a mapping of tags to image IDs</strong>.</p>
+<blockquote>
+<p>It's important to note that this file is also used for backward compatibility. In the current version (v1.2), the relationship between images and layers is specified in <code>manifest.json</code>.</p>
+</blockquote>
+<h4>manifest.json</h4>
+<div class="language-json" data-ext="json" data-title="json"><pre class="language-json"><code>[
+  {
+    "Config": "6ad733544a6317992a6fac4eb19fe1df577d4dec7529efec28a5bd0edad0fd30.json",
+    "RepoTags": [
+      "busybox:latest"
+    ],
+    "Layers": [
+      "036a82c6d65f2fa43a13599661490be3fca1c3d6790814668d4e8c0213153b12/layer.tar"
+    ]
+  }
+]
+</code></pre></div><p><code>manifest.json</code> records a list where each item describes the contents inventory of an image and its parent image (optional). Each item in this list consists of the following fields:</p>
+<ul>
+<li>Config: Reference to the configuration object that starts the container.</li>
+<li>RepoTags: Describes the reference relationships of the image.</li>
+<li>Layers: Points to the records of changes made to the file system of the image's layers.</li>
+<li>Parent: (optional) The image ID of the parent image. This parent image must be listed in the current <code>manifest.json</code>.</li>
+</ul>
+<blockquote>
+<p>It's important to note that this <code>manifest.json</code> is not the same file as the <code>manifest.json</code> described in the Docker Registry API (see the appendix for details).</p>
+</blockquote>
+<h4>Config (aka Image JSON)</h4>
+<div class="language-json" data-ext="json" data-title="json"><pre class="language-json"><code>{
+	"architecture": "amd64",
+	"config": {
+		"Hostname": "",
+		"Domainname": "",
+		"User": "",
+		"AttachStdin": false,
+		"AttachStdout": false,
+		"AttachStderr": false,
+		"Tty": false,
+		"OpenStdin": false,
+		"StdinOnce": false,
+		"Env": [
+			"PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin"
+		],
+		"Cmd": [
+			"sh"
+		],
+		"ArgsEscaped": true,
+		"Image": "sha256:7def3adf6786f772d2f02fc74c2d3f3334228416760aee45d3b6e561ce1c1dd3",
+		"Volumes": null,
+		"WorkingDir": "",
+		"Entrypoint": null,
+		"OnBuild": null,
+		"Labels": null
+	},
+	"container": "3fbce8bb8947b036ee7ff05a86c0574159c04fc10a3db7485ab7bf4f56fd4020",
+	"container_config": {
+		"Hostname": "3fbce8bb8947",
+		"Domainname": "",
+		"User": "",
+		"AttachStdin": false,
+		"AttachStdout": false,
+		"AttachStderr": false,
+		"Tty": false,
+		"OpenStdin": false,
+		"StdinOnce": false,
+		"Env": [
+			"PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin"
+		],
+		"Cmd": [
+			"/bin/sh",
+			"-c",
+			"#(nop) ",
+			"CMD [\"sh\"]"
+		],
+		"ArgsEscaped": true,
+		"Image": "sha256:7def3adf6786f772d2f02fc74c2d3f3334228416760aee45d3b6e561ce1c1dd3",
+		"Volumes": null,
+		"WorkingDir": "",
+		"Entrypoint": null,
+		"OnBuild": null,
+		"Labels": {}
+	},
+	"created": "2017-11-03T22:39:17.345892474Z",
+	"docker_version": "17.06.2-ce",
+	"history": [{
+			"created": "2017-11-03T22:39:17.173629428Z",
+			"created_by": "/bin/sh -c #(nop) ADD file:264af0c48e23e8b8fc57c2c70c7b5b08be20601d75f5efca07c5ace8748bcbcd in / "
+		},
+		{
+			"created": "2017-11-03T22:39:17.345892474Z",
+			"created_by": "/bin/sh -c #(nop)  CMD [\"sh\"]",
+			"empty_layer": true
+		}
+	],
+	"os": "linux",
+	"rootfs": {
+		"type": "layers",
+		"diff_ids": [
+			"sha256:0271b8eebde3fa9a6126b1f2335e170f902731ab4942f9f1914e77016540c7bb"
+		]
+	}
+}
+</code></pre></div><h5>created <code>string</code></h5>
+<div class="language-json" data-ext="json" data-title="json"><pre class="language-json"><code>{
+    "created": "2017-11-03T22:39:17.345892474Z"
+}
+</code></pre></div><p><code>created</code> is a string in ISO-8601 format, describing the date and time the current image was created.</p>
+<h5>author <code>string</code></h5>
+<div class="language-json" data-ext="json" data-title="json"><pre class="language-json"><code>{
+    "author": "nobody"
+}
+</code></pre></div><p><code>author</code> describes the name and/or email address of the person or entity that created and maintains this image.</p>
+<h5>architecture <code>string</code></h5>
+<div class="language-json" data-ext="json" data-title="json"><pre class="language-json"><code>{
+    "architecture": "amd64"
+}
+</code></pre></div><p><code>architecture</code> describes the CPU architecture that the binary files in this image depend on to run. Possible values include:</p>
+<ul>
+<li>386</li>
+<li>amd64</li>
+<li>arm</li>
+</ul>
+<blockquote>
+<p>It should be noted that the values in the optional range may be added or reduced in the future, and at the same time, the values declared here may not be supported by the container runtime implementation (e.g. runc or rkt).</p>
+</blockquote>
+<h5>os <code>string</code></h5>
+<div class="language-json" data-ext="json" data-title="json"><pre class="language-json"><code>{
+    "os": "linux"
+}
+</code></pre></div><p><code>os</code> describes the name of the operating system this image is running on. Possible values include:</p>
+<ul>
+<li>darwin</li>
+<li>freebsd</li>
+<li>linux</li>
+</ul>
+<blockquote>
+<p>It should be noted that the values in the optional range may be added or reduced in the future, and at the same time, the values declared here may not be supported by the container runtime implementation (e.g. runc or rkt).</p>
+</blockquote>
+<h5>config (aka Container RunConfig) <code>object, optional</code></h5>
+<div class="language-json" data-ext="json" data-title="json"><pre class="language-json"><code>{
+    "config": {
+        "User": "",
+        "Tty": false,
+        "Env": [
+            "PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin"
+        ],
+        "Entrypoint": null,
+        "Cmd": [
+            "sh"
+        ],
+        "Volumes": null,
+        "WorkingDir": "",
+        "Labels": null
+    }
+}
+</code></pre></div><p>config describes the default parameters used by the container runtime when instantiating the image.</p>
+<blockquote>
+<p>It should be noted that this field can be null, in which case any parameters required to run should be specified when creating the container.</p>
+</blockquote>
+<h6>User <code>string</code></h6>
+<div class="language-json" data-ext="json" data-title="json"><pre class="language-json"><code>{
+    "config": {
+        "User": "root"
+    }
+}
+</code></pre></div><p><code>User</code> describes the username or UID that should be used in the container. This value will be used as the default when the value is not specified when the container is created. This field supports the following formats:</p>
+<ul>
+<li>user</li>
+<li>uid</li>
+<li>user:group</li>
+<li>uid:gid</li>
+<li>uid:group</li>
+<li>user:gid</li>
+</ul>
+<blockquote>
+<p>Note that when no <code>group/gid</code> is provided, the default behavior is to configure the default combination of supplementary groups from <code>/etc/passwd</code> in the container based on the given user/uid.</p>
+</blockquote>
+<h6>Memory <code>integer</code></h6>
+<div class="language-json" data-ext="json" data-title="json"><pre class="language-json"><code>{
+    "config": {
+        "Memory": 1024
+    }
+}
+</code></pre></div><p><code>Memory</code> describes the memory limit of the container instance (in bytes), which will be used as the default when this value is not specified when creating the container.</p>
+<h6>MemorySwap <code>integer</code></h6>
+<div class="language-json" data-ext="json" data-title="json"><pre class="language-json"><code>{
+    "config": {
+        "MemorySwap": -1
+    }
+}
+</code></pre></div><p><code>MemorySwap</code> describes the total memory usage (memory + swap) that the container is allowed to use. This value is used as the default value when this value is not specified when creating the container.</p>
+<blockquote>
+<p>It should be noted that setting this value to -1 means turning off memory swapping.</p>
+</blockquote>
+<h6>CpuShares <code>integer</code></h6>
+<div class="language-json" data-ext="json" data-title="json"><pre class="language-json"><code>{
+    "config": {
+        "CpuShares": 4
+    }
+}
+</code></pre></div><p><code>CpuShares</code> describes the cpu shares relative to other containers, used as the default when this value is not specified when creating the container.</p>
+<h6>WorkingDir <code>string</code></h6>
+<p><code>WorkingDir</code> describes the working directory where the container starts the entry point process. When this value is not specified when creating the container, this value will be used as the default value.</p>
+<h6>Env <code>array[string]</code></h6>
+<div class="language-json" data-ext="json" data-title="json"><pre class="language-json"><code>{
+    "config": {
+        "Env": [
+            "PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin"
+        ]
+    }
+}
+</code></pre></div><p><code>Env</code> describes the default environment variables when running this image. These values will be used as default values and will be combined with the values specified when creating the container.
+The format of each item in this list is: <code>VARNAME="VAR VALUE"</code></p>
+<h6>Entrypoint <code>array[string]</code></h6>
+<div class="language-json" data-ext="json" data-title="json"><pre class="language-json"><code>{
+    "config": {
+        "Entrypoint": [
+            "bash",
+            "-c"
+        ]
+    }
+}
+</code></pre></div><p><code>Entrypoint</code> A list of parameters describing the command to be executed when starting the container, this value will be used as the default when this value is not specified when the container is created.</p>
+<h6>Cmd <code>array[string]</code></h6>
+<div class="language-json" data-ext="json" data-title="json"><pre class="language-json"><code>{
+    "config": {
+        "Cmd": [
+            "ls",
+        ]
+    }
+}
+</code></pre></div><p><code>Cmd</code> describes the default parameters of the container entrypoint. When this value is not specified when creating the container, this value will be used as the default value.</p>
+<blockquote>
+<p>It should be noted that if <code>Entrypoint</code> is not specified, the first item in the cmd array should be the executable file to be run.</p>
+</blockquote>
+<h6>Healthcheck <code>object</code></h6>
+<div class="language-json" data-ext="json" data-title="json"><pre class="language-json"><code>{
+    "config": {
+        "Healthcheck": {
+            "Test": [
+                "CMD-SHELL",
+                "/usr/bin/check-health localhost"
+            ],
+            "Interval": 30000000000,
+            "Timeout": 10000000000,
+            "Retries": 3
+        }
+    }
+}
+</code></pre></div><p>Healthcheck describes the method to confirm whether the container is healthy. This object consists of 4 parts, namely:</p>
+<ul>
+<li>Test <code>array[string]</code>, a test method to check whether the container is healthy, the options are:
+<ul>
+<li><code>[]</code>: Inherit health check configuration from parent image</li>
+<li><code>["None"]</code>: disable health checks</li>
+<li><code>["CMD", arg1, arg2, ...]</code>: execute parameters directly</li>
+<li><code>["CMD-SHELL", command]</code>: Use the default shell in the image to run the command</li>
+</ul>
+</li>
+<li>Interval <code>integer</code>: Number of nanoseconds to wait between probes.</li>
+<li>Timeout <code>integer</code>: The number of nanoseconds to wait in a probe.</li>
+<li>Retries <code>integer</code>: The number of consecutive failures required to consider the container unhealthy.
+If this field is omitted, it means that the value should be obtained from the parent image, and these values will be used as default values, combined with the values specified when the container was created.</li>
+</ul>
+<h6>ExposedPorts <code>object, optional</code></h6>
+<div class="language-json" data-ext="json" data-title="json"><pre class="language-json"><code>{
+    "config": {
+        "ExposedPorts": {
+            "8080": {},
+            "53/udp": {},
+            "80/tcp": {}
+        }
+    }
+}
+</code></pre></div><p>ExposedPorts describes the port group that needs to be exposed to the outside world by the container running the image. The storage structure is a json object, each key of the object is the port and protocol that need to be exposed, and the value must be an empty object <code>{}</code>.
+The key of this object can be in the following formats:</p>
+<ul>
+<li>port/tcp</li>
+<li>port/udp</li>
+<li>port</li>
+</ul>
+<blockquote>
+<p>It should be noted that the reason why the structure of this configuration is so weird is that it is directly serialized from the Go type map[string]struct{}, so the value in json is an empty object <code>{}</code> .</p>
+</blockquote>
+<h6>Volumes <code>object, optional</code></h6>
+<div class="language-json" data-ext="json" data-title="json"><pre class="language-json"><code>{
+    "config": {
+        "Volumes": {
+            "/var/my-app-data/": {},
+            "/etc/some-config.d/": {}
+        }
+    }
+}
+</code></pre></div><p>Volumes describes the directory path that the container running the image should be covered by the mounted volume. The storage structure is a json object. Each key of the object is a directory path that should be covered by the mounted volume. The value must be an empty object <code>{}</code>.</p>
+<blockquote>
+<p>It should be noted that the reason why the structure of this configuration is so weird is that it is directly serialized from the Go type map[string]struct{}, so the value in json is an empty object <code>{}</code> .</p>
+</blockquote>
+<h5>rootfs <code>object</code></h5>
+<div class="language-json" data-ext="json" data-title="json"><pre class="language-json"><code>{
+    "rootfs": {
+        "type": "layers",
+        "diff_ids": [
+            "sha256:0271b8eebde3fa9a6126b1f2335e170f902731ab4942f9f1914e77016540c7bb"
+        ]
+    }
+}
+</code></pre></div><p><code>rootfs</code> describes the Layer DiffIDs referenced by the image (see Appendix - Glossary for details). Storing this value in the image configuration (Config) allows the hash value of the image configuration file to be calculated based on the hash value of the associated file system. Change with change. This object contains two parts, namely:</p>
+<ul>
+<li>type: Normally set this value to <code>layers</code>.</li>
+<li>diff_ids <code>(array[Layer DiffIDs])</code>: Sort in dependency order, that is, from the bottom layer (Layer) to the top layer (Layer).</li>
+</ul>
+<h5>history <code>array</code></h5>
+<div class="language-json" data-ext="json" data-title="json"><pre class="language-json"><code>{
+    "history": [{
+			"created": "2017-11-03T22:39:17.173629428Z",
+			"created_by": "/bin/sh -c #(nop) ADD file:264af0c48e23e8b8fc57c2c70c7b5b08be20601d75f5efca07c5ace8748bcbcd in / "
+		},
+		{
+			"created": "2017-11-03T22:39:17.345892474Z",
+			"created_by": "/bin/sh -c #(nop)  CMD [\"sh\"]",
+			"empty_layer": true
+		}
+	]
+}
+</code></pre></div><p><code>history</code> is an object array that describes the history of each layer of the image. The array is sorted according to dependency, that is, from the bottom layer to the top layer. Each object in the array has the following fields:</p>
+<ul>
+<li>created: This field describes the date and time when the layer was created, which must be a string in ISO-8601 format.</li>
+<li>author: This field describes the name and/or email address of the person or entity who created and maintains this layer (Layer).</li>
+<li>created_by: This field describes the instruction called when creating this layer (Layer).</li>
+<li>comment: This field describes the custom comment when creating this layer (Layer).</li>
+<li>empty_layer: This field is used to mark whether the history item causes differences in the file system. If this history item does not correspond to an actual record in <code>rootfs</code>, then this item should be set to <code>true</code>. (Simply, if instructions like ENV, CMD, etc. are executed in the Dockerfile, since these instructions will not cause changes to the file system, <code>empty_layer</code> should be set to <code>true</code>).</li>
+</ul>
+<h2>Conclusion</h2>
+<p>This article primarily begins by outlining the <strong>version history</strong> of Docker image specifications. It then briefly introduces the relationship between the OCI organization and the OCI image specification and the Docker image specification. Next, it demonstrates the <strong>directory structure of Docker images</strong> through a simple yet comprehensive 🌰. Following this example 🌰, the current image specification content is introduced, including the meanings and contents of the <strong>manifest.json</strong> and <strong>Config</strong> files. Since version 1.1 of the image specification, Docker has introduced the concept of <strong>manifest.json</strong>, eliminating the need to concern oneself with the directory structure of images, as all relevant information is now recorded in the manifest.</p>
+<p>By the time you reach this point, the current Docker image specification has been fully covered. Starting from the next article, we will delve into <strong>practical</strong> content. In the upcoming chapters, I will share my experience of <strong>building Docker images from scratch</strong>, further exploring the contents of <code>Filesystem Changeset</code> recorded in each <code>Layer</code> of the image. This will lay the groundwork for the final discussion on how to build images.</p>
+<blockquote>
+<p>Critique: Specifications are often presented in a very formal and verbose manner, yet in reality, Docker's own image specification is described in a confusing manner, leading to instances of terminology confusion. For example, the <code>Image JSON</code> is referred to as <code>Config</code> within <code>manifest.json</code>; there is also confusion between the image distribution specification and the image specification, with both referring to <code>manifest</code>.</p>
+</blockquote>
+]]></content>
+    <category term="Container Technology"/>
+    <published>2021-01-31T00:00:00.000Z</published>
+  </entry>
+  <entry>
+    <title type="text">How To Run Container:OCI Runtime Specification</title>
+    <id>https://blog.shabbywu.cn/en/posts/2021/03/31/how-to-run-container-oci-%E8%BF%90%E8%A1%8C%E6%97%B6%E8%A7%84%E8%8C%83.html</id>
+    <link href="https://blog.shabbywu.cn/en/posts/2021/03/31/how-to-run-container-oci-%E8%BF%90%E8%A1%8C%E6%97%B6%E8%A7%84%E8%8C%83.html"/>
+    <updated>2024-03-10T11:33:17.000Z</updated>
+    <summary type="html"><![CDATA[<h2>Preface</h2>
+<p>We are now in the era of containerization, where hardly anyone in development, testing, or operations would be unfamiliar with or unable to use Docker. Using Docker is also straightforward; most of the time, launching a container simply involves executing <code>docker run {your-image-name}</code>, and building an image is as simple as executing <code>docker build dockerfile .</code>.<br>
+Perhaps it's precisely because Docker encapsulates implementation details so thoroughly that I recently realized that we may have only learned <strong>how to use Docker CLI</strong>, rather than understanding how Docker actually operates.<br>
+While writing the series about <strong>『How To Build Images』</strong>, I realized that building images and running containers are not two parallel lines. The process of building often involves aspects of runtime, so I decided to simultaneously start another series of articles about <strong>『How To Run Container』</strong> with this being the first installment: 『OCI Runtime Specification』.</p>]]></summary>
+    <content type="html"><![CDATA[<h2>Preface</h2>
+<p>We are now in the era of containerization, where hardly anyone in development, testing, or operations would be unfamiliar with or unable to use Docker. Using Docker is also straightforward; most of the time, launching a container simply involves executing <code>docker run {your-image-name}</code>, and building an image is as simple as executing <code>docker build dockerfile .</code>.<br>
+Perhaps it's precisely because Docker encapsulates implementation details so thoroughly that I recently realized that we may have only learned <strong>how to use Docker CLI</strong>, rather than understanding how Docker actually operates.<br>
+While writing the series about <strong>『How To Build Images』</strong>, I realized that building images and running containers are not two parallel lines. The process of building often involves aspects of runtime, so I decided to simultaneously start another series of articles about <strong>『How To Run Container』</strong> with this being the first installment: 『OCI Runtime Specification』.</p>
+<h2><a class="header-anchor" href="#oci-runtime-specification"><span></span></a><a href="https://github.com/opencontainers/runtime-spec/blob/master/spec.md" target="_blank" rel="noopener noreferrer">OCI Runtime Specification</a></h2>
+<p>The OCI Runtime Specification aims to define the <strong>configuration</strong>, <strong>execution environment</strong>, and <strong>lifecycle</strong> of containers.</p>
+<ul>
+<li>It defines how to describe the platforms supported by the container and the configuration information needed when creating container instances (<code>config.json</code>), thus avoiding different standards proposed by various <strong>runtime implementations</strong>.</li>
+<li>It defines the execution phase of containers, ensuring that the applications running inside containers have a consistent environment across different <strong>runtime implementations</strong>.</li>
+<li>It defines the lifecycle of containers, ensuring consistent behavior across different <strong>runtime implementations</strong>.</li>
+</ul>
+<h3><a class="header-anchor" href="#container-format-filesystem-bundle"><span></span></a><a href="https://github.com/opencontainers/runtime-spec/blob/master/bundle.md" target="_blank" rel="noopener noreferrer">Container format -- Filesystem Bundle</a></h3>
+<p>The OCI Runtime Specification proposes orchestrating containers in the form of Filesystem Bundles, which organize a series of files in a way that includes all necessary data and metadata for compliant <strong>runtime implementations</strong> to start the container.</p>
+<p>A standard container bundle includes all the information needed to load and run the container, including:</p>
+<ul>
+<li><code>config.json</code>: Contains the container's configuration information. This file must be stored in the root directory of the bundle and must be named <strong>config.json</strong>. Details of the file's contents are described below.</li>
+<li>Container's root filesystem: A directory specified by the <code>root.path</code> property (optional).</li>
+</ul>
+<p>It's important to note that the runtime contents of the container must all be stored within a single directory on the local filesystem, but this directory itself is not part of the bundle.<br>
+In other words, when using <code>tar</code> to archive a container bundle, these contents should be stored at the root of the archive file, rather than nested within other directories:</p>
+<div class="language-bash" data-ext="sh" data-title="sh"><pre class="language-bash"><code>.
+├── config.json
+└── $root.path
+</code></pre></div><h3><a class="header-anchor" href="#runtime-and-lifecycle"><span></span></a><a href="https://github.com/opencontainers/runtime-spec/blob/master/runtime.md" target="_blank" rel="noopener noreferrer">Runtime and Lifecycle</a></h3>
+<h4>Scope of a Container</h4>
+<p>The entity using a runtime to create a container MUST be able to use the operations defined in this specification against that same container. Whether other entities using the same, or other, instance of the runtime can see that container is out of scope of this specification.</p>
+<h4>State</h4>
+<p>Use the <code>State</code> object to describe the state of the container. When the object is serialized into JSON, the format is as follows:</p>
+<div class="language-json" data-ext="json" data-title="json"><pre class="language-json"><code>{
+    "ociVersion": "0.2.0",
+    "id": "oci-container1",
+    "status": "running",
+    "pid": 4422,
+    "bundle": "/containers/redis",
+    "annotations": {
+        "myKey": "myValue"
+    }
+}
+</code></pre></div><p>The state of a container includes the following properties:</p>
+<ul>
+<li><strong>ociVersion</strong> (string, REQUIRED): is version of the Open Container Initiative Runtime Specification with which the state complies.</li>
+<li><strong>id</strong> (string, REQUIRED): is the container's ID. This MUST be unique across all containers on this host. There is no requirement that it be unique across hosts.</li>
+<li><strong>status</strong> (string, REQUIRED): is the runtime state of the container. The value MAY be one of:
+<ul>
+<li><strong>creating</strong>: the container is being created (step 2 in the lifecycle)</li>
+<li><strong>created</strong>: the runtime has finished the create operation (after step 2 in the lifecycle), and the container process has neither exited nor executed the user-specified program</li>
+<li><strong>running</strong>: the container process has executed the user-specified program but has not exited (after step 8 in the lifecycle)</li>
+<li><strong>stopped</strong>: the container process has exited (step 10 in the lifecycle)
+Additional values MAY be defined by the runtime, however, they MUST be used to represent new runtime states not defined above.</li>
+</ul>
+</li>
+<li><strong>pid</strong> (int, REQUIRED when <code>status</code> is <code>created</code> or <code>running</code> on Linux, OPTIONAL on other platforms): is the ID of the container process. For hooks executed in the runtime namespace, it is the pid as seen by the runtime. For hooks executed in the container namespace, it is the pid as seen by the container.</li>
+<li><strong>bundle</strong> (string, REQUIRED): is the absolute path to the container's bundle directory. This is provided so that consumers can find the container's configuration and root filesystem on the host.</li>
+<li><strong>annotations</strong> (map, OPTIONAL): contains the list of annotations associated with the container. If no annotations were provided then this property MAY either be absent or an empty map.</li>
+</ul>
+<h4>Lifecycle</h4>
+<p>The lifecycle describes the timeline of events that happen from when a container is created to when it ceases to exist.</p>
+<ol>
+<li>OCI compliant runtime's <code>create</code> command is invoked with a reference to the location of the bundle and a unique identifier.</li>
+<li>The container's runtime environment MUST be created according to the configuration in <code>config.json</code>.
+If the runtime is unable to create the environment specified in the <code>config.json</code>, it MUST generate an error.
+While the resources requested in the <code>config.json</code> MUST be created, the user-specified program MUST NOT be run at this time.
+Any updates to <code>config.json</code> after this step MUST NOT affect the container.</li>
+<li>The <code>prestart</code> hooks MUST be invoked by the runtime.
+If any <code>prestart</code> hook fails, the runtime MUST generate an error, stop the container, and continue the lifecycle at step 12.</li>
+<li>The <code>createRuntime</code> hooks MUST be invoked by the runtime.
+If any <code>createRuntime</code> hook fails, the runtime MUST generate an error, stop the container, and continue the lifecycle at step 12.</li>
+<li>The <code>createContainer</code> hooks MUST be invoked by the runtime.
+If any <code>createContainer</code> hook fails, the runtime MUST generate an error, stop the container, and continue the lifecycle at step 12.</li>
+<li>Runtime's <code>start</code> command is invoked with the unique identifier of the container.</li>
+<li>The <code>startContainer</code> hooks MUST be invoked by the runtime.
+If any <code>startContainer</code> hook fails, the runtime MUST generate an error, stop the container, and continue the lifecycle at step 12.</li>
+<li>The runtime MUST run the user-specified program, as specified by <code>process</code>.</li>
+<li>The <code>poststart</code> hooks MUST be invoked by the runtime.
+If any <code>poststart</code> hook fails, the runtime MUST log a warning, but the remaining hooks and lifecycle continue as if the hook had succeeded.</li>
+<li>The container process exits.
+This MAY happen due to erroring out, exiting, crashing or the runtime's <code>kill</code> operation being invoked.</li>
+<li>Runtime's <code>delete</code> command is invoked with the unique identifier of the container.</li>
+<li>The container MUST be destroyed by undoing the steps performed during create phase (step 2).</li>
+<li>The <code>poststop</code> hooks MUST be invoked by the runtime.
+If any <code>poststop</code> hook fails, the runtime MUST log a warning, but the remaining hooks and lifecycle continue as if the hook had succeeded.</li>
+</ol>
+<h4>OCI Runtime Operations</h4>
+<p>The OCI runtime specification defines 5 standard operations and standardizes the interaction process with containers.</p>
+<ul>
+<li>Query State: <code>state &lt;container-id&gt;</code> query container state by id.</li>
+<li>Create: <code>create &lt;container-id&gt; &lt;path-to-bundle&gt;</code> create container by filesystem bundle and container id.</li>
+<li>Start: <code>start &lt;container-id&gt;</code> start user program in container by id.</li>
+<li>Kill: <code>kill &lt;container-id&gt; &lt;signal&gt;</code> send signal to container by id</li>
+<li>Delete: <code>delete &lt;container-id&gt;</code> delete container by id, the operation MUST delete the resources that were created during the create step.</li>
+</ul>
+<h3><a class="header-anchor" href="#container-configuration"><span></span></a><a href="https://github.com/opencontainers/runtime-spec/blob/master/config.md" target="_blank" rel="noopener noreferrer">Container Configuration</a></h3>
+<p>This configuration file contains metadata necessary to implement standard operations against the container. This includes the process to run, environment variables to inject, sandboxing features to use, etc.</p>
+<p>Generally speaking, container configuration can be divided into 8 components, namely: <code>ociVersion</code>, <code>root</code>, <code>mounts</code>, <code>process</code>, <code>hostname</code>, <code>hooks</code>, <code>annotations</code> and <code>Platform-specific configuration</code>.</p>
+<h4>ociVersion (string, REQUIRED)</h4>
+<div class="language-json" data-ext="json" data-title="json"><pre class="language-json"><code>{
+    "ociVersion": "0.1.0"
+}
+</code></pre></div><p><code>ociVersion</code> MUST be in SemVer v2.0.0 format and specifies the version of the Open Container Initiative Runtime Specification with which the bundle complies.</p>
+<h4>根文件系统配置 root (object, OPTIONAL)</h4>
+<div class="language-json" data-ext="json" data-title="json"><pre class="language-json"><code>{
+    // For POSIX platforms
+    "root": {
+        "path": "rootfs",
+        "readonly": true
+    },
+    // For Windows
+    "root": {
+        "path": "\\\\?\\Volume{ec84d99e-3f02-11e7-ac6c-00155d7682cf}\\"
+    }
+}
+</code></pre></div><p><code>root</code> specifies the container's root filesystem., includes:</p>
+<ul>
+<li><strong>path</strong> (string, REQUIRED): Specifies the path to the root filesystem for the container.
+<ul>
+<li>On POSIX platforms, <strong>path</strong> is either an absolute path or a relative path to the bundle. For example, with a bundle at <code>/to/bundle</code> and a root filesystem at <code>/to/bundle/rootfs</code>, the path value can be either <code>/to/bundle/rootfs</code> or <code>rootfs</code>. The value SHOULD be the conventional rootfs.</li>
+<li>On Windows, <strong>path</strong> MUST be a volume GUID path.</li>
+</ul>
+</li>
+<li><strong>readonly</strong> (bool, OPTIONAL):  If true then the root filesystem MUST be read-only inside the container, defaults to false.
+<ul>
+<li>On Windows, this field MUST be omitted or false.</li>
+</ul>
+</li>
+</ul>
+<h4>mounts (array of objects, OPTIONAL)</h4>
+<div class="language-json" data-ext="json" data-title="json"><pre class="language-json"><code>{
+    // For POSIX platforms
+    "mounts": [
+        {
+            "destination": "/tmp",
+            "type": "tmpfs",
+            "source": "tmpfs",
+            "options": ["nosuid","strictatime","mode=755","size=65536k"]
+        }
+    ],
+    // For Windows
+    "mounts": [
+        {
+            "destination": "C:\\folder-inside-container",
+            "source": "C:\\folder-on-host",
+            "options": ["ro"]
+        }
+    ],
+
+}
+</code></pre></div><p><code>mounts</code> specifies additional mounts beyond <code>root</code>. 。The runtime MUST mount entries in the listed order, mounts includes those fields:</p>
+<ul>
+<li><strong>destination</strong> (string, REQUIRED): Destination of mount point: path inside container.</li>
+<li><strong>source</strong> (string, OPTIONAL): A device name, but can also be a file or directory name for bind mounts or a dummy. Path values for bind mounts are either absolute or relative to the bundle.</li>
+<li><strong>options</strong> (array of strings, OPTIONAL): Mount options of the filesystem to be used.
+<ul>
+<li>Linux: See <a href="https://man7.org/linux/man-pages/man8/mount.8.html" target="_blank" rel="noopener noreferrer">mount(8)</a>。</li>
+<li>Windows: runtimes MUST support <code>ro</code>, mounting the filesystem read-only when <code>ro</code> is given.</li>
+<li>A mount is a bind mount if it has either <code>bind</code> or <code>rbind</code> in the options.</li>
+</ul>
+</li>
+<li><strong>type</strong> (string, OPTIONAL): The type of the filesystem to be mounted.
+<ul>
+<li>Linux: filesystem types supported by the kernel as listed in  <code>/proc/filesystems</code>. For <code>bind</code> mounts, the type is a dummy, often "none".</li>
+</ul>
+</li>
+</ul>
+<h4>process (object, OPTIONAL)</h4>
+<p><code>process</code> specifies the container process. This property is REQUIRED when start is called.。<code>process</code> includes those fields:</p>
+<ul>
+<li><strong>terminal</strong> (bool, OPTIONAL): specifies whether a terminal is attached to the process, defaults to false.</li>
+<li><strong>consoleSize</strong> (object, OPTIONAL): specifies the console size in characters of the terminal.
+<ul>
+<li><strong>height</strong> (uint, REQUIRED)</li>
+<li><strong>width</strong> (uint, REQUIRED)</li>
+</ul>
+</li>
+<li><strong>cwd</strong> (string, REQUIRED): is the working directory that will be set for the executable.</li>
+<li><strong>env</strong> (array of strings, OPTIONAL)</li>
+<li><strong>args</strong> (array of strings, OPTIONAL)</li>
+<li><strong>commandLine</strong>  (string, OPTIONAL)</li>
+<li><strong>user</strong> (object, REQUIRED): The user for the process is a platform-specific structure that allows specific control over which user the process runs as.
+<ul>
+<li><strong>uid</strong> (int, REQUIRED): specifies the user ID in the container namespace.</li>
+<li><strong>gid</strong> (int, REQUIRED): specifies the group ID in the container namespace.</li>
+<li><strong>umask</strong> (int, OPTIONAL): specifies the umask of the user.</li>
+<li><strong>additionalGids</strong> (array of ints, OPTIONAL): specifies additional group IDs in the container namespace to be added to the process.</li>
+</ul>
+</li>
+</ul>
+<h4>hostname (string, OPTIONAL)</h4>
+<p><code>hostname</code> specifies the container's hostname as seen by processes running inside the container.</p>
+<h4>hooks (object, OPTIONAL)</h4>
+<p>Hooks allow users to specify programs to run before or after various lifecycle events. Hooks MUST be called in the listed order. The state of the container MUST be passed to hooks over stdin so that they may do work appropriate to the current state of the container.<br>
+The OCI runtime specification defines a total of 6 hooks, namely:</p>
+<ul>
+<li><strong>prestart</strong> (DEPRECATED)：The prestart hooks MUST be called as part of the create operation after the runtime environment has been created (according to the configuration in config.json) but before the pivot_root or any equivalent operation has been executed.</li>
+<li><strong>createRuntime</strong>: The createRuntime hooks MUST be called as part of the create operation after the runtime environment has been created (according to the configuration in config.json) but before the pivot_root or any equivalent operation has been executed.</li>
+<li><strong>createContainer</strong>: The createContainer hooks MUST be called as part of the create operation after the runtime environment has been created (according to the configuration in config.json) but before the pivot_root or any equivalent operation has been executed.</li>
+<li><strong>startContainer</strong>: The startContainer hooks MUST be called before the user-specified process is executed as part of the start operation.</li>
+<li><strong>poststart</strong>: The poststart hooks MUST be called after the user-specified process is executed but before the start operation returns.</li>
+<li><strong>poststop</strong>: The poststop hooks MUST be called after the container is deleted but before the delete operation returns.</li>
+</ul>
+<p>all hook have the same defind:</p>
+<ul>
+<li><strong>path</strong> (string, REQUIRED): with similar semantics to <a href="https://pubs.opengroup.org/onlinepubs/9699919799/functions/exec.html" target="_blank" rel="noopener noreferrer">IEEE Std 1003.1-2008 execv's <code>path</code></a>, must be absoluted path.</li>
+<li><strong>args</strong> (array of strings, OPTIONAL): with similar semantics to <a href="https://pubs.opengroup.org/onlinepubs/9699919799/functions/exec.html" target="_blank" rel="noopener noreferrer">IEEE Std 1003.1-2008 <code>execv's argv</code></a>.</li>
+<li><strong>env</strong> (array of strings, OPTIONAL): with similar semantics to  <a href="https://pubs.opengroup.org/onlinepubs/9699919799/basedefs/V1_chap08.html#tag_08_01" target="_blank" rel="noopener noreferrer">IEEE Std 1003.1-2008 <code>environ</code></a>.</li>
+<li><strong>timeout</strong> (int, OPTIONAL):  is the number of seconds before aborting the hook. If set, timeout MUST be greater than zero.</li>
+</ul>
+<h4>annotations (object, OPTIONAL)</h4>
+<div class="language-json" data-ext="json" data-title="json"><pre class="language-json"><code>{
+    "annotations": {
+        "com.example.gpu-cores": "2"
+    }
+}
+</code></pre></div><p><code>annotations</code> contains arbitrary metadata for the container. Annotations MUST be a key-value map and Keys MUST be not empty strings.</p>
+<h4>Platform-specific configuration</h4>
+<p>At present, the OCI runtime specification mainly makes differentiated settings for four types of platforms, which are: <a href="https://github.com/opencontainers/runtime-spec/blob/master/config-linux.md" target="_blank" rel="noopener noreferrer">linux</a>, <a href="https://github.com/opencontainers/runtime-spec/blob/master/config-windows.md" target="_blank" rel="noopener noreferrer"> windows</a>, [solaris](https://github.com/opencontainers/runtime-spec/blob/master/ config-solaris.md), <a href="https://github.com/opencontainers/runtime-spec/blob/master/config-vm.md" target="_blank" rel="noopener noreferrer">vm</a>. For different platforms, just use the platform name to configure the corresponding configuration for Key. For example:</p>
+<div class="language-json" data-ext="json" data-title="json"><pre class="language-json"><code>{
+    "linux": {
+        "namespaces": [
+            {
+                "type": "pid"
+            }
+        ]
+    }
+}
+</code></pre></div><p>Due to limited space, here will not continue to list the differentiated configurations between platforms. You can read the OCI Runtime Specification from <a href="https://github.com/opencontainers/runtime-spec/" target="_blank" rel="noopener noreferrer">GITHUB</a>.</p>
+<h2>Conclusion</h2>
+<p>This article mainly summarizes the main contents of the OCI runtime specification to facilitate those who are interested in container technology to quickly understand the areas involved in the OCI runtime specification.</p>
+]]></content>
+    <category term="Container Technology"/>
+    <published>2021-03-31T00:00:00.000Z</published>
+  </entry>
+  <entry>
+    <title type="text">How To Build Images: Guide you to build Docker image manually from scratch</title>
+    <id>https://blog.shabbywu.cn/en/posts/2021/04/01/how-to-build-image-%E4%BB%8E-0-%E5%BC%80%E5%A7%8B%E5%B8%A6%E4%BD%A0%E5%BE%92%E6%89%8B%E6%9E%84%E5%BB%BA-docker-%E9%95%9C%E5%83%8F.html</id>
+    <link href="https://blog.shabbywu.cn/en/posts/2021/04/01/how-to-build-image-%E4%BB%8E-0-%E5%BC%80%E5%A7%8B%E5%B8%A6%E4%BD%A0%E5%BE%92%E6%89%8B%E6%9E%84%E5%BB%BA-docker-%E9%95%9C%E5%83%8F.html"/>
+    <updated>2024-03-09T16:14:15.000Z</updated>
+    <summary type="html"><![CDATA[<h2>Preface</h2>
+<p>We are now in the era of containerization, where hardly anyone in development, testing, or operations would be unfamiliar with or unable to use Docker. Using Docker is also straightforward; most of the time, launching a container simply involves executing <code>docker run {your-image-name}</code>, and building an image is as simple as executing <code>docker build dockerfile .</code>.<br>
+Perhaps it's precisely because Docker encapsulates implementation details so thoroughly that I recently realized that we may have only learned <strong>how to use Docker CLI</strong>, rather than understanding how Docker actually operates.<br>
+In the <strong>『How To Build Images』</strong> series, I will discuss the implementation details related to <code>Docker build dockerfile .</code>. This article is the second installment of this series and will demonstrate the knowledge required to build Docker images from scratch.</p>]]></summary>
+    <content type="html"><![CDATA[<h2>Preface</h2>
+<p>We are now in the era of containerization, where hardly anyone in development, testing, or operations would be unfamiliar with or unable to use Docker. Using Docker is also straightforward; most of the time, launching a container simply involves executing <code>docker run {your-image-name}</code>, and building an image is as simple as executing <code>docker build dockerfile .</code>.<br>
+Perhaps it's precisely because Docker encapsulates implementation details so thoroughly that I recently realized that we may have only learned <strong>how to use Docker CLI</strong>, rather than understanding how Docker actually operates.<br>
+In the <strong>『How To Build Images』</strong> series, I will discuss the implementation details related to <code>Docker build dockerfile .</code>. This article is the second installment of this series and will demonstrate the knowledge required to build Docker images from scratch.</p>
+<blockquote>
+<p>Note: This article assumes that readers know how to use Docker, including but not limited to knowing how to execute <code>docker run</code> and <code>docker build</code> and writing a Dockerfile. Additionally, readers should be familiar with the <a href="/en/posts/2021/01/31/how-to-build-images-docker-%E9%95%9C%E5%83%8F%E8%A7%84%E8%8C%83.html" target="_blank">Docker Image Specification</a>.</p>
+</blockquote>
+<h2>Exploring the Depths - How Containers Actually Run</h2>
+<h3>Overview of Docker Architecture</h3>
+<p>Before delving into building images, it's essential to understand how Docker transforms images into containers. Starting from Docker 1.11, the architecture of Docker evolved into the following model:
+<img src="/img/Docker1.11架构图.png" alt="Docker 1.11 Architecture" loading="lazy"></p>
+<p>As shown in the diagram, Docker splits the runtime into two modules, namely <strong>containerd</strong> and <strong>runc</strong>. Both of these are products of container technology standardization. <strong>Containerd</strong> is responsible for higher-level functionalities such as image management and networking infrastructure, while <strong>runc</strong> focuses on lower-level functionalities like container management and containerization technology.</p>
+<p>When we execute <code>docker run</code> command, it goes through the following steps: <em>Docker CLI</em> communicates with <em>Docker Engine</em>, which then parses the request and forwards it to <em>containerd</em>. Finally, <em>containerd</em>, with the help of <em>containerd-shim</em> as a converter, invokes <em>runc</em> to create and run the container.</p>
+<p>In that case, can we directly call <code>runc</code> to create containers without docker? The answer is yes. We only need to organize the container as a Filesystem Bundle according to the <strong>OCI Runtime Specification</strong>, and then we can use <code>runc</code> to start the container.</p>
+<blockquote>
+<p>Note 1: For Linux systems, Docker installation usually includes runc. If runc is not installed on the local machine, precompiled <a href="https://github.com/opencontainers/runc/releases" target="_blank" rel="noopener noreferrer">runc binary files</a> can be downloaded directly from GitHub.
+Note 2: For readers interested in further understanding the <strong>OCI Runtime Specification</strong>, you can read another series of articles by the author titled <a href="/en/posts/2021/03/31/how-to-run-container-oci-%E8%BF%90%E8%A1%8C%E6%97%B6%E8%A7%84%E8%8C%83.html" target="_blank">『How To Run Container: OCI Runtime Specification』</a>.</p>
+</blockquote>
+<h3>runc - How to run container from image</h3>
+<p>According to the <strong>OCI Runtime Specification</strong>, a basic container should have the following directory structure:</p>
+<div class="language-bash" data-ext="sh" data-title="sh"><pre class="language-bash"><code>.
+├── config.json
+└── $root.path
+</code></pre></div><blockquote>
+<p>Typically, <code>$root.path</code> is named to <strong>rootfs</strong>.</p>
+</blockquote>
+<p>First, let's create an empty directory to organize the container filesystem bundle.</p>
+<div class="language-bash" data-ext="sh" data-title="sh"><pre class="language-bash"><code>➜ cd /some-path
+## Create filesystem bundle directory
+➜ mkdir mycontainer &amp;&amp; cd mycontainer
+
+## Create rootfs directory
+➜ mkdir rootfs
+</code></pre></div><p>The next step is to generate the <code>config.json</code> file. Since the OCI Runtime Specification is quite complex, manually configuring <code>config.json</code> can be time-consuming. However, fortunately, <code>runc</code> has reserved special commands to facilitate the generation of basic specification templates.</p>
+<div class="language-bash" data-ext="sh" data-title="sh"><pre class="language-bash"><code>## Generate basic template
+➜ runc spec
+</code></pre></div><p>Although we haven't put anything into the container's root filesystem yet, let's try to see if the container can run. Who knows, maybe it will work?</p>
+<div class="language-bash" data-ext="sh" data-title="sh"><pre class="language-bash"><code>➜ runc run mycontainer
+## ERRO[0000] container_linux.go:349: starting container process caused "exec: \"sh\": executable file not found in $PATH"
+## container_linux.go:349: starting container process caused "exec: \"sh\": executable file not found in $PATH"
+</code></pre></div><p>As expected, an error occurred... After all, our container doesn't have anything in it, so how could it run?<br>
+Now we've reached the final but also the most crucial step, which is <strong>creating the content of the container's root filesystem</strong>. But we have no idea what should be in the container in the first place... What should we do? Let's export a container from Docker and take a look at what it should look like!</p>
+<div class="language-bash" data-ext="sh" data-title="sh"><pre class="language-bash"><code>## Export the busybox container
+➜ docker export $(docker create --name busybox busybox) | tar -C rootfs -xvf - &amp;&amp; docker stop busybox &amp;&amp; docker rm busybox
+
+## Confirm the content of rootfs
+➜ ls rootfs
+bin  dev  etc  home  proc  root  sys  tmp  usr  var
+
+## Start the container
+➜ runc run mycontainer
+
+## Execute ls, hostname, and whoami inside the container
+➜ ls
+bin   dev   etc   home  proc  root  sys   tmp   usr   var
+
+➜ hostname
+runc
+
+➜ whoami
+root
+</code></pre></div><p>Here we have successfully started the container using runc. Let's summarize:<br>
+Running a container directly is quite simple. You just need to:</p>
+<ol>
+<li>Organize the container as a Filesystem Bundle.</li>
+<li>Write the correct configuration in <code>config.json</code>.</li>
+<li>Populate the <code>$root.path</code> with appropriate and available files.</li>
+<li>Execute <code>runc run $containerid</code> to start the container.</li>
+</ol>
+<h2>Learning by Doing - Building Runnable Container Bundles</h2>
+<p>In the previous section, we utilized Docker to export the root filesystem of a runnable container. But what if we want to create a simple runnable container without relying on external tools? The answer is yes, but before that, let's review some knowledge about containers.</p>
+<h3>Differences Between Containers and Virtual Machines</h3>
+<p>A virtual machine (VM) runs a guest operating system (Guest OS) on top of a host operating system (Host OS) and can access the underlying hardware, such as Linux or Windows. On the other hand, a container is a lightweight application code package that includes dependencies, such as specific versions of programming language runtimes and libraries required to run software services. Similar to virtual machines, containers provide users with isolated environments to run applications, but they have fundamental differences:</p>
+<ul>
+<li>Containers virtualize at the operating system level, while virtual machines virtualize at the hardware level.</li>
+<li>Containers share the operating system kernel with the host operating system (Host OS), whereas virtual machines use the operating system kernel provided by the guest operating system (Guest OS).
+<img src="/img/容器与虚拟机架构对比.png" alt="Comparison of Container and Virtual Machine Architectures" loading="lazy"></li>
+</ul>
+<p>The advantages brought by the differences between container and virtual machine architectures have probably been discussed extensively. Here, I won't dwell on that. Instead, let's focus on the <strong>startup</strong> process.</p>
+<h3>Startup Process of Virtual Machines</h3>
+<p>Since virtual machines virtualize at the hardware level, the startup process of a virtual machine is essentially the same as the boot process of a computer. The complete boot process of a computer consists of at least 4 stages:</p>
+<div class="language-plantuml" data-ext="plantuml" data-title="plantuml"><pre class="language-plantuml"><code><img src="https://www.plantuml.com/plantuml/svg/FK-rTKD14ColYdbAp5I0EJ6p2zXtk8BR8xDLkrW_MXmwgurA-nWDLHrmJ5He1DADFxdzl0PA5g8RUObgTclSM28kPPG-cYsu46duKvlRMzWxmSNruolKhEdTK-tEBrPBCTYyltZPwislTq8650skuuoEXlnhSMjBjCC5zdNk1poxuQc8jhLYCx71qH8zqrBZURFyUw-sxBqcgzcnDJXFQSYQvYwhEhFHp89D0G00
+"></code></pre></div><h3>Startup Process of Containers</h3>
+<p>As containers share the operating system kernel with the host, the startup process of a container involves only 2 stages:</p>
+<div class="language-plantuml" data-ext="plantuml" data-title="plantuml"><pre class="language-plantuml"><code><img src="https://www.plantuml.com/plantuml/svg/7Owr5SGm38PxJw7kU8HZBey6q7D80TdFLd8yUwZzyLjvGITbaIkV4LjqM01geOhaVKlGXc2qO6nOjPwGa67O6XOa3XtS-hA5hngEHp1Rm9dR2ERq2U5Qib0HmfuhSeQBa4MrYRu23n-wsSs6cY8A0rXRcvF6RjrteNPD_TKgvA0bQm00
+"></code></pre></div><p>The biggest difference between the startup processes of virtual machines and containers is that, before starting the user-specified applications, virtual machines need to execute the <code>computer boot</code> process, while containers, after <code>initializing the runtime environment</code>, immediately start the user-specified applications. This results in the <strong>pid 1</strong> process seen in the container being the <strong>user-specified application</strong>.<br>
+On the other hand, because container startup does not involve the stages of <code>loading and initializing the kernel</code> and <code>starting the init process</code>, container images do not need to include components such as the operating system kernel and init process.<br>
+In summary, creating a simple runnable container only requires preparing the user-specified application and its dependencies, without any additional components.</p>
+<h3>A Very Simple Executable Program</h3>
+<p>In this section, our main task is to create a simple executable program. What kind of executable program is the simplest? As the saying goes, "All Dharmas Return to the Origin", the simplest program must be written in assembly language. Here is a piece of assembly code written using nasm:</p>
+<div class="language-nasm" data-ext="nasm" data-title="nasm"><pre class="language-nasm"><code>section .data
+     msg:     db   "Hello runc!", 13, 10; 10 is the ASCII code for \n (LF), and 13 is the ASCII code for \r (CR)
+     msglen:  equ  $ - msg;
+
+section .text
+     global _start 
+
+_start:
+     mov eax, 4        ; 4 corresponds to sys_write system call
+     mov ebx, 1        ; sys_write system call first parameter: file descriptor, 1 for standard output
+     mov ecx, msg      ; sys_write system call second parameter: offset address of the string to be output
+     mov edx, msglen   ; sys_write system call third parameter: string length
+     int 80h           ; 80h interrupt, triggers a system call
+
+     mov eax, 1   ; 1 corresponds to exit system call
+     mov ebx, 0   ; exit system call parameter: return code
+     int 80h      ; 80h interrupt, triggers a system call
+</code></pre></div><p>We won't delve into the components of the nasm assembly language here. For now, all we need to do is compile and link it to generate an executable program.</p>
+<div class="language-bash" data-ext="sh" data-title="sh"><pre class="language-bash"><code>## We are still in the `mycontainer` directory. Let's output the above code to a file named hello.nasm
+## Compile hello.nasm using nasm, making sure to set the output format to ELF64 (x86-64) (Linux, most Unix variants)
+➜ nasm hello.nasm -f elf64 -o hello.o
+
+## Link the object file to create an executable program
+➜ ld hello.o -o hello
+
+## Test the execution
+➜ ./hello
+Hello runc!
+</code></pre></div><p>With the above steps, we now have a standalone executable file that can be run on the x86-64 architecture Linux platform. Now, let's try executing it inside a container.</p>
+<div class="language-bash" data-ext="sh" data-title="sh"><pre class="language-bash"><code>## First, clear the rootfs directory
+➜ rm -r -f rootfs &amp;&amp; mkdir rootfs
+
+## Copy the hello file to the rootfs directory
+➜ cp hello rootfs/
+
+## Ensure that the rootfs directory contains only the hello file
+➜ ls -la rootfs
+total 12
+drwxr-xr-x 2 root root 4096 Apr  8 20:40 .
+drwxr-xr-x 3 root root 4096 Apr  8 20:40 ..
+-rwxr-xr-x 1 root root 1040 Apr  8 20:40 hello
+
+## Start the container!
+➜ runc run mycontainer
+ERRO[0000] container_linux.go:367: starting container process caused: exec: "sh": executable file not found in $PATH
+</code></pre></div><p>And as expected, an error occurred...<br>
+According to the error message, the default startup program specified by the runtime configuration template is <code>sh</code>. However, since our container is extremely simple, it doesn't even have the <code>sh</code> program, hence the error. We just need to modify the <strong>process.args</strong> to <code>/hello</code>.</p>
+<div class="language-bash" data-ext="sh" data-title="sh"><pre class="language-bash"><code>## Replace "sh" with "/hello"
+➜ sed -i "s/\"sh\"/\"\/hello\"/" config.json
+
+## Start the container!
+➜ runc run mycontainer
+Hello runc!
+</code></pre></div><p>Here we have successfully started our container with content we filled ourselves. Let's summarize the steps for building a runnable container from scratch:</p>
+<ol>
+<li>Organize the container as a Filesystem Bundle.</li>
+<li>Add the user-specified application and its dependencies to <code>$root.path</code>.</li>
+<li>Ensure that the command specified in <strong>process.args</strong> of <code>config.json</code> is executable within the container.</li>
+<li>Execute <code>runc run $containerid</code>.</li>
+</ol>
+<h2>Step Ahead - Packaging the Image Archive</h2>
+<p>In the previous section, we mimicked the process and constructed an extremely simple executable container. Now, is there a way to package this container into an image and import it into Docker? The answer is yes, and with the knowledge we currently have, we're well equipped to meet this requirement. First, let's review the basic directory structure of a Docker image archive.</p>
+<div class="language-bash" data-ext="sh" data-title="sh"><pre class="language-bash"><code>.
+├── 036a82c6d65f2fa43a13599661490be3fca1c3d6790814668d4e8c0213153b12
+│   ├── VERSION
+│   ├── json
+│   └── layer.tar
+├── 6ad733544a6317992a6fac4eb19fe1df577d4dec7529efec28a5bd0edad0fd30.json
+├── manifest.json
+└── repositories
+
+1 directory, 6 files
+</code></pre></div><p>Among these, only the elements declared in <code>manifest.json</code> are necessary components of the image archive. Other files are irrelevant. In other words, we only need to focus on <code>layer.tar</code>, <code>config.json</code>, and <code>manifest.json</code>.</p>
+<blockquote>
+<p>Note 1: <code>config.json</code> is also known as Image JSON, commonly named after its own sha256sum in the archive. In the example above, it is <code>6ad733544a6317992a6fac4eb19fe1df577d4dec7529efec28a5bd0edad0fd30.json</code>.
+Note 2: For a detailed explanation of the components and their meanings in a container image archive, please refer to the previous article in this series, <a href="/en/posts/2021/01/31/how-to-build-images-docker-%E9%95%9C%E5%83%8F%E8%A7%84%E8%8C%83.html" target="_blank">How To Build Images: Docker Image Specification v1.2</a>.</p>
+</blockquote>
+<h3>Building layer.tar</h3>
+<p>The layer archive records the change history of the image content. In our case, this image consists of only one layer, so we just need to package the <code>hello</code> file into the archive.</p>
+<div class="language-bash" data-ext="sh" data-title="sh"><pre class="language-bash"><code>## We are currently in the mycontainer directory
+## Create the layer archive layer.tar
+➜ tar -cf layer.tar -C rootfs hello
+
+## Verify the contents of the archive
+➜ tar -tvf layer.tar
+-rwxr-xr-x root/root      1040 2021-04-08 20:40 hello
+
+## Calculate the sha256sum of layer.tar for later use
+➜ sha256sum layer.tar
+45f29debe3c1db5d78d29583a12cb58208ca1942b23e281e9c5894182b5ffb97  layer.tar
+</code></pre></div><h3>Building config.json</h3>
+<p>Image JSON contains basic information related to the image and runtime configurations. This makes building config.json the most complex step. To keep this section concise, the resulting configuration is shown directly below, with key data sources described in comments.</p>
+<div class="language-json" data-ext="json" data-title="json"><pre class="language-json"><code>{
+    "architecture": "amd64",
+    "config": {
+        "User": "",
+        "Tty": false,
+        "Env": ["PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin"],
+        "Cmd": ["/hello"],
+        "Volumes": null,
+        "WorkingDir": "/",
+        "Entrypoint": null,
+        "Labels": null
+    },
+    "created": "1970-01-01T00:00:00.0Z",
+    "docker_version": "20.10.5",
+    "history": [],
+    "os": "linux",
+    "rootfs": {
+        "type": "layers",
+        "diff_ids": ["sha256:45f29debe3c1db5d78d29583a12cb58208ca1942b23e281e9c5894182b5ffb97"]
+    }
+}
+</code></pre></div><p>After compressing the above configuration (removing comments), calculate the sha256sum of the compressed content and name it as ${sha256sum}.json.</p>
+<blockquote>
+<p>The sha256sum corresponding to the above configuration is 112e38209f1b62794b83d25708b5ab354792a8155453d151aac8dadca11e2c48.</p>
+</blockquote>
+<h3>Building manifest.json</h3>
+<p><code>manifest.json</code> records a list, where each item describes a manifest of the image and its parent image (optional). Since our image doesn't have a parent image, we only need to record one structure. The specific configuration is as follows:</p>
+<div class="language-json" data-ext="json" data-title="json"><pre class="language-json"><code>[
+  {
+    "Config": "112e38209f1b62794b83d25708b5ab354792a8155453d151aac8dadca11e2c48.json",
+    "RepoTags": [
+      "hello-runc:nasm"
+    ],
+    "Layers": [
+      "layer.tar"
+    ]
+  }
+]
+</code></pre></div><h3>Packaging Archive</h3>
+<p>Place the above files into the same directory layer, and use tar to package and archive.</p>
+<div class="language-bash" data-ext="sh" data-title="sh"><pre class="language-bash"><code>## We are currently in the mycontainer directory
+## Make sure the above files are all in the mycontainer directory
+➜ ls 
+112e38209f1b62794b83d25708b5ab354792a8155453d151aac8dadca11e2c48.json  config.json  layer.tar  manifest.json  rootfs
+
+## Packaging archive
+➜ tar -cf image.tar 112e38209f1b62794b83d25708b5ab354792a8155453d151aac8dadca11e2c48.json layer.tar manifest.json
+
+## Verify the contents of the archive
+➜  tar -tvf image.tar
+-rw-r--r-- root/root       417 2021-04-08 22:14 112e38209f1b62794b83d25708b5ab354792a8155453d151aac8dadca11e2c48.json
+-rw-r--r-- root/root     10240 2021-04-08 22:14 layer.tar
+-rw-r--r-- root/root       188 2021-04-08 22:14 manifest.json
+</code></pre></div><h3>Importing Images</h3>
+<p>Importing images in Docker is straightforward, requiring only the execution of the <code>docker load</code> command. The following demonstrates the process of importing an image.</p>
+<div class="language-bash" data-ext="sh" data-title="sh"><pre class="language-bash"><code>## We are currently in the mycontainer directory
+## Ensure that the hello-runc image does not exist previously
+➜ docker images hello-runc
+REPOSITORY   TAG       IMAGE ID   CREATED   SIZE
+
+## Execute the command to import the image
+➜ docker load -i image.tar
+Loaded image: hello-runc:nasm
+
+## Verify that the image now exists
+➜ docker images hello-runc
+REPOSITORY   TAG       IMAGE ID       CREATED        SIZE
+hello-runc   nasm      112e38209f1b   51 years ago   1.04kB
+</code></pre></div><p>At this point, we have manually built a Docker image and successfully imported it into the Docker image list. To celebrate this success, we'll move the verification process to the next section. Let's summarize briefly. Building a Docker image manually is quite simple, requiring:</p>
+<ol>
+<li>Orchestrating the container into a Filesystem Bundle format.</li>
+<li>Packaging the container Filesystem Bundle into a layer.tar file.</li>
+<li>Writing image configuration information (Image JSON, config.json for the image) according to the container runtime configuration (runc's config.json).</li>
+<li>Writing a container manifest file (manifest.json).</li>
+<li>Tar packaging and archiving into an image.</li>
+</ol>
+<h2>Mission Completed - Container Runtime Verification Results and Summary</h2>
+<p>In the previous section, we manually built a Docker image and successfully imported it into the Docker image list. Now, it's time to heavily utilize this image to create containers! 😁</p>
+<div class="language-bash" data-ext="sh" data-title="sh"><pre class="language-bash"><code>## We are currently in the mycontainer directory, but it's not crucial.
+## Creating a container with default parameters
+➜ docker run --rm hello-runc:nasm
+WARNING: IPv4 forwarding is disabled. Networking will not work.
+Hello runc!
+
+## Creating a container by specifying a startup command
+➜ docker run --rm hello-runc:nasm /hello
+WARNING: IPv4 forwarding is disabled. Networking will not work.
+Hello runc!
+</code></pre></div><p>So far, we've successfully built a Docker image from scratch, imported it into the Docker image list, and run it smoothly in containers. This confirms the possibility of manually building Docker images.</p>
+<p>In conclusion, building Docker images is quite simple, requiring:</p>
+<ol>
+<li>Familiarity with Docker image specifications.</li>
+<li>Preparation of the container runtime environment, including the application and its dependencies, such as specific versions of programming language runtimes and libraries required for running software services.</li>
+<li>Organizing archives of each layer of the image (layer.tar) and computing the Layer DiffID.</li>
+<li>Writing image configuration information (Image JSON) according to the specifications and computing ImageID.</li>
+<li>Writing a container manifest file (manifest.json).</li>
+<li>Tar packaging and archiving into an image.</li>
+</ol>
+<p>This article is the second installment of the 『How To Build Images』 series, focusing on how runc runs containers. It delves into the various steps and implementation details of building Docker images. So far, we have gained a preliminary understanding of <strong>How To Build Images</strong>. The next article in this series will delve into the interaction process between the Docker Daemon and Docker Registry, dissecting the details hidden behind <code>docker pull</code> and <code>docker push</code>. <sub><s>Just listening to your bragging</s></sub></p>
+]]></content>
+    <category term="Container Technology"/>
+    <published>2021-04-01T00:00:00.000Z</published>
+  </entry>
+  <entry>
+    <title type="text">How To Run Container - Discussion on the implementation details of creating a container from an image</title>
+    <id>https://blog.shabbywu.cn/en/posts/2021/08/12/how-to-run-container-%E6%B5%85%E8%B0%88%E4%BB%8E%E9%95%9C%E5%83%8F%E5%88%9B%E5%BB%BA%E5%AE%B9%E5%99%A8%E7%9A%84%E5%AE%9E%E7%8E%B0%E7%BB%86%E8%8A%82.html</id>
+    <link href="https://blog.shabbywu.cn/en/posts/2021/08/12/how-to-run-container-%E6%B5%85%E8%B0%88%E4%BB%8E%E9%95%9C%E5%83%8F%E5%88%9B%E5%BB%BA%E5%AE%B9%E5%99%A8%E7%9A%84%E5%AE%9E%E7%8E%B0%E7%BB%86%E8%8A%82.html"/>
+    <updated>2024-03-10T11:33:17.000Z</updated>
+    <summary type="html"><![CDATA[<h2>Preface</h2>
+<p>We are now in the era of containerization, where hardly anyone in development, testing, or operations would be unfamiliar with or unable to use Docker. Using Docker is also straightforward; most of the time, launching a container simply involves executing <code>docker run {your-image-name}</code>, and building an image is as simple as executing <code>docker build dockerfile .</code>.<br>
+Perhaps it's precisely because Docker encapsulates implementation details so thoroughly that I recently realized that we may have only learned <strong>how to use Docker CLI</strong>, rather than understanding how Docker actually operates.<br>
+I will discuss the implementation details related to <code>docker run {your-image-name}</code> in the 『How To Run Container』 series. This article is the second in the series and will introduce the implementation details involved in creating a container from an image.</p>]]></summary>
+    <content type="html"><![CDATA[<h2>Preface</h2>
+<p>We are now in the era of containerization, where hardly anyone in development, testing, or operations would be unfamiliar with or unable to use Docker. Using Docker is also straightforward; most of the time, launching a container simply involves executing <code>docker run {your-image-name}</code>, and building an image is as simple as executing <code>docker build dockerfile .</code>.<br>
+Perhaps it's precisely because Docker encapsulates implementation details so thoroughly that I recently realized that we may have only learned <strong>how to use Docker CLI</strong>, rather than understanding how Docker actually operates.<br>
+I will discuss the implementation details related to <code>docker run {your-image-name}</code> in the 『How To Run Container』 series. This article is the second in the series and will introduce the implementation details involved in creating a container from an image.</p>
+<h2>What Are Images and Containers?</h2>
+<h3>1. What is an Image?</h3>
+<p>As mentioned in my previous article <a href="/en/posts/2021/01/31/how-to-build-images-docker-%E9%95%9C%E5%83%8F%E8%A7%84%E8%8C%83.html" target="_blank">『Docker 镜像规范 v1.2』</a>, an <code>image</code> is an archive that <strong>stores the history of changes made to a file system</strong>. Generally, a image has the following directory structure:</p>
+<div class="language-bash" data-ext="sh" data-title="sh"><pre class="language-bash"><code>.
+├── 036a82c6d65f2fa43a13599661490be3fca1c3d6790814668d4e8c0213153b12
+│&nbsp;&nbsp; ├── VERSION
+│&nbsp;&nbsp; ├── json
+│&nbsp;&nbsp; └── layer.tar
+├── f578fecf2875c8c4e4f88d15b90949fa40c71a0f0231b831f1263c708c2d524d
+│&nbsp;&nbsp; ├── VERSION
+│&nbsp;&nbsp; ├── json
+│&nbsp;&nbsp; └── layer.tar
+├── 6ad733544a6317992a6fac4eb19fe1df577d4dec7529efec28a5bd0edad0fd30.json
+├── manifest.json
+└── repositories
+</code></pre></div><p>When storing changes to the file system, an <code>image</code> defines <strong>a history of changes to a set of file systems</strong> as <code>「image layers」</code>. Each image layer is responsible for recording the differences between the file systems of that layer and the previous layer. The relationships between these image layers are maintained by an <code>image manifest</code>.</p>
+<p>In summary, <strong>an image can be understood simply as a file system composed of multiple image layers stacked on top of each other</strong> (as shown in the diagram below).</p>
+<div class="language-plantuml" data-ext="plantuml" data-title="plantuml"><pre class="language-plantuml"><code><img src="https://www.plantuml.com/plantuml/svg/RGyp5aD1i9zJpDi-x68rSSxmRNDrzjZ9s9XckPBcHU13h6YUOXcu2iwI0vx1T7m3oJM0EoLqJ2FB2Voa5b5eEbQHAhaJXUIQlehpOCTKj1ot2ZNIphzWzrzmZzSTZxPXitalxkEXD59VeM_vxYk_V-KbJ8rGFxzr0W00
+"></code></pre></div><blockquote>
+<p>In fact, the image also contains some basic information, such as the creation date, author, the ID of its parent image, and relevant configurations for runtime. For a more detailed description of image content, please refer to my another article <a href="/en/posts/2021/01/31/how-to-build-images-docker-%E9%95%9C%E5%83%8F%E8%A7%84%E8%8C%83.html" target="_blank">『Docker Image Specification v1.2』</a></p>
+</blockquote>
+<h3>2. What is a Container?</h3>
+<p>According to the definition of OCI (Open Container Initiative), a <code>container</code> is a configurable environment used for <strong>executing processes</strong>, with <strong>resource constraints</strong> and <strong>isolation</strong>. We know that the <strong>resource constraints</strong> and <strong>isolation</strong> of <code>Linux containers</code> are implemented based on <code>Cgroups</code> and <code>Linux namespaces</code> respectively. Both are functionalities provided by the Linux kernel. Cgroups are used to restrict and isolate a group of processes' usage of system resources, while Linux namespaces encapsulate kernel resources (IPC, Network, Mount, PID, UTS, and User), ensuring that different processes operating on the same resource within their respective namespace do not affect processes in other namespaces.</p>
+<p>The relationship between a <code>container</code> and an <code>image</code> is like that of a template and an instance. An image provides the <strong>necessary elements (file system and runtime configuration)</strong> to run a container, but a container can also run without depending on an image. In other words, we can consider an image as a <strong>sufficient but not necessary condition</strong> for a container to run.</p>
+<blockquote>
+<p>For more details on "sufficient but not necessary conditions," interested readers can refer to my previous article <a href="/en/posts/2021/04/01/how-to-build-image-%E4%BB%8E-0-%E5%BC%80%E5%A7%8B%E5%B8%A6%E4%BD%A0%E5%BE%92%E6%89%8B%E6%9E%84%E5%BB%BA-docker-%E9%95%9C%E5%83%8F.html#%E7%85%A7%E7%8C%AB%E7%94%BB%E8%99%8E-%E6%9E%84%E5%BB%BA%E5%8F%AF%E8%BF%90%E8%A1%8C%E7%9A%84%E5%AE%B9%E5%99%A8%E6%8D%86%E7%BB%91%E5%8C%85" target="_blank">『Guide you to build Docker image manually from scratch』</a>. In that article, I demonstrated <strong>how to run a container using an image</strong> and <strong>how to build and run a container without relying on an image</strong>.</p>
+</blockquote>
+<h2>How does Docker create a container from an image?</h2>
+<p>As mentioned earlier, an <code>image</code> is an archive that stores the history of changes made to a file system, while a <code>container</code> is a configurable environment used for <em>executing processes</em> with <strong>resource constraints</strong> and <strong>isolation</strong>. Essentially, an image provides the file system and runtime parameter configuration for a container, and the container is an instance created from an image.</p>
+<p>Next, we will delve into the implementation details of how Docker creates a container from an image.</p>
+<h3>Image Storage and UnionFS</h3>
+<p>Docker's layered image storage design is inspired by <em>UnionFS</em>. <em>UnionFS</em> is a technology that can mount files and directories from multiple independent file systems into a unified file system, masking the underlying details.</p>
+<p>Each image layer in a Docker image is an <strong>incomplete</strong> file system that records the differences between the file systems of that layer and the previous layer. This layered approach gives Docker lighter-weight images (compared to virtual machines), and distributing images only requires downloading the corresponding image layers.</p>
+<p>However, this layered image design also introduces a challenge: <strong>how to delete files from upper layers of an image?</strong></p>
+<p>For this problem, Docker has directly adopted UnionFS's solution: <code>Whiteout</code> and <code>Opaque</code>.</p>
+<h4>Whiteout</h4>
+<p>The concepts of <code>Whiteout</code> and <code>Opaque Whiteout</code> are borrowed from the UnionFS protocol. In Docker images, by using a convention for file naming, the lower layer file system describes which files or directories from the upper layer file system need to be masked. For example, here's a basic layer containing multiple resources:</p>
+<div class="language-bash" data-ext="sh" data-title="sh"><pre class="language-bash"><code>❯ tree .
+.
+└── a
+    ├── b
+    │&nbsp;&nbsp; └── c
+    │&nbsp;&nbsp;     ├── bar
+    │&nbsp;&nbsp;     └── foo
+    └── baz
+
+3 directories, 3 files
+</code></pre></div><p>If the file <code>a/b/c/foo</code> needs to be deleted from the lower layer file system, then the lower layer file system needs to create a hidden file named with <code>.wh.&lt;filename&gt;</code>. Therefore, the lower layer file system should have the following file system structure:</p>
+<div class="language-bash" data-ext="sh" data-title="sh"><pre bash="" class="language-bash"><code>❯ tree . -a
+.
+└── a
+    └── b
+        └── c
+            └── .wh.foo
+
+3 directories, 1 file
+</code></pre></div><h4>Opaque Whiteout</h4>
+<p>In addition to using <code>Whiteout</code> to describe the protocol for deleting individual files, it is also possible to use <code>Opaque Whiteout</code> to describe the deletion of all files within a particular directory.</p>
+<p>Taking the basic file system mentioned earlier as an example, if the lower layer file system wants to delete all files within the <code>a</code> directory, then the lower layer file system needs to create a hidden file named <code>.wh..wh..opq</code> within the <code>a</code> directory. Therefore, the lower layer file system should have the following file system structure:</p>
+<div class="language-bash" data-ext="sh" data-title="sh"><pre bash="" class="language-bash"><code>❯ tree . -a
+.
+└── a
+    └── .wh..wh..opq
+
+1 directory, 1 file
+</code></pre></div><p>Of course, we can achieve equivalent effects to <code>Opaque Whiteout</code> using <code>Whiteout</code> as well. For example, considering the basic file system mentioned earlier, if we want to delete all files within the <code>a</code> directory, we can also obtain equivalent results with the following file system structure:</p>
+<div class="language-bash" data-ext="sh" data-title="sh"><pre bash="" class="language-bash"><code>❯ tree . -a 
+.
+└── a
+    ├── .wh.b
+    └── .wh.baz
+
+1 directory, 2 files
+</code></pre></div><blockquote>
+<p>It's worth noting that unlike <code>Opaque Whiteout</code>, if a new file or directory is added under the <code>a</code> directory, using <code>Whiteout</code> to delete all files in the <code>a</code> directory would require creating a new <code>Whiteout</code> hidden file for this new file or directory. However, when using <code>Opaque Whiteout</code>, this is not necessary.</p>
+</blockquote>
+<h3>ReadOnly &amp; Copy on Write</h3>
+<h4>ReadOnly Layer</h4>
+<p>Docker has designed a storage solution for image content (file system change history) based on UnionFS, while imposing a restriction: <strong>all image layers are read-only, and modifying the content of image layers is not allowed</strong>.</p>
+<p>This restriction not only prevents unexpected changes to container content during runtime<sup>[1]</sup> but also makes container images lighter-weight compared to virtual machines.</p>
+<blockquote>
+<p><sup>[1]</sup>Consider this: if the content of the upper layer file system changes, does the union-mounted file system need to synchronize the changed content?</p>
+</blockquote>
+<figure><img src="/img/镜像层只读样例.png" alt="Example of read-only image layers (using the Ubuntu image as an example)" tabindex="0" loading="lazy"><figcaption>Example of read-only image layers (using the Ubuntu image as an example)</figcaption></figure>
+<p>Based on Docker's excellent image design, each host only needs to store one copy of each image layer, and when distributing images, only the missing image layer content needs to be downloaded, greatly saving storage and network bandwidth.</p>
+<p>Next, how do containers modify content in read-only image layers? This leads us to another technique: <strong>Copy-on-Write</strong>.</p>
+<h4>Copy-on-Write</h4>
+<p><strong>Copy-on-Write (also known as CoW)</strong> is actually an optimization strategy in the field of computer program design. As the name suggests, when multiple users simultaneously request the same resource (such as data in memory or on disk), they initially obtain addresses pointing to the same resource. Only when one user attempts to modify the content of the resource will the system actually make a copy of an exclusive version for that user, while the resource accessed by other users remains unchanged.</p>
+<div class="language-plantuml" data-ext="plantuml" data-title="plantuml"><pre class="language-plantuml"><code><img src="https://www.plantuml.com/plantuml/svg/VP6tSiCX38TtdaBd9JsPquCOq_lC_Iqxk82FafvtZp2ak6wwtwVoSPo4g7rCmu4G0-f4Y0wywJv5Q1jFJJJEYj0tTgIz7i98DttTfTluDY38MDlkW8HkelEG0ddvhqOXVblWXe9BlY7u402hSWssOHNNSgr-wg___QrxtW2tV92WmmjbQpoPPq6vqTiQw01IbWZXoXaRoPSKIwecKrN7-VRXOLRO6o-2ZdV3Yf1LiWkZCsFxDLKbLJLTxedpF76k9yxrH2NgV9MH4pPOqqb7LTw4Qk9HB3h-4sP7l2ylkY7Ttddq9b91l2mZh0WkxU1jWgW98h8E7B11xi7_Y9KM4iNayB2G2GTnGhQTXeDl
+"></code></pre></div><p>Containers introduce Copy-on-Write (Cow) technology, which saves space and time overheads incurred by creating multiple complete copies through <strong>lazy copying</strong>. This technology manifests in containers by adding a read/write layer (R/W Layer) on top of UnionFS for each container. All content within this layer represents all file system changes for that container.</p>
+<blockquote>
+<p>With the help of Cow technology, when building images, it's only necessary to archive the read/write layer of each image layer.
+<img src="/img/容器可读层.jpg" alt="Readable Layer in Containers (using the Ubuntu image as an example)" loading="lazy"></p>
+</blockquote>
+<h2>Hands-on: Creating a Container from an Image Using OverlayFS2</h2>
+<p>The process of starting a container using runc has been thoroughly demonstrated in the previous article <a href="/en/posts/2021/04/01/how-to-build-image-%E4%BB%8E-0-%E5%BC%80%E5%A7%8B%E5%B8%A6%E4%BD%A0%E5%BE%92%E6%89%8B%E6%9E%84%E5%BB%BA-docker-%E9%95%9C%E5%83%8F.html" target="_blank">『从 0 开始带你徒手构建 Docker 镜像』</a>. Here, let's review the process briefly. To directly run a container, it's quite simple:</p>
+<ol>
+<li>Organize the container as a Filesystem Bundle.</li>
+<li>Write correct configurations into <code>config.json</code>.</li>
+<li>Populate <code>$root.path</code> with appropriate and available files.</li>
+<li>Execute <code>runc run $containerid</code> to start the container.</li>
+</ol>
+<p>However, unlike the previous article where we built Docker images from scratch, this time we will obtain the image from DockerHub, fully simulating the process involved in <code>docker run {your-image-name}</code>.</p>
+<h3>1. Obtaining the Image</h3>
+<p>We know that DockerHub can be accessed without Docker Engine, and its interface specification follows Docker Registry API V2. This means we only need to use the REST API to obtain images from DockerHub. Here, we'll use an open-source script <a href="https://raw.githubusercontent.com/moby/moby/master/contrib/download-frozen-image-v2.sh" target="_blank" rel="noopener noreferrer">download-frozen-image-v2.sh</a>. This script implements processes like <code>Token authentication</code>, <code>pulling image manifests</code>, and <code>pulling image layers</code> using tools like curl and jq. Below is a demonstration of how to use this script to pull the alpine/git:v2.30.2 image.</p>
+<div class="language-bash" data-ext="sh" data-title="sh"><pre bash="" class="language-bash"><code>❯ ./download-frozen-image-v2.sh -h
+usage: ./download-frozen-image-v2.sh dir image[:tag][@digest] ...
+       ./download-frozen-image-v2.sh /tmp/old-hello-world hello-world:latest@sha256:8be990ef2aeb16dbcb9271ddfe2610fa6658d13f6dfb8bc72074cc1ca36966a7
+
+❯ ./download-frozen-image-v2.sh alpine alpine/git:v2.30.2
+Downloading 'alpine/git:v2.30.2@v2.30.2' (3 layers)...
+#=#=-  ##     #
+############################################################################################################################################################################ 100.0%
+#=#=-  ##     #
+############################################################################################################################################################################ 100.0%
+#=#=-  ##     #
+############################################################################################################################################################################ 100.0%
+
+Download of images into 'alpine' complete.
+Use something like the following to load the result into a Docker daemon:
+  tar -cC 'alpine' . | docker load
+
+## 查看镜像结构
+❯ tree alpine/
+alpine/
+├── 09af0b97aec5975955488d528e8535d2678b75cb29adb6827abd85b52802d1b1
+│&nbsp;&nbsp; ├── json
+│&nbsp;&nbsp; ├── layer.tar
+│&nbsp;&nbsp; └── VERSION
+├── 86f68eb8bb2057574a5385c9ce7528b70632e1c750fb36d5ac76c0a5460f5d95
+│&nbsp;&nbsp; ├── json
+│&nbsp;&nbsp; ├── layer.tar
+│&nbsp;&nbsp; └── VERSION
+├── b86cef5f7cf032b9793fe2a4fb18ddf606df8ea9e41d4c2086749bf943c2985b.json
+├── d8aa90f099f0f17f3ad894f0909e6bfd026cc4c76eec03e3e50391af42f41976
+│&nbsp;&nbsp; ├── json
+│&nbsp;&nbsp; ├── layer.tar
+│&nbsp;&nbsp; └── VERSION
+├── manifest.json
+└── repositories
+
+3 directories, 12 files
+</code></pre></div><h3>2. Building the Overlay File System</h3>
+<p>After obtaining the image, we can start organizing the image content into a Filesystem Bundle. Here, we'll follow the process outlined in the <a href="https://github.com/moby/moby/blob/master/daemon/graphdriver/overlay2/overlay.go" target="_blank" rel="noopener noreferrer">Docker Overlay2 Driver</a> to construct the container's rootfs.</p>
+<blockquote>
+<p>OverlayFS is a modern union file system similar to AUFS but with faster performance and simpler implementation. It has been integrated into Linux kernel versions 3.8 and above and is recommended by Docker for use as the file system in production environments.</p>
+</blockquote>
+<div class="language-bash" data-ext="sh" data-title="sh"><pre class="language-bash"><code>## Extracting the image content
+### Determining the order of image layers
+❯ cat alpine/manifest.json
+[
+  {
+    "Config": "b86cef5f7cf032b9793fe2a4fb18ddf606df8ea9e41d4c2086749bf943c2985b.json",
+    "RepoTags": [
+      "alpine/git:v2.30.2"
+    ],
+    "Layers": [
+      "86f68eb8bb2057574a5385c9ce7528b70632e1c750fb36d5ac76c0a5460f5d95/layer.tar",
+      "09af0b97aec5975955488d528e8535d2678b75cb29adb6827abd85b52802d1b1/layer.tar",
+      "d8aa90f099f0f17f3ad894f0909e6bfd026cc4c76eec03e3e50391af42f41976/layer.tar"
+    ]
+  }
+]
+
+### Creating directories for extracting image layers
+❯ mkdir -p /tmp/overlay/image/1 /tmp/overlay/image/2 /tmp/overlay/image/3 
+
+### Extracting the content of image layers and arranging them in order
+❯ tar -C /tmp/overlay/image/1 -xf alpine/86f68eb8bb2057574a5385c9ce7528b70632e1c750fb36d5ac76c0a5460f5d95/layer.tar
+❯ tar -C /tmp/overlay/image/2 -xf alpine/09af0b97aec5975955488d528e8535d2678b75cb29adb6827abd85b52802d1b1/layer.tar 
+❯ tar -C /tmp/overlay/image/3 -xf alpine/d8aa90f099f0f17f3ad894f0909e6bfd026cc4c76eec03e3e50391af42f41976/layer.tar
+
+## Building OverlayFS
+### Creating mount points (empty directories)
+❯ mkdir -p /tmp/overlay/container-a/merged /tmp/overlay/container-a/upperdir /tmp/overlay/container-a/workdir
+
+### Mounting the image file system to the /tmp/overlay/container-a/merged directory, where the content of the read/write layer of the image is stored in /tmp/overlay/container-a/upperdir
+❯ cd /tmp/overlay/ &amp;&amp; \
+  mount -t overlay overlay \
+  -o lowerdir=image/1:image/2:image/3,upperdir=container-a/upperdir,workdir=container-a/workdir \
+  /tmp/overlay/container-a/merged
+
+## Verifying mount records
+❯ mount |grep overlay
+overlay on /tmp/overlay/container-a/merged type overlay (rw,relatime,lowerdir=image/1:image/2:image/3,upperdir=container-a/upperdir,workdir=container-a/workdir)
+
+## Verifying that changes in the read/write layer do not affect the lower layer file system
+❯ echo "1" &gt; /tmp/overlay/container-a/merged/a
+
+## Only the read/write layer (upperdir) will be written to
+❯ cat /tmp/overlay/container-a/upperdir/a
+1
+
+## The lower layer file system (lowerdir) remains unchanged
+❯ cat image/1/a
+cat: image/1/a: No such file or directory
+❯ cat image/2/a
+cat: image/2/a: No such file or directory
+❯ cat image/3/a
+cat: image/3/a: No such file or directory
+
+## However, modifying the lower layer file system after mounting will reflect in the mounted union file system
+❯ echo "2" &gt; image/1/b
+❯ cat container-a/merged/b
+2
+
+## Then delete 'b' in the merged layer and check the content of the read/write layer
+❯ rm container-a/merged/b &amp;&amp; ls -ahl container-a/upperdir
+总用量 8.0K
+drwxr-xr-x 2 root root 4.0K 8月  12 17:08 .
+drwxr-xr-x 5 root root 4.0K 8月  12 12:05 ..
+c</code></pre></div>]]></content>
+    <category term="Container Technology"/>
+    <published>2021-08-12T00:00:00.000Z</published>
+  </entry>
+  <entry>
+    <title type="text">How To Build Images: Step-by-step guide you to access Docker Registry</title>
+    <id>https://blog.shabbywu.cn/en/posts/2021/12/05/how-to-build-image-%E6%89%8B%E6%8A%8A%E6%89%8B%E6%95%99%E4%BD%A0%E5%A6%82%E4%BD%95%E6%8E%A8%E9%95%9C%E5%83%8F%E8%87%B3-docker-registry.html</id>
+    <link href="https://blog.shabbywu.cn/en/posts/2021/12/05/how-to-build-image-%E6%89%8B%E6%8A%8A%E6%89%8B%E6%95%99%E4%BD%A0%E5%A6%82%E4%BD%95%E6%8E%A8%E9%95%9C%E5%83%8F%E8%87%B3-docker-registry.html"/>
+    <updated>2024-03-10T11:33:17.000Z</updated>
+    <summary type="html"><![CDATA[<h2>Preface</h2>
+<p>We are now in the era of containerization, where hardly anyone in development, testing, or operations would be unfamiliar with or unable to use Docker. Using Docker is also straightforward; most of the time, launching a container simply involves executing <code>docker run {your-image-name}</code>, and building an image is as simple as executing <code>docker build dockerfile .</code>.<br>
+Perhaps it's precisely because Docker encapsulates implementation details so thoroughly that I recently realized that we may have only learned <strong>how to use Docker CLI</strong>, rather than understanding how Docker actually operates.<br>
+I will discuss the implementation details related to <code>Docker build dockerfile .</code> in the 『How To Build Image』 series. This article is the second in the series and will introduce the implementation details involved in creating a container from an image. This article is the third installment of the series and will introduce the interaction process and implementation details between <code>Docker Daemon</code> and <code>Docker Registry</code>.</p>]]></summary>
+    <content type="html"><![CDATA[<h2>Preface</h2>
+<p>We are now in the era of containerization, where hardly anyone in development, testing, or operations would be unfamiliar with or unable to use Docker. Using Docker is also straightforward; most of the time, launching a container simply involves executing <code>docker run {your-image-name}</code>, and building an image is as simple as executing <code>docker build dockerfile .</code>.<br>
+Perhaps it's precisely because Docker encapsulates implementation details so thoroughly that I recently realized that we may have only learned <strong>how to use Docker CLI</strong>, rather than understanding how Docker actually operates.<br>
+I will discuss the implementation details related to <code>Docker build dockerfile .</code> in the 『How To Build Image』 series. This article is the second in the series and will introduce the implementation details involved in creating a container from an image. This article is the third installment of the series and will introduce the interaction process and implementation details between <code>Docker Daemon</code> and <code>Docker Registry</code>.</p>
+<h2>Relationship between Docker Daemon and Docker Registry</h2>
+<p>The command we commonly use, <code>docker</code>, is referred to as <code>Docker CLI</code>. <code>Docker CLI</code> provides users with commands to operate images, containers, networks, and volumes in the command line. However, the process that actually interacts with the corresponding resource entities is <code>Docker Daemon</code>.</p>
+<p><code>Docker</code> follows a typical client/server architecture, where <code>Docker Daemon</code> serves as the backend service component, responsible for managing all Docker resources on the host machine and communicating with other daemons.</p>
+<p><code>Docker Registry</code> is responsible for storing and distributing Docker images. When we invoke <code>docker pull</code> and <code>docker push</code>, <code>Docker Daemon</code> retrieves images from or pushes images to <code>Docker Registry</code>.
+<img src="/img/DockerCS架构.png" alt="Docker architecture" loading="lazy"></p>
+<h2>Process of Docker Daemon Pulling Images</h2>
+<p>As mentioned earlier, when executing <code>docker pull</code> in the command line, it essentially instructs <code>Docker Daemon</code> to pull the required image from <code>Docker Registry</code>. In my previous article titled <a href="/en/posts/2021/04/01/how-to-build-image-%E4%BB%8E-0-%E5%BC%80%E5%A7%8B%E5%B8%A6%E4%BD%A0%E5%BE%92%E6%89%8B%E6%9E%84%E5%BB%BA-docker-%E9%95%9C%E5%83%8F.html#%E5%BD%92%E6%A1%A3%E5%B0%81%E5%8C%85" target="_blank">『Guide you to build Docker image manually from scratch』</a> the process of building images was demonstrated. Is an image simply an archive package containing <code>config.json</code> (image configuration), <code>manifest.json</code> (image manifest), and <code>layer.tar</code> (image layer content)?</p>
+<p>The answer is <em>NO</em>. When distributing images, Docker Registry distributes them based on image layers rather than directly distributing the image itself.</p>
+<p>However, this introduces another issue. As described in my another article titled <a href="/en/posts/2021/01/31/how-to-build-images-docker-%E9%95%9C%E5%83%8F%E8%A7%84%E8%8C%83.html" target="_blank">『Docker Image Specification v1.2』</a> images are organized based on a certain directory structure. If distribution is based on image layers, how does <code>Docker Daemon</code> know where to download each image layer from?</p>
+<p>To solve this issue, another concept needs to be introduced: <code>Docker Image Manifest</code>.</p>
+<h3>Docker Image Manifest</h3>
+<p>The <code>Docker Image Manifest</code> is different from <code>manifest.json</code>. The former is a manifest file used to describe images in the Docker Registry, while the latter is a manifest file describing the contents exported from an image.</p>
+<p>Currently, Docker Registry supports two different formats of <code>Docker Image Manifest</code>: <a href="https://github.com/distribution/distribution/blob/main/docs/spec/manifest-v2-1.md" target="_blank" rel="noopener noreferrer">Image Manifest Version 2, Schema 1</a> and <a href="https://github.com/distribution/distribution/blob/main/docs/spec/manifest-v2-2.md" target="_blank" rel="noopener noreferrer">Image Manifest Version 2, Schema 2</a>.</p>
+<p>Below is an example of a manifest in Schema 2 format:</p>
+<div class="language-json" data-ext="json" data-title="json"><pre class="language-json"><code>{
+    "schemaVersion": 2,
+    "mediaType": "application/vnd.docker.distribution.manifest.v2+json",
+    "config": {
+        "mediaType": "application/vnd.docker.container.image.v1+json",
+        "size": 7023,
+        "digest": "sha256:b5b2b2c507a0944348e0303114d8d93aaaa081732b86451d9bce1f432a537bc7"
+    },
+    "layers": [
+        {
+            "mediaType": "application/vnd.docker.image.rootfs.diff.tar.gzip",
+            "size": 32654,
+            "digest": "sha256:e692418e4cbaf90ca69d05a66403747baa33ee08806650b51fab815ad7fc331f"
+        },
+        {
+            "mediaType": "application/vnd.docker.image.rootfs.diff.tar.gzip",
+            "size": 16724,
+            "digest": "sha256:3c3a4604a545cdc127456d94e421cd355bca5b528f4a9c1905b15da2eb4a4c6b"
+        },
+        {
+            "mediaType": "application/vnd.docker.image.rootfs.diff.tar.gzip",
+            "size": 73109,
+            "digest": "sha256:ec4b8955958665577945c89419d1af06b5f7636b4ac3da7f12184802ad867736"
+        }
+    ]
+}
+</code></pre></div><div class="hint-container tip">
+<p class="hint-container-title">Tips</p>
+<p>It is worth noting that the corresponding type of <strong>application/vnd.docker.container.image.v1+json</strong> is the <code>Config</code> in <a href="/en/posts/2021/01/31/how-to-build-images-docker-%E9%95%9C%E5%83%8F%E8%A7%84%E8%8C%83.html" target="_blank">『Docker Image Specification v1.2』</a> (also known as <code>Image JSON </code>).</p>
+</div>
+<h3>Summary of Process</h3>
+<p>The <code>Docker Registry</code> uses <strong>digests</strong> to locate image layers and image configurations. The <code>Docker Image Manifest</code> describes the digests of image configurations and image layers, as well as their corresponding file types. Finally, the <code>Docker Daemon</code> only needs to download and parse the manifest one by one.</p>
+<p>In summary, the process of <code>docker pull</code> can be outlined as follows:</p>
+<div class="language-plantuml" data-ext="plantuml" data-title="plantuml"><pre class="language-plantuml"><code><img src="https://www.plantuml.com/plantuml/svg/SYWk0JH2refsmp0OtlqKAlVWNkQfpBDhAubgK2eh1zw-eUB5IGpVRqMx5CtecBkUNK21jeiHjjljFNFt-PHvRZ5n7Wi5ADaQ8TbC5HQ5IZZ1tFS1Qoegntl62BPe5Uw-ir9mdedsY5AWu8yEivADSUYa2cw_OcSZEEiQ13nGqG8L2sZpp-YZnP39SFiDwzJi5-RkSlcSzpcozN_tWkEic1M-sO8UE8Ed6eikbptM5nIgZdEcZrySLApJV-QLeIZBaF0aw7h_-6TPGa_sqx75UmPZGNFjIG_KOtrjIF7knq1jNyYUgbz2x1kA2BTVi_odXZAqmWvBwV4owq07YGKNvXIsdggYkXEhnBqGKxZzNZWlBaNwKLdmubsdqjypfi-rvd4FrgNu4m00
+"></code></pre></div><h2>Docker Daemon Image Push Process</h2>
+<p>The workflow for pushing images is completely opposite to pulling images. The <code>Docker Daemon</code> first creates an image manifest. Then, it needs to push all image layers to the <code>Docker Registry</code>. Only when all image layers are completely pushed to the image repository, the image configuration is uploaded to the image repository. Finally, the image manifest is pushed. The process of <code>docker push</code> can be outlined as follows:</p>
+<div class="language-plantuml" data-ext="plantuml" data-title="plantuml"><pre class="language-plantuml"><code><img src="https://www.plantuml.com/plantuml/svg/RP35ViH02CRlynJKlVUw7kjwvhSX2TsHT61MthxH-Wc7Fz-fA4PDpfhMCVjP68qfGfMaXDtTtGEpVzbbBf5Sy32AX4e2xB0WSEWv9z43Oo9LTGNsx-h9lcfnJb50w3sHLqPhvtKZvx1-6KYWN_n01Ol6EQ2DXDaSIfmGQ4aWwEZxgfED9krX_IPicFtdoWRCljTX5BoILz3mU_c18IjabivgZfhcjMIb_SSnLtN1PvmF-DEIBS7wTOZqymaDhIOrWW_Q482hUpRCBuwQ8ESYHLGEDMWNxhv9y1l_KGtJl-JyjrKqLEQqfatEVW00
+"></code></pre></div><h2>An Essential Step Beyond the Process: User Authentication</h2>
+<p>So far, we have fully demonstrated the operation process of pulling and pushing images. However, there is another crucial step that has not yet been introduced, and that is <strong>user authentication</strong>.</p>
+<p>Docker Registry implements user identity authentication using a central authentication service. The specific authentication process is illustrated as follows:
+<img src="/img/Docker-Registry-v2-auth-via-central-service.png" alt="v2-auth-via-central-service" loading="lazy"></p>
+<ol>
+<li><code>Docker Daemon</code> attempts to perform pull/push operations.</li>
+<li>If <code>Docker Registry</code> requires user authentication, it should return an <code>HTTP 401 Unauthorized</code> response, along with a description of how to authenticate the user in the response headers (based on the WWW-Authenticate protocol).</li>
+<li><code>Docker Daemon</code> authenticates the user with the central authentication service.</li>
+<li>The central authentication service returns a <code>Bearer token</code> to <code>Docker Daemon</code>, representing the user's identity.</li>
+<li><code>Docker Daemon</code> retries the request sent in <strong>Step 1</strong>, including the <code>Bearer token</code> returned in <strong>Step 4</strong> in the request header.</li>
+<li><code>Docker Registry</code> authenticates the <code>Bearer token</code> included in the request header. Once verified, it responds normally.</li>
+</ol>
+<h2>Getting Started</h2>
+<p>In the previous article, <a href="/en/posts/2021/04/01/how-to-build-image-%E4%BB%8E-0-%E5%BC%80%E5%A7%8B%E5%B8%A6%E4%BD%A0%E5%BE%92%E6%89%8B%E6%9E%84%E5%BB%BA-docker-%E9%95%9C%E5%83%8F.html#%E5%BD%92%E6%A1%A3%E5%B0%81%E5%8C%85" target="_blank">『Guide you to build Docker image manually from scratch』</a>, I demonstrated how to build a runnable image from scratch』. Now, let's try pushing that image to the official Docker Registry -- DockerHub.</p>
+<h3>1. Create Docker Image Manifest</h3>
+<p>Following the process outlined in the previous article, rebuild the image. After calculating the sha256 digest of both the <code>image configuration (config.json)</code> and the <code>image layer (layer.tar)</code>, you can write the <code>Docker Image Manifest</code>. The resulting JSON file will look like this:</p>
+<div class="language-json" data-ext="json" data-title="json"><pre class="language-json"><code>{
+    "schemaVersion": 2,
+    "mediaType": "application/vnd.docker.distribution.manifest.v2+json",
+    "config": {
+        "mediaType": "application/vnd.docker.container.image.v1+json",
+        "size": 546,
+        "digest": "sha256:2bd297f395ef7193402fbf58b1010655c7bf27b22c38545a63c71af402f73dc5"
+    },
+    "layers": [
+        {
+            "mediaType": "application/vnd.docker.image.rootfs.diff.tar.gzip",
+            "size": 10240,
+            "digest": "sha256:cc668e407245ebdacbb7ac6d5ead798556adb5aebfcdd7fa2ca777bed3a83fed"
+        }
+    ]
+}
+</code></pre></div><h3>2. Upload Image Layers and Image Configuration to Docker Registry</h3>
+<p>According to the <a href="https://github.com/distribution/distribution/blob/main/docs/spec/api.md#monolithic-upload" target="_blank" rel="noopener noreferrer">API documentation</a>, we will use the monolithic upload method to push the image layers and image configuration to the Docker Registry.</p>
+<div class="language-bash" data-ext="sh" data-title="sh"><pre class="language-bash"><code>## Environment variables involved:
+## - your_username: Your DockerHub account username
+## - your_password: Password for your DockerHub account
+## - your_token: Token or access_token returned from the authentication endpoint
+
+## [User Authentication] Initiate the upload of image configuration
+➜ curl -X POST "https://registry.hub.docker.com/v2/${your_username}/runc-hello/blobs/uploads/" -v
+
+## HTTP 401 Unauthorized
+## &lt; HTTP/1.1 401 Unauthorized
+## &lt; docker-distribution-api-version: registry/2.0
+## &lt; www-authenticate: Bearer realm="https://auth.docker.io/token",service="registry.docker.io",scope="repository:${your_username}/runc-hello:pull,push"
+
+## [User Authentication] Perform user authentication
+➜ curl -u "${your_username}:${your_password}" "https://auth.docker.io/token?service=registry.docker.io&amp;scope=repository:${your_username}/runc-hello:pull,push"
+## {
+##  "token": "...",
+##  "access_token": "...",
+##  "expires_in": 300,
+##  "issued_at": "2021-12-07T01:50:05.654533932Z"
+## }
+
+## [Upload image configuration] Reinitiate the upload image configuration operation
+➜ curl -H "Authorization: Bearer ${your_token}" -X POST "https://registry.hub.docker.com/v2/${your_username}/runc-hello/blobs/uploads/" -v
+## &lt; HTTP/1.1 202 Accepted
+## &lt; content-length: 0
+## &lt; docker-distribution-api-version: registry/2.0
+## &lt; docker-upload-uuid: 53231064-74b5-48d5-8cbd-5f810fa99a0c
+## &lt; location: https://registry.hub.docker.com/v2/435495971/runc-hello/blobs/uploads/53231064-74b5-48d5-8cbd-5f810fa99a0c?_state=S8Kt2Fx6i-CX-C7j4kS9RahBhxtS5BySKuJoaKup6QJ7Ik5hbWUiOiI0MzU0OTU5NzEvcnVuYy1oZWxsbyIsIlVVSUQiOiI1MzIzMTA2NC03NGI1LTQ4ZDUtOGNiZC01ZjgxMGZhOTlhMGMiLCJPZmZzZXQiOjAsIlN0YXJ0ZWRBdCI6IjIwMjEtMTItMDdUMDI6NDE6MjEuODgwMDcwOTI5WiJ9
+
+## [Upload image configuration] Start uploading image configuration content
+➜ curl -H "Authorization: Bearer ${your_token}" -X PUT "https://registry.hub.docker.com/v2/${your_username}/runc-hello/blobs/uploads/53231064-74b5-48d5-8cbd-5f810fa99a0c?_state=S8Kt2Fx6i-CX-C7j4kS9RahBhxtS5BySKuJoaKup6QJ7Ik5hbWUiOiI0MzU0OTU5NzEvcnVuYy1oZWxsbyIsIlVVSUQiOiI1MzIzMTA2NC03NGI1LTQ4ZDUtOGNiZC01ZjgxMGZhOTlhMGMiLCJPZmZzZXQiOjAsIlN0YXJ0ZWRBdCI6IjIwMjEtMTItMDdUMDI6NDE6MjEuODgwMDcwOTI5WiJ9&amp;digest=sha256:2bd297f395ef7193402fbf58b1010655c7bf27b22c38545a63c71af402f73dc5" --upload-file config.json -v
+## Successful, HTTP 201
+## &lt; HTTP/1.1 201 Created
+## &lt; content-length: 0
+## &lt; docker-content-digest: sha256:2bd297f395ef7193402fbf58b1010655c7bf27b22c38545a63c71af402f73dc5
+
+
+## [Upload image layer] Initiate the upload image layer request
+➜ curl -H "Authorization: Bearer ${your_token}" -X POST "https://registry.hub.docker.com/v2/${your_username}/runc-hello/blobs/uploads/" -v
+## &lt; HTTP/1.1 202 Accepted
+## &lt; content-length: 0
+## &lt; docker-distribution-api-version: registry/2.0
+## &lt; docker-upload-uuid: 34efca43-27ed-4806-a74e-6cbea2d222f2
+## &lt; location: https://registry.hub.docker.com/v2/435495971/runc-hello/blobs/uploads/34efca43-27ed-4806-a74e-6cbea2d222f2?_state=O7lkfqKiEF-Ryqhms-_CnCsmd76kDtt_HjuprAebwJN7Ik5hbWUiOiI0MzU0OTU5NzEvcnVuYy1oZWxsbyIsIlVVSUQiOiIzNGVmY2E0My0yN2VkLTQ4MDYtYTc0ZS02Y2JlYTJkMjIyZjIiLCJPZmZzZXQiOjAsIlN0YXJ0ZWRBdCI6IjIwMjEtMTItMDdUMDI6NDY6MzEuNTY2ODMwNjI3WiJ9
+
+## [Upload image layer] Start uploading image layer content
+➜ curl -H "Authorization: Bearer ${your_token}" -X PUT "https://registry.hub.docker.com/v2/${your_username}/runc-hello/blobs/uploads/34efca43-27ed-4806-a74e-6cbea2d222f2?_state=O7lkfqKiEF-Ryqhms-_CnCsmd76kDtt_HjuprAebwJN7Ik5hbWUiOiI0MzU0OTU5NzEvcnVuYy1oZWxsbyIsIlVVSUQiOiIzNGVmY2E0My0yN2VkLTQ4MDYtYTc0ZS02Y2JlYTJkMjIyZjIiLCJPZmZzZXQiOjAsIlN0YXJ0ZWRBdCI6IjIwMjEtMTItMDdUMDI6NDY6MzEuNTY2ODMwNjI3WiJ9&amp;digest=sha256:cc668e407245ebdacbb7ac6d5ead798556adb5aebfcdd7fa2ca777bed3a83fed" --upload-file layer.tar -v
+## Successful, HTTP 201
+## &lt; HTTP/1.1 201 Created
+## &lt; content-length: 0
+## &lt; docker-content-digest: sha256:cc668e407245ebdacbb7ac6d5ead798556adb5aebfcdd7fa2ca777bed3a83fed
+## &lt; docker-distribution-api-version: registry/2.0
+## &lt; location: https://registry.hub.docker.com/v2/${your_username}/runc-hello/blobs/sha256:cc668e407245ebdacbb7ac6d5ead798556adb5aebfcdd7fa2ca777bed3a83fed
+</code></pre></div><h3>3. Upload image list</h3>
+<p>The example in Docker's official documentation uses Manifest Schema 1, which contains very complex content, but in fact, Schema 2 can also be used to create an image manifest.</p>
+<div class="language-bash" data-ext="sh" data-title="sh"><pre class="language-bash"><code>➜ curl -H "Authorization: Bearer ${your_token}" -X PUT "https://registry.hub.docker.com/v2/${your_username}/runc-hello/manifests/latest" -H "Content-Type: application/vnd.docker.distribution.manifest.v2+json" -v -d '{
+    "schemaVersion": 2,
+    "mediaType": "application/vnd.docker.distribution.manifest.v2+json",
+    "config": {
+        "mediaType": "application/vnd.docker.container.image.v1+json",
+        "size": 546,
+        "digest": "sha256:2bd297f395ef7193402fbf58b1010655c7bf27b22c38545a63c71af402f73dc5"
+    },
+    "layers": [
+        {
+            "mediaType": "application/vnd.docker.image.rootfs.diff.tar.gzip",
+            "size": 10240,
+            "digest": "sha256:cc668e407245ebdacbb7ac6d5ead798556adb5aebfcdd7fa2ca777bed3a83fed"
+        }
+    ]
+}'
+## Successful, HTTP 201
+## &lt; HTTP/1.1 201 Created
+## &lt; docker-content-digest: sha256:c4c42af74cf13c704100d9a7583d106d90f737ffb7dc12593022884986fc41dc
+## &lt; docker-distribution-api-version: registry/2.0
+## &lt; location: https://registry.hub.docker.com/v2/${your_username}/runc-hello/manifests/sha256:c4c42af74cf13c704100d9a7583d106d90f737ffb7dc12593022884986fc41dc
+</code></pre></div><h3>4. Verify</h3>
+<div class="language-bash" data-ext="sh" data-title="sh"><pre class="language-bash"><code>➜ docker pull 435495971/runc-hello:latest
+## latest: Pulling from 435495971/runc-hello
+## cc668e407245: Pull complete
+## Digest: sha256:c4c42af74cf13c704100d9a7583d106d90f737ffb7dc12593022884986fc41dc
+## Status: Downloaded newer image for 435495971/runc-hello:latest
+## docker.io/435495971/runc-hello:latest
+
+➜ docker run --rm 435495971/runc-hello:latest
+Hello runc!
+</code></pre></div><h2>Conclusion</h2>
+<p>This article is the third installment of the 『How To Build Images』 series. It begins by introducing the relationship between <code>Docker Daemon</code> and <code>Docker Registry</code>. It then provides a detailed explanation of the hidden operations behind <code>docker pull</code> and <code>docker push</code>. Finally, using the example of building a runnable image from the previous article <a href="/en/posts/2021/04/01/how-to-build-image-%E4%BB%8E-0-%E5%BC%80%E5%A7%8B%E5%B8%A6%E4%BD%A0%E5%BE%92%E6%89%8B%E6%9E%84%E5%BB%BA-docker-%E9%95%9C%E5%83%8F.html#%E5%BD%92%E6%A1%A3%E5%B0%81%E5%8C%85" target="_blank">『Guide you to build Docker image manually from scratch』</a>, it fully demonstrates the steps to push an image to DockerHub.</p>
+<p>Up to this point, we have mastered the basic knowledge of image distribution and uploading. The next article in this series will delve into the hidden details behind <code>docker build dockerfile .</code> and will also introduce Google's solution for building images within containers, known as kaniko.</p>
+<h2>Appendix</h2>
+<h3>Step-by-Step Guide to Pulling Images from Docker Registry</h3>
+<p>Due to space constraints, the 「Getting Started」 section of the main text only demonstrated the process of pushing images. Here, we continue to explore the steps involved in pulling images.</p>
+<h4>1. Downloading Image Manifest</h4>
+<p>When downloading the image manifest, Docker Registry defaults to returning <code>Schema 1</code>. If you wish to receive the <code>Schema 2</code> version of the manifest, you need to specify <code>Accept: application/vnd.docker.distribution.manifest.v2+json</code>.</p>
+<div class="language-bash" data-ext="sh" data-title="sh"><pre class="language-bash"><code>➜ curl -H "Accept: application/vnd.docker.distribution.manifest.v2+json" -H "Authorization: Bearer ${your_token}" "https://registry.hub.docker.com/v2/${your_username}/runc-hello/manifests/latest"
+## {
+##     "schemaVersion": 2,
+##     "mediaType": "application/vnd.docker.distribution.manifest.v2+json",
+##     "config": {
+##         "mediaType": "application/vnd.docker.container.image.v1+json",
+##         "size": 546,
+##         "digest": "sha256:2bd297f395ef7193402fbf58b1010655c7bf27b22c38545a63c71af402f73dc5"
+##     },
+##     "layers": [
+##         {
+##             "mediaType": "application/vnd.docker.image.rootfs.diff.tar.gzip",
+##             "size": 10240,
+##             "digest": "sha256:cc668e407245ebdacbb7ac6d5ead798556adb5aebfcdd7fa2ca777bed3a83fed"
+##         }
+##     ]
+## }
+</code></pre></div><h4>2. Downloading Image Configuration and Image Layers</h4>
+<div class="language-bash" data-ext="sh" data-title="sh"><pre class="language-bash"><code>## Download the image configuration
+➜ curl -H "Authorization: Bearer ${your_token}" "https://registry.hub.docker.com/v2/${your_username}/runc-hello/blobs/sha256:2bd297f395ef7193402fbf58b1010655c7bf27b22c38545a63c71af402f73dc5" -o 2bd297f395ef7193402fbf58b1010655c7bf27b22c38545a63c71af402f73dc5 -L
+
+## Verify the image configuration
+➜ cat 2bd297f395ef7193402fbf58b1010655c7bf27b22c38545a63c71af402f73dc5
+{"architecture":"amd64","config":{"User":"","Tty":false,"Env":["PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin"],"Cmd":["/hello"],"Volumes":null,"WorkingDir":"/","Entrypoint":null,"Labels":null},"created":"1970-01-01T00:00:00.0Z","docker_version":"20.10.5","history":[{"created":"1970-01-01T00:00:00.0Z","created_by":"nasm hello.nasm -f elf64 -o hello.o &amp;&amp; ld hello.o -o hello &amp;&amp; cp hello /hello"}],"os":"linux","rootfs":{"type":"layers","diff_ids":["sha256:cc668e407245ebdacbb7ac6d5ead798556adb5aebfcdd7fa2ca777bed3a83fed"]}}
+
+## Download the image layers
+➜ curl -H "Authorization: Bearer ${your_token}" "https://registry.hub.docker.com/v2/${your_username}/runc-hello/blobs/sha256:cc668e407245ebdacbb7ac6d5ead798556adb5aebfcdd7fa2ca777bed3a83fed" -o cc668e407245ebdacbb7ac6d5ead798556adb5aebfcdd7fa2ca777bed3a83fed -L
+
+## Verify the image layers
+➜ tar -tf cc668e407245ebdacbb7ac6d5ead798556adb5aebfcdd7fa2ca777bed3a83fed
+hello
+</code></pre></div><h4>3. Storing Images in Specific Directories</h4>
+<p>Although the Docker Registry interface is simple, the Docker Daemon itself needs to store the corresponding files in specific directories. The specific process includes:</p>
+<ul>
+<li>Storing the image configuration in the <code>graph</code> directory under <code>image/${storage_driver}/imagedb/content/sha256/</code>.</li>
+<li>Extracting the contents of the image layers into the <code>graph</code> directory under <code>${storage_driver}/${cache_id}</code>.</li>
+<li>Storing the image layer records in the <code>graph</code> directory under <code>image/${storage_driver}/layerdb/content/sha256/</code>.</li>
+<li>Recording the association between images and tags in the <code>graph</code> directory under <code>image/${storage_driver}/repositories.json</code>.</li>
+</ul>
+<p>The following demonstrates the corresponding operations:</p>
+<div class="language-bash" data-ext="sh" data-title="sh"><pre class="language-bash"><code>## Extract the current graph path
+➜ graph=`docker info|grep -Eo "Docker Root Dir: .*" | sed -r "s/Docker Root Dir: (.*)/\1/g"`
+
+## Extract Storage Driver Type
+➜ storage_driver=`docker info|grep -Eo "Storage Driver: .*" | sed -r "s/Storage Driver: (.*)/\1/g"`
+
+## Storage mirroring configuration
+➜ cp 2bd297f395ef7193402fbf58b1010655c7bf27b22c38545a63c71af402f73dc5 "${graph}/image/${storage_driver}/imagedb/content/sha256/2bd297f395ef7193402fbf58b1010655c7bf27b22c38545a63c71af402f73dc5"
+
+## Build image layer content
+### 1. generate random cache-id
+➜ cache_id=`cat /proc/sys/kernel/random/uuid | md5sum | awk '{print $1}'`
+### 2. Create mapping directory
+➜ mkdir -p "${graph}/${storage_driver}/${cache_id}"
+➜ touch "${graph}/${storage_driver}/${cache_id}/committed"
+➜ mkdir "${graph}/${storage_driver}/${cache_id}/diff"
+### 3. Unzip the image layer to the diff directory
+➜ tar -xf cc668e407245ebdacbb7ac6d5ead798556adb5aebfcdd7fa2ca777bed3a83fed -C "${graph}/${storage_driver}/${cache_id}/diff"
+### 4. generate short ID (26 bits long)
+➜ lid=`cat /proc/sys/kernel/random/uuid | md5sum | awk '{print substr($1,0,27)}'`
+### 5. Create layer mapping
+➜ ln -s "../${cache_id}/diff" "${graph}/${storage_driver}/l/${lid}" 
+### 6. set short shasum id
+➜ echo -n "$lid" &gt; "${graph}/${storage_driver}/${cache_id}/link"
+
+
+## Build image layer content (index)
+➜ mkdir -p "${graph}/image/${storage_driver}/layerdb/sha256/cc668e407245ebdacbb7ac6d5ead798556adb5aebfcdd7fa2ca777bed3a83fed"
+### 1. set diff-id
+➜ echo -n "sha256:cc668e407245ebdacbb7ac6d5ead798556adb5aebfcdd7fa2ca777bed3a83fed" &gt; "${graph}/image/${storage_driver}/layerdb/sha256/cc668e407245ebdacbb7ac6d5ead798556adb5aebfcdd7fa2ca777bed3a83fed/diff"
+### 2. set image layer size
+➜ echo -n `stat "${graph}/${storage_driver}/${cache_id}/diff/hello" --printf '%s'` &gt; "${graph}/image/${storage_driver}/layerdb/sha256/cc668e407245ebdacbb7ac6d5ead798556adb5aebfcdd7fa2ca777bed3a83fed/size"
+### 3. set short shasum id
+➜ echo -n "${cache_id}" &gt; "${graph}/image/${storage_driver}/layerdb/sha256/cc668e407245ebdacbb7ac6d5ead798556adb5aebfcdd7fa2ca777bed3a83fed/cache-id"
+
+## set image index
+➜ python -c "import json;fh=open('${graph}/image/${storage_driver}/repositories.json');repositories=json.load(fh);repositories['Repositories']['hello-runc']={'hello-runc:latest': 'sha256:2bd297f395ef7193402fbf58b1010655c7bf27b22c38545a63c71af402f73dc5'};print(repositories);fh=open('${graph}/image/${storage_driver}/repositories.json', mode='w');json.dump(repositories, fh);"
+</code></pre></div><h4>4. Verify</h4>
+<div class="language-bash" data-ext="sh" data-title="sh"><pre class="language-bash"><code>## Only by restarting the Docker Daemon process will the image be correctly recognized.
+➜ docker images
+REPOSITORY   TAG       IMAGE ID   CREATED   SIZE
+
+## Restart Docker Daemon
+➜ systemctl restart docker
+
+➜ docker images
+REPOSITORY   TAG       IMAGE ID       CREATED        SIZE
+hello-runc   latest    2bd297f395ef   51 years ago   1.02kB
+
+➜ docker run --rm hello-runc
+Hello runc!
+</code></pre></div>]]></content>
+    <category term="Container Technology"/>
+    <published>2021-12-05T00:00:00.000Z</published>
+  </entry>
+  <entry>
+    <title type="text">Webassembly - Will the next generation container runtime?</title>
+    <id>https://blog.shabbywu.cn/en/posts/2023/01/08/wasm-or-container.html</id>
+    <link href="https://blog.shabbywu.cn/en/posts/2023/01/08/wasm-or-container.html"/>
+    <updated>2024-03-10T12:12:17.000Z</updated>
+    <summary type="html"><![CDATA[<h2>Preface</h2>
+<p>On March 20, 2013, DotCloud released the first version of Docker, marking the beginning of the era of containerization. Now, in the age of containerization, whether it's development, testing, or operations, few people are unaware of or do not know how to use Docker. Over the past decade since Docker's release, open source collaboration has propelled containerization technology to great heights. Despite rapid iteration of containerization products, the core of container technology has always revolved around Linux. Whenever we mention containers, we are essentially referring to runtime implementations based on the Linux Kernel.</p>]]></summary>
+    <content type="html"><![CDATA[<h2>Preface</h2>
+<p>On March 20, 2013, DotCloud released the first version of Docker, marking the beginning of the era of containerization. Now, in the age of containerization, whether it's development, testing, or operations, few people are unaware of or do not know how to use Docker. Over the past decade since Docker's release, open source collaboration has propelled containerization technology to great heights. Despite rapid iteration of containerization products, the core of container technology has always revolved around Linux. Whenever we mention containers, we are essentially referring to runtime implementations based on the Linux Kernel.</p>
+<p>Today, besides Linux containers, there are many other container runtime implementations, such as <a href="https://github.com/kata-containers/kata-containers" target="_blank" rel="noopener noreferrer">Kata Containers</a> and <a href="https://github.com/google/gvisor" target="_blank" rel="noopener noreferrer">gVisor</a>. So, who might be the next generation runtime implementation? -- It's quite likely to be WebAssembly.</p>
+<p>This article will introduce what WebAssembly is, why it has the potential to become the next generation runtime implementation, and demonstrate the differences between WebAssembly containers and conventional Linux containers.</p>
+<div class="hint-container tip">
+<p class="hint-container-title">Further Reading: What are Containers?</p>
+<p>A <strong>container image</strong> is a lightweight, standalone, executable <strong>software package</strong>. When <strong>applications</strong> are packaged as container images for delivery, regardless of the underlying infrastructure (Linux or Windows; ARM or X86), they will always run in the same way.</p>
+<p><strong>Containers</strong> provide a technology for quickly and reliably running <strong>applications</strong> from one computing environment to another. Containers are a form of Software as a Service (SaaS).</p>
+</div>
+<h2>What is WebAssembly (aka Wasm)</h2>
+<p>WebAssembly is a secure, portable, low-level (similar to assembly) programming language (or binary instruction format, akin to assembly) designed to be executed in a stack-based virtual machine.
+Wasm is designed as a portable compilation target for programming languages, with the primary aim of achieving high performance applications on the Web.</p>
+<h2>Hello Wasm</h2>
+<p>We'll quickly understand what a Wasm program is through a simple Hello World Demo.</p>
+<h3>Source Language: Rust</h3>
+<p>WebAssembly is a portable compilation target for programming languages, thus requiring compilation from another language. A common source language is Rust. Below is the simplest example of a Hello World sample code based on Rust:</p>
+<div class="language-rust" data-ext="rs" data-title="rs"><pre class="language-rust"><code>// file: hello.rs
+fn main() {
+  println!("Hello Wasm");
+}
+</code></pre></div><p>Due to Rust's conventions, it's also necessary to write a <code>Cargo.toml</code> file in order to compile the code.</p>
+<div class="language-toml" data-ext="toml" data-title="toml"><pre class="language-toml"><code>## file: Cargo.toml
+[package]
+name = "hello"
+version = "0.0.1"
+
+[[bin]]
+name = "hello"
+path = "hello.rs"
+
+[dependencies]
+</code></pre></div><p>Les's run hello.rs</p>
+<div class="language-bash" data-ext="sh" data-title="sh"><pre class="language-bash"><code>❯ cargo run
+   Compiling hello v0.0.1
+    Finished dev [unoptimized + debuginfo] target(s) in 0.26s
+     Running `target/debug/hello`
+Hello Wasm
+</code></pre></div><h3>Compiling Wasm</h3>
+<p>By default, Rust compiles into executable files. We need to specify additional compilation parameters to compile into Wasm.</p>
+<div class="language-bash" data-ext="sh" data-title="sh"><pre class="language-bash"><code>## Install compilation dependencies
+❯ rustup target add wasm32-wasi
+info: downloading component 'rust-std' for 'wasm32-wasi'
+info: installing component 'rust-std' for 'wasm32-wasi'
+
+## Compile into Wasm
+❯ rustc hello.rs --target wasm32-wasi
+
+## Compile to generate hello.wasm
+❯ ls -lah hello.wasm
+-rwxr-xr-x  1 shabbywu  staff   2.1M  1  8 16:04 hello.wasm
+</code></pre></div><h3>Execution</h3>
+<p>WebAssembly is a binary instruction format for stack-based virtual machines and requires a WebAssembly virtual machine to execute Wasm. Common major browser engines (such as Chrome, Edge, Firefox, and Safari) all support executing Wasm. However, to execute in the terminal, you need to install a Wasm runtime first. Here are popular Wasm runtime implementations:</p>
+<ul>
+<li><a href="https://wasmtime.dev/" target="_blank" rel="noopener noreferrer">Wasmtime</a>, a fast, secure WebAssembly runtime developed by the Bytecode Alliance.</li>
+<li><a href="https://github.com/bytecodealliance/wasm-micro-runtime" target="_blank" rel="noopener noreferrer">WAMR</a>, a lightweight WebAssembly runtime developed by the Bytecode Alliance, suitable for embedded, IoT, edge computing, smart devices, and other scenarios.</li>
+<li><a href="https://wasmer.io/" target="_blank" rel="noopener noreferrer">Wasmer</a>, offering ultra-lightweight containers based on WebAssembly that can run anywhere: from desktop to cloud, IoT devices, and can also be embedded into any programming language.</li>
+<li><a href="https://github.com/wasm3/wasm3" target="_blank" rel="noopener noreferrer">Wasm3</a>, the fastest WebAssembly <strong>interpreter</strong>, and the most universal Wasm runtime.</li>
+<li><a href="https://wasmedge.org/" target="_blank" rel="noopener noreferrer">WasmEdge</a>, a lightweight, high-performance, and scalable WebAssembly runtime suitable for cloud-native, edge, and decentralized applications. It supports serverless applications, embedded functions, microservices, smart contracts, and IoT devices.</li>
+</ul>
+<p>We'll demonstrate executing Wasm using Wasmer, which has the highest number of stars.</p>
+<div class="language-bash" data-ext="sh" data-title="sh"><pre class="language-bash"><code>## Install Wasmer
+❯ curl https://get.wasmer.io -sSfL | sh
+
+## Execute hello.wasm
+❯ wasmer run hello.wasm
+Hello Wasm
+</code></pre></div><h2>Why is WebAssembly said to have the potential to become the next generation runtime implementation?</h2>
+<p>WebAssembly's features make it full of possibilities:</p>
+<ul>
+<li><strong>Standard</strong>: WebAssembly is designed to be versionless, feature-testable, and backward-compatible. Major browsers have already implemented the initial version of the WebAssembly specification.</li>
+<li><strong>Fast</strong>: It can provide near-native speed through Just-In-Time (JIT) or Ahead-Of-Time (AOT) compilation capabilities of most runtimes. Unlike starting a VM or a container, it doesn't have cold starts.</li>
+<li><strong>Secure</strong>: By default, WebAssembly runtimes are sandboxed, allowing secure memory access. A capability-based model ensures that WebAssembly applications can only access explicitly allowed content, making the software supply chain more secure.</li>
+<li><strong>Portable</strong>: The binary format of WebAssembly is designed to execute efficiently on different operating systems (currently supporting Linux, Windows, macOS, Android, and even embedded devices) and instruction sets (currently supporting x86, ARM, RISC-V, etc.).</li>
+<li><strong>High Performance</strong>: WebAssembly requires minimal memory footprint and ultra-low CPU thresholds to run.</li>
+<li><strong>Multi-Language Support</strong>: <a href="https://github.com/appcypher/awesome-wasm-langs" target="_blank" rel="noopener noreferrer">Several programming languages</a> can compile to WebAssembly.</li>
+</ul>
+<h3>WebAssembly Transitioning from Browser to Server-side</h3>
+<p>WebAssembly originated in the browser, primarily to complement JavaScript's shortcomings in execution performance. However, WebAssembly is not meant to replace JavaScript but rather to provide the capability to execute large applications in the browser's (sandboxed) environment.</p>
+<p>WebAssembly relies on a virtual machine for execution, and the ability of browser engines to run WebAssembly programs is due to their integration of WebAssembly virtual machines. If the WebAssembly virtual machine is separated and run independently, then we can execute WebAssembly programs outside the browser. Unlike the browser execution environment, server-side programs need to interact with external environments (such as file systems, networks, etc.). Since WebAssembly is designed to execute in a secure sandboxed environment, interacting with the external environment introduces potential security risks. Therefore, WebAssembly has proposed <a href="https://github.com/WebAssembly/WASI/blob/main/phases/snapshot/docs.md" target="_blank" rel="noopener noreferrer">WASI (WebAssembly System Interface)</a>, which describes the operation interfaces supported by WebAssembly programs.</p>
+<blockquote>
+<p>WASI is implemented by WebAssembly runtimes, for example, <a href="https://github.com/bytecodealliance/wasmtime/blob/main/crates/wasi-common/src/snapshots/preview_1.rs#L596" target="_blank" rel="noopener noreferrer">fd_readdir</a> is the implementation of the directory reading interface in <a href="https://wasmtime.dev/" target="_blank" rel="noopener noreferrer">Wasmtime</a>.</p>
+</blockquote>
+<p>As developers, we don't need to concern ourselves with the specific implementation of the WebAssembly virtual machine; we only need to compile the application into WebAssembly binary instructions to execute it on any server.
+<img src="/img/Wasm-work-on-servers.png" alt="The principle of running WebAssembly on servers" loading="lazy"></p>
+<h3>Impact of WebAssembly on Software Delivery</h3>
+<p>In the era of containerization, containers have become the de facto standard for software delivery, with virtually all software providing container deployment solutions.</p>
+<p>To standardize container lifecycle management and delivery media, the Open Container Initiative (OCI) proposed <a href="https://github.com/opencontainers/runtime-spec/blob/main/principles.md" target="_blank" rel="noopener noreferrer">5 principles that containers need to adhere to</a>. WebAssembly essentially aligns with these principles:</p>
+<ul>
+<li><strong>Standard operations</strong>: Wasm defines the main function as the primary entry point, and the Wasm virtual machine executes the main function to start the Wasm program.</li>
+<li><strong>Content-agnostic</strong>: Wasm is delivered as a binary file after compilation, naturally independent of content.</li>
+<li><strong>Infrastructure-agnostic</strong>: Wasm relies on a stack-based virtual machine, and the virtual machine implementation does not depend on the infrastructure.</li>
+<li><strong>Industrial-grade delivery</strong>: Wasm is compiled once and executed everywhere. Wasm does not need to concern itself with software delivery issues.</li>
+<li>❌ <strong>Designed for automation</strong>: While Wasm does not concern itself with automated deployment, it does not hinder Wasm containerization. However, there is still a lack of standard processes and toolchains (similar to Dockerfile and Docker CLI) at present.</li>
+</ul>
+<p>The characteristics of WebAssembly naturally support containerization. <em>If all applications are compiled into Wasm for delivery</em>, it means that we only need to complete a series of packaging operations to automatically deploy Wasm programs to all servers. For this reason, Solomon Hykes (the founder of Docker) even proposed that WASM+WASI would be the next development direction for server software infrastructure.</p>
+<div class="hint-container warning">
+<p class="hint-container-title">[Tweet from Solomon Hykes (Founder of Docker)]((https://twitter.com/solomonstre/status/1111004913222324225))</p>
+<p>"If WASM+WASI existed in 2008, we wouldn't have needed to created Docker. That's how important it is. Webassembly on the server is the future of computing. A standardized system interface was the missing link. Let's hope WASI is up to the task!" -- Solomon Hykes, creator of Docker</p>
+</div>
+<p>Indeed, if the operating system integrates a Wasm virtual machine (similar to browsers), and <em>if all applications are compiled into Wasm</em>, then we don't need "Linux containers" at all. We don't need to virtualize a complete layer of Linux operating systems; we only need a Wasm virtual machine to achieve "containerized deployment" of Wasm programs.</p>
+<h2>Containerizing WebAssembly</h2>
+<p>Docker announced on October 24, 2022, that it will support running Wasm containers as a Beta feature in Docker Desktop 4.15! As mentioned earlier, Wasm is a faster, lighter alternative to Linux/Windows containers. This section will demonstrate the differences between Wasm containers and conventional Linux containers, including building Wasm images, running Wasm containers, and comparing them with native execution.
+<img src="/img/Docker+Wasm.png" alt="Docker+Wasm" loading="lazy"></p>
+<h3>Building and Running Wasm Images</h3>
+<p>We know that for compiled languages, the final output is a .wasm file, making building images trivial. To raise the challenge, we'll use an interpreted language, <a href="https://github.com/python/cpython" target="_blank" rel="noopener noreferrer">CPython</a>, for this demonstration.</p>
+<p>Unlike compiled languages like C and Rust, for interpreted languages like Python and Ruby, we need to compile their interpreters into Wasm. Once the interpreter is compiled into Wasm, any Wasm virtual machine can run these interpreted languages.</p>
+<p>In theory, this works, but since WASI does not provide complete POSIX compatibility, modifying some source code is required when compiling CPython. The open-source project <a href="https://github.com/singlestore-labs/python-wasi.git" target="_blank" rel="noopener noreferrer">python-wasi</a> has completed this experiment, allowing CPython to be compiled into Wasm with the help of this project.</p>
+<h4>0. 整理项目结构</h4>
+<p>For the convenience of description, we assume that the project structure conforms to the following directory tree. See above for details.</p>
+<div class="language-bash" data-ext="sh" data-title="sh"><pre class="language-bash"><code>.
+├── build.sh
+└── src
+    ├── main.py
+    |── [cpython](https://github.com/python/cpython/archive/refs/tags/v3.11.1.tar.gz)
+    └── [python-wasi](https://github.com/singlestore-labs/python-wasi)
+</code></pre></div><p>Among them, the content of main.py is as follows:</p>
+<div class="language-python" data-ext="py" data-title="py"><pre class="language-python"><code>import os
+## Print environment variables to test security
+for k, v in os.environ.items():
+  print(f"{k}={v}")
+
+print("</code></pre></div>]]></content>
+    <category term="Container Technology"/>
+    <published>2023-01-08T00:00:00.000Z</published>
+  </entry>
+  <entry>
+    <title type="text">Resume - Jingtao Wu</title>
+    <id>https://blog.shabbywu.cn/en/resume/</id>
+    <link href="https://blog.shabbywu.cn/en/resume/"/>
+    <updated>2026-01-29T11:59:18.975Z</updated>
+    <summary type="text">Resume for Jingtao Wu</summary>
+  </entry>
+</feed>
