@@ -115,7 +115,7 @@ Spec 锁死了「做什么」，但它无法约束「怎么做」——代码骨
 
 Skill 是一套**元约束系统**，以 SOP（标准操作程序）的形式，强制规定 LLM 在生成每一个工具时必须遵守的架构规则。
 
-以 gamecloud-mcp 项目的 ALB 负载均衡器查询工具为例，`cloud-resource-query-tool` Skill 的代码生成步骤（Step 5）定义了如下骨架：
+继续以 `gamecloud-mcp` 项目的 ALB 负载均衡器查询工具为例，`cloud-resource-query-tool` Skill 的代码生成步骤（Step 5）定义了如下骨架：
 
 ```python
 # FastMCP 实例命名：必须遵循 "<provider>/<resource>/" 格式
