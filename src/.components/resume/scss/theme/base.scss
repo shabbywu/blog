@@ -2,6 +2,18 @@
     a[href]:after {
         content: none !important;
     }
+
+    .projects-section .item {
+        break-inside: avoid;
+        page-break-inside: avoid;
+    }
+
+
+
+    .experiences-section .item {
+        break-inside: avoid;
+        page-break-inside: avoid;
+    }
 }
 
 body {
@@ -37,7 +49,7 @@ p {
 
 .wrapper {
     background: #fff;
-    max-width: 960px;
+    max-width: 1090px;
     height: 100%;
     margin: 0 auto;
     display: flex;
@@ -164,7 +176,7 @@ p {
 .main-wrapper {
     background: #fff;
     padding: 60px;
-    width: 740px;
+    width: 850px;
     text-align: justify;
 
     .section-title {
@@ -202,6 +214,8 @@ p {
     .experiences-section {
         .item {
             margin-bottom: 30px;
+            padding-left: 15px;
+            border-left: 3px solid $theme-color;
         }
     }
     .upper-row {
@@ -221,6 +235,11 @@ p {
         right: 0;
         top: 0;
         color: $text-grey;
+        background: $smoky-white;
+        padding: 2px 10px;
+        border-radius: 12px;
+        font-size: 13px;
+        font-weight: 500;
     }
     .company {
         margin-bottom: 10px;
@@ -252,6 +271,12 @@ p {
         }
         .item {
             margin-bottom: 20px;
+            padding-bottom: 20px;
+            border-bottom: 1px solid $divider;
+
+            &:last-child {
+                border-bottom: none;
+            }
             .project-title .darken, .project-description .darken, .project-roleblock .darken {
                 color: darken($theme-color, 10%);
                 min-width: calc(16px * 3);
@@ -261,14 +286,30 @@ p {
                 margin-bottom: 10px;
             }
 
-            .project-description, .project-roleblock {
+            .project-description {
                 .detail {
-                    font-style:oblique;
+                    font-style: normal;
+                    line-height: 1.7;
+                    flex: 1;
+                    min-width: 0;
                 }
             }
 
-            .project-roleline:not(:last-child) {
-                margin-bottom: 3px;
+            .project-roleblock {
+                .detail {
+                    font-style: normal;
+                    line-height: 1.7;
+                    flex: 1;
+                    min-width: 0;
+                }
+            }
+
+            .project-roleline {
+                margin-left: 0.5em;
+
+                &:not(:last-child) {
+                    margin-bottom: 3px;
+                }
             }
             blockquote {
                 margin-top: 2px;
@@ -306,17 +347,31 @@ p {
 
 
 
+.summary-section {
+    .summary {
+        background: linear-gradient(135deg, rgba($theme-color, 0.05) 0%, transparent 100%);
+        padding: 15px 20px;
+        border-radius: 8px;
+        border-left: 4px solid $theme-color;
+
+        p {
+            margin: 0;
+            line-height: 1.8;
+        }
+    }
+}
+
 .footer {
     padding: 30px;
     padding-top: 60px;
     .copyright {
         line-height: 1.6;
         color: $text-color-secondary;
-        font-size: 13px;       
-    }  
-    
+        font-size: 13px;
+    }
+
     .fa-heart {
         color: $heart;
     }
-    
+
 }

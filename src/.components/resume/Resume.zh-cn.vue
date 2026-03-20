@@ -60,6 +60,19 @@
                 <div class="item">
                     <div class="meta">
                         <div class="upper-row">
+                            <h3 class="job-title">资深平台开发工程师</h3>
+                            <div class="time">2024 - 至今</div>
+                        </div><!--//upper-row-->
+                        <div class="company">网易, 广州</div>
+                    </div><!--//meta-->
+                    <div class="details">
+
+                    </div><!--//details-->
+                </div><!--//item-->
+
+                <div class="item">
+                    <div class="meta">
+                        <div class="upper-row">
                             <h3 class="job-title">高级工程师</h3>
                             <div class="time">2019 - 2024</div>
                         </div><!--//upper-row-->
@@ -73,6 +86,32 @@
             
             <section class="section projects-section">
                 <h2 class="section-title"><span class="icon-holder"><i class="fa-solid fa-archive"></i></span>项目</h2>
+                <div class="item">
+                    <div class="project-title">
+                        <span class="darken">名称: </span>
+                        <div class="detail">
+                            Gamecloud 混合云管理服务平台
+                            <span class="timetag">2024-至今</span>
+                        </div>
+                    </div>
+                    <div class="project-description">
+                        <span class="darken">描述: </span>
+                        <div class="detail">面向网易互娱打造的国内外统一混合云资源管理平台。通过深度整合多云环境，提供全生命周期的云原生基础设施纳管（涵盖 VM、负载均衡、证书、对象存储及 VPC/专线等网络资源），同时构建了计费分账、云上事件总线、全链路监控告警及全局 IAM 权限管控等核心云原生管控能力。</div>
+                    </div>
+                    <div class="project-roleblock">
+                        <div class="darken">职责: </div>
+                        <div class="detail">
+                            <li class="project-roleline">多云纳管落地：负责对接主流公有云 OpenAPI，封装底层管理原语；主导完成百度云资源体系的整体接入，成功完成主要业务线 1000 余台虚拟机的纳管与平滑迁移，保障业务高可用。</li>
+                            <li class="project-roleline">架构重构与性能调优：主导云资源生命周期（申请、交付、回收）链路的底层技术债清理与重构。将 NATGW 关联的 EIP 申请流程由串行优化为并发执行，使创建接口提速 40%~60%。</li>
+                            <li class="project-roleline">容错机制与降本增效：设计并实现了高可靠的异常回滚流程，确保虚拟机等资源申请失败时能被自动且彻底地清理。有效避免了残留资源导致的无效云费用，每日平均为团队节省约 1 小时的人工排障与兜底处理时间。</li>
+                            <li class="project-roleline">核心指标构建：负责全局网络质量大盘的数据支撑，研发海量数据聚合分析接口，输出互娱玩家分布热力图、服务端链路延迟、竞品对比等核心指标体系。</li>
+                            <li class="project-roleline">业务赋能：深度挖掘数据价值，构建"多维度延迟横向比对"与"客户端来源地域 vs 接入节点映射"等分析模型。成功协助业务精准定位多起隐蔽的网络异常。</li>
+                            <li class="project-roleline">AIOps 智能化运维：深入挖掘云厂商基础能力，结合 Prompt Engineering 将大模型引入运维场景。成功将 SRE 故障定位与处理时间从平均 1~2 小时缩短至 30 分钟内。</li>
+                            <li class="project-roleline">交互式智能查询平台：基于 LLM，采用 SDD (Spec Driven Development) 与大模型 Skills（技能调用）相结合的架构设计，完成支持自然语言交互的混合云管控与查询工具开发。</li>
+                        </div>
+                    </div>
+                </div><!--//item-->
+
                 <div class="item">
                     <div class="project-title">
                         <span class="darken">名称: </span>
@@ -169,58 +208,72 @@
             
             <section class="skills-section section">
                 <h2 class="section-title"><span class="icon-holder"><i class="fa-solid fa-rocket"></i></span>技能 &amp; 熟练度</h2>
-                <div class="skillset">    
-    
+                <div class="skillset">
+
                     <div class="item">
                         <h3 class="level-title">Python &amp; Django</h3>
                         <div class="progress level-bar">
                             <div class="progress-bar theme-progress-bar" role="progressbar" style="width: 99%" aria-valuenow="99" aria-valuemin="0" aria-valuemax="100"></div>
-                        </div>                               
+                        </div>
                     </div><!--//item-->
 
                     <div class="item">
                         <h3 class="level-title">Docker &amp; K8s</h3>
                         <div class="progress level-bar">
                             <div class="progress-bar theme-progress-bar" role="progressbar" style="width: 90%" aria-valuenow="90" aria-valuemin="0" aria-valuemax="100"></div>
-                        </div>                                  
+                        </div>
                     </div><!--//item-->
 
                     <div class="item">
                         <h3 class="level-title">CI/CD &amp; GitOps</h3>
                         <div class="progress level-bar">
                             <div class="progress-bar theme-progress-bar" role="progressbar" style="width: 80%" aria-valuenow="80" aria-valuemin="0" aria-valuemax="100"></div>
-                        </div>                                 
+                        </div>
                     </div><!--//item-->
-                    
+
                     <div class="item">
                         <h3 class="level-title">Javascript & Vue</h3>
                         <div class="progress level-bar">
                             <div class="progress-bar theme-progress-bar" role="progressbar" style="width: 80%" aria-valuenow="80" aria-valuemin="0" aria-valuemax="100"></div>
-                        </div>                              
+                        </div>
                     </div><!--//item-->
 
                     <div class="item">
                         <h3 class="level-title">Golang</h3>
                         <div class="progress level-bar">
                             <div class="progress-bar theme-progress-bar" role="progressbar" style="width: 75%" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100"></div>
-                        </div>                              
+                        </div>
                     </div><!--//item-->
 
                     <div class="item">
-                        <h3 class="level-title">C++</h3>
+                        <h3 class="level-title">AI &amp; LLM</h3>
                         <div class="progress level-bar">
-                            <div class="progress-bar theme-progress-bar" role="progressbar" style="width: 65%" aria-valuenow="65" aria-valuemin="0" aria-valuemax="100"></div>
-                        </div>                              
+                            <div class="progress-bar theme-progress-bar" role="progressbar" style="width: 75%" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100"></div>
+                        </div>
                     </div><!--//item-->
 
                     <div class="item">
                         <h3 class="level-title">MySQL &amp; Redis</h3>
                         <div class="progress level-bar">
                             <div class="progress-bar theme-progress-bar" role="progressbar" style="width: 70%" aria-valuenow="70" aria-valuemin="0" aria-valuemax="100"></div>
-                        </div>                                 
+                        </div>
                     </div><!--//item-->
 
-                </div>  
+                    <div class="item">
+                        <h3 class="level-title">AIOps &amp; Prompt Engineering</h3>
+                        <div class="progress level-bar">
+                            <div class="progress-bar theme-progress-bar" role="progressbar" style="width: 70%" aria-valuenow="70" aria-valuemin="0" aria-valuemax="100"></div>
+                        </div>
+                    </div><!--//item-->
+
+                    <div class="item">
+                        <h3 class="level-title">C++</h3>
+                        <div class="progress level-bar">
+                            <div class="progress-bar theme-progress-bar" role="progressbar" style="width: 65%" aria-valuenow="65" aria-valuemin="0" aria-valuemax="100"></div>
+                        </div>
+                    </div><!--//item-->
+
+                </div>
             </section><!--//skills-section-->
             
         </div><!--//main-body-->
