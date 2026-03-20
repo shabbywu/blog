@@ -30,7 +30,7 @@
                 <ul class="list-unstyled interests-list">
                     <li>中文 <span class="lang-desc">(母语)</span></li>
                     <li>粤语 <span class="lang-desc">(母语)</span></li>
-                    <li>英语 <span class="lang-desc">(工作交流)</span></li>
+                    <li>英语 <span class="lang-desc">(书面工作交流)</span></li>
                 </ul>
             </div><!--//interests-->
             
