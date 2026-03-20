@@ -49,7 +49,7 @@
                 <h2 class="section-title"><span class="icon-holder"><i class="fa-solid fa-user"></i></span>简介</h2>
                 <div class="summary">
                     <p style="margin-bottom: 0px;">
-                        软件工程师，5年以上全栈开发经验，精通 Python，熟悉 Golang 、容器技术 和 C++ 开发，有较丰富的 JavaScript、Vue和 CI/CD 经验。在腾讯工作期间主要参与开发和维护蓝鲸智云 PaaS 平台。
+                        6年+ 一线互联网大厂（腾讯、网易）基础架构与云原生平台开发经验。精通 Python/Golang，深入理解云原生生态（K8s Operator/CI/CD）。在腾讯期间参与维护管理 1600+ SaaS 应用的 PaaS 平台；在网易主导混合云架构演进及 AIOps 落地。具备极强的底层技术钻研能力与极客精神（具有 C++ 客户端逆向、虚拟机分析与复杂开源项目主导经验）。
                     </p>
                 </div><!--//summary-->
             </section><!--//section-->
