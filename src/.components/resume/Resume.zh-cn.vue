@@ -168,7 +168,7 @@
                         <div class="detail">
                             <!-- <div class="project-roleline">我在该项目的角色是后台开发，基本上所有的核心功能如应用构建与部署、应用离线交付方案、接入层管理、日志采集与查询等都由我主导开发。</div> -->
                             <li class="project-roleline">设计从源码到构建的执行流程和数据存储结构, 实现从二进制制品到云原生容器镜像的构建系统的无缝升级。</li>
-                            <li class="project-roleline">设计应用(SaaS)离线交付方案和构建工具, 支持以镜像层为粒度交付应用(SaaS)的镜像。通过自研的镜像层（Image Layer）合并算法，将容器镜像交付体积缩减了 60%（或从 1+ GB 降低至 200~400 MB），极大提升了 SaaS 应用在私有化环境的部署效率。</li>
+                            <li class="project-roleline">设计应用(SaaS)离线交付方案和构建工具, 支持以镜像层为粒度交付应用(SaaS)的镜像。通过自研的镜像层（Image Layer）合并算法，将容器镜像交付体积缩减了 60%（或从 1GB+ 降低至 200~400 MB），极大提升了 SaaS 应用在私有化环境的部署效率。</li>
                             <li class="project-roleline">主导研发低代码后台管理渲染框架，融合 Vue 与 Django SSR，将后台管理接口的开发复杂度与工时降低 80% 以上。</li>
                             <li class="project-roleline">运用设计原则和对模板、组合、策略等设计模式的综合使用, 搭建了同时支持 ELK 和蓝鲸日志平台的日志采集、查询链路；搭建了支持 git/svn/容器镜像的应用源码(或镜像)的源码拉取模块。</li>
                         </div>
@@ -194,7 +194,7 @@
                         <div class="darken">职责: </div>
                         <div class="detail">
                             <!-- <div class="project-roleline">我是战场兄弟游戏内核汉化的发起人和技术负责人。</div> -->
-                            <li class="project-roleline">反编译游戏客户端，通过 windows hooks 技术为游戏客户端增加额外功能: 重写游戏字体的渲染逻辑，让游戏支持使用 TTF 字体渲染字符; 引入 nakama-sdk 实现联机对战功能; 实现 DLL 扩展等等。</li>
+                            <li class="project-roleline">通过 C++ 与 Windows Hooks 技术，在无源码情况下对游戏客户端进行逆向与动态注入；重构底层字体渲染管线（支持 TTF），并创新性引入 Nakama-SDK 实现 P2P/联机对战功能。</li>
                             <li class="project-roleline">反编译游戏脚本并分析虚拟机运行原理，开发出文本提取、文本替换等配套工具。</li>
                             <li class="project-roleline">制定在线协同规范，并定制自动化的 CI/CD 流程，打通多人协同与文本发布的最后一道工序，做到 Daily Release。</li>
                         </div>
