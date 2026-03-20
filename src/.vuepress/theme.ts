@@ -64,7 +64,7 @@ export default hopeTheme({
       // navbar
       navbar: zhNavbar,
       blog: {
-        description: "全栈程序员",
+        description: "资深后端开发工程师",
         // TODO: 实现 intro.html ?
         intro: "/resume/",
       },
