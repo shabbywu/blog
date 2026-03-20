@@ -4,7 +4,7 @@
             <div class="profile-container">
 
                 <h1 class="name">伍镜滔</h1>
-                <h3 class="tagline">全栈程序员</h3>
+                <h3 class="tagline">资深后端开发工程师</h3>
             </div><!--//profile-container-->
             
             <div class="contact-container container-block">
@@ -83,9 +83,48 @@
                     </div><!--//details-->
                 </div><!--//item-->
             </section><!--//section-->
+
+            <section class="skills-section section">
+                <h2 class="section-title"><span class="icon-holder"><i class="fa-solid fa-rocket"></i></span>技能 &amp; 熟练度</h2>
+                <div class="skillset">
+
+                    <div class="skill-group">
+                        <h3 class="skill-group-title">后端开发</h3>
+                        <div class="skill-tags">
+                            <span class="skill-tag master">Python (Django/DRF/Celery)</span>
+                            <span class="skill-tag proficient">Golang</span>
+                            <span class="skill-tag familiar">C++</span>
+                        </div>
+                        <p class="skill-desc">精通 Python 与后端架构设计；熟练使用 Golang 进行高并发与云原生组件开发</p>
+                    </div>
+
+                    <div class="skill-group">
+                        <h3 class="skill-group-title">云原生与基础设施</h3>
+                        <div class="skill-tags">
+                            <span class="skill-tag master">Docker / K8s</span>
+                            <span class="skill-tag proficient">K8s Operator (Golang)</span>
+                            <span class="skill-tag proficient">容器镜像 / 离线交付</span>
+                            <span class="skill-tag proficient">公有云 OpenAPI 纳管</span>
+                        </div>
+                        <p class="skill-desc">深入理解 Docker/K8s 体系，具备 K8s Operator 开发经验，熟悉容器镜像底层原理</p>
+                    </div>
+
+                    <div class="skill-group">
+                        <h3 class="skill-group-title">DevOps &amp; AIOps</h3>
+                        <div class="skill-tags">
+                            <span class="skill-tag master">CI/CD (GitOps)</span>
+                            <span class="skill-tag proficient">Cloud Native Buildpacks</span>
+                            <span class="skill-tag proficient">LLM / Prompt Engineering</span>
+                            <span class="skill-tag proficient">AI Agent</span>
+                        </div>
+                        <p class="skill-desc">精通 CI/CD 自动化流水线；熟练应用大语言模型解决运维排障痛点</p>
+                    </div>
+
+                </div>
+            </section><!--//skills-section-->
             
             <section class="section projects-section">
-                <h2 class="section-title"><span class="icon-holder"><i class="fa-solid fa-archive"></i></span>项目</h2>
+                <h2 class="section-title"><span class="icon-holder"><i class="fa-solid fa-archive"></i></span>工作项目</h2>
                 <div class="item">
                     <div class="project-title">
                         <span class="darken">名称: </span>
@@ -102,7 +141,7 @@
                         <div class="darken">职责: </div>
                         <div class="detail">
                             <li class="project-roleline">多云纳管落地：负责对接主流公有云 OpenAPI，封装底层管理原语；主导完成百度云资源体系的整体接入，成功完成主要业务线 1000 余台虚拟机的纳管与平滑迁移，保障业务高可用。</li>
-                            <li class="project-roleline">架构重构与性能调优：主导云资源生命周期（申请、交付、回收）链路的底层技术债清理与重构。将 NATGW 关联的 EIP 申请流程由串行优化为并发执行，使创建接口提速 40%~60%。</li>
+                            <li class="project-roleline">架构重构与性能调优：主导云资源生命周期（申请、交付、回收）链路的底层技术债清理与重构。将 NATGW 关联的 EIP 申请流程由串行优化为并发执行，使创建接口提速 40%。</li>
                             <li class="project-roleline">容错机制与降本增效：设计并实现了高可靠的异常回滚流程，确保虚拟机等资源申请失败时能被自动且彻底地清理。有效避免了残留资源导致的无效云费用，每日平均为团队节省约 1 小时的人工排障与兜底处理时间。</li>
                             <li class="project-roleline">核心指标构建：负责全局网络质量大盘的数据支撑，研发海量数据聚合分析接口，输出互娱玩家分布热力图、服务端链路延迟、竞品对比等核心指标体系。</li>
                             <li class="project-roleline">业务赋能：深度挖掘数据价值，构建"多维度延迟横向比对"与"客户端来源地域 vs 接入节点映射"等分析模型。成功协助业务精准定位多起隐蔽的网络异常。</li>
@@ -129,38 +168,16 @@
                         <div class="detail">
                             <!-- <div class="project-roleline">我在该项目的角色是后台开发，基本上所有的核心功能如应用构建与部署、应用离线交付方案、接入层管理、日志采集与查询等都由我主导开发。</div> -->
                             <li class="project-roleline">设计从源码到构建的执行流程和数据存储结构, 实现从二进制制品到云原生容器镜像的构建系统的无缝升级。</li>
-                            <li class="project-roleline">设计应用(SaaS)离线交付方案和构建工具, 支持以镜像层为粒度交付应用(SaaS)的镜像。通过自研的镜像层合并方案降低容器镜像的交付体积。</li>
+                            <li class="project-roleline">设计应用(SaaS)离线交付方案和构建工具, 支持以镜像层为粒度交付应用(SaaS)的镜像。通过自研的镜像层（Image Layer）合并算法，将容器镜像交付体积缩减了 60%（或从 1+ GB 降低至 200~400 MB），极大提升了 SaaS 应用在私有化环境的部署效率。</li>
+                            <li class="project-roleline">主导研发低代码后台管理渲染框架，融合 Vue 与 Django SSR，将后台管理接口的开发复杂度与工时降低 80% 以上。</li>
                             <li class="project-roleline">运用设计原则和对模板、组合、策略等设计模式的综合使用, 搭建了同时支持 ELK 和蓝鲸日志平台的日志采集、查询链路；搭建了支持 git/svn/容器镜像的应用源码(或镜像)的源码拉取模块。</li>
-                            <li  class="project-roleline">设计了一套用于开发后台管理页面的开发流程，不仅可以用 Vue 还能使用 Django 的 SSR, 降低了 80% 后台管理页面的接口开发复杂度。</li>
                         </div>
                     </div>
                 </div><!--//item-->
+            </section><!--//section-->
 
-                <div class="item">
-                    <div class="project-title">
-                        <span class="darken">名称: </span>
-                        <div class="detail">
-                            <a href="javascript:void(0);">Career Homepage</a>
-                            <span class="timetag">2020-2024</span>
-                        </div>
-                    </div>
-
-                    <div class="project-description">
-                        <span class="darken">描述: </span>
-                        <div class="detail">Career Homepage 是腾讯 IEG 技术运营部内的职员画像系统。该系统以蓝鲸运维基础数据平台为基座, 使用可配置的指标计算系统从海量自动化、运维开发、DevOps、AIOps四个维度量化职员能力, 每个绩效评估周期都会用于评估技术营业部 500+ 职员能力。</div>
-                    </div>
-
-                    <div class="project-roleblock">
-                        <div class="darken">职责: </div>
-                        <div class="detail">
-                            <!-- <div class="project-roleline">我在该项目的角色是后台开发，主要负责与产品讨论和分析需求，设计实现方案、完成代码开发以及与前端联调。</div> -->
-                            <li class="project-roleline">设计一套可配置、易扩展、支持组合计算的指标计算与查询模块。此方案经历数次考核方案大变动，仍可满足最终的业务场景。</li>
-                            <li class="project-roleline">结合腾讯晋级答辩方式和周期的调整，应业务部门的诉求从半年计算一次画像优化至使用 Celery 定时任务按天计算用户该周期内的画像评分。</li>
-                        </div>
-                    </div>
-                </div><!--//item-->
-                <hr/>
-
+            <section class="section projects-section">
+                <h2 class="section-title"><span class="icon-holder"><i class="fa-solid fa-archive"></i></span>个人项目</h2>
                 <div class="item">
                     <div class="project-title">
                         <span class="darken">名称: </span>
@@ -194,87 +211,16 @@
                     </div>
                     <div class="project-description">
                         <span class="darken">描述: </span>
-                        <div class="detail">moby-distribution 是一个使用 python 开发的, 用于操作 Docker Image Manifest 和 Blob（Layers、Config 等）的库。</div>
+                        <div class="detail">moby-distribution 是一个纯 Python 库，提供了对 Docker 镜像 Manifest 和 Blob（包括 Layers、Config 等）的完整操作能力，可在不依赖 Docker Daemon 的情况下实现镜像的组装与推送。</div>
                     </div>
                     <div class="project-roleblock">
                         <div class="darken">职责: </div>
                         <div class="detail">
-                            <div class="project-roleline">由我独立开发和维护，使用该库可实现不依赖 Docker Daemon 的镜像创建，推送等操作。目前该库被应用在 Blueking PaaS 项目, 用于合成并上传离线交付的应用镜像。</div>
+                            <div class="project-roleline">从底层协议出发，独立研发基于 Python 的 Docker Registry 交互库，打破了常规镜像操作对 Docker Daemon 的强依赖。该库已作为核心组件反哺应用于腾讯蓝鲸 PaaS 生产环境的离线镜像合成业务中。</div>
                         </div>
                     </div>
                 </div><!--//item-->
-
             </section><!--//section-->
-            
-            <section class="skills-section section">
-                <h2 class="section-title"><span class="icon-holder"><i class="fa-solid fa-rocket"></i></span>技能 &amp; 熟练度</h2>
-                <div class="skillset">
-
-                    <div class="item">
-                        <h3 class="level-title">Python &amp; Django</h3>
-                        <div class="progress level-bar">
-                            <div class="progress-bar theme-progress-bar" role="progressbar" style="width: 99%" aria-valuenow="99" aria-valuemin="0" aria-valuemax="100"></div>
-                        </div>
-                    </div><!--//item-->
-
-                    <div class="item">
-                        <h3 class="level-title">Docker &amp; K8s</h3>
-                        <div class="progress level-bar">
-                            <div class="progress-bar theme-progress-bar" role="progressbar" style="width: 90%" aria-valuenow="90" aria-valuemin="0" aria-valuemax="100"></div>
-                        </div>
-                    </div><!--//item-->
-
-                    <div class="item">
-                        <h3 class="level-title">CI/CD &amp; GitOps</h3>
-                        <div class="progress level-bar">
-                            <div class="progress-bar theme-progress-bar" role="progressbar" style="width: 80%" aria-valuenow="80" aria-valuemin="0" aria-valuemax="100"></div>
-                        </div>
-                    </div><!--//item-->
-
-                    <div class="item">
-                        <h3 class="level-title">Javascript & Vue</h3>
-                        <div class="progress level-bar">
-                            <div class="progress-bar theme-progress-bar" role="progressbar" style="width: 80%" aria-valuenow="80" aria-valuemin="0" aria-valuemax="100"></div>
-                        </div>
-                    </div><!--//item-->
-
-                    <div class="item">
-                        <h3 class="level-title">Golang</h3>
-                        <div class="progress level-bar">
-                            <div class="progress-bar theme-progress-bar" role="progressbar" style="width: 75%" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100"></div>
-                        </div>
-                    </div><!--//item-->
-
-                    <div class="item">
-                        <h3 class="level-title">AI &amp; LLM</h3>
-                        <div class="progress level-bar">
-                            <div class="progress-bar theme-progress-bar" role="progressbar" style="width: 75%" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100"></div>
-                        </div>
-                    </div><!--//item-->
-
-                    <div class="item">
-                        <h3 class="level-title">MySQL &amp; Redis</h3>
-                        <div class="progress level-bar">
-                            <div class="progress-bar theme-progress-bar" role="progressbar" style="width: 70%" aria-valuenow="70" aria-valuemin="0" aria-valuemax="100"></div>
-                        </div>
-                    </div><!--//item-->
-
-                    <div class="item">
-                        <h3 class="level-title">AIOps &amp; Prompt Engineering</h3>
-                        <div class="progress level-bar">
-                            <div class="progress-bar theme-progress-bar" role="progressbar" style="width: 70%" aria-valuenow="70" aria-valuemin="0" aria-valuemax="100"></div>
-                        </div>
-                    </div><!--//item-->
-
-                    <div class="item">
-                        <h3 class="level-title">C++</h3>
-                        <div class="progress level-bar">
-                            <div class="progress-bar theme-progress-bar" role="progressbar" style="width: 65%" aria-valuenow="65" aria-valuemin="0" aria-valuemax="100"></div>
-                        </div>
-                    </div><!--//item-->
-
-                </div>
-            </section><!--//skills-section-->
             
         </div><!--//main-body-->
     </div>

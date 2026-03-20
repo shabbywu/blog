@@ -322,25 +322,55 @@ p {
 
 
 .skillset {
-    .item {
-        margin-bottom: 15px;
-        overflow: hidden;
+    .skill-group {
+        margin-bottom: 30px;
+        &:last-child {
+            margin-bottom: 0;
+        }
     }
-    .level-title {
-        font-size: 14px;
+    .skill-group-title {
+        font-size: 15px;
+        font-weight: 600;
+        color: $text-color;
         margin-top: 0;
         margin-bottom: 12px;
+        padding-left: 10px;
+        border-left: 3px solid $theme-color;
     }
-    
-    
-    .level-bar {
-        height: 12px;
-        background: $smoky-white;
-        @include border-radius(2px);
+    .skill-tags {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 8px;
+        margin-bottom: 10px;
     }
-    
-    .theme-progress-bar {
-	    background: lighten($theme-color, 10%);
+    .skill-tag {
+        display: inline-block;
+        padding: 5px 12px;
+        border-radius: 15px;
+        font-size: 13px;
+        font-weight: 500;
+        @include transition (all 0.3s ease-in-out);
+        &.master {
+            background: rgba($theme-color, 0.15);
+            color: darken($theme-color, 10%);
+            border: 1px solid rgba($theme-color, 0.3);
+        }
+        &.proficient {
+            background: rgba($theme-color, 0.08);
+            color: darken($theme-color, 5%);
+            border: 1px solid rgba($theme-color, 0.2);
+        }
+        &.familiar {
+            background: rgba($text-grey, 0.08);
+            color: $text-color-secondary;
+            border: 1px solid rgba($text-grey, 0.2);
+        }
+    }
+    .skill-desc {
+        font-size: 13px;
+        color: $text-color-secondary;
+        margin: 0;
+        line-height: 1.6;
     }
 }
 
