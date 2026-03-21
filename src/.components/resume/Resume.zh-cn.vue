@@ -49,7 +49,7 @@
                 <h2 class="section-title"><span class="icon-holder"><i class="fa-solid fa-user"></i></span>简介</h2>
                 <div class="summary">
                     <p style="margin-bottom: 0px;">
-                        6年+ 一线互联网大厂（腾讯、网易）基础架构与云原生平台开发经验。精通 Python/Golang，深入理解云原生生态（K8s Operator/CI/CD）。在腾讯期间参与维护管理 1600+ SaaS 应用的 PaaS 平台；在网易主导混合云架构演进及 AIOps 落地。具备极强的底层技术钻研能力与极客精神（具有 C++ 客户端逆向、虚拟机分析与复杂开源项目主导经验）。
+                        6年+ 一线互联网大厂（腾讯、网易）基础架构与混合云平台开发经验。精通 Python/Golang，深入理解云原生生态（K8s Operator/CI/CD）。在腾讯期间参与核心 PaaS 平台建设，支撑内部 1600+ SaaS 应用的全生命周期管理；在网易主导 Gamecloud 混合云架构演进及 AIOps 落地，成功实现多云环境下 10,000+ 台虚拟机的大规模集中纳管与智能运维。具备极强的底层技术钻研能力与极客精神（拥有 C++ 客户端逆向、底层虚拟机分析与 600+ Star 复杂开源项目的主导经验）。
                     </p>
                 </div><!--//summary-->
             </section><!--//section-->
@@ -182,21 +182,20 @@
                     <div class="project-title">
                         <span class="darken">名称: </span>
                         <div class="detail">
-                            <a href="https://github.com/shabbywu/Battle-Brothers-CN" target="_blank">Battle-Brothers-CN</a>
+                            <a href="https://github.com/shabbywu/Battle-Brothers-CN" target="_blank">Battle-Brothers-CN | ★ 600+ Stars</a>
                             <span class="timetag">2022-2024</span>
                         </div>
                     </div>
                     <div class="project-description">
                         <span class="darken">描述: </span>
-                        <div class="detail">Battle-Brothers-CN 是游戏 <a href="https://store.steampowered.com/app/365360/Battle_Brothers/">Battle Brothers</a> 的中文语言本地化项目。中文语言本地化项目主要分为 4 个模块 - 文本提取、文本翻译、文本替换、内核汉化器。目前该项目的日常运维(持续性的文本更新)完全基于自动化的 CI/CD 工具。</div>
+                        <div class="detail">作为核心主导者，填补了该游戏国内社区的技术空白。项目在 Nexusmods 累计获得 20,000+ 下载量，自建国内代理源 CDN 月均处理请求流量达 30+ GB，在玩家社区具有极高知名度。</div>
                     </div>
                     <div class="project-roleblock">
-                        <div class="darken">职责: </div>
+                        <div class="darken">职责:  </div>
                         <div class="detail">
-                            <!-- <div class="project-roleline">我是战场兄弟游戏内核汉化的发起人和技术负责人。</div> -->
-                            <li class="project-roleline">通过 C++ 与 Windows Hooks 技术，在无源码情况下对游戏客户端进行逆向与动态注入；重构底层字体渲染管线（支持 TTF），并创新性引入 Nakama-SDK 实现 P2P/联机对战功能。</li>
-                            <li class="project-roleline">反编译游戏脚本并分析虚拟机运行原理，开发出文本提取、文本替换等配套工具。</li>
-                            <li class="project-roleline">制定在线协同规范，并定制自动化的 CI/CD 流程，打通多人协同与文本发布的最后一道工序，做到 Daily Release。</li>
+                            <li class="project-roleline">无源码动态注入 (C++/Windows Hook)：在无游戏源码的环境下，通过 C++ 与 Windows API Hooking 技术对客户端进行深度逆向分析与内存注入，实现核心逻辑劫持。</li>
+                            <li class="project-roleline">底层渲染管线重构：破解并重写游戏原生的字体渲染引擎，成功实现对动态 TTF 字体的支持与大规模文本的高效渲染。</li>
+                            <li class="project-roleline">自动化工具链与协同平台建设 (工作流引擎)：针对几十万字的海量游戏文本，独立研发资源解包与文本自动化提取/回注工具。同时搭建了支持多人在线协同的翻译模式，极大降低了社区志愿者的参与门槛，实现了翻译内容的持续集成与高效发布。</li>
                         </div>
                     </div>
                 </div><!--//item-->
