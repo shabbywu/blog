@@ -49,7 +49,10 @@
                 <h2 class="section-title"><span class="icon-holder"><i class="fa-solid fa-user"></i></span>简介</h2>
                 <div class="summary">
                     <p style="margin-bottom: 0px;">
-                        6年+ 一线互联网大厂（腾讯、网易）基础架构与混合云平台开发经验。精通 Python/Golang，深入理解云原生生态（K8s Operator/CI/CD）。在腾讯期间参与核心 PaaS 平台建设，支撑内部 1600+ SaaS 应用的全生命周期管理；在网易主导 Gamecloud 混合云架构演进及 AIOps 落地，成功实现多云环境下 10,000+ 台虚拟机的大规模集中纳管与智能运维。具备极强的底层技术钻研能力与极客精神（拥有 C++ 客户端逆向、底层虚拟机分析与 600+ Star 复杂开源项目的主导经验）。
+                        <p>6年+ 一线互联网大厂（腾讯、网易）基础架构与混合云平台开发经验。精通 Python/Golang，深入理解云原生生态（K8s Operator/CI/CD）。</p>
+                        <p>在腾讯期间参与核心 PaaS 平台建设，支撑内部 1600+ SaaS 应用的全生命周期管理；</p>
+                        <p>在网易主导 Gamecloud 混合云架构演进及 AIOps 落地，支撑网易互娱在海内外多云环境共 10,000+ 台虚拟机的集中纳管与智能运维。</p>
+                        <p>具备极强的底层技术钻研能力与极客精神（拥有 C++ 客户端逆向、底层虚拟机分析与 600+ Star 复杂开源项目的主导经验）。</p>
                     </p>
                 </div><!--//summary-->
             </section><!--//section-->
