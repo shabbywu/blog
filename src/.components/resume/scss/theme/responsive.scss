@@ -6,6 +6,7 @@
     }
     .sidebar-wrapper {
         width: 100%;
+        min-height: auto;
     }
 
     .main-wrapper {
@@ -28,6 +29,11 @@
 
     .summary-section .summary {
         padding: 12px 15px;
+    }
+
+    .languages-container,
+    .interests-container {
+        display: none;
     }
 
 }
