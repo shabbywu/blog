@@ -145,11 +145,11 @@
                         <div class="detail">
                             <li class="project-roleline">多云纳管落地：负责对接主流公有云 OpenAPI，封装底层管理原语；主导完成百度云资源体系的整体接入，成功完成主要业务线 1000 余台虚拟机的纳管与平滑迁移，保障业务高可用。</li>
                             <li class="project-roleline">架构重构与性能调优：主导云资源生命周期（申请、交付、回收）链路的底层技术债清理与重构。将 NATGW 关联的 EIP 申请流程由串行优化为并发执行，使创建接口提速 40%。</li>
-                            <li class="project-roleline">容错机制与降本增效：设计并实现了高可靠的异常回滚流程，确保虚拟机等资源申请失败时能被自动且彻底地清理。有效避免了残留资源导致的无效云费用，每日平均为团队节省约 1 小时的人工排障与兜底处理时间。</li>
+                            <li class="project-roleline">容错机制与降本增效：设计并实现了高可靠的异常回滚流程，确保虚拟机等资源申请失败时能被自动且彻底地清理。有效避免了残留资源导致的无效云费用，每月平均为团队节省约 20+ 小时的人工排障与兜底处理时间。</li>
                             <li class="project-roleline">核心指标构建：负责全局网络质量大盘的数据支撑，研发海量数据聚合分析接口，输出互娱玩家分布热力图、服务端链路延迟、竞品对比等核心指标体系。</li>
-                            <li class="project-roleline">业务赋能：深度挖掘数据价值，构建"多维度延迟横向比对"与"客户端来源地域 vs 接入节点映射"等分析模型。成功协助业务精准定位多起隐蔽的网络异常。</li>
                             <li class="project-roleline">AIOps 智能化运维：深入挖掘云厂商基础能力，结合 Prompt Engineering 将大模型引入运维场景。成功将 SRE 故障定位与处理时间从平均 1~2 小时缩短至 30 分钟内。</li>
-                            <li class="project-roleline">交互式智能查询平台：基于 LLM，采用 SDD (Spec Driven Development) 与大模型 Skills（技能调用）相结合的架构设计，完成支持自然语言交互的混合云管控与查询工具开发。</li>
+                            <li class="project-roleline">交互式智能查询平台：基于 LLM，采用 SDD (Spec Driven Development) 与大模型 Skills（技能调用）相结合的架构设计，完成支持自然语言交互的公有云资源查询工具开发。</li>
+                            <li class="project-roleline">业务赋能：深度挖掘数据价值，构建"多维度延迟横向比对"与"客户端来源地域 vs 接入节点映射"等分析模型。成功协助业务精准定位多起隐蔽的网络异常。</li>
                         </div>
                     </div>
                 </div><!--//item-->
