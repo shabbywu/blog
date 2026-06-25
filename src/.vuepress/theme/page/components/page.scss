@@ -4,9 +4,11 @@
     margin: 0 1rem!important;
     padding: 0 1rem;
     display: flex;
+    box-sizing: border-box;
 
     .blog-main {
         width: 75%;
+        min-width: 0;
         @media print {
             width: 100%;
         }
@@ -24,6 +26,7 @@
         padding-left: 1rem;
         max-width: 100%;
         width: 300px;
+        flex: 0 0 300px;
 
         .sticky {
             position: sticky;
@@ -54,14 +57,33 @@
             display: none;
         }
     }
+
+    @media (max-width: calc(hope-config.$laptop - 1px)) {
+        display: block;
+        margin: 0 0.5rem !important;
+        padding: 0;
+
+        .blog-main {
+            width: 100%;
+        }
+
+        .blog-aside {
+            display: none;
+        }
+    }
 }
 
 .main-div{
     padding:  1.5rem;
     background-color: var(--bg-color-float);
     border-radius: 5px;
+    box-sizing: border-box;
+    max-width: 100%;
     @media (max-width: calc(hope-config.$pc - 1px)) {
         padding: 1rem;
+    }
+    @media (max-width: hope-config.$tablet) {
+        padding: 0.875rem;
     }
     &:not(:first-child) {
         margin-top: 1rem;
@@ -78,8 +100,35 @@
 }
 
 .blog-post-content {
+    overflow-wrap: break-word;
+
     #markdown-content {
         padding-top: inherit !important;
+        min-width: 0;
+
+        img,
+        video,
+        canvas,
+        iframe {
+            max-width: 100%;
+        }
+
+        img,
+        video,
+        canvas {
+            height: auto;
+        }
+
+        table {
+            display: block;
+            max-width: 100%;
+            overflow-x: auto;
+        }
+
+        pre {
+            max-width: 100%;
+            overflow-x: auto;
+        }
     }
 }
 
@@ -98,6 +147,7 @@
 
         a {
             color: #858585;
+            overflow-wrap: anywhere;
             :hover {
                 color: #1e90ff;
             }

@@ -80,6 +80,8 @@ export default {
 
     .d-flex {
         display: flex !important;
+        gap: 0.5rem;
+        flex-wrap: wrap;
     }
 
     .flex-items-center {
@@ -161,6 +163,21 @@ export default {
         font: inherit;
         margin: 0;
         overflow: visible;
+    }
+
+    @media (max-width: 480px) {
+        .flex-justify-between {
+            justify-content: center !important;
+        }
+
+        .h1 {
+            font-size: 24px !important;
+        }
+
+        .form-control {
+            max-width: 2.25em !important;
+            padding: 4px 8px;
+        }
     }
 
     * {

@@ -3,6 +3,7 @@
 
     .wrapper {
         flex-direction: column;
+        max-width: 100%;
     }
     .sidebar-wrapper {
         width: 100%;
@@ -10,7 +11,13 @@
     }
 
     .main-wrapper {
-        padding: 30px;
+        width: 100%;
+        padding: 24px 18px;
+        text-align: left;
+    }
+
+    .main-wrapper .section {
+        margin-bottom: 36px;
     }
 
     .main-wrapper .time {
@@ -29,6 +36,34 @@
 
     .summary-section .summary {
         padding: 12px 15px;
+    }
+
+    .main-wrapper .projects-section .item {
+        .project-title,
+        .project-description,
+        .project-roleblock {
+            display: block;
+        }
+
+        .project-title .detail {
+            display: block;
+
+            .timetag {
+                display: block;
+                margin-top: 4px;
+            }
+        }
+
+        .project-title .darken,
+        .project-description .darken,
+        .project-roleblock .darken {
+            display: block;
+            margin-bottom: 4px;
+        }
+
+        .project-roleline {
+            margin-left: 1.1em;
+        }
     }
 
     .languages-container,
@@ -52,7 +87,6 @@
 @media (min-width: 1200px) {
 
 }
-
 
 
 

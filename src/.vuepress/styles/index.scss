@@ -4,6 +4,10 @@
 .theme-container .vp-page,
 .theme-container .vp-page.vp-blog {
     padding-top: 0.5rem;
+
+    @media (max-width: hope-config.$tablet) {
+        padding-top: 0;
+    }
 }
 
 // 博客宽度自适应限制
@@ -19,19 +23,152 @@
     }
 }
 
+.vp-project-panel {
+    box-sizing: border-box;
+    max-width: 100%;
+
+    @media (max-width: hope-config.$tablet) {
+        display: grid;
+        grid-template-columns: 1fr;
+        gap: 0.75rem;
+        margin: 0 0 1rem;
+    }
+}
+
+.vp-project-card {
+    box-sizing: border-box;
+    min-width: 0;
+
+    @media (max-width: hope-config.$tablet) {
+        width: 100% !important;
+        margin: 0;
+    }
+}
+
+.vp-project-name,
+.vp-project-desc {
+    overflow-wrap: anywhere;
+}
+
+.theme-container .blog-page-wrapper {
+    max-width: 100%;
+
+    @media (max-width: hope-config.$tablet) {
+        display: block;
+        padding: 0 0.75rem !important;
+        overflow-x: hidden;
+    }
+}
+
+.theme-container .vp-blog-main {
+    min-width: 0;
+
+    @media (max-width: hope-config.$tablet) {
+        width: 100% !important;
+        max-width: 100% !important;
+        padding: 0 !important;
+    }
+}
+
+.theme-container .vp-blog-main .vp-project-panel {
+    @media (max-width: hope-config.$tablet) {
+        display: grid !important;
+        grid-template-columns: minmax(0, 1fr);
+        gap: 0.75rem;
+        margin: 0 0 1rem !important;
+    }
+}
+
+.theme-container .vp-blog-main .vp-project-card {
+    @media (max-width: hope-config.$tablet) {
+        width: 100% !important;
+        margin: 0 !important;
+        padding: 0.875rem !important;
+    }
+}
+
+.theme-container .vp-article-wrapper,
+.theme-container .vp-article-item {
+    max-width: 100%;
+    min-width: 0;
+}
+
+.theme-container .vp-article-title {
+    max-width: 100%;
+    white-space: normal;
+    overflow-wrap: anywhere;
+
+    @media (max-width: hope-config.$tablet) {
+        display: block;
+        font-size: 1.1rem;
+    }
+}
+
+.theme-container .vp-article-item .page-info {
+    max-width: 100%;
+
+    @media (max-width: hope-config.$tablet) {
+        gap: 0.25rem 0.5rem;
+
+        > span {
+            flex: 0 1 auto;
+            min-width: 0;
+            margin-inline-end: 0 !important;
+            line-height: 1.6;
+        }
+    }
+}
+
 // 调宽文章下方信息的间隔 (从 0.5em -> 1em)
 .vp-article-item .page-info > span {
     margin-inline-end: 1em;
 }
 
 #main-contain {
-    margin: 0 1rem!important
+    margin: 0 1rem!important;
+
+    @media (max-width: hope-config.$tablet) {
+        margin: 0 0.5rem !important;
+    }
 }
 
 
 .theme-hope-content {
+    box-sizing: border-box;
+    max-width: 100%;
     background-color: var(--bg-color-float);
     border-radius: 5px;
+    overflow-wrap: break-word;
+
+    img,
+    video,
+    canvas,
+    iframe {
+        max-width: 100%;
+    }
+
+    img,
+    video,
+    canvas {
+        height: auto;
+    }
+
+    table {
+        display: block;
+        max-width: 100%;
+        overflow-x: auto;
+    }
+
+    pre {
+        max-width: 100%;
+        overflow-x: auto;
+    }
+
+    :not(pre) > code {
+        white-space: normal;
+        overflow-wrap: anywhere;
+        word-break: break-word;
+    }
 }
 
 body {

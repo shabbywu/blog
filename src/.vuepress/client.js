@@ -1,5 +1,6 @@
 import Layout from "./theme/blog/layouts/Layout.ts"
 import ResumeLayout from "./theme/blog/layouts/ResumeLayout.ts"
+import "./styles/index.scss"
 import { defineClientConfig } from 'vuepress/client'
 
 
