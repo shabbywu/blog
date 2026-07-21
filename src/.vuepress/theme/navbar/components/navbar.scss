@@ -142,7 +142,6 @@
       box-shadow var(--color-transition);
   
     backdrop-filter: saturate(150%) blur(12px);
-    overflow: hidden;
   
     @media print {
       display: none;
